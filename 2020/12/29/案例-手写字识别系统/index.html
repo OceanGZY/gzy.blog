@@ -1,0 +1,1279 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>案例-k-近邻-手写字识别系统 | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="- 收集数据：提供文本文件 - 准备数据：编写函数classify0(), 将图像格式转换为分类器使用的list格式 - 分析数据：检查数据 - 训练算法：不适用于k-近邻算法 - 测试算法：编写函数切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误 - 使用算法：  ###### Numpy中有两个常用数据类型，数组（array&#x2F;ndarray）、矩阵（ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="案例-k-近邻-手写字识别系统">
+<meta property="og:url" content="http://oceaneyes.top/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="- 收集数据：提供文本文件 - 准备数据：编写函数classify0(), 将图像格式转换为分类器使用的list格式 - 分析数据：检查数据 - 训练算法：不适用于k-近邻算法 - 测试算法：编写函数切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误 - 使用算法：  ###### Numpy中有两个常用数据类型，数组（array&#x2F;ndarray）、矩阵（ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2020-12-29T14:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.200Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="k-近邻">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '案例-k-近邻-手写字识别系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-09-30 14:56:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">案例-k-近邻-手写字识别系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-29T14:19:00.000Z" title="发表于 2020-12-29 22:19:00">2020-12-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.200Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="案例-k-近邻-手写字识别系统"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container">
+- 收集数据：提供文本文件
+- 准备数据：编写函数classify0(), 将图像格式转换为分类器使用的list格式
+- 分析数据：检查数据
+- 训练算法：不适用于k-近邻算法
+- 测试算法：编写函数切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误
+- 使用算法：
+
+###### Numpy中有两个常用数据类型，数组（array/ndarray）、矩阵（matrix）
+- matrix是array的特殊形式，matrix只能表示2维的数据，而array可以表示任意维度数据，matrix相当于二维数组。
+- 当matrix的某一维的维度为1时，即可称为向量（m，1）是列向量，（1，n)是行向量
+
+
+```python
+import numpy as np
+import os
+import operator
+```
+
+### 准备数据：将图像转换为测试向量
+
+
+```python
+# 将图像处理为向量
+def img2vector(filename):
+    returnVect = np.zeros((1,1024))
+#     print(returnVect)
+    with open(filename,'r') as f:
+        for i in range(32):
+            lineStr = f.readline()
+#             print(lineStr)
+            for j in range(32):
+                returnVect[0,32*i+j] = int(lineStr[j])
+        return returnVect
+```
+
+
+```python
+testVector = img2vector("./dataset/testDigits/0_0.txt")
+```
+
+    [[0. 0. 0. ... 0. 0. 0.]]
+
+
+
+```python
+testVector[0,0:120]
+```
+
+
+
+
+    array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 0., 0.,
+           0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+           0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 0.,
+           0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+           0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0.,
+           0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+           0., 0., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0.,
+           0.])
+
+
+
+
+```python
+# kNN分类器
+def classify0(inX, dataSet, labels, k):
+    datsSetSize = dataSet.shape[0]  #行数
+    diffMat = np.tile(inX, (datsSetSize,1)) -dataSet #将输入矩阵放大，求差
+    sqDiffMat = diffMat ** 2
+    sqDistances = sqDiffMat.sum(axis=1) #跨列，按行求和
+    distances = sqDistances ** 0.5 # 欧式距离
+    sortedDistIndicies = distances.argsort()  # 返回数组值从小到大的索引
+    # 选择距离最小的k个点
+    classCount={}
+    for i in range(k):
+        voteIlabel = labels[sortedDistIndicies[i]]
+        classCount[voteIlabel]= classCount.get(voteIlabel,0) +1
+    # 排序
+    sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1), reverse=True)
+    return sortedClassCount[0][0]
+```
+
+### 测试算法：使用k-近邻算法识别手写数字
+
+
+```python
+def handwriteClassTest():
+    hwLabels =[]
+    trainingFileList = os.listdir('./dataset/trainingDigits')
+    m = len(trainingFileList)
+#     print(m)
+    trainingMat = np.zeros((m,1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+#         print(fileNameStr)
+        fileStr = fileNameStr.split('.')[0]
+#         print(fileStr)
+        classNum = int(fileStr.split('_')[0])
+        hwLabels.append(classNum)
+        trainingMat[i,:] = img2vector('./dataset/trainingDigits/%s' % fileNameStr)
+        
+        
+    testFileList = os.listdir('./dataset/testDigits')
+    errorCount =0.0
+    mTest = len(testFileList)
+    for j in range(mTest):
+        fileNameStr = testFileList[j]
+        fileStr = fileNameStr.split('.')[0]
+        classNum = int(fileStr.split('_')[0])
+        vectorTest = img2vector('./dataset/testDigits/%s' % fileNameStr)
+        classifierResult = classify0(vectorTest, trainingMat, hwLabels, 3)
+        print("classifierResult:",classifierResult, "real answer:",classNum)
+        if (classifierResult != classNum):
+            errorCount += 1.0
+    print("正确率:",1.0-errorCount/float(mTest))
+        
+```
+
+
+```python
+handwriteClassTest()
+```
+
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 3 real answer: 3
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 9 real answer: 9
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 3 real answer: 8
+    classifierResult: 9 real answer: 9
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 9 real answer: 9
+    classifierResult: 3 real answer: 3
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 1 real answer: 1
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 9 real answer: 9
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 9 real answer: 9
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 9 real answer: 9
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 9 real answer: 9
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 9 real answer: 9
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 9 real answer: 9
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 6 real answer: 6
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 6 real answer: 6
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 8
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 6 real answer: 6
+    classifierResult: 3 real answer: 3
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 7 real answer: 1
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 4 real answer: 4
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 3 real answer: 3
+    classifierResult: 6 real answer: 6
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 8 real answer: 8
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 6 real answer: 6
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 0 real answer: 0
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 4 real answer: 4
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 6 real answer: 6
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 6 real answer: 6
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 6 real answer: 6
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 6 real answer: 6
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 4 real answer: 4
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 6 real answer: 6
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 1 real answer: 1
+    classifierResult: 9 real answer: 9
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 6 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 3 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 1 real answer: 1
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 5 real answer: 5
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 1 real answer: 1
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 3 real answer: 3
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 8 real answer: 8
+    classifierResult: 9 real answer: 9
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 9 real answer: 9
+    classifierResult: 8 real answer: 8
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 1 real answer: 1
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 5 real answer: 5
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 1 real answer: 1
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 6 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 6 real answer: 6
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 3 real answer: 3
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 1 real answer: 1
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 5 real answer: 5
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    classifierResult: 4 real answer: 4
+    classifierResult: 5 real answer: 5
+    classifierResult: 1 real answer: 1
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 4 real answer: 4
+    classifierResult: 0 real answer: 0
+    classifierResult: 9 real answer: 9
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 3 real answer: 3
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 1 real answer: 1
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 6 real answer: 6
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 6 real answer: 6
+    classifierResult: 1 real answer: 1
+    classifierResult: 8 real answer: 8
+    classifierResult: 1 real answer: 1
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 2 real answer: 2
+    classifierResult: 2 real answer: 2
+    classifierResult: 5 real answer: 5
+    classifierResult: 5 real answer: 5
+    classifierResult: 9 real answer: 9
+    classifierResult: 3 real answer: 3
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 9 real answer: 9
+    classifierResult: 0 real answer: 0
+    classifierResult: 0 real answer: 0
+    classifierResult: 4 real answer: 4
+    classifierResult: 9 real answer: 9
+    classifierResult: 7 real answer: 7
+    classifierResult: 7 real answer: 7
+    classifierResult: 1 real answer: 1
+    classifierResult: 5 real answer: 5
+    classifierResult: 4 real answer: 4
+    classifierResult: 3 real answer: 3
+    classifierResult: 3 real answer: 3
+    正确率: 0.9883720930232558
+
+
+#### 代码示意：
+- 这段代码的主要功能是从os模块中导入函数listdir，它可以列 出给定目录的文件名。
+- 将trainingDigits目录中的文件内容存储在列表中 ，然后可以得到目录中有多少文件，并将其存储在变量m中。
+- 接着，代码创建一个m行1024列的训练矩阵，该矩阵的每行数 据存储一个图像。
+- 我们可以从文件名中解析出分类数字 。该目录下的文件按照规则命名，如文件 9_45.txt的分类是9，它是数字9的第45个实例。
+- 然后我们可以将类代码存储在hwLabels向量中，使 用前面讨论的img2vector函数载入图像。
+- 在下一步中，我们对testDigits目录中的文件执行相似的操作，不同之处是我们并不将这个目录下的文件载入矩阵中，而是使用classify0()函数测试该 目录下的每个文件
+
+
+```python
+
+```
+
+
+
+---
+
+
+### About ME
+##### 👋 读书城南，🤔 在未来面前，我们都是孩子～
+
+- 📙 一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+##### 👋 Social Media
+
+- 🛠️ Blog: [http://oceaneyes.top](http://oceaneyes.top)
+- ⚡ PM导航: [https://pmhub.oceangzy.top](https://pmhub.oceangzy.top)
+- ☘️ CNBLOG: [https://www.cnblogs.com/oceaneyes-gzy/](https://www.cnblogs.com/oceaneyes-gzy/)
+- 🌱 AI PRJ自己部署的一些算法demo: [http://ai.oceangzy.top/](http://ai.oceangzy.top/)
+- 📫 Email: 1450136519@qq.com
+- 💬 WeChat: [OCEANGZY](https://oceaneyes.top/img/wechatqrcode.jpg)
+
+- 💬 公众号: [UncleJoker-GZY](https://oceaneyes.top/img/wechatgzh.jpeg)
+
+##### 👋 加入小组~
+<img src="https://oceaneyes.top/img/zhishigroup.jpg" title="加入组织" alt width="240"> 
+
+##### 👋 感谢打赏~
+<img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"> 
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/">http://oceaneyes.top/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Machine-Learning/">Machine Learning</a><a class="post-meta__tags" href="/tags/Algorithm/">Algorithm</a><a class="post-meta__tags" href="/tags/k-%E8%BF%91%E9%82%BB/">k-近邻</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/" title="案例-k-近邻-改进约会网站的配对效果"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">案例-k-近邻-改进约会网站的配对效果</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B02/" title="机器学习实战-笔记2-k-近邻算法概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习实战-笔记2-k-近邻算法概述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B02/" title="机器学习实战-笔记2-k-近邻算法概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-28</div><div class="title">机器学习实战-笔记2-k-近邻算法概述</div></div></a></div><div><a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/" title="案例-k-近邻-改进约会网站的配对效果"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-29</div><div class="title">案例-k-近邻-改进约会网站的配对效果</div></div></a></div><div><a href="/2018/10/01/Algorithm%E5%85%A5%E9%97%A8%E8%A7%A3%E8%AF%BB/" title="Algorithm入门解读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-10-01</div><div class="title">Algorithm入门解读</div></div></a></div><div><a href="/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/" title="NLP-Bert语义情感分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-03</div><div class="title">NLP-Bert语义情感分类</div></div></a></div><div><a href="/2021/03/28/ctr-predict/" title="广告投放中的CTR预估模型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-28</div><div class="title">广告投放中的CTR预估模型</div></div></a></div><div><a href="/2022/01/15/item2vec%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/" title="训练item2vec实现电影推荐"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-15</div><div class="title">训练item2vec实现电影推荐</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,1071 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>决策树demo | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="## 决策树  ### 决策树的一个重要任务是为了数据中所蕴含的知识信息  - 决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程 - k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解  #### 决策数的构造  - 优点：计算复杂度不高，输出结果易于理解，对中间值对缺">
+<meta property="og:type" content="article">
+<meta property="og:title" content="决策树demo">
+<meta property="og:url" content="http://oceaneyes.top/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="## 决策树  ### 决策树的一个重要任务是为了数据中所蕴含的知识信息  - 决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程 - k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解  #### 决策数的构造  - 优点：计算复杂度不高，输出结果易于理解，对中间值对缺">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2020-12-31T15:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.190Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="决策树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '决策树demo',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-09-30 14:56:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">决策树demo</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-31T15:19:00.000Z" title="发表于 2020-12-31 23:19:00">2020-12-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.190Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="决策树demo"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container">
+## 决策树
+
+### 决策树的一个重要任务是为了数据中所蕴含的知识信息
+
+- 决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程
+- k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解
+
+#### 决策数的构造
+
+- 优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据
+- 缺点：可能会产生过度匹配的问题
+- 适用数据类型：数值型和 标称型
+
+**构建决策树的第一个问题：当前数据集上哪个特征在划分数据分类时起决定性作用**
+
+- 为了找到决定性的特征，划分出最好的结果，我们必须评估每个特征。
+- 完成测试之后，原始数据集就被划分为几个数据子集
+- 这些数据子集会分布在第一个决策点的所有分支上。如果某个分支下的数据属于同一类型，则当前条件已经正确地划分数据分类， 无需进一步对数据集进行分割。
+- 如果数据子集内的数据不属于同一类型，则需要重复划分数据子集的过程
+
+**思路**
+检测数据集中的每个子项是否属于同一分类: 
+    If so return 类标签;
+    Else
+        寻找划分数据集的最好特征
+        划分数据集
+        创建分支节点
+            for 每个划分的子集 
+                调用函数createBranch并增加返回结果到分支节点中
+        return 分支节点
+
+**决策树的一般流程**
+
+1. 收集数据：可使用任何方法
+2. 准备数据：构造算法只适用于标称型数据， 因此数值型数据必须离散化
+3. 分析数据：可使用任何方法，构造树完成后，应检查图形是否符合预期
+4. 训练算法：构造树的数据结构
+5. 测试算法：使用经验树计算错误概率
+6. 使用算法：此步骤可以适用于任何监督学习算法，决策树可以更好地理解数据的内在含义
+
+#### 信息增益(information gain)和香农熵/熵(entropy)
+
+![image.png](attachment:b820e520-1b96-4c05-ad79-c74b7cbda53f.png)
+
+另一个度量集合无序程度的方法是基尼不纯度1(Gini impurity)，简单地说就是从一个数据集中随机选取子项，度量其被错误分类到其他分组里的概率
+
+
+```python
+from math import log
+import operator
+```
+
+
+```python
+def calcShannonEnt(dataSet):
+    numEntries = len(dataSet)
+    # 为所有可能分类创建字典
+    labelCounts= {}
+    for featVec in dataSet:
+        currentLabel = featVec[-1]
+        if currentLabel not in labelCounts.keys():
+            labelCounts[currentLabel] = 0
+        labelCounts[currentLabel] += 1
+    shannonEnt = 0.0
+    for key in labelCounts:
+        prob = float(labelCounts[key])/numEntries
+        shannonEnt -= prob * log(prob,2)   # 以 2为底求对数
+    return shannonEnt     
+```
+
+![image.png](attachment:5676c0e4-d930-4b1a-9c6d-afb2deaa6efc.png)
+
+
+```python
+def createDataSet():
+    dataSet = [
+        [1,1,'yes'],
+        [1,1,'yes'],
+        [1,0,'no'],
+        [0,1,'no'],
+        [0,1,'no']
+    ]  
+    labels = ['no surfacing','flippers']
+    return dataSet ,labels
+```
+
+
+```python
+myData, labels = createDataSet()
+```
+
+
+```python
+myData
+```
+
+
+
+
+    [[1, 1, 'yes'], [1, 1, 'yes'], [1, 0, 'no'], [0, 1, 'no'], [0, 1, 'no']]
+
+
+
+
+```python
+labels
+```
+
+
+
+
+    ['no surfacing', 'flippers']
+
+
+
+
+```python
+calcShannonEnt(myData)
+```
+
+
+
+
+    0.9709505944546686
+
+
+
+熵越高，则混合的数据也越多
+
+
+```python
+myData[0][-1] = 'maybe'
+myData
+```
+
+
+
+
+    [[1, 1, 'maybe'], [1, 1, 'yes'], [1, 0, 'no'], [0, 1, 'no'], [0, 1, 'no']]
+
+
+
+
+```python
+ calcShannonEnt(myData)
+```
+
+
+
+
+    1.3709505944546687
+
+
+
+#### 划分数据集
+
+- 分类算法除了需要测量信息熵，还需要划分数据集， 度量划分数据集的熵，以便判断当前是否正确地划分了数据集
+- 将对每个特征划分数 据集的结果计算一次信息熵，然后判断按照哪个特征划分数据集是最好的划分方式
+
+
+```python
+# 按照给定特征划分数据集
+# 输入参数： 待划分待数据集、划分数据集的特征、需要返回的特征的值
+def splitDataSet(dataSet,axis,value):
+    retDataSet = []
+    for featVec in dataSet:
+        print("featVec",featVec)
+        if featVec[axis] == value:
+            print("axis",axis,"featVec[axis]",featVec[axis])
+            reducedFeatVec = featVec[:axis]
+            print("axis",axis,"reducedFeatVec:",reducedFeatVec)
+            reducedFeatVec.extend(featVec[axis+1:])
+            print("featVec[axis+1:]",featVec[axis+1:])
+            print("axis",axis,"reducedFeatVec:",reducedFeatVec)
+            retDataSet.append(reducedFeatVec)
+    return retDataSet
+```
+
+
+```python
+myData, labels = createDataSet()
+```
+
+
+```python
+myData
+```
+
+
+
+
+    [[1, 1, 'yes'], [1, 1, 'yes'], [1, 0, 'no'], [0, 1, 'no'], [0, 1, 'no']]
+
+
+
+
+```python
+labels
+```
+
+
+
+
+    ['no surfacing', 'flippers']
+
+
+
+
+```python
+splitDataSet(myData,0,1)
+```
+
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 0, 'no']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [0, 'no']
+    axis 0 reducedFeatVec: [0, 'no']
+    featVec [0, 1, 'no']
+    featVec [0, 1, 'no']
+
+
+
+
+
+    [[1, 'yes'], [1, 'yes'], [0, 'no']]
+
+
+
+
+```python
+splitDataSet(myData,0,0)
+```
+
+    featVec [1, 1, 'yes']
+    featVec [1, 1, 'yes']
+    featVec [1, 0, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+
+
+
+
+
+    [[1, 'no'], [1, 'no']]
+
+
+
+
+```python
+# 测试
+a = [1,2,3]
+b = [4,5,6]
+a.append(b)
+a
+```
+
+
+
+
+    [1, 2, 3, [4, 5, 6]]
+
+
+
+
+```python
+# 测试
+a = [1,2,3]
+b = [4,5,6]
+a.extend(b)
+a
+```
+
+
+
+
+    [1, 2, 3, 4, 5, 6]
+
+
+
+
+```python
+len(myData[0])-1
+```
+
+
+
+
+    2
+
+
+
+
+```python
+# 选择最好的数据集划分方式
+def chooseBestFeatureToSplit(dataSet):
+    numFeatures = len(dataSet[0])-1  #特征的个数
+    baseEntropy = calcShannonEnt(dataSet) # 基线熵
+    print("baseEntropy:",baseEntropy)
+    bestInfoGain = 0.0
+    bestFeature = -1
+    # 创建唯一的分类标签
+    for i in range(numFeatures):
+        featList = [example[i] for example in dataSet]
+        print("featList:",featList)
+        uniqueVals =  set(featList)
+        print("uniqueVals:",uniqueVals)
+        
+        # 计算每种划分方式的信息熵
+        newEntropy = 0.0
+        for value in uniqueVals:
+            subDataSet = splitDataSet(dataSet, i ,value)
+            prob = len(subDataSet) / float(len(dataSet))
+            newEntropy += prob * calcShannonEnt(subDataSet)
+        infoGain = baseEntropy - newEntropy  # 计算信息增益
+        print("baseEntropy",baseEntropy,"i:",i,"newEntropy",newEntropy,"infoGain",infoGain)
+        if(infoGain > bestInfoGain):
+            bestInfoGain = infoGain   # 计算最好的信息增益
+            bestFeature = i
+    return bestFeature
+```
+
+函数介绍：选取特征、划分数据集、计算得出最好的划分数据集的特征
+
+- 第一个要求是，数据必须是一种由列表元素组成的列表，而且所有的列表元素都要具有相同的数据长度;
+- 第二个要求是，数据的最后一列或者每个实例的最后一个元素是当前实例的类别标签
+- 无需限定list中的数据类型，它们既可以是数字也可以是字符串，并不影响实际计算
+
+
+```python
+chooseBestFeatureToSplit(myData)
+```
+
+    baseEntropy: 0.9709505944546686
+    featList: [1, 1, 1, 0, 0]
+    uniqueVals: {0, 1}
+    featVec [1, 1, 'yes']
+    featVec [1, 1, 'yes']
+    featVec [1, 0, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 0, 'no']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [0, 'no']
+    axis 0 reducedFeatVec: [0, 'no']
+    featVec [0, 1, 'no']
+    featVec [0, 1, 'no']
+    baseEntropy 0.9709505944546686 i: 0 newEntropy 0.5509775004326937 infoGain 0.4199730940219749
+    featList: [1, 1, 0, 1, 1]
+    uniqueVals: {0, 1}
+    featVec [1, 1, 'yes']
+    featVec [1, 1, 'yes']
+    featVec [1, 0, 'no']
+    axis 1 featVec[axis] 0
+    axis 1 reducedFeatVec: [1]
+    featVec[axis+1:] ['no']
+    axis 1 reducedFeatVec: [1, 'no']
+    featVec [0, 1, 'no']
+    featVec [0, 1, 'no']
+    featVec [1, 1, 'yes']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [1]
+    featVec[axis+1:] ['yes']
+    axis 1 reducedFeatVec: [1, 'yes']
+    featVec [1, 1, 'yes']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [1]
+    featVec[axis+1:] ['yes']
+    axis 1 reducedFeatVec: [1, 'yes']
+    featVec [1, 0, 'no']
+    featVec [0, 1, 'no']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [0]
+    featVec[axis+1:] ['no']
+    axis 1 reducedFeatVec: [0, 'no']
+    featVec [0, 1, 'no']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [0]
+    featVec[axis+1:] ['no']
+    axis 1 reducedFeatVec: [0, 'no']
+    baseEntropy 0.9709505944546686 i: 1 newEntropy 0.8 infoGain 0.17095059445466854
+
+
+
+
+
+    0
+
+
+
+## 构建递归决策树
+
+- 得到原始数据集，然后基于最好的属性值划分数据集，由于特征值可能多于两个，因此可能存在大于两个分支的数据集划分。
+- 第一次划分之后，数据将被向下传递到树分支的下一个节点，在这个节点上，我们可以再次划分数据。
+- **因此我们可以采用递归的原则处理数据集**
+- 递归结束的条件是：程序遍历完所有划分数据集的属性，或者每个分支下的所有实例都具有相同的分类
+
+![image.png](attachment:d3b072f3-7a1b-4d05-b262-6a399d408f43.png)
+
+
+```python
+def majorityCnt(classList):
+    classCount = {}
+    for vote in classCount:
+        if vote not in classCount.keys():
+            classCount[vote] =0
+        classCount[vote] += 1
+    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse =True)
+    return sortedClassCount[0][0]
+```
+
+**majorityCnt() 与投票表决代码非常类似**
+
+1. 该函数使用分类名称的列表，
+2. 然后创建键值为classList中唯一值的数据字典，字典对象存储了classList中每个类标签出现的频率
+3. 最后利用operator操作键值排序字典，并返回出现次数最多的分类名称。
+
+
+```python
+myData[0]
+```
+
+
+
+
+    [1, 1, 'yes']
+
+
+
+
+```python
+# 创建决策树
+def createTree(dataSet,labels):
+    classList = [example[-1] for example in dataSet]
+    print("labels:",labels)
+    print("classList:",classList)
+    print("classList[0]:",classList[0])
+    print("classList.count(classList[0]):",classList.count(classList[0]))
+    
+    ## 类别相同则停止划分
+    if classList.count(classList[0]) == len(classList):
+        return classList[0]
+    
+    ## 遍历完所有特征时 返回出现次数最多的
+    if len(dataSet[0]) == 1:
+        return majorityCnt(classList)
+    
+    bestFeat = chooseBestFeatureToSplit(dataSet)
+    bestFeatLabel = labels[bestFeat] 
+    print("bestFeatLabel",bestFeatLabel)
+    myTree = {bestFeatLabel:{}}
+    print("myTree:::",myTree)
+    del(labels[bestFeat])
+    print("labels:",labels)
+    featValues = [example[bestFeat] for example in dataSet]
+    uniqueVals = set(featValues)
+    for value in uniqueVals:
+        subLabels = labels[:]
+        print("subLabels:",subLabels)
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)
+    return myTree
+```
+
+**代码注释**
+
+- 使用两个输入参数：数据集和标签列表
+
+1. 首先创建了名为classList的列表变量，其中包含了数据集的所有类标签
+2. 递归函数的第一个停止条件是所有的类标签完全相同，则直接返回该类标签
+3. 递归函数的第二个停止条件是使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组
+4. 字典变量myTree存储了树的所有信息，这对于其后绘制树形图非常重要。当前数据集选取的最好特征存储在变量bestFeat中，得到列表包含的所有属性值
+5. 最后代码遍历当前选择特征包含的所有属性值，在每个数据集划分上递归调用函数
+   createTree()，得到的返回值将被插入到字典变量myTree中
+
+
+```python
+myData,labels = createDataSet()
+```
+
+
+```python
+createTree(myData,labels)
+```
+
+    labels: ['no surfacing', 'flippers']
+    classList: ['yes', 'yes', 'no', 'no', 'no']
+    classList[0]: yes
+    classList.count(classList[0]): 2
+    baseEntropy: 0.9709505944546686
+    featList: [1, 1, 1, 0, 0]
+    uniqueVals: {0, 1}
+    featVec [1, 1, 'yes']
+    featVec [1, 1, 'yes']
+    featVec [1, 0, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 0, 'no']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [0, 'no']
+    axis 0 reducedFeatVec: [0, 'no']
+    featVec [0, 1, 'no']
+    featVec [0, 1, 'no']
+    baseEntropy 0.9709505944546686 i: 0 newEntropy 0.5509775004326937 infoGain 0.4199730940219749
+    featList: [1, 1, 0, 1, 1]
+    uniqueVals: {0, 1}
+    featVec [1, 1, 'yes']
+    featVec [1, 1, 'yes']
+    featVec [1, 0, 'no']
+    axis 1 featVec[axis] 0
+    axis 1 reducedFeatVec: [1]
+    featVec[axis+1:] ['no']
+    axis 1 reducedFeatVec: [1, 'no']
+    featVec [0, 1, 'no']
+    featVec [0, 1, 'no']
+    featVec [1, 1, 'yes']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [1]
+    featVec[axis+1:] ['yes']
+    axis 1 reducedFeatVec: [1, 'yes']
+    featVec [1, 1, 'yes']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [1]
+    featVec[axis+1:] ['yes']
+    axis 1 reducedFeatVec: [1, 'yes']
+    featVec [1, 0, 'no']
+    featVec [0, 1, 'no']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [0]
+    featVec[axis+1:] ['no']
+    axis 1 reducedFeatVec: [0, 'no']
+    featVec [0, 1, 'no']
+    axis 1 featVec[axis] 1
+    axis 1 reducedFeatVec: [0]
+    featVec[axis+1:] ['no']
+    axis 1 reducedFeatVec: [0, 'no']
+    baseEntropy 0.9709505944546686 i: 1 newEntropy 0.8 infoGain 0.17095059445466854
+    bestFeatLabel no surfacing
+    myTree::: {'no surfacing': {}}
+    labels: ['flippers']
+    subLabels: ['flippers']
+    featVec [1, 1, 'yes']
+    featVec [1, 1, 'yes']
+    featVec [1, 0, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    featVec [0, 1, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'no']
+    axis 0 reducedFeatVec: [1, 'no']
+    labels: ['flippers']
+    classList: ['no', 'no']
+    classList[0]: no
+    classList.count(classList[0]): 2
+    subLabels: ['flippers']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [1, 'yes']
+    axis 0 reducedFeatVec: [1, 'yes']
+    featVec [1, 0, 'no']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] [0, 'no']
+    axis 0 reducedFeatVec: [0, 'no']
+    featVec [0, 1, 'no']
+    featVec [0, 1, 'no']
+    labels: ['flippers']
+    classList: ['yes', 'yes', 'no']
+    classList[0]: yes
+    classList.count(classList[0]): 2
+    baseEntropy: 0.9182958340544896
+    featList: [1, 1, 0]
+    uniqueVals: {0, 1}
+    featVec [1, 'yes']
+    featVec [1, 'yes']
+    featVec [0, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] ['no']
+    axis 0 reducedFeatVec: ['no']
+    featVec [1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] ['yes']
+    axis 0 reducedFeatVec: ['yes']
+    featVec [1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] ['yes']
+    axis 0 reducedFeatVec: ['yes']
+    featVec [0, 'no']
+    baseEntropy 0.9182958340544896 i: 0 newEntropy 0.0 infoGain 0.9182958340544896
+    bestFeatLabel flippers
+    myTree::: {'flippers': {}}
+    labels: []
+    subLabels: []
+    featVec [1, 'yes']
+    featVec [1, 'yes']
+    featVec [0, 'no']
+    axis 0 featVec[axis] 0
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] ['no']
+    axis 0 reducedFeatVec: ['no']
+    labels: []
+    classList: ['no']
+    classList[0]: no
+    classList.count(classList[0]): 1
+    subLabels: []
+    featVec [1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] ['yes']
+    axis 0 reducedFeatVec: ['yes']
+    featVec [1, 'yes']
+    axis 0 featVec[axis] 1
+    axis 0 reducedFeatVec: []
+    featVec[axis+1:] ['yes']
+    axis 0 reducedFeatVec: ['yes']
+    featVec [0, 'no']
+    labels: []
+    classList: ['yes', 'yes']
+    classList[0]: yes
+    classList.count(classList[0]): 2
+
+
+
+
+
+    {'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}}
+
+
+
+## 使用matplotlib注解绘制 树形图
+
+
+```python
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+```
+
+
+```python
+simheifont = FontProperties(fname='../simhei.ttf')
+```
+
+
+```python
+decisionNode = dict(boxstyle="sawtooth", fc="0.8")
+leafNode = dict(boxstyle="round4", fc="0.8")
+arrow_args = dict(arrowstyle="<-") def plotnode(nodetxt,centerpt,parentpt,nodetype): createplot.ax1.annotate(nodetxt,xy="parentPt," xycoords="axes fraction" , xytext="centerPt," textcoords="axes fraction" va="center" ,ha="center" ,bbox="nodeType," arrowprops="arrow_args," fontproperties="simheifont)" createplot(): fig="plt.figure(1," facecolor="white" ) fig.clf() createplot.ax1="plt.subplot(111,frameon=False)" plotnode("决策节点",(0.5,0.1),(0.1,0.5),decisionnode) plotnode("叶节点",(0.8,0.1),(0.3,0.8), leafnode) plt.show() ``` ```python createplot() ![png](c: users ysilhouette appdata local temp 360zip$temp 360( output_43_0.png) ### 构造注解树 **获得多少叶节点-- x轴的长度** **获得树有多少层-- y轴的高度** # 获取叶节点和树的层数 getnumleafs(mytree): numleafs="0" firststr="list(myTree.keys())[0]" seconddict="myTree[firstStr]" for key in seconddict.keys(): if type(seconddict[key]).__name__="=" 'dict': ## 测试节点的数据类型是否字典 +="getNumLeafs(secondDict[key])" else: return gettreedepth(mytree): maxdepth="0" thisdepth="1" gettreedepth(seconddict[key])> maxDepth:
+            maxDepth = thisDepth
+    return maxDepth
+```
+
+
+```python
+def retrieveTree(i):
+    listOfTrees = [
+        {'no surfacing':{0:'no',1:{'flippers':{0:'no',1:'yes'}}}},
+        {'no serfacing':{0:'no',1:{'flippers':{0:{'head':{0:'no',1:'yes'}},1:'no'}}}}
+    ]
+    return listOfTrees[i]
+```
+
+
+```python
+retrieveTree(1)
+```
+
+
+
+
+    {'no serfacing': {0: 'no',
+      1: {'flippers': {0: {'head': {0: 'no', 1: 'yes'}}, 1: 'no'}}}}
+
+
+
+
+```python
+myTree = retrieveTree(0)
+```
+
+
+```python
+list(myTree.keys())[0]
+```
+
+
+
+
+    'no surfacing'
+
+
+
+
+```python
+getNumLeafs(myTree)
+```
+
+
+
+
+    3
+
+
+
+
+```python
+getTreeDepth(myTree)
+```
+
+
+
+
+    2
+
+
+
+
+```python
+def plotMidText(cntrPt, parentPt, txtString):
+    xMid = (parentPt[0] - cntrPt[0]) /2.0 + cntrPt[0]
+    yMid = (parentPt[1] - cntrPt[1]) /2.0 + cntrPt[1]
+    createPlot.ax1.text(xMid,yMid, txtString)
+
+def plotTree(myTree, parentPt, nodeText):
+    numLeafs = getNumLeafs(myTree)
+    depth = getTreeDepth(myTree)
+    
+    firstStr = list(myTree.keys())[0]
+    cntrPt = (plotTree.xOff + (1.0 + float(numLeafs)) /2.0 / plotTree.totalW, plotTree.yOff)
+    plotMidText(cntrPt, parentPt, nodeText)
+    plotNode(firstStr, cntrPt, parentPt, decisionNode)
+    
+    secondDict = myTree[firstStr]
+    plotTree.yOff = plotTree.yOff - 1.0 / plotTree.totalD
+    for key in secondDict.keys():
+        if type(secondDict[key]).__name__ == 'dict':
+            plotTree(secondDict[key], cntrPt, str(key))
+        else:
+            plotTree.xOff = plotTree.xOff + 1.0 / plotTree.totalW
+            plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)
+            plotMidText((plotTree.xOff, plotTree.yOff), cntrPt,str(key))
+    plotTree.yOff = plotTree.yOff + 1.0 / plotTree.totalD
+
+def createPlot(inTree):
+    fig = plt.figure(1, facecolor='white')
+    fig.clf()
+    axprops = dict(xticks=[], yticks=[])
+    createPlot.ax1 = plt.subplot(111, frameon=False, **axprops)
+    plotTree.totalW = float(getNumLeafs(inTree))
+    plotTree.totalD = float(getTreeDepth(inTree))
+    plotTree.xOff = - 0.5/ plotTree.totalW
+    plotTree.yOff = 1.0
+    plotTree(inTree,(0.5,1.0),'')
+    plt.show()
+```
+
+
+```python
+mytree = retrieveTree(0)
+```
+
+
+```python
+mytree
+```
+
+
+
+
+    {'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}}
+
+
+
+
+```python
+createPlot(mytree)
+```
+
+
+![png](C:/Users/YSilhouette/AppData/Local/Temp/360zip$Temp/360(/output_56_0.png)
+
+
+
+```python
+mytree['no surfacing'][3]= 'maybe'
+```
+
+
+```python
+mytree
+```
+
+
+
+
+    {'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}, 3: 'maybe'}}
+
+
+
+
+```python
+createPlot(mytree)
+```
+
+
+![png](C:/Users/YSilhouette/AppData/Local/Temp/360zip$Temp/360(/output_59_0.png)
+
+
+
+```python
+
+```
+
+
+---
+
+
+### About ME
+##### 👋 读书城南，🤔 在未来面前，我们都是孩子～
+
+- 📙 一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+##### 👋 Social Media
+
+- 🛠️ Blog: [http://oceaneyes.top](http://oceaneyes.top)
+- ⚡ PM导航: [https://pmhub.oceangzy.top](https://pmhub.oceangzy.top)
+- ☘️ CNBLOG: [https://www.cnblogs.com/oceaneyes-gzy/](https://www.cnblogs.com/oceaneyes-gzy/)
+- 🌱 AI PRJ自己部署的一些算法demo: [http://ai.oceangzy.top/](http://ai.oceangzy.top/)
+- 📫 Email: 1450136519@qq.com
+- 💬 WeChat: [OCEANGZY](https://oceaneyes.top/img/wechatqrcode.jpg)
+
+- 💬 公众号: [UncleJoker-GZY](https://oceaneyes.top/img/wechatgzh.jpeg)
+
+##### 👋 加入小组~
+<img src="https://oceaneyes.top/img/zhishigroup.jpg" title="加入组织" alt width="240"> 
+
+##### 👋 感谢打赏~
+<img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"> </-")></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/">http://oceaneyes.top/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Machine-Learning/">Machine Learning</a><a class="post-meta__tags" href="/tags/Algorithm/">Algorithm</a><a class="post-meta__tags" href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/" title="案例-使用决策树预测隐性眼镜类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">案例-使用决策树预测隐性眼镜类型</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/" title="机器学习实战-笔记3-决策树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习实战-笔记3-决策树</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/" title="案例-使用决策树预测隐性眼镜类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-01</div><div class="title">案例-使用决策树预测隐性眼镜类型</div></div></a></div><div><a href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/" title="机器学习实战-笔记3-决策树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-29</div><div class="title">机器学习实战-笔记3-决策树</div></div></a></div><div><a href="/2018/10/01/Algorithm%E5%85%A5%E9%97%A8%E8%A7%A3%E8%AF%BB/" title="Algorithm入门解读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-10-01</div><div class="title">Algorithm入门解读</div></div></a></div><div><a href="/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/" title="NLP-Bert语义情感分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-03</div><div class="title">NLP-Bert语义情感分类</div></div></a></div><div><a href="/2021/03/28/ctr-predict/" title="广告投放中的CTR预估模型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-28</div><div class="title">广告投放中的CTR预估模型</div></div></a></div><div><a href="/2022/01/15/item2vec%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/" title="训练item2vec实现电影推荐"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-15</div><div class="title">训练item2vec实现电影推荐</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

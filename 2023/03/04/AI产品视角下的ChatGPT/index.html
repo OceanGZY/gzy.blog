@@ -1,0 +1,461 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI产品视角下的ChatGPT | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="# AI产品视角下的ChatGPT &gt; &quot;ChatGPT:Optimizing Language Models for Dialogue&quot;      ## ChatGPT使用体验  - 内容创作【创作小说提纲、编写小说开篇】              ## ChatGPT使用体验  - 代码编写【生成markdown解析器】     ![](.&#x2F;AI产品视角下的ChatGPT&#x2F;生成代码.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI产品视角下的ChatGPT">
+<meta property="og:url" content="http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="# AI产品视角下的ChatGPT &gt; &quot;ChatGPT:Optimizing Language Models for Dialogue&quot;      ## ChatGPT使用体验  - 内容创作【创作小说提纲、编写小说开篇】              ## ChatGPT使用体验  - 代码编写【生成markdown解析器】     ![](.&#x2F;AI产品视角下的ChatGPT&#x2F;生成代码.png">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-03-04T14:58:39.000Z">
+<meta property="article:modified_time" content="2023-04-28T08:36:10.568Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="产品">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="ChatGPT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AI产品视角下的ChatGPT',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-04-28 16:36:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">AI产品视角下的ChatGPT</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-28T08:36:10.568Z" title="更新于 2023-04-28 16:36:10">2023-04-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/ChatGPT/">ChatGPT</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="AI产品视角下的ChatGPT"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container">
+
+# AI产品视角下的ChatGPT
+> "ChatGPT:Optimizing Language Models for Dialogue"
+
+
+
+
+
+## ChatGPT使用体验
+
+- 内容创作【创作小说提纲、编写小说开篇】
+  
+  <!-- ![](./AI产品视角下的ChatGPT/内容创作.png) -->
+  <img src="/.top//内容创作.png" width="1200">
+
+
+
+
+## ChatGPT使用体验
+
+- 代码编写【生成markdown解析器】
+ 
+  ![](./AI产品视角下的ChatGPT/生成代码.png)
+
+
+## ChatGPT使用体验
+
+- “检索问答”【知识截止于21年9月】
+ 
+  ![](./AI产品视角下的ChatGPT/问答.png)
+
+
+## ChatGPT使用体验
+
+- “安全模型”
+ 
+  ![](./AI产品视角下的ChatGPT/安全模型.png)
+
+
+
+## ChatGPT主要特点
+
+#### 主要特性
+- 支持连续多轮对话，根据用户的输入连续生成回答
+- 可以主动承认自身错误
+  - 若用户指出其错误，模型会听取意见并优化答案
+- 可以质疑不正确的问题，并给出“正能量”答复
+- 可以承认自身的无知：承认对专业技术的不了解
+
+#### “认知误区”
+- <span style="color:red">不是搜索引擎</span>，是基于语言模型，推断输入意图，生成对应文本
+- 模型数据输入截止21年9月，<span style="color:red">时效性</span>
+- 模型本身无法确认自身输出的<span style="color:red">真实性</span>使用者需自行判断
+- 可以<span style="color:red">作为人的能力的延伸</span>，但不能完全代替人类的思考
+- <span style="color:red">开放领域的大模型</span>，未针对指定领域特别设计
+  - 需要使用者提供足够充分的prompt【描述需求】
+
+
+---
+  
+
+
+
+## ChatGPT的发展历史
+#### 模型时间线
+
+
+||模型发布时间|层数|头数|词向量长度|参数量|预训练数据量|论文地址|
+|---|---|---|---|---|---|---|---|
+|GPT-1|2018年6月|12|12|768|1.17 亿|约 5GB|[https://pa...](https://paperswithcode.com/method/gpt)|
+|GPT-2|2019年2月|48|-|1600|15 亿|40GB| [https://pa...](https://paperswithcode.com/method/gpt-2)|
+|GPT-3|2020年5月|96|96|12888|1,750 亿|45TB|[https://pa...](https://paperswithcode.com/method/gpt-3)|
+|InstructGPT|2022年2月|-|-|-|-|-|[https://pa...](https://arxiv.org/abs/2203.02155)|
+|ChatGPT|2022年11月|-|-|-|-|-|-|
+
+
+ ![](./AI产品视角下的ChatGPT/chatgpt时间节点.png)
+
+
+
+
+
+## ChatGPT的发展历史
+#### 模型解读
+
+- 👉GPT1【无监督学习】：自左向右生成式的构建预训练任务+简单的微调
+- 👉GPT2【多任务学习】：使用更多参数、训练数据 >使用无监督的预训练模型做有监督的任务
+  - 重要思想：“所有的有监督学习都是无监督语言模型的一个子集”，这个思想也是提示学习（Prompt Learning）的前身
+- 👉GPT3【海量参数】：1759亿参数量，并且训练使用了情境学习（In-context Learning）^[1]^
+  - [1]元学习（Meta-learning）的一种，元学习的核心思想在于通过少量的数据寻找一个合适的初始化范围，使得模型能够在有限的数据集上快速拟合，并获得不错的效果
+#### 👉预训练模型的偏见性
+- 因预训练模型都是通过海量数据在超大参数量级的模型上训练出来的[黑盒子]
+- 没人能保证预训练模型不会生成一些“危险内容”，因它超大训练数据很可能包含类似的样本
+#### 👉InstructGPT/ChatGPT：有用的（Helpful）、可信的（Honest）、无害的（Harmless）
+
+
+
+## ChatGPT的简单的技术原理
+#### 大参数的预训练生成语言模型
+- 根据采集的SFT数据集对GPT-3.5进行有监督的微调（Supervised FineTune，SFT）
+- 收集人工标注的对比数据，训练奖励模型（Reword Model，RM）
+- 使用RM作为强化学习的优化目标，利用PPO算法微调SFT模型（Proximal Policy Optimization，近端策略优化）
+
+  
+  <!-- ![](./AI产品视角下的ChatGPT/ChatGPT_Diagram-技术原理.svg) -->
+  <div style="height:800px;width:2000px;text-align:center">
+  <img src="/.top//ChatGPT_Diagram-技术原理.svg">
+  </div>
+   
+
+
+
+
+## 基于GPT3.5训练监督策略模型
+
+#### SFT模型【Supervised Fine-Tuning】
+  - 首先在数据集中随机抽取问题，由人类标注人员给出高质量答案
+  - 然后用这些人工标注好的数据来微调GPT3.5（获得SFT模型, Supervised Fine-Tuning）
+    - 使其初步具备理解指令的意图
+  - 此时的SFT模型在遵循指令/对话方面已经优于 GPT-3.5，但不一定符合人类偏好
+
+> 基于专家标注结果微调GPT模型
+
+
+
+
+## 训练奖励模型
+#### 主要是通过人工标注训练数据,来训练回报模型
+
+- 在数据集中随机抽取问题，用第一阶段生成的模型,对每个问题生成多个不同回答【问题-答案对】
+- 人类标注者对这些结果综合考虑给出排名顺序【这一过程类似于教练或老师辅导】
+- 使用这个排序结果数据来训练奖励模型 
+
+> 专家标注【问题-答案-排序】训练数据，调节参数使高质量回答的打分>低质量的打分
+
+
+
+
+
+## 近端策略优化
+#### 强化学习来优化策略 
+
+- 在数据集中随机抽取问题，使用PPO模型生成回答【PPO模型用SFT初始化】
+- 用训练好的RM模型给出质量分数
+- 再通过强化学习的方式来更新PPO模型参数
+
+> 指导训练对象每一步如何决策，采用什么样的"行动"可以使回答的效果更好【更新参数】
+
+
+
+
+## ChatGPT原理通俗解读
+---
+- OpenAI使用RLHF【人类反馈强化学习】技术对【预训练语言模型】进行训练优化
+- 得到大语言模型LLM
+- 并基于prompting【提示】来适应不同领域的任务
+- “仿真性”感知上“智力提升”，本质上是“在用人类所喜欢的方式回答”
+
+---
+
+
+
+## 预训练模型通俗解读
+
+#### 之前对智能模型的认知：
+  - 例如一个能分辨狗品种的Agent，需要你提供A-柴犬，B-柯基这样的数据集给他，让它学习不同品种之间的特征差异，从而学会分辨狗品种这项能力
+  
+#### 通过一个大一统模型先来认识这个世界。再带着对这个世界的认知对具体领域进行降维打击
+
+- 将海量的文本语料，直接喂给模型进行学习
+- 在这其中模型对词性、句法的学习自然而然会沉淀在模型的参数当中
+  
+#### chatgpt：拥有3000亿单词的语料基础上预训练出的拥有1750亿参数的模型
+
+> 3000亿单词就是训练数据，1750亿参数就是AI对这个世界的理解
+ 一部分沉淀了Agent对各类语法、句法的学习
+ 另一部分参数参数则储存了AI对于事实的认知
+
+
+
+## GPT与BERT
+#### NLP任务->“猜概率”游戏
+
+#### LLM大语言模型，演化出Bert和GPT，但理念有所不同
+
+- BERT：
+  - 预训练：Masking Input【完形填空，预测什么被盖住】
+    - 双向：“结合空格两端的信息来猜测空格内应该是哪个单词” 如：“我坐__去上班”
+  - 微调：fine-tuning
+    - 做专业领域任务时，需收集相关的专业领域数据，做小幅模型调整更新相关参数
+  - 示例：[AI情绪分析](http://ai.oceangzy.top)
+- GPT：
+  - 预训练：Predict Next Token【预测下一个token是什么】
+    - 自回归：“从左往右做预测，不会利用文本中右侧的内容” 如：“我坐...”
+  - 提示/指示：Prompting
+    - 做专业领域的任务时，提供给它一些示例或引导。不用更新模型参数
+
+---
+
+||应用方向|应用场景|
+|---|---|---|
+|BERT|自然语言理解|问答系统、句子相似度、文本分类、情感分析、命名实体识别|
+|GPT|自然语言生成|文本生成/续写、语言翻译、对话生成、摘要生成|
+
+
+## ChatGPT的“影响”
+
+- 加速“决策/分析AI（Discriminant/Analytical AI）”->“生成AI（Generative AI）”的演化
+- 降低了非专业领域对“人工智能”的认知难度，在一定程度预示着“通用人工智能”领域的到来
+- "大模型时代到来了！"
+  
+  <!-- ![](./AI产品视角下的ChatGPT/chatgpt影响决策AI到生成AI.png) -->
+  <img src="/.top//chatgpt影响决策AI到生成AI.png">
+
+
+
+## 大模型与AIGC
+
+#### 【创意相关的下游产业】：图片、游戏、动画 [：600个GPT3的应用案例](https://gpt3demo.com/) 
+
+#### 【科学技术】：编程、算法【一步到位的设计模型/给出最优解答】
+[：在chatgpt内'搭建'神经网络](https://zhuanlan.zhihu.com/p/605163615)   ｜ [：CodeGeeX编程](https://gitee.com/codegeex/CodeGeeX)
+
+#### 【编写创作】：小说、剧本、论文、周报、UGC等 [：蒲公英TracupAI](https://www.tracup.com/ai)
+  
+#### 【个人集成到终端智能助理】：联动语音模型、助手
+
+#### 【知识库管理】:“类似于电脑的拓展硬盘，人类的外脑”
+
+![](./AI产品视角下的ChatGPT/AIGC示例.png)
+
+
+
+
+## 附注
+#### 注册体验ChatGPT的方法
+ [注册方法 -  https://note.youdao.com/s/XqoJbMJ2](https://note.youdao.com/s/XqoJbMJ2)
+  
+---
+
+<div class="shows" style="display:flex;flex-deriction:row;justify-content:space-around;line-height:2">
+<div class="show" style="width:40%">
+<div style="background:rgba(0,0,0,0.15)">第三方体验</div>
+<div style="text-align:left">
+<div><a target="_blank" rel="noopener" href="https://freegpt.one">https://freegpt.one</a>ps:可能已崩</div>
+<div><a target="_blank" rel="noopener" href="https://freechatgpt.lol">https://freechatgpt.lol</a>ps:可能已崩</div>
+</div>
+</div>
+<div class="show" style="width:40%">
+<div style="background:rgba(0,0,0,0.15)">技术资料</div>
+<div style="text-align:right">
+<div><a target="_blank" rel="noopener" href="https://github.com/hpcaitech/ColossalAI">ColossalAI单卡复现</a></div>
+<div><a target="_blank" rel="noopener" href="https://platform.openai.com/docs/api-reference/chat">ChatGPT API文档</a></div>
+</div>
+</div>
+</div>
+
+<!-- 
+#### 第三方体验
+
+- [**基于InstructGPT的网站一**](https://freegpt.one)
+- [**基于InstructGPT的网站二**](https://chatgpt.ddiu.io)
+- [**Notion AI**](https://www.notion.so/)
+
+#### 技术资料
+
+- [**ColossalAI单卡复现**](https://github.com/hpcaitech/ColossalAI)
+- [**ChatGPT API**](https://platform.openai.com/docs/api-reference/chat) -->
+
+#### 个人站点
+
+<!-- - [**AI情绪分析**](http://ai.oceangzy.top/#/index/motion)
+  ![](./AI产品视角下的ChatGPT/ai情绪分析二维码.png)
+- [**AI写诗**](http://ai.oceangzy.top/#/contentCreate/poetry)
+  ![](./AI产品视角下的ChatGPT/AI写诗二维码.png)
+- [**AI聊天机器人**](http://ai.oceangzy.top/generator/chat)
+  ![](./AI产品视角下的ChatGPT/AI聊天机器人二维码.png) -->
+
+
+<div class="shows" style="display:flex;flex-deriction:row;justify-content:center">
+<div class="show">
+<img src="/.top//ai情绪分析二维码.png">
+</div>
+<div class="show">
+<img src="/.top//AI写诗二维码.png">
+</div>
+<div class="show">
+<img src="/.top//AI聊天机器人二维码.png">
+</div>
+</div>
+
+
+
+
+# Thanks!</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/">http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%A7%E5%93%81/">产品</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/ChatGPT/">ChatGPT</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python设计模式-六大设计原则</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2016/03/01/2016-03-01-%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4/" title="产品思维"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-01</div><div class="title">产品思维</div></div></a></div><div><a href="/2020/02/22/DSP%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" title="广告系统架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-22</div><div class="title">广告系统架构</div></div></a></div><div><a href="/2019/01/01/RWW%E4%BA%A7%E5%93%81%E6%A6%82%E5%BF%B5%E8%AF%84%E4%BC%B0%E6%B3%95%E5%AD%A6%E4%B9%A0/" title="RWW产品概念评估法学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-01</div><div class="title">RWW产品概念评估法学习</div></div></a></div><div><a href="/2019/05/19/crash%E5%88%86%E6%9E%90%E7%B1%BB%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/" title="crash分析类指标详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-19</div><div class="title">crash分析类指标详解</div></div></a></div><div><a href="/2020/02/02/ToB%E4%BA%A7%E5%93%81/" title="ToB产品的一些认知"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-02</div><div class="title">ToB产品的一些认知</div></div></a></div><div><a href="/2020/02/06/%E4%B8%8A%E7%98%BE%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="上瘾,一步步让你PICK ME"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-06</div><div class="title">上瘾,一步步让你PICK ME</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

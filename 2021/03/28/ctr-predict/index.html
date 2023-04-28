@@ -1,0 +1,1073 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>广告投放中的CTR预估模型 | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="# 广告投放中的CTR预估模型  &#96;&#96;&#96;python import numpy as np import pandas as pd import sklearn from sklearn.model_selection import StratifiedKFold from sklearn.metrics import roc_auc_score import gc  import os">
+<meta property="og:type" content="article">
+<meta property="og:title" content="广告投放中的CTR预估模型">
+<meta property="og:url" content="http://oceaneyes.top/2021/03/28/ctr-predict/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="# 广告投放中的CTR预估模型  &#96;&#96;&#96;python import numpy as np import pandas as pd import sklearn from sklearn.model_selection import StratifiedKFold from sklearn.metrics import roc_auc_score import gc  import os">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2021-03-28T15:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.166Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="CTR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2021/03/28/ctr-predict/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '广告投放中的CTR预估模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-09-30 14:56:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">广告投放中的CTR预估模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-28T15:19:00.000Z" title="发表于 2021-03-28 23:19:00">2021-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.166Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="广告投放中的CTR预估模型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container">
+
+
+# 广告投放中的CTR预估模型
+
+```python
+import numpy as np
+import pandas as pd
+import sklearn
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import roc_auc_score
+import gc
+
+import os
+
+import lightgbm as lgb
+```
+
+## 数据清洗
+
+```python
+import numpy as np
+import pandas as pd
+import sklearn
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import roc_auc_score
+import gc
+
+import os
+
+import lightgbm as lgb
+```
+
+
+```python
+data_path = './datasets/'
+```
+
+
+```python
+train = pd.read_csv(os.path.join(data_path,'train.csv'))
+```
+
+
+```python
+test = pd.read_csv(os.path.join(data_path,'test.csv'))
+```
+
+特征字段	字段描述
+id	用户行为id，唯一表示，无重复
+date	行为时间，精确到秒
+user_id	用户id
+product	产品
+campaign_id	活动id
+webpage_id	网页id
+product_category_id	产品类型id
+user_group_id	用户所属群组id
+gender	性别
+age_level	年龄等级
+user_depth	用户价值深度
+var_1	匿名特征
+isClick	是否点击，1为点击，0为未点击
+
+
+```python
+train
+```
+
+
+
+```python
+test
+```
+
+
+
+```python
+data = pd.concat([train,test],ignore_index=True)
+```
+
+
+```python
+data
+```
+
+
+
+
+```python
+data['day_id'] = data['date'].apply(lambda x:int(x[3:5]))
+```
+
+
+```python
+data['minute_id']=data['date'].apply(lambda x:int(x[-5:-3])*60 + int(x[-2:]))
+```
+
+
+```python
+data
+```
+
+
+## 特征工程
+
+#### 构建用户每天前后两次浏览行为之间的时间间隔及其衍生均值特征, 因为用户浏览时间往往和其是否点击具有相关性
+
+
+```python
+data['minute_id'].shift(-1)
+```
+
+
+    0            0.0
+    1            0.0
+    2            0.0
+    3            1.0
+    4            1.0
+               ...  
+    463286    1439.0
+    463287    1439.0
+    463288    1439.0
+    463289    1439.0
+    463290       NaN
+    Name: minute_id, Length: 463291, dtype: float64
+
+
+```python
+data.groupby(['user_id','day_id'])['minute_id'].apply(lambda x :x.shift(-1) -x)
+```
+
+
+    0         NaN
+    1         0.0
+    2         2.0
+    3         NaN
+    4         NaN
+             ... 
+    463286    NaN
+    463287    NaN
+    463288    0.0
+    463289    NaN
+    463290    NaN
+    Name: minute_id, Length: 463291, dtype: float64
+
+
+```python
+data.groupby(['user_id','day_id'])['minute_id'].agg(lambda x :x.shift(-1) -x)
+```
+
+
+    user_id  day_id
+    0        2                                              NaN
+             6                                              NaN
+    1        2                                  [0.0, 2.0, nan]
+    2        2                                              NaN
+             3         [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 6.0, nan]
+                                         ...                   
+    150342   7                                       [0.0, nan]
+    150343   7                                              NaN
+    150344   7                                              NaN
+    150345   7                                              NaN
+    150346   7                                       [0.0, nan]
+    Name: minute_id, Length: 249625, dtype: object
+
+
+```python
+data.groupby(['user_id','day_id'])['minute_id'].transform(lambda x :x.shift(-1) -x)
+```
+
+
+    0         NaN
+    1         0.0
+    2         2.0
+    3         NaN
+    4         NaN
+             ... 
+    463286    NaN
+    463287    NaN
+    463288    0.0
+    463289    NaN
+    463290    NaN
+    Name: minute_id, Length: 463291, dtype: float64
+
+
+```python
+data['minute_id_diff'] = data.groupby(['user_id','day_id'])['minute_id'].transform(lambda x :x.shift(-1) -x)
+```
+
+
+```python
+data.groupby(['user_id','day_id'])['minute_id_diff'].transform('mean')
+```
+
+
+    0           NaN
+    1           1.0
+    2           1.0
+    3           NaN
+    4           NaN
+              ...  
+    463286      NaN
+    463287     34.0
+    463288    154.8
+    463289    154.8
+    463290     26.0
+    Name: minute_id_diff, Length: 463291, dtype: float64
+
+
+
+
+```python
+data.groupby(['user_id','day_id'])['minute_id_diff'].agg('mean')
+```
+
+
+    user_id  day_id
+    0        2              NaN
+             6              NaN
+    1        2         1.000000
+    2        2              NaN
+             3         1.142857
+                         ...   
+    150342   7         0.000000
+    150343   7              NaN
+    150344   7              NaN
+    150345   7              NaN
+    150346   7         0.000000
+    Name: minute_id_diff, Length: 249625, dtype: float64
+
+
+
+
+```python
+data.groupby(['user_id','day_id'])['minute_id_diff'].mean()
+```
+
+
+    user_id  day_id
+    0        2              NaN
+             6              NaN
+    1        2         1.000000
+    2        2              NaN
+             3         1.142857
+                         ...   
+    150342   7         0.000000
+    150343   7              NaN
+    150344   7              NaN
+    150345   7              NaN
+    150346   7         0.000000
+    Name: minute_id_diff, Length: 249625, dtype: float64
+
+
+
+
+```python
+data['minute_id_diff_mean'] = data.groupby(['user_id','day_id'])['minute_id_diff'].transform('mean')
+```
+
+
+```python
+for col in ['user_id','product','campaign_id','webpage_id','product_category_id','user_group_id']:
+    data['{}_count'.format(col)] = data.groupby(col)['minute_id'].transform('count')
+    
+```
+
+
+```python
+data.columns
+```
+
+
+    Index(['id', 'date', 'user_id', 'product', 'campaign_id', 'webpage_id',
+           'product_category_id', 'user_group_id', 'gender', 'age_level',
+           'user_depth', 'var_1', 'isClick', 'day_id', 'minute_id',
+           'minute_id_diff', 'minute_id_diff_mean', 'user_id_count',
+           'product_count', 'campaign_id_count', 'webpage_id_count',
+           'product_category_id_count', 'user_group_id_count'],
+          dtype='object')
+
+
+```python
+ycol = 'isClick'
+drop_list = [
+    ycol,
+    'id',
+    'date'
+]
+
+features = [x for x in data.columns if x not in drop_list]
+```
+
+
+```python
+print("使用{} 个特征:{}".format(len(features),features))
+```
+
+    使用20 个特征:['user_id', 'product', 'campaign_id', 'webpage_id', 'product_category_id', 'user_group_id', 'gender', 'age_level', 'user_depth', 'var_1', 'day_id', 'minute_id', 'minute_id_diff', 'minute_id_diff_mean', 'user_id_count', 'product_count', 'campaign_id_count', 'webpage_id_count', 'product_category_id_count', 'user_group_id_count']
+
+```python
+# 下列特征转化为类别特征
+categorical_feature = [
+    'user_id',
+    'product',
+    'campaign_id',
+    'webpage_id',
+    'product_category_id',
+    'user_group_id',
+    'gender',
+    'age_level',
+    'user_depth',
+]
+
+for col in categorical_feature:
+    data[col] = data[col].astype('category')
+```
+
+
+```python
+train = data[~data[ycol].isnull()]
+```
+
+
+```python
+test = data[data[ycol].isnull()]
+```
+
+
+```python
+train.shape
+```
+
+
+    (391825, 23)
+
+
+```python
+test.shape
+```
+
+
+    (71466, 23)
+
+
+```python
+del(data)
+```
+
+
+```python
+gc.collect()
+```
+
+
+    0
+
+
+
+
+## 五折交叉验证训练模型
+
+
+
+```python
+NFLOD =5
+random_state = 2021
+KF = StratifiedKFold(n_splits = NFLOD,shuffle=True,random_state=random_state)
+
+params_lgb = {
+    'boosting':'gbdt',
+    'objective':'binary',
+    'metric':'auc',
+    'force_row_size':True,
+    'random_state':random_state,
+    'learning_rate':0.03,
+    'max_depth':8,
+    'num_leaves':40,
+    'subsamples':0.8,
+    'subsample_freq':3,
+    'colsample_bytree':0.8,
+    'n_jobs':-1,
+    'verbose':-1
+}
+```
+
+
+```python
+oof_lgb = np.zeros(len(train))
+```
+
+
+```python
+predictions_lgb = np.zeros(len(test))
+```
+
+
+```python
+df_importance_list = []
+```
+
+
+```python
+# 五折交叉验证
+for fold_,(trn_idx,val_idx) in enumerate(KF.split(train[features],train[ycol])):
+    print('------------fold{}-----------'.format(fold_ + 1))
+    trn_data = lgb.Dataset(train.iloc[trn_idx][features] , label=train.iloc[trn_idx][ycol])
+    val_data = lgb.Dataset(train.iloc[val_idx][features], label=train.iloc[val_idx][ycol],reference=trn_data)
+    
+    clf_lgb = lgb.train(
+        params = params_lgb,
+        train_set = trn_data,
+        valid_sets = [trn_data,val_data],
+        valid_names = ('train','val'),
+        num_boost_round = 50000,
+        early_stopping_rounds = 200,
+        verbose_eval = 100,
+    )
+    
+    oof_lgb[val_idx] = clf_lgb.predict(train.iloc[val_idx][features],num_iteration=clf_lgb.best_iteration)
+    predictions_lgb[:] += (clf_lgb.predict(test[features],num_iteration = clf_lgb.best_iteration)/ NFLOD)
+    
+    df_importance = pd.DataFrame({
+        'column':features,
+        'importance_split':clf_lgb.feature_importance(importance_type = 'split'),
+        'importance_gain':clf_lgb.feature_importance(importance_type = 'gain')
+    })
+    
+    df_importance_list.append(df_importance)
+```
+
+    ------------fold1-----------
+    [LightGBM] [Warning] Unknown parameter: subsamples
+    [LightGBM] [Warning] Unknown parameter: force_row_size
+
+
+    /Users/gaozhiyong/Documents/pyenv/pyenv3.6/lib/python3.6/site-packages/lightgbm/basic.py:1433: UserWarning: Overriding the parameters from Reference Dataset.
+      _log_warning('Overriding the parameters from Reference Dataset.')
+    /Users/gaozhiyong/Documents/pyenv/pyenv3.6/lib/python3.6/site-packages/lightgbm/basic.py:1245: UserWarning: categorical_column in param dict is overridden.
+      _log_warning('{} in param dict is overridden.'.format(cat_alias))
+
+
+    Training until validation scores don't improve for 200 rounds
+    [100]	train's auc: 0.677174	val's auc: 0.628599
+    [200]	train's auc: 0.690672	val's auc: 0.63003
+    [300]	train's auc: 0.702212	val's auc: 0.631905
+    [400]	train's auc: 0.711116	val's auc: 0.632443
+    [500]	train's auc: 0.7182	val's auc: 0.632929
+    [600]	train's auc: 0.725516	val's auc: 0.632789
+    Early stopping, best iteration is:
+    [499]	train's auc: 0.718131	val's auc: 0.632934
+    ------------fold2-----------
+    [LightGBM] [Warning] Unknown parameter: subsamples
+    [LightGBM] [Warning] Unknown parameter: force_row_size
+    Training until validation scores don't improve for 200 rounds
+    [100]	train's auc: 0.679197	val's auc: 0.620851
+    [200]	train's auc: 0.693258	val's auc: 0.622213
+    [300]	train's auc: 0.703885	val's auc: 0.623473
+    [400]	train's auc: 0.714255	val's auc: 0.62404
+    [500]	train's auc: 0.720288	val's auc: 0.624115
+    [600]	train's auc: 0.726659	val's auc: 0.624428
+    [700]	train's auc: 0.732689	val's auc: 0.624295
+    [800]	train's auc: 0.73929	val's auc: 0.624619
+    [900]	train's auc: 0.744832	val's auc: 0.624663
+    [1000]	train's auc: 0.754675	val's auc: 0.62499
+    [1100]	train's auc: 0.759126	val's auc: 0.624757
+    [1200]	train's auc: 0.763615	val's auc: 0.62502
+    [1300]	train's auc: 0.769984	val's auc: 0.624564
+    Early stopping, best iteration is:
+    [1164]	train's auc: 0.761882	val's auc: 0.625101
+    ------------fold3-----------
+    [LightGBM] [Warning] Unknown parameter: subsamples
+    [LightGBM] [Warning] Unknown parameter: force_row_size
+    Training until validation scores don't improve for 200 rounds
+    [100]	train's auc: 0.677937	val's auc: 0.623831
+    [200]	train's auc: 0.691909	val's auc: 0.6257
+    [300]	train's auc: 0.702329	val's auc: 0.626483
+    [400]	train's auc: 0.712792	val's auc: 0.626889
+    [500]	train's auc: 0.719476	val's auc: 0.627282
+    [600]	train's auc: 0.726372	val's auc: 0.627444
+    [700]	train's auc: 0.732891	val's auc: 0.627488
+    [800]	train's auc: 0.739184	val's auc: 0.627696
+    [900]	train's auc: 0.747272	val's auc: 0.62776
+    Early stopping, best iteration is:
+    [756]	train's auc: 0.736675	val's auc: 0.627805
+    ------------fold4-----------
+    [LightGBM] [Warning] Unknown parameter: subsamples
+    [LightGBM] [Warning] Unknown parameter: force_row_size
+    Training until validation scores don't improve for 200 rounds
+    [100]	train's auc: 0.678244	val's auc: 0.632375
+    [200]	train's auc: 0.693808	val's auc: 0.633363
+    [300]	train's auc: 0.703073	val's auc: 0.633338
+    [400]	train's auc: 0.712667	val's auc: 0.633605
+    Early stopping, best iteration is:
+    [212]	train's auc: 0.695547	val's auc: 0.633654
+    ------------fold5-----------
+    [LightGBM] [Warning] Unknown parameter: subsamples
+    [LightGBM] [Warning] Unknown parameter: force_row_size
+    Training until validation scores don't improve for 200 rounds
+    [100]	train's auc: 0.677896	val's auc: 0.627158
+    [200]	train's auc: 0.692087	val's auc: 0.628503
+    [300]	train's auc: 0.701904	val's auc: 0.62927
+    [400]	train's auc: 0.711159	val's auc: 0.629929
+    [500]	train's auc: 0.718229	val's auc: 0.629463
+    [600]	train's auc: 0.725839	val's auc: 0.629527
+    Early stopping, best iteration is:
+    [401]	train's auc: 0.711302	val's auc: 0.630001
+
+
+
+```python
+valid_auc_score = roc_auc_score(train[ycol],oof_lgb)
+```
+
+
+```python
+valid_auc_score
+```
+
+
+
+
+    0.629614298701527
+
+
+
+## 特征重要性
+
+
+
+```python
+df_features_importances= pd.concat(df_importance_list)
+```
+
+
+```python
+df_features_importance= df_features_importances.groupby('column').mean().reset_index()
+```
+
+
+```python
+df_features_importance
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>column</th>
+      <th>importance_split</th>
+      <th>importance_gain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>age_level</td>
+      <td>40.2</td>
+      <td>407.363945</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>campaign_id</td>
+      <td>565.6</td>
+      <td>17419.711442</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>campaign_id_count</td>
+      <td>1049.4</td>
+      <td>5384.477741</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>day_id</td>
+      <td>1194.6</td>
+      <td>9639.523684</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>gender</td>
+      <td>54.6</td>
+      <td>253.445407</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>minute_id</td>
+      <td>3935.8</td>
+      <td>22181.027330</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>minute_id_diff</td>
+      <td>3431.4</td>
+      <td>23767.593485</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>minute_id_diff_mean</td>
+      <td>3201.4</td>
+      <td>21643.519522</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>product</td>
+      <td>489.6</td>
+      <td>6321.783218</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>product_category_id</td>
+      <td>176.8</td>
+      <td>2965.427346</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>product_category_id_count</td>
+      <td>970.4</td>
+      <td>6571.430858</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>product_count</td>
+      <td>1215.4</td>
+      <td>7685.000637</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>user_depth</td>
+      <td>151.4</td>
+      <td>900.218823</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>user_group_id</td>
+      <td>395.0</td>
+      <td>3675.279637</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>user_group_id_count</td>
+      <td>610.2</td>
+      <td>3107.873730</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>user_id</td>
+      <td>3435.2</td>
+      <td>67579.315769</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>user_id_count</td>
+      <td>2032.4</td>
+      <td>31719.678195</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>var_1</td>
+      <td>248.8</td>
+      <td>1597.959461</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>webpage_id</td>
+      <td>91.6</td>
+      <td>2045.332514</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>webpage_id_count</td>
+      <td>359.8</td>
+      <td>1744.924732</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+```python
+df_features_importance.sort_values('importance_gain',ascending=False)
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>column</th>
+      <th>importance_split</th>
+      <th>importance_gain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>15</th>
+      <td>user_id</td>
+      <td>3435.2</td>
+      <td>67579.315769</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>user_id_count</td>
+      <td>2032.4</td>
+      <td>31719.678195</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>minute_id_diff</td>
+      <td>3431.4</td>
+      <td>23767.593485</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>minute_id</td>
+      <td>3935.8</td>
+      <td>22181.027330</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>minute_id_diff_mean</td>
+      <td>3201.4</td>
+      <td>21643.519522</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>campaign_id</td>
+      <td>565.6</td>
+      <td>17419.711442</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>day_id</td>
+      <td>1194.6</td>
+      <td>9639.523684</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>product_count</td>
+      <td>1215.4</td>
+      <td>7685.000637</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>product_category_id_count</td>
+      <td>970.4</td>
+      <td>6571.430858</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>product</td>
+      <td>489.6</td>
+      <td>6321.783218</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>campaign_id_count</td>
+      <td>1049.4</td>
+      <td>5384.477741</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>user_group_id</td>
+      <td>395.0</td>
+      <td>3675.279637</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>user_group_id_count</td>
+      <td>610.2</td>
+      <td>3107.873730</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>product_category_id</td>
+      <td>176.8</td>
+      <td>2965.427346</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>webpage_id</td>
+      <td>91.6</td>
+      <td>2045.332514</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>webpage_id_count</td>
+      <td>359.8</td>
+      <td>1744.924732</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>var_1</td>
+      <td>248.8</td>
+      <td>1597.959461</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>user_depth</td>
+      <td>151.4</td>
+      <td>900.218823</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>age_level</td>
+      <td>40.2</td>
+      <td>407.363945</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>gender</td>
+      <td>54.6</td>
+      <td>253.445407</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## 预测
+
+
+```python
+test.head()
+```
+
+
+
+```python
+test.columns
+```
+
+
+    Index(['id', 'date', 'user_id', 'product', 'campaign_id', 'webpage_id',
+           'product_category_id', 'user_group_id', 'gender', 'age_level',
+           'user_depth', 'var_1', 'isClick', 'day_id', 'minute_id',
+           'minute_id_diff', 'minute_id_diff_mean', 'user_id_count',
+           'product_count', 'campaign_id_count', 'webpage_id_count',
+           'product_category_id_count', 'user_group_id_count'],
+          dtype='object')
+
+
+```python
+test.loc[:,ycol] = predictions_lgb
+```
+
+    /Users/gaozhiyong/Documents/pyenv/pyenv3.6/lib/python3.6/site-packages/pandas/core/indexing.py:1743: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame.
+    Try using .loc[row_indexer,col_indexer] = value instead
+    
+    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+      isetter(ilocs[0], value)
+
+
+
+```python
+test.loc[:,ycol]
+```
+
+
+    391825    0.082708
+    391826    0.084275
+    391827    0.046645
+    391828    0.050657
+    391829    0.126505
+                ...   
+    463286    0.079529
+    463287    0.041204
+    463288    0.046967
+    463289    0.048984
+    463290    0.078428
+    Name: isClick, Length: 71466, dtype: float64
+
+
+```python
+test[['id',ycol]]
+```
+
+## 保存预测结果
+
+```python
+test[['user_id','product','campaign_id',ycol]].to_csv('res.csv',index=False)
+```
+
+
+
+---
+
+
+### About ME
+##### 👋 读书城南，🤔 在未来面前，我们都是孩子～
+
+- 📙 一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+##### 👋 Social Media
+
+- 🛠️ Blog: [http://oceaneyes.top](http://oceaneyes.top)
+- ⚡ PM导航: [https://pmhub.oceangzy.top](https://pmhub.oceangzy.top)
+- ☘️ CNBLOG: [https://www.cnblogs.com/oceaneyes-gzy/](https://www.cnblogs.com/oceaneyes-gzy/)
+- 🌱 AI PRJ自己部署的一些算法demo: [http://ai.oceangzy.top/](http://ai.oceangzy.top/)
+- 📫 Email: 1450136519@qq.com
+- 💬 WeChat: [OCEANGZY](https://oceaneyes.top/img/wechatqrcode.jpg)
+
+- 💬 公众号: [UncleJoker-GZY](https://oceaneyes.top/img/wechatgzh.jpeg)
+
+##### 👋 加入小组~
+<img src="https://oceaneyes.top/img/zhishigroup.jpg" title="加入组织" alt width="240"> 
+
+##### 👋 感谢打赏~
+<img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"> </article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2021/03/28/ctr-predict/">http://oceaneyes.top/2021/03/28/ctr-predict/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Machine-Learning/">Machine Learning</a><a class="post-meta__tags" href="/tags/Algorithm/">Algorithm</a><a class="post-meta__tags" href="/tags/CTR/">CTR</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/06/17/%E5%9F%BA%E4%BA%8ELSTM-CRF%E7%9A%84%E4%B8%AD%E6%96%87%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" title="基于LSTM+CRF的中文命名实体识别"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基于LSTM+CRF的中文命名实体识别</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/01/lstm/" title="LSTM"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">LSTM</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2018/10/01/Algorithm%E5%85%A5%E9%97%A8%E8%A7%A3%E8%AF%BB/" title="Algorithm入门解读"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-10-01</div><div class="title">Algorithm入门解读</div></div></a></div><div><a href="/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/" title="NLP-Bert语义情感分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-03</div><div class="title">NLP-Bert语义情感分类</div></div></a></div><div><a href="/2022/01/15/item2vec%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/" title="训练item2vec实现电影推荐"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-15</div><div class="title">训练item2vec实现电影推荐</div></div></a></div><div><a href="/2021/03/01/lstm/" title="LSTM"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-01</div><div class="title">LSTM</div></div></a></div><div><a href="/2021/11/19/pytorch%E5%9B%BE%E5%83%8F%E5%8E%BB%E6%A8%A1%E7%B3%8A/" title="基于PyTorch实现图像去模糊-学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-19</div><div class="title">基于PyTorch实现图像去模糊-学习</div></div></a></div><div><a href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/" title="案例-使用决策树预测隐性眼镜类型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-01</div><div class="title">案例-使用决策树预测隐性眼镜类型</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
