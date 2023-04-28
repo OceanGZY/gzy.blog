@@ -1,0 +1,1415 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="广告投放中的CTR预估模型 12345678910import numpy as npimport pandas as pdimport sklearnfrom sklearn.model_selection import StratifiedKFoldfrom sklearn.metrics import roc_auc_scoreimport gcimport osimport lightgb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="广告投放中的CTR预估模型">
+<meta property="og:url" content="http://oceaneyes.top/2021/03/28/ctr-predict/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="广告投放中的CTR预估模型 12345678910import numpy as npimport pandas as pdimport sklearnfrom sklearn.model_selection import StratifiedKFoldfrom sklearn.metrics import roc_auc_scoreimport gcimport osimport lightgb">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-03-28T15:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.166Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="CTR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>广告投放中的CTR预估模型 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="广告投放中的CTR预估模型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-28 23:19" pubdate>
+        2021年3月28日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      14k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      113 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">广告投放中的CTR预估模型</h1>
+            
+            <div class="markdown-body">
+              <h1 id="广告投放中的ctr预估模型">广告投放中的CTR预估模型</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> sklearn<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> StratifiedKFold<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> roc_auc_score<br><span class="hljs-keyword">import</span> gc<br><br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">import</span> lightgbm <span class="hljs-keyword">as</span> lgb<br></code></pre></td></tr></table></figure>
+<h2 id="数据清洗">数据清洗</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> sklearn<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> StratifiedKFold<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> roc_auc_score<br><span class="hljs-keyword">import</span> gc<br><br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">import</span> lightgbm <span class="hljs-keyword">as</span> lgb<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data_path = <span class="hljs-string">&#x27;./datasets/&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train = pd.read_csv(os.path.join(data_path,<span class="hljs-string">&#x27;train.csv&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test = pd.read_csv(os.path.join(data_path,<span class="hljs-string">&#x27;test.csv&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<p>特征字段 字段描述 id 用户行为id，唯一表示，无重复 date
+行为时间，精确到秒 user_id 用户id product 产品 campaign_id 活动id
+webpage_id 网页id product_category_id 产品类型id user_group_id
+用户所属群组id gender 性别 age_level 年龄等级 user_depth 用户价值深度
+var_1 匿名特征 isClick 是否点击，1为点击，0为未点击</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data = pd.concat([train,test],ignore_index=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data[<span class="hljs-string">&#x27;day_id&#x27;</span>] = data[<span class="hljs-string">&#x27;date&#x27;</span>].apply(<span class="hljs-keyword">lambda</span> x:<span class="hljs-built_in">int</span>(x[<span class="hljs-number">3</span>:<span class="hljs-number">5</span>]))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data[<span class="hljs-string">&#x27;minute_id&#x27;</span>]=data[<span class="hljs-string">&#x27;date&#x27;</span>].apply(<span class="hljs-keyword">lambda</span> x:<span class="hljs-built_in">int</span>(x[-<span class="hljs-number">5</span>:-<span class="hljs-number">3</span>])*<span class="hljs-number">60</span> + <span class="hljs-built_in">int</span>(x[-<span class="hljs-number">2</span>:]))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data<br></code></pre></td></tr></table></figure>
+<h2 id="特征工程">特征工程</h2>
+<h4 id="构建用户每天前后两次浏览行为之间的时间间隔及其衍生均值特征-因为用户浏览时间往往和其是否点击具有相关性">构建用户每天前后两次浏览行为之间的时间间隔及其衍生均值特征,
+因为用户浏览时间往往和其是否点击具有相关性</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data[<span class="hljs-string">&#x27;minute_id&#x27;</span>].shift(-<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0            0.0
+1            0.0
+2            0.0
+3            1.0
+4            1.0
+           ...  
+463286    1439.0
+463287    1439.0
+463288    1439.0
+463289    1439.0
+463290       NaN
+Name: minute_id, Length: 463291, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id&#x27;</span>].apply(<span class="hljs-keyword">lambda</span> x :x.shift(-<span class="hljs-number">1</span>) -x)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0         NaN
+1         0.0
+2         2.0
+3         NaN
+4         NaN
+         ... 
+463286    NaN
+463287    NaN
+463288    0.0
+463289    NaN
+463290    NaN
+Name: minute_id, Length: 463291, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id&#x27;</span>].agg(<span class="hljs-keyword">lambda</span> x :x.shift(-<span class="hljs-number">1</span>) -x)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">user_id  day_id
+0        2                                              NaN
+         6                                              NaN
+1        2                                  [0.0, 2.0, nan]
+2        2                                              NaN
+         3         [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 6.0, nan]
+                                     ...                   
+150342   7                                       [0.0, nan]
+150343   7                                              NaN
+150344   7                                              NaN
+150345   7                                              NaN
+150346   7                                       [0.0, nan]
+Name: minute_id, Length: 249625, dtype: object</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id&#x27;</span>].transform(<span class="hljs-keyword">lambda</span> x :x.shift(-<span class="hljs-number">1</span>) -x)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0         NaN
+1         0.0
+2         2.0
+3         NaN
+4         NaN
+         ... 
+463286    NaN
+463287    NaN
+463288    0.0
+463289    NaN
+463290    NaN
+Name: minute_id, Length: 463291, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data[<span class="hljs-string">&#x27;minute_id_diff&#x27;</span>] = data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id&#x27;</span>].transform(<span class="hljs-keyword">lambda</span> x :x.shift(-<span class="hljs-number">1</span>) -x)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id_diff&#x27;</span>].transform(<span class="hljs-string">&#x27;mean&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0           NaN
+1           1.0
+2           1.0
+3           NaN
+4           NaN
+          ...  
+463286      NaN
+463287     34.0
+463288    154.8
+463289    154.8
+463290     26.0
+Name: minute_id_diff, Length: 463291, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id_diff&#x27;</span>].agg(<span class="hljs-string">&#x27;mean&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">user_id  day_id
+0        2              NaN
+         6              NaN
+1        2         1.000000
+2        2              NaN
+         3         1.142857
+                     ...   
+150342   7         0.000000
+150343   7              NaN
+150344   7              NaN
+150345   7              NaN
+150346   7         0.000000
+Name: minute_id_diff, Length: 249625, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id_diff&#x27;</span>].mean()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">user_id  day_id
+0        2              NaN
+         6              NaN
+1        2         1.000000
+2        2              NaN
+         3         1.142857
+                     ...   
+150342   7         0.000000
+150343   7              NaN
+150344   7              NaN
+150345   7              NaN
+150346   7         0.000000
+Name: minute_id_diff, Length: 249625, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data[<span class="hljs-string">&#x27;minute_id_diff_mean&#x27;</span>] = data.groupby([<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;day_id&#x27;</span>])[<span class="hljs-string">&#x27;minute_id_diff&#x27;</span>].transform(<span class="hljs-string">&#x27;mean&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;product&#x27;</span>,<span class="hljs-string">&#x27;campaign_id&#x27;</span>,<span class="hljs-string">&#x27;webpage_id&#x27;</span>,<span class="hljs-string">&#x27;product_category_id&#x27;</span>,<span class="hljs-string">&#x27;user_group_id&#x27;</span>]:<br>    data[<span class="hljs-string">&#x27;&#123;&#125;_count&#x27;</span>.<span class="hljs-built_in">format</span>(col)] = data.groupby(col)[<span class="hljs-string">&#x27;minute_id&#x27;</span>].transform(<span class="hljs-string">&#x27;count&#x27;</span>)<br>    <br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">data.columns<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">Index([&#39;id&#39;, &#39;date&#39;, &#39;user_id&#39;, &#39;product&#39;, &#39;campaign_id&#39;, &#39;webpage_id&#39;,
+       &#39;product_category_id&#39;, &#39;user_group_id&#39;, &#39;gender&#39;, &#39;age_level&#39;,
+       &#39;user_depth&#39;, &#39;var_1&#39;, &#39;isClick&#39;, &#39;day_id&#39;, &#39;minute_id&#39;,
+       &#39;minute_id_diff&#39;, &#39;minute_id_diff_mean&#39;, &#39;user_id_count&#39;,
+       &#39;product_count&#39;, &#39;campaign_id_count&#39;, &#39;webpage_id_count&#39;,
+       &#39;product_category_id_count&#39;, &#39;user_group_id_count&#39;],
+      dtype=&#39;object&#39;)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">ycol = <span class="hljs-string">&#x27;isClick&#x27;</span><br>drop_list = [<br>    ycol,<br>    <span class="hljs-string">&#x27;id&#x27;</span>,<br>    <span class="hljs-string">&#x27;date&#x27;</span><br>]<br><br>features = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data.columns <span class="hljs-keyword">if</span> x <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> drop_list]<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;使用&#123;&#125; 个特征:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">len</span>(features),features))<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">使用20 个特征:[&#39;user_id&#39;, &#39;product&#39;, &#39;campaign_id&#39;, &#39;webpage_id&#39;, &#39;product_category_id&#39;, &#39;user_group_id&#39;, &#39;gender&#39;, &#39;age_level&#39;, &#39;user_depth&#39;, &#39;var_1&#39;, &#39;day_id&#39;, &#39;minute_id&#39;, &#39;minute_id_diff&#39;, &#39;minute_id_diff_mean&#39;, &#39;user_id_count&#39;, &#39;product_count&#39;, &#39;campaign_id_count&#39;, &#39;webpage_id_count&#39;, &#39;product_category_id_count&#39;, &#39;user_group_id_count&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 下列特征转化为类别特征</span><br>categorical_feature = [<br>    <span class="hljs-string">&#x27;user_id&#x27;</span>,<br>    <span class="hljs-string">&#x27;product&#x27;</span>,<br>    <span class="hljs-string">&#x27;campaign_id&#x27;</span>,<br>    <span class="hljs-string">&#x27;webpage_id&#x27;</span>,<br>    <span class="hljs-string">&#x27;product_category_id&#x27;</span>,<br>    <span class="hljs-string">&#x27;user_group_id&#x27;</span>,<br>    <span class="hljs-string">&#x27;gender&#x27;</span>,<br>    <span class="hljs-string">&#x27;age_level&#x27;</span>,<br>    <span class="hljs-string">&#x27;user_depth&#x27;</span>,<br>]<br><br><span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> categorical_feature:<br>    data[col] = data[col].astype(<span class="hljs-string">&#x27;category&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train = data[~data[ycol].isnull()]<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test = data[data[ycol].isnull()]<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train.shape<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">(391825, 23)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test.shape<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">(71466, 23)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">del</span>(data)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">gc.collect()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0</code></pre></div>
+<h2 id="五折交叉验证训练模型">五折交叉验证训练模型</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">NFLOD =<span class="hljs-number">5</span><br>random_state = <span class="hljs-number">2021</span><br>KF = StratifiedKFold(n_splits = NFLOD,shuffle=<span class="hljs-literal">True</span>,random_state=random_state)<br><br>params_lgb = &#123;<br>    <span class="hljs-string">&#x27;boosting&#x27;</span>:<span class="hljs-string">&#x27;gbdt&#x27;</span>,<br>    <span class="hljs-string">&#x27;objective&#x27;</span>:<span class="hljs-string">&#x27;binary&#x27;</span>,<br>    <span class="hljs-string">&#x27;metric&#x27;</span>:<span class="hljs-string">&#x27;auc&#x27;</span>,<br>    <span class="hljs-string">&#x27;force_row_size&#x27;</span>:<span class="hljs-literal">True</span>,<br>    <span class="hljs-string">&#x27;random_state&#x27;</span>:random_state,<br>    <span class="hljs-string">&#x27;learning_rate&#x27;</span>:<span class="hljs-number">0.03</span>,<br>    <span class="hljs-string">&#x27;max_depth&#x27;</span>:<span class="hljs-number">8</span>,<br>    <span class="hljs-string">&#x27;num_leaves&#x27;</span>:<span class="hljs-number">40</span>,<br>    <span class="hljs-string">&#x27;subsamples&#x27;</span>:<span class="hljs-number">0.8</span>,<br>    <span class="hljs-string">&#x27;subsample_freq&#x27;</span>:<span class="hljs-number">3</span>,<br>    <span class="hljs-string">&#x27;colsample_bytree&#x27;</span>:<span class="hljs-number">0.8</span>,<br>    <span class="hljs-string">&#x27;n_jobs&#x27;</span>:-<span class="hljs-number">1</span>,<br>    <span class="hljs-string">&#x27;verbose&#x27;</span>:-<span class="hljs-number">1</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">oof_lgb = np.zeros(<span class="hljs-built_in">len</span>(train))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">predictions_lgb = np.zeros(<span class="hljs-built_in">len</span>(test))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df_importance_list = []<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 五折交叉验证</span><br><span class="hljs-keyword">for</span> fold_,(trn_idx,val_idx) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(KF.split(train[features],train[ycol])):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;------------fold&#123;&#125;-----------&#x27;</span>.<span class="hljs-built_in">format</span>(fold_ + <span class="hljs-number">1</span>))<br>    trn_data = lgb.Dataset(train.iloc[trn_idx][features] , label=train.iloc[trn_idx][ycol])<br>    val_data = lgb.Dataset(train.iloc[val_idx][features], label=train.iloc[val_idx][ycol],reference=trn_data)<br>    <br>    clf_lgb = lgb.train(<br>        params = params_lgb,<br>        train_set = trn_data,<br>        valid_sets = [trn_data,val_data],<br>        valid_names = (<span class="hljs-string">&#x27;train&#x27;</span>,<span class="hljs-string">&#x27;val&#x27;</span>),<br>        num_boost_round = <span class="hljs-number">50000</span>,<br>        early_stopping_rounds = <span class="hljs-number">200</span>,<br>        verbose_eval = <span class="hljs-number">100</span>,<br>    )<br>    <br>    oof_lgb[val_idx] = clf_lgb.predict(train.iloc[val_idx][features],num_iteration=clf_lgb.best_iteration)<br>    predictions_lgb[:] += (clf_lgb.predict(test[features],num_iteration = clf_lgb.best_iteration)/ NFLOD)<br>    <br>    df_importance = pd.DataFrame(&#123;<br>        <span class="hljs-string">&#x27;column&#x27;</span>:features,<br>        <span class="hljs-string">&#x27;importance_split&#x27;</span>:clf_lgb.feature_importance(importance_type = <span class="hljs-string">&#x27;split&#x27;</span>),<br>        <span class="hljs-string">&#x27;importance_gain&#x27;</span>:clf_lgb.feature_importance(importance_type = <span class="hljs-string">&#x27;gain&#x27;</span>)<br>    &#125;)<br>    <br>    df_importance_list.append(df_importance)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">------------fold1-----------
+[LightGBM] [Warning] Unknown parameter: subsamples
+[LightGBM] [Warning] Unknown parameter: force_row_size
+
+
+/Users/gaozhiyong/Documents/pyenv/pyenv3.6/lib/python3.6/site-packages/lightgbm/basic.py:1433: UserWarning: Overriding the parameters from Reference Dataset.
+  _log_warning(&#39;Overriding the parameters from Reference Dataset.&#39;)
+/Users/gaozhiyong/Documents/pyenv/pyenv3.6/lib/python3.6/site-packages/lightgbm/basic.py:1245: UserWarning: categorical_column in param dict is overridden.
+  _log_warning(&#39;&#123;&#125; in param dict is overridden.&#39;.format(cat_alias))
+
+
+Training until validation scores don&#39;t improve for 200 rounds
+[100]   train&#39;s auc: 0.677174   val&#39;s auc: 0.628599
+[200]   train&#39;s auc: 0.690672   val&#39;s auc: 0.63003
+[300]   train&#39;s auc: 0.702212   val&#39;s auc: 0.631905
+[400]   train&#39;s auc: 0.711116   val&#39;s auc: 0.632443
+[500]   train&#39;s auc: 0.7182 val&#39;s auc: 0.632929
+[600]   train&#39;s auc: 0.725516   val&#39;s auc: 0.632789
+Early stopping, best iteration is:
+[499]   train&#39;s auc: 0.718131   val&#39;s auc: 0.632934
+------------fold2-----------
+[LightGBM] [Warning] Unknown parameter: subsamples
+[LightGBM] [Warning] Unknown parameter: force_row_size
+Training until validation scores don&#39;t improve for 200 rounds
+[100]   train&#39;s auc: 0.679197   val&#39;s auc: 0.620851
+[200]   train&#39;s auc: 0.693258   val&#39;s auc: 0.622213
+[300]   train&#39;s auc: 0.703885   val&#39;s auc: 0.623473
+[400]   train&#39;s auc: 0.714255   val&#39;s auc: 0.62404
+[500]   train&#39;s auc: 0.720288   val&#39;s auc: 0.624115
+[600]   train&#39;s auc: 0.726659   val&#39;s auc: 0.624428
+[700]   train&#39;s auc: 0.732689   val&#39;s auc: 0.624295
+[800]   train&#39;s auc: 0.73929    val&#39;s auc: 0.624619
+[900]   train&#39;s auc: 0.744832   val&#39;s auc: 0.624663
+[1000]  train&#39;s auc: 0.754675   val&#39;s auc: 0.62499
+[1100]  train&#39;s auc: 0.759126   val&#39;s auc: 0.624757
+[1200]  train&#39;s auc: 0.763615   val&#39;s auc: 0.62502
+[1300]  train&#39;s auc: 0.769984   val&#39;s auc: 0.624564
+Early stopping, best iteration is:
+[1164]  train&#39;s auc: 0.761882   val&#39;s auc: 0.625101
+------------fold3-----------
+[LightGBM] [Warning] Unknown parameter: subsamples
+[LightGBM] [Warning] Unknown parameter: force_row_size
+Training until validation scores don&#39;t improve for 200 rounds
+[100]   train&#39;s auc: 0.677937   val&#39;s auc: 0.623831
+[200]   train&#39;s auc: 0.691909   val&#39;s auc: 0.6257
+[300]   train&#39;s auc: 0.702329   val&#39;s auc: 0.626483
+[400]   train&#39;s auc: 0.712792   val&#39;s auc: 0.626889
+[500]   train&#39;s auc: 0.719476   val&#39;s auc: 0.627282
+[600]   train&#39;s auc: 0.726372   val&#39;s auc: 0.627444
+[700]   train&#39;s auc: 0.732891   val&#39;s auc: 0.627488
+[800]   train&#39;s auc: 0.739184   val&#39;s auc: 0.627696
+[900]   train&#39;s auc: 0.747272   val&#39;s auc: 0.62776
+Early stopping, best iteration is:
+[756]   train&#39;s auc: 0.736675   val&#39;s auc: 0.627805
+------------fold4-----------
+[LightGBM] [Warning] Unknown parameter: subsamples
+[LightGBM] [Warning] Unknown parameter: force_row_size
+Training until validation scores don&#39;t improve for 200 rounds
+[100]   train&#39;s auc: 0.678244   val&#39;s auc: 0.632375
+[200]   train&#39;s auc: 0.693808   val&#39;s auc: 0.633363
+[300]   train&#39;s auc: 0.703073   val&#39;s auc: 0.633338
+[400]   train&#39;s auc: 0.712667   val&#39;s auc: 0.633605
+Early stopping, best iteration is:
+[212]   train&#39;s auc: 0.695547   val&#39;s auc: 0.633654
+------------fold5-----------
+[LightGBM] [Warning] Unknown parameter: subsamples
+[LightGBM] [Warning] Unknown parameter: force_row_size
+Training until validation scores don&#39;t improve for 200 rounds
+[100]   train&#39;s auc: 0.677896   val&#39;s auc: 0.627158
+[200]   train&#39;s auc: 0.692087   val&#39;s auc: 0.628503
+[300]   train&#39;s auc: 0.701904   val&#39;s auc: 0.62927
+[400]   train&#39;s auc: 0.711159   val&#39;s auc: 0.629929
+[500]   train&#39;s auc: 0.718229   val&#39;s auc: 0.629463
+[600]   train&#39;s auc: 0.725839   val&#39;s auc: 0.629527
+Early stopping, best iteration is:
+[401]   train&#39;s auc: 0.711302   val&#39;s auc: 0.630001</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">valid_auc_score = roc_auc_score(train[ycol],oof_lgb)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">valid_auc_score<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0.629614298701527</code></pre></div>
+<h2 id="特征重要性">特征重要性</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df_features_importances= pd.concat(df_importance_list)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df_features_importance= df_features_importances.groupby(<span class="hljs-string">&#x27;column&#x27;</span>).mean().reset_index()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df_features_importance<br></code></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+column
+</th>
+<th>
+importance_split
+</th>
+<th>
+importance_gain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+age_level
+</td>
+<td>
+40.2
+</td>
+<td>
+407.363945
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+campaign_id
+</td>
+<td>
+565.6
+</td>
+<td>
+17419.711442
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+campaign_id_count
+</td>
+<td>
+1049.4
+</td>
+<td>
+5384.477741
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+day_id
+</td>
+<td>
+1194.6
+</td>
+<td>
+9639.523684
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+gender
+</td>
+<td>
+54.6
+</td>
+<td>
+253.445407
+</td>
+</tr>
+<tr>
+<th>
+5
+</th>
+<td>
+minute_id
+</td>
+<td>
+3935.8
+</td>
+<td>
+22181.027330
+</td>
+</tr>
+<tr>
+<th>
+6
+</th>
+<td>
+minute_id_diff
+</td>
+<td>
+3431.4
+</td>
+<td>
+23767.593485
+</td>
+</tr>
+<tr>
+<th>
+7
+</th>
+<td>
+minute_id_diff_mean
+</td>
+<td>
+3201.4
+</td>
+<td>
+21643.519522
+</td>
+</tr>
+<tr>
+<th>
+8
+</th>
+<td>
+product
+</td>
+<td>
+489.6
+</td>
+<td>
+6321.783218
+</td>
+</tr>
+<tr>
+<th>
+9
+</th>
+<td>
+product_category_id
+</td>
+<td>
+176.8
+</td>
+<td>
+2965.427346
+</td>
+</tr>
+<tr>
+<th>
+10
+</th>
+<td>
+product_category_id_count
+</td>
+<td>
+970.4
+</td>
+<td>
+6571.430858
+</td>
+</tr>
+<tr>
+<th>
+11
+</th>
+<td>
+product_count
+</td>
+<td>
+1215.4
+</td>
+<td>
+7685.000637
+</td>
+</tr>
+<tr>
+<th>
+12
+</th>
+<td>
+user_depth
+</td>
+<td>
+151.4
+</td>
+<td>
+900.218823
+</td>
+</tr>
+<tr>
+<th>
+13
+</th>
+<td>
+user_group_id
+</td>
+<td>
+395.0
+</td>
+<td>
+3675.279637
+</td>
+</tr>
+<tr>
+<th>
+14
+</th>
+<td>
+user_group_id_count
+</td>
+<td>
+610.2
+</td>
+<td>
+3107.873730
+</td>
+</tr>
+<tr>
+<th>
+15
+</th>
+<td>
+user_id
+</td>
+<td>
+3435.2
+</td>
+<td>
+67579.315769
+</td>
+</tr>
+<tr>
+<th>
+16
+</th>
+<td>
+user_id_count
+</td>
+<td>
+2032.4
+</td>
+<td>
+31719.678195
+</td>
+</tr>
+<tr>
+<th>
+17
+</th>
+<td>
+var_1
+</td>
+<td>
+248.8
+</td>
+<td>
+1597.959461
+</td>
+</tr>
+<tr>
+<th>
+18
+</th>
+<td>
+webpage_id
+</td>
+<td>
+91.6
+</td>
+<td>
+2045.332514
+</td>
+</tr>
+<tr>
+<th>
+19
+</th>
+<td>
+webpage_id_count
+</td>
+<td>
+359.8
+</td>
+<td>
+1744.924732
+</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df_features_importance.sort_values(<span class="hljs-string">&#x27;importance_gain&#x27;</span>,ascending=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+column
+</th>
+<th>
+importance_split
+</th>
+<th>
+importance_gain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+15
+</th>
+<td>
+user_id
+</td>
+<td>
+3435.2
+</td>
+<td>
+67579.315769
+</td>
+</tr>
+<tr>
+<th>
+16
+</th>
+<td>
+user_id_count
+</td>
+<td>
+2032.4
+</td>
+<td>
+31719.678195
+</td>
+</tr>
+<tr>
+<th>
+6
+</th>
+<td>
+minute_id_diff
+</td>
+<td>
+3431.4
+</td>
+<td>
+23767.593485
+</td>
+</tr>
+<tr>
+<th>
+5
+</th>
+<td>
+minute_id
+</td>
+<td>
+3935.8
+</td>
+<td>
+22181.027330
+</td>
+</tr>
+<tr>
+<th>
+7
+</th>
+<td>
+minute_id_diff_mean
+</td>
+<td>
+3201.4
+</td>
+<td>
+21643.519522
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+campaign_id
+</td>
+<td>
+565.6
+</td>
+<td>
+17419.711442
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+day_id
+</td>
+<td>
+1194.6
+</td>
+<td>
+9639.523684
+</td>
+</tr>
+<tr>
+<th>
+11
+</th>
+<td>
+product_count
+</td>
+<td>
+1215.4
+</td>
+<td>
+7685.000637
+</td>
+</tr>
+<tr>
+<th>
+10
+</th>
+<td>
+product_category_id_count
+</td>
+<td>
+970.4
+</td>
+<td>
+6571.430858
+</td>
+</tr>
+<tr>
+<th>
+8
+</th>
+<td>
+product
+</td>
+<td>
+489.6
+</td>
+<td>
+6321.783218
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+campaign_id_count
+</td>
+<td>
+1049.4
+</td>
+<td>
+5384.477741
+</td>
+</tr>
+<tr>
+<th>
+13
+</th>
+<td>
+user_group_id
+</td>
+<td>
+395.0
+</td>
+<td>
+3675.279637
+</td>
+</tr>
+<tr>
+<th>
+14
+</th>
+<td>
+user_group_id_count
+</td>
+<td>
+610.2
+</td>
+<td>
+3107.873730
+</td>
+</tr>
+<tr>
+<th>
+9
+</th>
+<td>
+product_category_id
+</td>
+<td>
+176.8
+</td>
+<td>
+2965.427346
+</td>
+</tr>
+<tr>
+<th>
+18
+</th>
+<td>
+webpage_id
+</td>
+<td>
+91.6
+</td>
+<td>
+2045.332514
+</td>
+</tr>
+<tr>
+<th>
+19
+</th>
+<td>
+webpage_id_count
+</td>
+<td>
+359.8
+</td>
+<td>
+1744.924732
+</td>
+</tr>
+<tr>
+<th>
+17
+</th>
+<td>
+var_1
+</td>
+<td>
+248.8
+</td>
+<td>
+1597.959461
+</td>
+</tr>
+<tr>
+<th>
+12
+</th>
+<td>
+user_depth
+</td>
+<td>
+151.4
+</td>
+<td>
+900.218823
+</td>
+</tr>
+<tr>
+<th>
+0
+</th>
+<td>
+age_level
+</td>
+<td>
+40.2
+</td>
+<td>
+407.363945
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+gender
+</td>
+<td>
+54.6
+</td>
+<td>
+253.445407
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="预测">预测</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test.head()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test.columns<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">Index([&#39;id&#39;, &#39;date&#39;, &#39;user_id&#39;, &#39;product&#39;, &#39;campaign_id&#39;, &#39;webpage_id&#39;,
+       &#39;product_category_id&#39;, &#39;user_group_id&#39;, &#39;gender&#39;, &#39;age_level&#39;,
+       &#39;user_depth&#39;, &#39;var_1&#39;, &#39;isClick&#39;, &#39;day_id&#39;, &#39;minute_id&#39;,
+       &#39;minute_id_diff&#39;, &#39;minute_id_diff_mean&#39;, &#39;user_id_count&#39;,
+       &#39;product_count&#39;, &#39;campaign_id_count&#39;, &#39;webpage_id_count&#39;,
+       &#39;product_category_id_count&#39;, &#39;user_group_id_count&#39;],
+      dtype=&#39;object&#39;)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test.loc[:,ycol] = predictions_lgb<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">/Users/gaozhiyong/Documents/pyenv/pyenv3.6/lib/python3.6/site-packages/pandas/core/indexing.py:1743: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  isetter(ilocs[0], value)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test.loc[:,ycol]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">391825    0.082708
+391826    0.084275
+391827    0.046645
+391828    0.050657
+391829    0.126505
+            ...   
+463286    0.079529
+463287    0.041204
+463288    0.046967
+463289    0.048984
+463290    0.078428
+Name: isClick, Length: 71466, dtype: float64</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test[[<span class="hljs-string">&#x27;id&#x27;</span>,ycol]]<br></code></pre></td></tr></table></figure>
+<h2 id="保存预测结果">保存预测结果</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test[[<span class="hljs-string">&#x27;user_id&#x27;</span>,<span class="hljs-string">&#x27;product&#x27;</span>,<span class="hljs-string">&#x27;campaign_id&#x27;</span>,ycol]].to_csv(<span class="hljs-string">&#x27;res.csv&#x27;</span>,index=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CTR/">CTR</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/17/%E5%9F%BA%E4%BA%8ELSTM-CRF%E7%9A%84%E4%B8%AD%E6%96%87%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于LSTM+CRF的中文命名实体识别</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/01/lstm/">
+                        <span class="hidden-mobile">LSTM</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

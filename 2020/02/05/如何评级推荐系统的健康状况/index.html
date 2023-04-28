@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="如何评估推荐系统的健康状况？ 推荐系统的常见指标 推荐系统的评价指标，要从解决实际问题的角度来思考。 好的推荐系统，不仅要保证自身系统的健壮度，好要满足服务平台、用户等多方面的需求。 用户角度 更方便更快速的发现自己喜欢的产品 精准度 更多的为用户主观感受，评估的是推荐的物品是不是用户喜欢的 惊喜度 推荐的物品让用户有心情跳动的惊喜感觉，比如发现多年前的记忆、耳目一新的内容、用户听过的但是不知名字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何评估推荐系统的健康状况？">
+<meta property="og:url" content="http://oceaneyes.top/2020/02/05/%E5%A6%82%E4%BD%95%E8%AF%84%E7%BA%A7%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%81%A5%E5%BA%B7%E7%8A%B6%E5%86%B5/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="如何评估推荐系统的健康状况？ 推荐系统的常见指标 推荐系统的评价指标，要从解决实际问题的角度来思考。 好的推荐系统，不仅要保证自身系统的健壮度，好要满足服务平台、用户等多方面的需求。 用户角度 更方便更快速的发现自己喜欢的产品 精准度 更多的为用户主观感受，评估的是推荐的物品是不是用户喜欢的 惊喜度 推荐的物品让用户有心情跳动的惊喜感觉，比如发现多年前的记忆、耳目一新的内容、用户听过的但是不知名字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2020-02-05T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.192Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="产品">
+<meta property="article:tag" content="推荐">
+<meta property="article:tag" content="策略">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>如何评估推荐系统的健康状况？ - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="如何评估推荐系统的健康状况？">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-05 23:00" pubdate>
+        2020年2月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">如何评估推荐系统的健康状况？</h1>
+            
+            <div class="markdown-body">
+              <h1 id="如何评估推荐系统的健康状况">如何评估推荐系统的健康状况？</h1>
+<h2 id="推荐系统的常见指标">推荐系统的常见指标</h2>
+<p>推荐系统的评价指标，要从解决实际问题的角度来思考。</p>
+<p>好的推荐系统，不仅要保证自身系统的健壮度，好要满足服务平台、用户等多方面的需求。</p>
+<h3 id="用户角度">用户角度</h3>
+<p>更方便更快速的发现自己喜欢的产品</p>
+<h4 id="精准度">精准度</h4>
+<p>更多的为用户主观感受，评估的是推荐的物品是不是用户喜欢的</p>
+<h4 id="惊喜度">惊喜度</h4>
+<p>推荐的物品让用户有心情跳动的惊喜感觉，比如发现多年前的记忆、耳目一新的内容、用户听过的但是不知名字的音乐，看过片段却不知道名字的电影、知道功能却不知道名字的商品</p>
+<p>此类推荐和用户兴趣不一定相似，但是却给用户带来意外之喜，超出用户的预期</p>
+<h4 id="新颖性">新颖性</h4>
+<p>推荐用户没有接触过的东西，不一定是用户最喜欢的，但可以提升用户的探索欲望，从而获得更完整的用户兴趣</p>
+<h4 id="多样性">多样性</h4>
+<p>推荐的更多的品类，可以挖掘用户潜在的兴趣点，拓展用户的兴趣范围来提升用户的推荐体验</p>
+<h3 id="平台角度">平台角度</h3>
+<p>平台方为用户提供物品或信息。</p>
+<p>不同平台的获利方式不同，比如有的靠会员模式、有的通过商品、大部分则通过广告</p>
+<p>对多数平台来说商业目标是最重要的目标之一</p>
+<h4 id="内容满意度">内容满意度</h4>
+<p>由于业务场景不同，内容满意的指标也会随之变化，主要是通过用户对产品的不同行为来衡量</p>
+<ul>
+<li>资讯
+<ul>
+<li>阅读-----阅读时长----分享评论</li>
+</ul></li>
+<li>电商
+<ul>
+<li>点击----浏览-----收藏购物车----购买-----好评----复购</li>
+</ul></li>
+<li>短视频
+<ul>
+<li>播放----播放时长-----分享、点赞、评论-----关注 ------跟拍</li>
+</ul></li>
+<li>音乐
+<ul>
+<li>播放-----播放时长-----分享、收藏、评论</li>
+</ul></li>
+</ul>
+<h4 id="场景转化率">场景转化率</h4>
+<p>转化率指标更为直观，给用推荐内容，是希望用户对推荐的内容有所行动，比如点击行为、点赞行为</p>
+<h5 id="pv点击率点击量pv">pv点击率（点击量/pv）</h5>
+<p>粗略的衡量转化效果，但如果少数用户贡献大量点击时，容易覆盖该指标的真实性</p>
+<h5 id="uv点击率点击量uv">uv点击率（点击量/uv）</h5>
+<p>可记录用户在一个完整周期内的点击效果，不会因用户重复浏览某个内容而受影响</p>
+<h5 id="曝光点击率点击量曝光次数">曝光点击率（点击量/曝光次数）</h5>
+<p>更适合长页面、信息流等需要上拉、下拉翻页的产品，曝光次数随用户刷屏次数增加而变大，真实记录每一屏的转化效果</p>
+<h5 id="uv转化率转化次数点击量">uv转化率（转化次数/点击量）</h5>
+<p>衡量用户转化情况，用户从一个场景转化到另一个场景去，用来评估用户的宽度</p>
+<h5 id="人均点击次数点击量点击uv数">人均点击次数（点击量/点击uv数）</h5>
+<p>每个用户的点击次数，可用来评价用户的深度</p>
+<h2 id="推荐系统的离线评估">推荐系统的离线评估</h2>
+<p>推荐系统自身的评估，推荐系统从接受数据到产生推荐结果，再根据推荐结果的影响重新修正自身。</p>
+<p>推荐算法训练--（离线评价）----模型上线----（在线评价）---推荐内容---（在线评价）------行为日志收集分析---&gt;&gt;迭代优化推荐算法</p>
+<h3 id="准确度">准确度</h3>
+<p>准确度评估主要是评估推荐算法模型的好坏，为选择合适的模型提供决策支持。</p>
+<p>数据划分为训练集、测试集；</p>
+<p>使用训练集学习训练模型；</p>
+<p>使用测试集来衡量误差以及评估准确度；</p>
+<p>根据推荐系统目的不同，准确度的衡量也不同：</p>
+<h4 id="分类问题">分类问题</h4>
+<p>比如点击、不点击； 喜欢、不喜欢；</p>
+<ul>
+<li><p>精确度precision：推荐结果有多少是用户喜欢的</p></li>
+<li><p>召回率recall：用户喜欢的产品，有多少个是推荐系统推荐的</p></li>
+</ul>
+<p>通常希望两个指标都越大越好，但实际需平衡两个指标都关系，所以长远F-指标来作为平衡二者关系的计算方式</p>
+<h4 id="评分预测">评分预测</h4>
+<p>对产品惊醒评分，电影评分</p>
+<ul>
+<li>均方根差RMSE</li>
+<li>MAE 平均绝对误差</li>
+</ul>
+<p>用于描述与测评分与产品真实评分的差距</p>
+<h4 id="排序问题">排序问题</h4>
+<p>分类、评分只是把推荐产品晒出来，不包含展示顺序，而如果要把用户最可能消费的产品放在前面，则需要排序指标。</p>
+<ul>
+<li><p>AUC，随机挑选一个正样本，一个负样本，正样本排在负样本前的概率</p>
+<p>当算法能更好的把证样本排在前边的时候，就是一个好的算法模型</p></li>
+<li><p>MAP，推荐列表中和用户相关的产品在推荐列表中的位置得分，越靠前分越大</p></li>
+<li><p>MRR，按照跟用户相关的产品的排名的倒数作为精确度</p></li>
+<li><p>NDGC，推荐列表中每一个产品评分值的累加；同时考虑每个产品位置，最后进行归一化，在同一标准上评价不同的推荐列表</p></li>
+</ul>
+<h3 id="覆盖率">覆盖率</h3>
+<p>推荐出的产品占总产品的比例</p>
+<h3 id="多样性-1">多样性</h3>
+<p>用户兴趣不是一成不变的，统一用户的兴趣会受到时间段、心情、节日等多种因素影响。推荐时要尽量推荐更多的品类。</p>
+<p>可通过对产品聚类，在推荐列表中插入不同类别产品类提高多样性</p>
+<h3 id="时效性">时效性</h3>
+<p>不同产品的时效性不同，比如电商产品时效性不是很高，但新闻、资讯、短视频之类的产品，就需要很高的时效性。</p>
+<p>针对不同的产品，甚至产品下不同的类目，设置不同的时效性，也是提高推荐质量的途径之一。</p>
+<h2 id="推荐系统的在线评估">推荐系统的在线评估</h2>
+<p>在线评估分为两个阶段：用户触发推荐服务、用户产生行为</p>
+<h3 id="触发推荐服务">触发推荐服务</h3>
+<h4 id="稳定性">稳定性</h4>
+<p>系统稳定性对于用户体验至关重要，怎样针对不同场景持续稳定的提供推荐服务，是推荐系统的最重要的指标之一，提升推荐效果也要在保证系统稳定的前提下去进行优化</p>
+<h4 id="高并发">高并发</h4>
+<p>当某个时间节点大量用户访问，或用户规模急速扩大时，系统能否扛住高并发的压力，也是个很大的挑战。</p>
+<p>了解接口的高并发能力，做好充分的压力测试</p>
+<h4 id="响应时间">响应时间</h4>
+<p>衡量用户能否及时得到推荐反馈，response time
+受多种因素影响，比如网络情况、服务器、数据库等，可通过监控请求的时长，接口监控，数据监控，做好报警措施</p>
+<h3 id="产生行为">产生行为</h3>
+<p>用户产生行为，通过收集分析用户的行为日志进行相关指标的评价</p>
+<p><strong>示例：</strong></p>
+<p>1、推荐的曝光点击转化率</p>
+<p>2、推荐的点击访问转化率</p>
+<p>3、推荐的访问购买转化率</p>
+<p><strong>示例：</strong></p>
+<p>1、推荐曝光</p>
+<p>2、点击 （曝光点击转化率）</p>
+<p>3、阅读（点击阅读转化率）</p>
+<p>4、分享（阅读分享转化率）</p>
+<h2 id="ab测试">AB测试</h2>
+<p>在线评估通常会结合AB测试</p>
+<h3 id="什么是ab测试">什么是AB测试</h3>
+<p>AB测试本质为对照实验，来源于医学的双盲测试，通过给两组病人不同的药物，来确定药物是否有效。</p>
+<p>AB测试：将不同的算法/策略，在同一时间维度，分别在两组或者多组
+组成成分相同的用户群体内容进行线上测试，分析各组用户的行为指标，得到可以真正全流量上线的算法和策略</p>
+<h3 id="ab测试常见做法">AB测试常见做法</h3>
+<p><strong>==核心：控制变量、分流测试、规则统一==</strong></p>
+<h4 id="控制变量">控制变量</h4>
+<p>AB测试必须是单变量的，变量太多会产生干扰，很难找到各个变量对结果的影响程度。</p>
+<h4 id="分流测试">分流测试</h4>
+<p>AB测试作为对照试验，自然要有 试验组和对照组。通常会对用户进行分流</p>
+<ul>
+<li>用户ID</li>
+<li>设备号</li>
+<li>浏览器cookie</li>
+<li>约定生成的伪随机数，0，1大数定律</li>
+</ul>
+<h4 id="规则统一">规则统一</h4>
+<p>在控制变量和分流测试的前提下，针对不同的流量，应制定相同的评价指标，才能得到准确的对比效果。</p>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/%E7%AD%96%E7%95%A5/">策略</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%A8%E8%8D%90/">推荐</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AD%96%E7%95%A5/">策略</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/05/%E4%B8%80%E4%B8%AA%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一个策略产品的自我修养</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/04/%E7%A4%BE%E5%8C%BA%E5%9E%8B%E4%BA%A7%E5%93%81%E7%94%9F%E5%91%BD%E5%8A%9B%E9%A1%BD%E5%BC%BA%E7%9A%84%E5%8E%9F%E5%9B%A0%E7%A9%B6%E7%AB%9F%E4%BD%95%E5%9C%A8%EF%BC%9F/">
+                        <span class="hidden-mobile">社区产品生命力顽强的原因究竟何在？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

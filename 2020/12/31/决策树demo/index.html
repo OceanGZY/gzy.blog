@@ -1,0 +1,1003 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="决策树 决策树的一个重要任务是为了数据中所蕴含的知识信息  决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程 k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解  决策数的构造  优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据 缺点：可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="决策树demo">
+<meta property="og:url" content="http://oceaneyes.top/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="决策树 决策树的一个重要任务是为了数据中所蕴含的知识信息  决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程 k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解  决策数的构造  优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据 缺点：可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:b820e520-1b96-4c05-ad79-c74b7cbda53f.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:5676c0e4-d930-4b1a-9c6d-afb2deaa6efc.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:d3b072f3-7a1b-4d05-b262-6a399d408f43.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2020-12-31T15:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.190Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="决策树">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://oceaneyes.top/.top//attachment:b820e520-1b96-4c05-ad79-c74b7cbda53f.png">
+  
+  
+  <title>决策树demo - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="决策树demo">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-31 23:19" pubdate>
+        2020年12月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      18k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      149 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">决策树demo</h1>
+            
+            <div class="markdown-body">
+              <h2 id="决策树">决策树</h2>
+<h3 id="决策树的一个重要任务是为了数据中所蕴含的知识信息">决策树的一个重要任务是为了数据中所蕴含的知识信息</h3>
+<ul>
+<li>决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程</li>
+<li>k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解</li>
+</ul>
+<h4 id="决策数的构造">决策数的构造</h4>
+<ul>
+<li>优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据</li>
+<li>缺点：可能会产生过度匹配的问题</li>
+<li>适用数据类型：数值型和 标称型</li>
+</ul>
+<p><strong>构建决策树的第一个问题：当前数据集上哪个特征在划分数据分类时起决定性作用</strong></p>
+<ul>
+<li>为了找到决定性的特征，划分出最好的结果，我们必须评估每个特征。</li>
+<li>完成测试之后，原始数据集就被划分为几个数据子集</li>
+<li>这些数据子集会分布在第一个决策点的所有分支上。如果某个分支下的数据属于同一类型，则当前条件已经正确地划分数据分类，
+无需进一步对数据集进行分割。</li>
+<li>如果数据子集内的数据不属于同一类型，则需要重复划分数据子集的过程</li>
+</ul>
+<p><strong>思路</strong> 检测数据集中的每个子项是否属于同一分类: If so
+return 类标签; Else 寻找划分数据集的最好特征 划分数据集 创建分支节点 for
+每个划分的子集 调用函数createBranch并增加返回结果到分支节点中 return
+分支节点</p>
+<p><strong>决策树的一般流程</strong></p>
+<ol type="1">
+<li>收集数据：可使用任何方法</li>
+<li>准备数据：构造算法只适用于标称型数据， 因此数值型数据必须离散化</li>
+<li>分析数据：可使用任何方法，构造树完成后，应检查图形是否符合预期</li>
+<li>训练算法：构造树的数据结构</li>
+<li>测试算法：使用经验树计算错误概率</li>
+<li>使用算法：此步骤可以适用于任何监督学习算法，决策树可以更好地理解数据的内在含义</li>
+</ol>
+<h4 id="信息增益information-gain和香农熵熵entropy">信息增益(information
+gain)和香农熵/熵(entropy)</h4>
+<figure>
+<img src="/.top//attachment:b820e520-1b96-4c05-ad79-c74b7cbda53f.png" srcset="/img/loading.gif" lazyload alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>另一个度量集合无序程度的方法是基尼不纯度1(Gini
+impurity)，简单地说就是从一个数据集中随机选取子项，度量其被错误分类到其他分组里的概率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> log<br><span class="hljs-keyword">import</span> operator<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calcShannonEnt</span>(<span class="hljs-params">dataSet</span>):<br>    numEntries = <span class="hljs-built_in">len</span>(dataSet)<br>    <span class="hljs-comment"># 为所有可能分类创建字典</span><br>    labelCounts= &#123;&#125;<br>    <span class="hljs-keyword">for</span> featVec <span class="hljs-keyword">in</span> dataSet:<br>        currentLabel = featVec[-<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">if</span> currentLabel <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> labelCounts.keys():<br>            labelCounts[currentLabel] = <span class="hljs-number">0</span><br>        labelCounts[currentLabel] += <span class="hljs-number">1</span><br>    shannonEnt = <span class="hljs-number">0.0</span><br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> labelCounts:<br>        prob = <span class="hljs-built_in">float</span>(labelCounts[key])/numEntries<br>        shannonEnt -= prob * log(prob,<span class="hljs-number">2</span>)   <span class="hljs-comment"># 以 2为底求对数</span><br>    <span class="hljs-keyword">return</span> shannonEnt     <br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//attachment:5676c0e4-d930-4b1a-9c6d-afb2deaa6efc.png" srcset="/img/loading.gif" lazyload alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">createDataSet</span>():<br>    dataSet = [<br>        [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;yes&#x27;</span>],<br>        [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;yes&#x27;</span>],<br>        [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-string">&#x27;no&#x27;</span>],<br>        [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;no&#x27;</span>],<br>        [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;no&#x27;</span>]<br>    ]  <br>    labels = [<span class="hljs-string">&#x27;no surfacing&#x27;</span>,<span class="hljs-string">&#x27;flippers&#x27;</span>]<br>    <span class="hljs-keyword">return</span> dataSet ,labels<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myData, labels = createDataSet()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myData<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[[1, 1, &#39;yes&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">labels<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;no surfacing&#39;, &#39;flippers&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">calcShannonEnt(myData)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0.9709505944546686</code></pre></div>
+<p>熵越高，则混合的数据也越多</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">myData[<span class="hljs-number">0</span>][-<span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;maybe&#x27;</span><br>myData<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[[1, 1, &#39;maybe&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">calcShannonEnt(myData)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">1.3709505944546687</code></pre></div>
+<h4 id="划分数据集">划分数据集</h4>
+<ul>
+<li>分类算法除了需要测量信息熵，还需要划分数据集，
+度量划分数据集的熵，以便判断当前是否正确地划分了数据集</li>
+<li>将对每个特征划分数
+据集的结果计算一次信息熵，然后判断按照哪个特征划分数据集是最好的划分方式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 按照给定特征划分数据集</span><br><span class="hljs-comment"># 输入参数： 待划分待数据集、划分数据集的特征、需要返回的特征的值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">splitDataSet</span>(<span class="hljs-params">dataSet,axis,value</span>):<br>    retDataSet = []<br>    <span class="hljs-keyword">for</span> featVec <span class="hljs-keyword">in</span> dataSet:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;featVec&quot;</span>,featVec)<br>        <span class="hljs-keyword">if</span> featVec[axis] == value:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;axis&quot;</span>,axis,<span class="hljs-string">&quot;featVec[axis]&quot;</span>,featVec[axis])<br>            reducedFeatVec = featVec[:axis]<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;axis&quot;</span>,axis,<span class="hljs-string">&quot;reducedFeatVec:&quot;</span>,reducedFeatVec)<br>            reducedFeatVec.extend(featVec[axis+<span class="hljs-number">1</span>:])<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;featVec[axis+1:]&quot;</span>,featVec[axis+<span class="hljs-number">1</span>:])<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;axis&quot;</span>,axis,<span class="hljs-string">&quot;reducedFeatVec:&quot;</span>,reducedFeatVec)<br>            retDataSet.append(reducedFeatVec)<br>    <span class="hljs-keyword">return</span> retDataSet<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myData, labels = createDataSet()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myData<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[[1, 1, &#39;yes&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">labels<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;no surfacing&#39;, &#39;flippers&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">splitDataSet(myData,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [0, &#39;no&#39;]
+axis 0 reducedFeatVec: [0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+
+
+
+
+
+[[1, &#39;yes&#39;], [1, &#39;yes&#39;], [0, &#39;no&#39;]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">splitDataSet(myData,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">featVec [1, 1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+
+
+
+
+
+[[1, &#39;no&#39;], [1, &#39;no&#39;]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 测试</span><br>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>b = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]<br>a.append(b)<br>a<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[1, 2, 3, [4, 5, 6]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 测试</span><br>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>b = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]<br>a.extend(b)<br>a<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[1, 2, 3, 4, 5, 6]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">len</span>(myData[<span class="hljs-number">0</span>])-<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">2</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 选择最好的数据集划分方式</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">chooseBestFeatureToSplit</span>(<span class="hljs-params">dataSet</span>):<br>    numFeatures = <span class="hljs-built_in">len</span>(dataSet[<span class="hljs-number">0</span>])-<span class="hljs-number">1</span>  <span class="hljs-comment">#特征的个数</span><br>    baseEntropy = calcShannonEnt(dataSet) <span class="hljs-comment"># 基线熵</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;baseEntropy:&quot;</span>,baseEntropy)<br>    bestInfoGain = <span class="hljs-number">0.0</span><br>    bestFeature = -<span class="hljs-number">1</span><br>    <span class="hljs-comment"># 创建唯一的分类标签</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numFeatures):<br>        featList = [example[i] <span class="hljs-keyword">for</span> example <span class="hljs-keyword">in</span> dataSet]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;featList:&quot;</span>,featList)<br>        uniqueVals =  <span class="hljs-built_in">set</span>(featList)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;uniqueVals:&quot;</span>,uniqueVals)<br>        <br>        <span class="hljs-comment"># 计算每种划分方式的信息熵</span><br>        newEntropy = <span class="hljs-number">0.0</span><br>        <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> uniqueVals:<br>            subDataSet = splitDataSet(dataSet, i ,value)<br>            prob = <span class="hljs-built_in">len</span>(subDataSet) / <span class="hljs-built_in">float</span>(<span class="hljs-built_in">len</span>(dataSet))<br>            newEntropy += prob * calcShannonEnt(subDataSet)<br>        infoGain = baseEntropy - newEntropy  <span class="hljs-comment"># 计算信息增益</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;baseEntropy&quot;</span>,baseEntropy,<span class="hljs-string">&quot;i:&quot;</span>,i,<span class="hljs-string">&quot;newEntropy&quot;</span>,newEntropy,<span class="hljs-string">&quot;infoGain&quot;</span>,infoGain)<br>        <span class="hljs-keyword">if</span>(infoGain &gt; bestInfoGain):<br>            bestInfoGain = infoGain   <span class="hljs-comment"># 计算最好的信息增益</span><br>            bestFeature = i<br>    <span class="hljs-keyword">return</span> bestFeature<br></code></pre></td></tr></table></figure>
+<p>函数介绍：选取特征、划分数据集、计算得出最好的划分数据集的特征</p>
+<ul>
+<li>第一个要求是，数据必须是一种由列表元素组成的列表，而且所有的列表元素都要具有相同的数据长度;</li>
+<li>第二个要求是，数据的最后一列或者每个实例的最后一个元素是当前实例的类别标签</li>
+<li>无需限定list中的数据类型，它们既可以是数字也可以是字符串，并不影响实际计算</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">chooseBestFeatureToSplit(myData)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">baseEntropy: 0.9709505944546686
+featList: [1, 1, 1, 0, 0]
+uniqueVals: &#123;0, 1&#125;
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [0, &#39;no&#39;]
+axis 0 reducedFeatVec: [0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+baseEntropy 0.9709505944546686 i: 0 newEntropy 0.5509775004326937 infoGain 0.4199730940219749
+featList: [1, 1, 0, 1, 1]
+uniqueVals: &#123;0, 1&#125;
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+axis 1 featVec[axis] 0
+axis 1 reducedFeatVec: [1]
+featVec[axis+1:] [&#39;no&#39;]
+axis 1 reducedFeatVec: [1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [1]
+featVec[axis+1:] [&#39;yes&#39;]
+axis 1 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [1]
+featVec[axis+1:] [&#39;yes&#39;]
+axis 1 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [0]
+featVec[axis+1:] [&#39;no&#39;]
+axis 1 reducedFeatVec: [0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [0]
+featVec[axis+1:] [&#39;no&#39;]
+axis 1 reducedFeatVec: [0, &#39;no&#39;]
+baseEntropy 0.9709505944546686 i: 1 newEntropy 0.8 infoGain 0.17095059445466854
+
+
+
+
+
+0</code></pre></div>
+<h2 id="构建递归决策树">构建递归决策树</h2>
+<ul>
+<li>得到原始数据集，然后基于最好的属性值划分数据集，由于特征值可能多于两个，因此可能存在大于两个分支的数据集划分。</li>
+<li>第一次划分之后，数据将被向下传递到树分支的下一个节点，在这个节点上，我们可以再次划分数据。</li>
+<li><strong>因此我们可以采用递归的原则处理数据集</strong></li>
+<li>递归结束的条件是：程序遍历完所有划分数据集的属性，或者每个分支下的所有实例都具有相同的分类</li>
+</ul>
+<figure>
+<img src="/.top//attachment:d3b072f3-7a1b-4d05-b262-6a399d408f43.png" srcset="/img/loading.gif" lazyload alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">majorityCnt</span>(<span class="hljs-params">classList</span>):<br>    classCount = &#123;&#125;<br>    <span class="hljs-keyword">for</span> vote <span class="hljs-keyword">in</span> classCount:<br>        <span class="hljs-keyword">if</span> vote <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> classCount.keys():<br>            classCount[vote] =<span class="hljs-number">0</span><br>        classCount[vote] += <span class="hljs-number">1</span><br>    sortedClassCount = <span class="hljs-built_in">sorted</span>(classCount.items(), key=operator.itemgetter(<span class="hljs-number">1</span>), reverse =<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">return</span> sortedClassCount[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<p><strong>majorityCnt() 与投票表决代码非常类似</strong></p>
+<ol type="1">
+<li>该函数使用分类名称的列表，</li>
+<li>然后创建键值为classList中唯一值的数据字典，字典对象存储了classList中每个类标签出现的频率</li>
+<li>最后利用operator操作键值排序字典，并返回出现次数最多的分类名称。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myData[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[1, 1, &#39;yes&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建决策树</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">createTree</span>(<span class="hljs-params">dataSet,labels</span>):<br>    classList = [example[-<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> example <span class="hljs-keyword">in</span> dataSet]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;labels:&quot;</span>,labels)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classList:&quot;</span>,classList)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classList[0]:&quot;</span>,classList[<span class="hljs-number">0</span>])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classList.count(classList[0]):&quot;</span>,classList.count(classList[<span class="hljs-number">0</span>]))<br>    <br>    <span class="hljs-comment">## 类别相同则停止划分</span><br>    <span class="hljs-keyword">if</span> classList.count(classList[<span class="hljs-number">0</span>]) == <span class="hljs-built_in">len</span>(classList):<br>        <span class="hljs-keyword">return</span> classList[<span class="hljs-number">0</span>]<br>    <br>    <span class="hljs-comment">## 遍历完所有特征时 返回出现次数最多的</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(dataSet[<span class="hljs-number">0</span>]) == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> majorityCnt(classList)<br>    <br>    bestFeat = chooseBestFeatureToSplit(dataSet)<br>    bestFeatLabel = labels[bestFeat] <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;bestFeatLabel&quot;</span>,bestFeatLabel)<br>    myTree = &#123;bestFeatLabel:&#123;&#125;&#125;<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;myTree:::&quot;</span>,myTree)<br>    <span class="hljs-keyword">del</span>(labels[bestFeat])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;labels:&quot;</span>,labels)<br>    featValues = [example[bestFeat] <span class="hljs-keyword">for</span> example <span class="hljs-keyword">in</span> dataSet]<br>    uniqueVals = <span class="hljs-built_in">set</span>(featValues)<br>    <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> uniqueVals:<br>        subLabels = labels[:]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;subLabels:&quot;</span>,subLabels)<br>        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)<br>    <span class="hljs-keyword">return</span> myTree<br></code></pre></td></tr></table></figure>
+<p><strong>代码注释</strong></p>
+<ul>
+<li>使用两个输入参数：数据集和标签列表</li>
+</ul>
+<ol type="1">
+<li>首先创建了名为classList的列表变量，其中包含了数据集的所有类标签</li>
+<li>递归函数的第一个停止条件是所有的类标签完全相同，则直接返回该类标签</li>
+<li>递归函数的第二个停止条件是使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组</li>
+<li>字典变量myTree存储了树的所有信息，这对于其后绘制树形图非常重要。当前数据集选取的最好特征存储在变量bestFeat中，得到列表包含的所有属性值</li>
+<li>最后代码遍历当前选择特征包含的所有属性值，在每个数据集划分上递归调用函数
+createTree()，得到的返回值将被插入到字典变量myTree中</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myData,labels = createDataSet()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">createTree(myData,labels)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">labels: [&#39;no surfacing&#39;, &#39;flippers&#39;]
+classList: [&#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;no&#39;, &#39;no&#39;]
+classList[0]: yes
+classList.count(classList[0]): 2
+baseEntropy: 0.9709505944546686
+featList: [1, 1, 1, 0, 0]
+uniqueVals: &#123;0, 1&#125;
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [0, &#39;no&#39;]
+axis 0 reducedFeatVec: [0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+baseEntropy 0.9709505944546686 i: 0 newEntropy 0.5509775004326937 infoGain 0.4199730940219749
+featList: [1, 1, 0, 1, 1]
+uniqueVals: &#123;0, 1&#125;
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+axis 1 featVec[axis] 0
+axis 1 reducedFeatVec: [1]
+featVec[axis+1:] [&#39;no&#39;]
+axis 1 reducedFeatVec: [1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [1]
+featVec[axis+1:] [&#39;yes&#39;]
+axis 1 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [1]
+featVec[axis+1:] [&#39;yes&#39;]
+axis 1 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [0]
+featVec[axis+1:] [&#39;no&#39;]
+axis 1 reducedFeatVec: [0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 1 featVec[axis] 1
+axis 1 reducedFeatVec: [0]
+featVec[axis+1:] [&#39;no&#39;]
+axis 1 reducedFeatVec: [0, &#39;no&#39;]
+baseEntropy 0.9709505944546686 i: 1 newEntropy 0.8 infoGain 0.17095059445466854
+bestFeatLabel no surfacing
+myTree::: &#123;&#39;no surfacing&#39;: &#123;&#125;&#125;
+labels: [&#39;flippers&#39;]
+subLabels: [&#39;flippers&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;no&#39;]
+axis 0 reducedFeatVec: [1, &#39;no&#39;]
+labels: [&#39;flippers&#39;]
+classList: [&#39;no&#39;, &#39;no&#39;]
+classList[0]: no
+classList.count(classList[0]): 2
+subLabels: [&#39;flippers&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [1, &#39;yes&#39;]
+axis 0 reducedFeatVec: [1, &#39;yes&#39;]
+featVec [1, 0, &#39;no&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [0, &#39;no&#39;]
+axis 0 reducedFeatVec: [0, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+featVec [0, 1, &#39;no&#39;]
+labels: [&#39;flippers&#39;]
+classList: [&#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;]
+classList[0]: yes
+classList.count(classList[0]): 2
+baseEntropy: 0.9182958340544896
+featList: [1, 1, 0]
+uniqueVals: &#123;0, 1&#125;
+featVec [1, &#39;yes&#39;]
+featVec [1, &#39;yes&#39;]
+featVec [0, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no&#39;]
+axis 0 reducedFeatVec: [&#39;no&#39;]
+featVec [1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;yes&#39;]
+axis 0 reducedFeatVec: [&#39;yes&#39;]
+featVec [1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;yes&#39;]
+axis 0 reducedFeatVec: [&#39;yes&#39;]
+featVec [0, &#39;no&#39;]
+baseEntropy 0.9182958340544896 i: 0 newEntropy 0.0 infoGain 0.9182958340544896
+bestFeatLabel flippers
+myTree::: &#123;&#39;flippers&#39;: &#123;&#125;&#125;
+labels: []
+subLabels: []
+featVec [1, &#39;yes&#39;]
+featVec [1, &#39;yes&#39;]
+featVec [0, &#39;no&#39;]
+axis 0 featVec[axis] 0
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no&#39;]
+axis 0 reducedFeatVec: [&#39;no&#39;]
+labels: []
+classList: [&#39;no&#39;]
+classList[0]: no
+classList.count(classList[0]): 1
+subLabels: []
+featVec [1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;yes&#39;]
+axis 0 reducedFeatVec: [&#39;yes&#39;]
+featVec [1, &#39;yes&#39;]
+axis 0 featVec[axis] 1
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;yes&#39;]
+axis 0 reducedFeatVec: [&#39;yes&#39;]
+featVec [0, &#39;no&#39;]
+labels: []
+classList: [&#39;yes&#39;, &#39;yes&#39;]
+classList[0]: yes
+classList.count(classList[0]): 2
+
+
+
+
+
+&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;&#125;&#125;</code></pre></div>
+<h2 id="使用matplotlib注解绘制-树形图">使用matplotlib注解绘制
+树形图</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> matplotlib.font_manager <span class="hljs-keyword">import</span> FontProperties<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">simheifont = FontProperties(fname=<span class="hljs-string">&#x27;../simhei.ttf&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python">decisionNode = <span class="hljs-built_in">dict</span>(boxstyle=<span class="hljs-string">&quot;sawtooth&quot;</span>, fc=<span class="hljs-string">&quot;0.8&quot;</span>)<br>leafNode = <span class="hljs-built_in">dict</span>(boxstyle=<span class="hljs-string">&quot;round4&quot;</span>, fc=<span class="hljs-string">&quot;0.8&quot;</span>)<br>arrow_args = <span class="hljs-built_in">dict</span>(arrowstyle=<span class="hljs-string">&quot;&lt;-&quot;</span>)<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotNode</span>(<span class="hljs-params">nodeTxt,centerPt,parentPt,nodeType</span>):<br>    createPlot.ax1.annotate(nodeTxt,xy=parentPt, xycoords=<span class="hljs-string">&#x27;axes fraction&#x27;</span>, <br>                            xytext=centerPt, textcoords =<span class="hljs-string">&#x27;axes fraction&#x27;</span>,<br>                            va=<span class="hljs-string">&quot;center&quot;</span>,ha=<span class="hljs-string">&quot;center&quot;</span>,bbox=nodeType, arrowprops=arrow_args,<br>                            fontproperties= simheifont)<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">createPlot</span>():<br>    fig = plt.figure(<span class="hljs-number">1</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>)<br>    fig.clf()<br>    createPlot.ax1 = plt.subplot(<span class="hljs-number">111</span>,frameon=<span class="hljs-literal">False</span>)<br>    plotNode(<span class="hljs-string">&quot;决策节点&quot;</span>,(<span class="hljs-number">0.5</span>,<span class="hljs-number">0.1</span>),(<span class="hljs-number">0.1</span>,<span class="hljs-number">0.5</span>),decisionNode)<br>    plotNode(<span class="hljs-string">&quot;叶节点&quot;</span>,(<span class="hljs-number">0.8</span>,<span class="hljs-number">0.1</span>),(<span class="hljs-number">0.3</span>,<span class="hljs-number">0.8</span>), leafNode)<br>    plt.show()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">createPlot()<br></code></pre></td></tr></table></figure>
+<p>[png](C:/Users/YSilhouette/AppData/Local/Temp/360zip$Temp/360(/output_43_0.png)</p>
+<h3 id="构造注解树">构造注解树</h3>
+<p><strong>获得多少叶节点-- X轴的长度</strong></p>
+<p><strong>获得树有多少层-- y轴的高度</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 获取叶节点和树的层数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getNumLeafs</span>(<span class="hljs-params">myTree</span>):<br>    numLeafs = <span class="hljs-number">0</span><br>    firstStr = <span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br>    secondDict = myTree[firstStr]<br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:   <span class="hljs-comment">## 测试节点的数据类型是否字典</span><br>            numLeafs += getNumLeafs(secondDict[key])<br>        <span class="hljs-keyword">else</span>:<br>            numLeafs += <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> numLeafs<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getTreeDepth</span>(<span class="hljs-params">myTree</span>):<br>    maxDepth = <span class="hljs-number">0</span><br>    firstStr = <span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br>    secondDict = myTree[firstStr]<br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:   <span class="hljs-comment">## 测试节点的数据类型是否字典</span><br>            thisDepth = <span class="hljs-number">1</span> + getTreeDepth(secondDict[key])<br>        <span class="hljs-keyword">else</span>:<br>            thisDepth = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> thisDepth &gt; maxDepth:<br>            maxDepth = thisDepth<br>    <span class="hljs-keyword">return</span> maxDepth<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">retrieveTree</span>(<span class="hljs-params">i</span>):<br>    listOfTrees = [<br>        &#123;<span class="hljs-string">&#x27;no surfacing&#x27;</span>:&#123;<span class="hljs-number">0</span>:<span class="hljs-string">&#x27;no&#x27;</span>,<span class="hljs-number">1</span>:&#123;<span class="hljs-string">&#x27;flippers&#x27;</span>:&#123;<span class="hljs-number">0</span>:<span class="hljs-string">&#x27;no&#x27;</span>,<span class="hljs-number">1</span>:<span class="hljs-string">&#x27;yes&#x27;</span>&#125;&#125;&#125;&#125;,<br>        &#123;<span class="hljs-string">&#x27;no serfacing&#x27;</span>:&#123;<span class="hljs-number">0</span>:<span class="hljs-string">&#x27;no&#x27;</span>,<span class="hljs-number">1</span>:&#123;<span class="hljs-string">&#x27;flippers&#x27;</span>:&#123;<span class="hljs-number">0</span>:&#123;<span class="hljs-string">&#x27;head&#x27;</span>:&#123;<span class="hljs-number">0</span>:<span class="hljs-string">&#x27;no&#x27;</span>,<span class="hljs-number">1</span>:<span class="hljs-string">&#x27;yes&#x27;</span>&#125;&#125;,<span class="hljs-number">1</span>:<span class="hljs-string">&#x27;no&#x27;</span>&#125;&#125;&#125;&#125;<br>    ]<br>    <span class="hljs-keyword">return</span> listOfTrees[i]<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">retrieveTree(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&#123;&#39;no serfacing&#39;: &#123;0: &#39;no&#39;,
+  1: &#123;&#39;flippers&#39;: &#123;0: &#123;&#39;head&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;, 1: &#39;no&#39;&#125;&#125;&#125;&#125;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myTree = retrieveTree(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&#39;no surfacing&#39;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">getNumLeafs(myTree)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">3</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">getTreeDepth(myTree)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">2</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotMidText</span>(<span class="hljs-params">cntrPt, parentPt, txtString</span>):<br>    xMid = (parentPt[<span class="hljs-number">0</span>] - cntrPt[<span class="hljs-number">0</span>]) /<span class="hljs-number">2.0</span> + cntrPt[<span class="hljs-number">0</span>]<br>    yMid = (parentPt[<span class="hljs-number">1</span>] - cntrPt[<span class="hljs-number">1</span>]) /<span class="hljs-number">2.0</span> + cntrPt[<span class="hljs-number">1</span>]<br>    createPlot.ax1.text(xMid,yMid, txtString)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotTree</span>(<span class="hljs-params">myTree, parentPt, nodeText</span>):<br>    numLeafs = getNumLeafs(myTree)<br>    depth = getTreeDepth(myTree)<br>    <br>    firstStr = <span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br>    cntrPt = (plotTree.xOff + (<span class="hljs-number">1.0</span> + <span class="hljs-built_in">float</span>(numLeafs)) /<span class="hljs-number">2.0</span> / plotTree.totalW, plotTree.yOff)<br>    plotMidText(cntrPt, parentPt, nodeText)<br>    plotNode(firstStr, cntrPt, parentPt, decisionNode)<br>    <br>    secondDict = myTree[firstStr]<br>    plotTree.yOff = plotTree.yOff - <span class="hljs-number">1.0</span> / plotTree.totalD<br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:<br>            plotTree(secondDict[key], cntrPt, <span class="hljs-built_in">str</span>(key))<br>        <span class="hljs-keyword">else</span>:<br>            plotTree.xOff = plotTree.xOff + <span class="hljs-number">1.0</span> / plotTree.totalW<br>            plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)<br>            plotMidText((plotTree.xOff, plotTree.yOff), cntrPt,<span class="hljs-built_in">str</span>(key))<br>    plotTree.yOff = plotTree.yOff + <span class="hljs-number">1.0</span> / plotTree.totalD<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">createPlot</span>(<span class="hljs-params">inTree</span>):<br>    fig = plt.figure(<span class="hljs-number">1</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>)<br>    fig.clf()<br>    axprops = <span class="hljs-built_in">dict</span>(xticks=[], yticks=[])<br>    createPlot.ax1 = plt.subplot(<span class="hljs-number">111</span>, frameon=<span class="hljs-literal">False</span>, **axprops)<br>    plotTree.totalW = <span class="hljs-built_in">float</span>(getNumLeafs(inTree))<br>    plotTree.totalD = <span class="hljs-built_in">float</span>(getTreeDepth(inTree))<br>    plotTree.xOff = - <span class="hljs-number">0.5</span>/ plotTree.totalW<br>    plotTree.yOff = <span class="hljs-number">1.0</span><br>    plotTree(inTree,(<span class="hljs-number">0.5</span>,<span class="hljs-number">1.0</span>),<span class="hljs-string">&#x27;&#x27;</span>)<br>    plt.show()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">mytree = retrieveTree(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">mytree<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;&#125;&#125;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">createPlot(mytree)<br></code></pre></td></tr></table></figure>
+<p>[png](C:/Users/YSilhouette/AppData/Local/Temp/360zip$Temp/360(/output_56_0.png)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">mytree[<span class="hljs-string">&#x27;no surfacing&#x27;</span>][<span class="hljs-number">3</span>]= <span class="hljs-string">&#x27;maybe&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">mytree<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;, 3: &#39;maybe&#39;&#125;&#125;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">createPlot(mytree)<br></code></pre></td></tr></table></figure>
+<p>[png](C:/Users/YSilhouette/AppData/Local/Temp/360zip$Temp/360(/output_59_0.png)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">案例-使用决策树预测隐性眼镜类型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/">
+                        <span class="hidden-mobile">机器学习实战-笔记3-决策树</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

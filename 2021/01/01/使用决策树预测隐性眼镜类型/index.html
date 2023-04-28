@@ -1,0 +1,2064 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="案例-使用决策树预测隐性眼镜类型  收集数据：提供的文本文件 准备数据：解析tab键分割的数据 分析数据：快速检查数据 训练算法： 测试算法：编写测试函数 验证决策树可以正确分类给定的数据实例 使用算法：存储树的数据结构，以便下次使用  12from math import logimport operator 1234567891011121314def calcShannonEnt(dataS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="案例-使用决策树预测隐性眼镜类型">
+<meta property="og:url" content="http://oceaneyes.top/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="案例-使用决策树预测隐性眼镜类型  收集数据：提供的文本文件 准备数据：解析tab键分割的数据 分析数据：快速检查数据 训练算法： 测试算法：编写测试函数 验证决策树可以正确分类给定的数据实例 使用算法：存储树的数据结构，以便下次使用  12from math import logimport operator 1234567891011121314def calcShannonEnt(dataS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oceaneyes.top/.top//output_14_0.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-01-01T14:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.188Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="决策树">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://oceaneyes.top/.top//output_14_0.png">
+  
+  
+  <title>案例-使用决策树预测隐性眼镜类型 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="案例-使用决策树预测隐性眼镜类型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-01 22:19" pubdate>
+        2021年1月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      95k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      795 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">案例-使用决策树预测隐性眼镜类型</h1>
+            
+            <div class="markdown-body">
+              <h2 id="案例-使用决策树预测隐性眼镜类型">案例-使用决策树预测隐性眼镜类型</h2>
+<ul>
+<li>收集数据：提供的文本文件</li>
+<li>准备数据：解析tab键分割的数据</li>
+<li>分析数据：快速检查数据</li>
+<li>训练算法：</li>
+<li>测试算法：编写测试函数 验证决策树可以正确分类给定的数据实例</li>
+<li>使用算法：存储树的数据结构，以便下次使用</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> log<br><span class="hljs-keyword">import</span> operator<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calcShannonEnt</span>(<span class="hljs-params">dataSet</span>):<br>    numEntries = <span class="hljs-built_in">len</span>(dataSet)<br>    <span class="hljs-comment"># 为所有可能分类创建字典</span><br>    labelCounts= &#123;&#125;<br>    <span class="hljs-keyword">for</span> featVec <span class="hljs-keyword">in</span> dataSet:<br>        currentLabel = featVec[-<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">if</span> currentLabel <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> labelCounts.keys():<br>            labelCounts[currentLabel] = <span class="hljs-number">0</span><br>        labelCounts[currentLabel] += <span class="hljs-number">1</span><br>    shannonEnt = <span class="hljs-number">0.0</span><br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> labelCounts:<br>        prob = <span class="hljs-built_in">float</span>(labelCounts[key])/numEntries<br>        shannonEnt -= prob * log(prob,<span class="hljs-number">2</span>)   <span class="hljs-comment"># 以 2为底求对数</span><br>    <span class="hljs-keyword">return</span> shannonEnt     <br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 按照给定特征划分数据集</span><br><span class="hljs-comment"># 输入参数： 待划分待数据集、划分数据集的特征、需要返回的特征的值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">splitDataSet</span>(<span class="hljs-params">dataSet,axis,value</span>):<br>    retDataSet = []<br>    <span class="hljs-keyword">for</span> featVec <span class="hljs-keyword">in</span> dataSet:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;featVec&quot;</span>,featVec)<br>        <span class="hljs-keyword">if</span> featVec[axis] == value:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;axis&quot;</span>,axis,<span class="hljs-string">&quot;featVec[axis]&quot;</span>,featVec[axis])<br>            reducedFeatVec = featVec[:axis]<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;axis&quot;</span>,axis,<span class="hljs-string">&quot;reducedFeatVec:&quot;</span>,reducedFeatVec)<br>            reducedFeatVec.extend(featVec[axis+<span class="hljs-number">1</span>:])<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;featVec[axis+1:]&quot;</span>,featVec[axis+<span class="hljs-number">1</span>:])<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;axis&quot;</span>,axis,<span class="hljs-string">&quot;reducedFeatVec:&quot;</span>,reducedFeatVec)<br>            retDataSet.append(reducedFeatVec)<br>    <span class="hljs-keyword">return</span> retDataSet<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 选择最好的数据集划分方式</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">chooseBestFeatureToSplit</span>(<span class="hljs-params">dataSet</span>):<br>    numFeatures = <span class="hljs-built_in">len</span>(dataSet[<span class="hljs-number">0</span>])-<span class="hljs-number">1</span>  <span class="hljs-comment">#特征的个数</span><br>    baseEntropy = calcShannonEnt(dataSet) <span class="hljs-comment"># 基线熵</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;baseEntropy:&quot;</span>,baseEntropy)<br>    bestInfoGain = <span class="hljs-number">0.0</span><br>    bestFeature = -<span class="hljs-number">1</span><br>    <span class="hljs-comment"># 创建唯一的分类标签</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numFeatures):<br>        featList = [example[i] <span class="hljs-keyword">for</span> example <span class="hljs-keyword">in</span> dataSet]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;featList:&quot;</span>,featList)<br>        uniqueVals =  <span class="hljs-built_in">set</span>(featList)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;uniqueVals:&quot;</span>,uniqueVals)<br>        <br>        <span class="hljs-comment"># 计算每种划分方式的信息熵</span><br>        newEntropy = <span class="hljs-number">0.0</span><br>        <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> uniqueVals:<br>            subDataSet = splitDataSet(dataSet, i ,value)<br>            prob = <span class="hljs-built_in">len</span>(subDataSet) / <span class="hljs-built_in">float</span>(<span class="hljs-built_in">len</span>(dataSet))<br>            newEntropy += prob * calcShannonEnt(subDataSet)<br>        infoGain = baseEntropy - newEntropy  <span class="hljs-comment"># 计算信息增益</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;baseEntropy&quot;</span>,baseEntropy,<span class="hljs-string">&quot;i:&quot;</span>,i,<span class="hljs-string">&quot;newEntropy&quot;</span>,newEntropy,<span class="hljs-string">&quot;infoGain&quot;</span>,infoGain)<br>        <span class="hljs-keyword">if</span>(infoGain &gt; bestInfoGain):<br>            bestInfoGain = infoGain   <span class="hljs-comment"># 计算最好的信息增益</span><br>            bestFeature = i<br>    <span class="hljs-keyword">return</span> bestFeature<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">majorityCnt</span>(<span class="hljs-params">classList</span>):<br>    classCount = &#123;&#125;<br>    <span class="hljs-keyword">for</span> vote <span class="hljs-keyword">in</span> classCount:<br>        <span class="hljs-keyword">if</span> vote <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> classCount.keys():<br>            classCount[vote] =<span class="hljs-number">0</span><br>        classCount[vote] += <span class="hljs-number">1</span><br>    sortedClassCount = <span class="hljs-built_in">sorted</span>(classCount.items(), key=operator.itemgetter(<span class="hljs-number">1</span>), reverse =<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">return</span> sortedClassCount[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建决策树</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">createTree</span>(<span class="hljs-params">dataSet,labels</span>):<br>    classList = [example[-<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> example <span class="hljs-keyword">in</span> dataSet]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;labels:&quot;</span>,labels)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classList:&quot;</span>,classList)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classList[0]:&quot;</span>,classList[<span class="hljs-number">0</span>])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classList.count(classList[0]):&quot;</span>,classList.count(classList[<span class="hljs-number">0</span>]))<br>    <br>    <span class="hljs-comment">## 类别相同则停止划分</span><br>    <span class="hljs-keyword">if</span> classList.count(classList[<span class="hljs-number">0</span>]) == <span class="hljs-built_in">len</span>(classList):<br>        <span class="hljs-keyword">return</span> classList[<span class="hljs-number">0</span>]<br>    <br>    <span class="hljs-comment">## 遍历完所有特征时 返回出现次数最多的</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(dataSet[<span class="hljs-number">0</span>]) == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> majorityCnt(classList)<br>    <br>    bestFeat = chooseBestFeatureToSplit(dataSet)<br>    bestFeatLabel = labels[bestFeat] <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;bestFeatLabel&quot;</span>,bestFeatLabel)<br>    myTree = &#123;bestFeatLabel:&#123;&#125;&#125;<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;myTree:::&quot;</span>,myTree)<br>    <span class="hljs-keyword">del</span>(labels[bestFeat])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;labels:&quot;</span>,labels)<br>    featValues = [example[bestFeat] <span class="hljs-keyword">for</span> example <span class="hljs-keyword">in</span> dataSet]<br>    uniqueVals = <span class="hljs-built_in">set</span>(featValues)<br>    <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> uniqueVals:<br>        subLabels = labels[:]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;subLabels:&quot;</span>,subLabels)<br>        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)<br>    <span class="hljs-keyword">return</span> myTree<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> matplotlib.font_manager <span class="hljs-keyword">import</span> FontProperties<br>simheifont = FontProperties(fname=<span class="hljs-string">&#x27;../simhei.ttf&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">decisionNode = <span class="hljs-built_in">dict</span>(boxstyle=<span class="hljs-string">&quot;sawtooth&quot;</span>, fc=<span class="hljs-string">&quot;0.8&quot;</span>)<br>leafNode = <span class="hljs-built_in">dict</span>(boxstyle=<span class="hljs-string">&quot;round4&quot;</span>, fc=<span class="hljs-string">&quot;0.8&quot;</span>)<br>arrow_args = <span class="hljs-built_in">dict</span>(arrowstyle=<span class="hljs-string">&quot;&lt;-&quot;</span>)<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotNode</span>(<span class="hljs-params">nodeTxt,centerPt,parentPt,nodeType</span>):<br>    createPlot.ax1.annotate(nodeTxt,xy=parentPt, xycoords=<span class="hljs-string">&#x27;axes fraction&#x27;</span>, <br>                            xytext=centerPt, textcoords =<span class="hljs-string">&#x27;axes fraction&#x27;</span>,<br>                            va=<span class="hljs-string">&quot;center&quot;</span>,ha=<span class="hljs-string">&quot;center&quot;</span>,bbox=nodeType, arrowprops=arrow_args,<br>                            fontproperties= simheifont)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 获取叶节点和树的层数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getNumLeafs</span>(<span class="hljs-params">myTree</span>):<br>    numLeafs = <span class="hljs-number">0</span><br>    firstStr = <span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br>    secondDict = myTree[firstStr]<br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:   <span class="hljs-comment">## 测试节点的数据类型是否字典</span><br>            numLeafs += getNumLeafs(secondDict[key])<br>        <span class="hljs-keyword">else</span>:<br>            numLeafs += <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> numLeafs<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getTreeDepth</span>(<span class="hljs-params">myTree</span>):<br>    maxDepth = <span class="hljs-number">0</span><br>    firstStr = <span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br>    secondDict = myTree[firstStr]<br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:   <span class="hljs-comment">## 测试节点的数据类型是否字典</span><br>            thisDepth = <span class="hljs-number">1</span> + getTreeDepth(secondDict[key])<br>        <span class="hljs-keyword">else</span>:<br>            thisDepth = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> thisDepth &gt; maxDepth:<br>            maxDepth = thisDepth<br>    <span class="hljs-keyword">return</span> maxDepth<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotMidText</span>(<span class="hljs-params">cntrPt, parentPt, txtString</span>):<br>    xMid = (parentPt[<span class="hljs-number">0</span>] - cntrPt[<span class="hljs-number">0</span>]) /<span class="hljs-number">2.0</span> + cntrPt[<span class="hljs-number">0</span>]<br>    yMid = (parentPt[<span class="hljs-number">1</span>] - cntrPt[<span class="hljs-number">1</span>]) /<span class="hljs-number">2.0</span> + cntrPt[<span class="hljs-number">1</span>]<br>    createPlot.ax1.text(xMid,yMid, txtString)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotTree</span>(<span class="hljs-params">myTree, parentPt, nodeText</span>):<br>    numLeafs = getNumLeafs(myTree)<br>    depth = getTreeDepth(myTree)<br>    <br>    firstStr = <span class="hljs-built_in">list</span>(myTree.keys())[<span class="hljs-number">0</span>]<br>    cntrPt = (plotTree.xOff + (<span class="hljs-number">1.0</span> + <span class="hljs-built_in">float</span>(numLeafs)) /<span class="hljs-number">2.0</span> / plotTree.totalW, plotTree.yOff)<br>    plotMidText(cntrPt, parentPt, nodeText)<br>    plotNode(firstStr, cntrPt, parentPt, decisionNode)<br>    <br>    secondDict = myTree[firstStr]<br>    plotTree.yOff = plotTree.yOff - <span class="hljs-number">1.0</span> / plotTree.totalD<br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:<br>            plotTree(secondDict[key], cntrPt, <span class="hljs-built_in">str</span>(key))<br>        <span class="hljs-keyword">else</span>:<br>            plotTree.xOff = plotTree.xOff + <span class="hljs-number">1.0</span> / plotTree.totalW<br>            plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)<br>            plotMidText((plotTree.xOff, plotTree.yOff), cntrPt,<span class="hljs-built_in">str</span>(key))<br>    plotTree.yOff = plotTree.yOff + <span class="hljs-number">1.0</span> / plotTree.totalD<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">createPlot</span>(<span class="hljs-params">inTree</span>):<br>    fig = plt.figure(<span class="hljs-number">1</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>)<br>    fig.clf()<br>    axprops = <span class="hljs-built_in">dict</span>(xticks=[], yticks=[])<br>    createPlot.ax1 = plt.subplot(<span class="hljs-number">111</span>, frameon=<span class="hljs-literal">False</span>, **axprops)<br>    plotTree.totalW = <span class="hljs-built_in">float</span>(getNumLeafs(inTree))<br>    plotTree.totalD = <span class="hljs-built_in">float</span>(getTreeDepth(inTree))<br>    plotTree.xOff = - <span class="hljs-number">0.5</span>/ plotTree.totalW<br>    plotTree.yOff = <span class="hljs-number">1.0</span><br>    plotTree(inTree,(<span class="hljs-number">0.5</span>,<span class="hljs-number">1.0</span>),<span class="hljs-string">&#x27;&#x27;</span>)<br>    plt.show()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用决策树的分类函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">classify</span>(<span class="hljs-params">inputTree,featLabels, testVec</span>):<br>    firstStr = <span class="hljs-built_in">list</span>(inputTree.keys())[<span class="hljs-number">0</span>]<br>    secondDict = inputTree[firstStr]<br>    featIndex = featLabels.index(firstStr)<br>    <span class="hljs-built_in">print</span>(featIndex)<br>    <br>    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> secondDict.keys():<br>        <span class="hljs-keyword">if</span> testVec[featIndex] == key:<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(secondDict[key]).__name__ == <span class="hljs-string">&#x27;dict&#x27;</span>:<br>                classLabel = classify(secondDict[key], featLabels, testVec)<br>            <span class="hljs-keyword">else</span>:<br>                classLabel = secondDict[key]<br>    <span class="hljs-keyword">return</span> classLabel<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">storeTree</span>(<span class="hljs-params">inputTree,fileName</span>):<br>    <span class="hljs-keyword">import</span> _pickle <span class="hljs-keyword">as</span> cPickle<br>    fw = <span class="hljs-built_in">open</span>(fileName, <span class="hljs-string">&#x27;w&#x27;</span>)<br>    cPickle.dump(inputTree,fw)<br>    fw.close()<br>    <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">grabTree</span>(<span class="hljs-params">fileName</span>):<br>    <span class="hljs-keyword">import</span> _pickle <span class="hljs-keyword">as</span> cPickle<br>    fr = <span class="hljs-built_in">open</span>(fileName)<br>    <span class="hljs-keyword">return</span> cPickle.load(fr)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;./dataset/lenses.txt&quot;</span>,<span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> fr:<br>    lenses = [inst.strip().split(<span class="hljs-string">&#x27;\t&#x27;</span>)  <span class="hljs-keyword">for</span> inst <span class="hljs-keyword">in</span> fr.readlines()]<br>    <span class="hljs-built_in">print</span>(lenses)<br>    lensesLabels = [<span class="hljs-string">&#x27;age&#x27;</span>,<span class="hljs-string">&#x27;prescript&#x27;</span>,<span class="hljs-string">&#x27;astigmatic&#x27;</span>,<span class="hljs-string">&#x27;tearRate&#x27;</span>]<br>    lensesTree = createTree(lenses,lensesLabels)<br>    lensesTree<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[[&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;], [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;], [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;], [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;], [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;], [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;], [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;], [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;], [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;], [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;], [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;], [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;], [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]]
+labels: [&#39;age&#39;, &#39;prescript&#39;, &#39;astigmatic&#39;, &#39;tearRate&#39;]
+classList: [&#39;no lenses&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;hard&#39;, &#39;no lenses&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;hard&#39;, &#39;no lenses&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;hard&#39;, &#39;no lenses&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;hard&#39;, &#39;no lenses&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;]
+classList[0]: no lenses
+classList.count(classList[0]): 15
+baseEntropy: 1.3260875253642983
+featList: [&#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;]
+uniqueVals: &#123;&#39;young&#39;, &#39;pre&#39;, &#39;presbyopic&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+baseEntropy 1.3260875253642983 i: 0 newEntropy 1.286691021718177 infoGain 0.03939650364612124
+featList: [&#39;myope&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;hyper&#39;]
+uniqueVals: &#123;&#39;myope&#39;, &#39;hyper&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+baseEntropy 1.3260875253642983 i: 1 newEntropy 1.2865766899407325 infoGain 0.039510835423565815
+featList: [&#39;no&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;yes&#39;]
+uniqueVals: &#123;&#39;yes&#39;, &#39;no&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;reduced&#39;, &#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;normal&#39;, &#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+baseEntropy 1.3260875253642983 i: 2 newEntropy 0.9490822953528211 infoGain 0.37700523001147723
+featList: [&#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;, &#39;reduced&#39;, &#39;normal&#39;]
+uniqueVals: &#123;&#39;reduced&#39;, &#39;normal&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+baseEntropy 1.3260875253642983 i: 3 newEntropy 0.7772925846688997 infoGain 0.5487949406953986
+bestFeatLabel tearRate
+myTree::: &#123;&#39;tearRate&#39;: &#123;&#125;&#125;
+labels: [&#39;age&#39;, &#39;prescript&#39;, &#39;astigmatic&#39;]
+subLabels: [&#39;age&#39;, &#39;prescript&#39;, &#39;astigmatic&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] reduced
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+labels: [&#39;age&#39;, &#39;prescript&#39;, &#39;astigmatic&#39;]
+classList: [&#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;]
+classList[0]: no lenses
+classList.count(classList[0]): 12
+subLabels: [&#39;age&#39;, &#39;prescript&#39;, &#39;astigmatic&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;hard&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;normal&#39;, &#39;soft&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;reduced&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;normal&#39;, &#39;no lenses&#39;]
+axis 3 featVec[axis] normal
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 3 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+labels: [&#39;age&#39;, &#39;prescript&#39;, &#39;astigmatic&#39;]
+classList: [&#39;soft&#39;, &#39;hard&#39;, &#39;soft&#39;, &#39;hard&#39;, &#39;soft&#39;, &#39;hard&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;, &#39;hard&#39;, &#39;soft&#39;, &#39;no lenses&#39;]
+classList[0]: soft
+classList.count(classList[0]): 5
+baseEntropy: 1.5545851693377994
+featList: [&#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;young&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;]
+uniqueVals: &#123;&#39;young&#39;, &#39;pre&#39;, &#39;presbyopic&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+baseEntropy 1.5545851693377994 i: 0 newEntropy 1.3333333333333333 infoGain 0.22125183600446618
+featList: [&#39;myope&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;hyper&#39;]
+uniqueVals: &#123;&#39;myope&#39;, &#39;hyper&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no&#39;, &#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;yes&#39;, &#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+baseEntropy 1.5545851693377994 i: 1 newEntropy 1.4591479170272446 infoGain 0.09543725231055489
+featList: [&#39;no&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;yes&#39;, &#39;no&#39;, &#39;yes&#39;]
+uniqueVals: &#123;&#39;yes&#39;, &#39;no&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+baseEntropy 1.5545851693377994 i: 2 newEntropy 0.7841591278514218 infoGain 0.7704260414863776
+bestFeatLabel astigmatic
+myTree::: &#123;&#39;astigmatic&#39;: &#123;&#125;&#125;
+labels: [&#39;age&#39;, &#39;prescript&#39;]
+subLabels: [&#39;age&#39;, &#39;prescript&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] yes
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+labels: [&#39;age&#39;, &#39;prescript&#39;]
+classList: [&#39;hard&#39;, &#39;hard&#39;, &#39;hard&#39;, &#39;no lenses&#39;, &#39;hard&#39;, &#39;no lenses&#39;]
+classList[0]: hard
+classList.count(classList[0]): 4
+baseEntropy: 0.9182958340544896
+featList: [&#39;young&#39;, &#39;young&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;]
+uniqueVals: &#123;&#39;young&#39;, &#39;pre&#39;, &#39;presbyopic&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;no lenses&#39;]
+baseEntropy 0.9182958340544896 i: 0 newEntropy 0.6666666666666666 infoGain 0.2516291673878229
+featList: [&#39;myope&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;hyper&#39;]
+uniqueVals: &#123;&#39;myope&#39;, &#39;hyper&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+baseEntropy 0.9182958340544896 i: 1 newEntropy 0.4591479170272448 infoGain 0.4591479170272448
+bestFeatLabel prescript
+myTree::: &#123;&#39;prescript&#39;: &#123;&#125;&#125;
+labels: [&#39;age&#39;]
+subLabels: [&#39;age&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+labels: [&#39;age&#39;]
+classList: [&#39;hard&#39;, &#39;hard&#39;, &#39;hard&#39;]
+classList[0]: hard
+classList.count(classList[0]): 3
+subLabels: [&#39;age&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;hard&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;hard&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+labels: [&#39;age&#39;]
+classList: [&#39;hard&#39;, &#39;no lenses&#39;, &#39;no lenses&#39;]
+classList[0]: hard
+classList.count(classList[0]): 1
+baseEntropy: 0.9182958340544896
+featList: [&#39;young&#39;, &#39;pre&#39;, &#39;presbyopic&#39;]
+uniqueVals: &#123;&#39;young&#39;, &#39;pre&#39;, &#39;presbyopic&#39;&#125;
+featVec [&#39;young&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+featVec [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;no lenses&#39;]
+baseEntropy 0.9182958340544896 i: 0 newEntropy 0.0 infoGain 0.9182958340544896
+bestFeatLabel age
+myTree::: &#123;&#39;age&#39;: &#123;&#125;&#125;
+labels: []
+subLabels: []
+featVec [&#39;young&#39;, &#39;hard&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hard&#39;]
+axis 0 reducedFeatVec: [&#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+labels: []
+classList: [&#39;hard&#39;]
+classList[0]: hard
+classList.count(classList[0]): 1
+subLabels: []
+featVec [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+labels: []
+classList: [&#39;no lenses&#39;]
+classList[0]: no lenses
+classList.count(classList[0]): 1
+subLabels: []
+featVec [&#39;young&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;no lenses&#39;]
+labels: []
+classList: [&#39;no lenses&#39;]
+classList[0]: no lenses
+classList.count(classList[0]): 1
+subLabels: [&#39;age&#39;, &#39;prescript&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no&#39;, &#39;no lenses&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;yes&#39;, &#39;hard&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;no&#39;, &#39;soft&#39;]
+axis 2 featVec[axis] no
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 2 reducedFeatVec: [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;yes&#39;, &#39;no lenses&#39;]
+labels: [&#39;age&#39;, &#39;prescript&#39;]
+classList: [&#39;soft&#39;, &#39;soft&#39;, &#39;soft&#39;, &#39;soft&#39;, &#39;no lenses&#39;, &#39;soft&#39;]
+classList[0]: soft
+classList.count(classList[0]): 5
+baseEntropy: 0.6500224216483541
+featList: [&#39;young&#39;, &#39;young&#39;, &#39;pre&#39;, &#39;pre&#39;, &#39;presbyopic&#39;, &#39;presbyopic&#39;]
+uniqueVals: &#123;&#39;young&#39;, &#39;pre&#39;, &#39;presbyopic&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;soft&#39;]
+baseEntropy 0.6500224216483541 i: 0 newEntropy 0.3333333333333333 infoGain 0.3166890883150208
+featList: [&#39;myope&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;hyper&#39;, &#39;myope&#39;, &#39;hyper&#39;]
+uniqueVals: &#123;&#39;myope&#39;, &#39;hyper&#39;&#125;
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+axis 1 featVec[axis] myope
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;young&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;young&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;pre&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;pre&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 1 featVec[axis] hyper
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;]
+featVec[axis+1:] [&#39;soft&#39;]
+axis 1 reducedFeatVec: [&#39;presbyopic&#39;, &#39;soft&#39;]
+baseEntropy 0.6500224216483541 i: 1 newEntropy 0.4591479170272448 infoGain 0.19087450462110933
+bestFeatLabel age
+myTree::: &#123;&#39;age&#39;: &#123;&#125;&#125;
+labels: [&#39;prescript&#39;]
+subLabels: [&#39;prescript&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] young
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+labels: [&#39;prescript&#39;]
+classList: [&#39;soft&#39;, &#39;soft&#39;]
+classList[0]: soft
+classList.count(classList[0]): 2
+subLabels: [&#39;prescript&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] pre
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+labels: [&#39;prescript&#39;]
+classList: [&#39;soft&#39;, &#39;soft&#39;]
+classList[0]: soft
+classList.count(classList[0]): 2
+subLabels: [&#39;prescript&#39;]
+featVec [&#39;young&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;young&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;myope&#39;, &#39;soft&#39;]
+featVec [&#39;pre&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;presbyopic&#39;, &#39;myope&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;myope&#39;, &#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;presbyopic&#39;, &#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] presbyopic
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;hyper&#39;, &#39;soft&#39;]
+labels: [&#39;prescript&#39;]
+classList: [&#39;no lenses&#39;, &#39;soft&#39;]
+classList[0]: no lenses
+classList.count(classList[0]): 1
+baseEntropy: 1.0
+featList: [&#39;myope&#39;, &#39;hyper&#39;]
+uniqueVals: &#123;&#39;myope&#39;, &#39;hyper&#39;&#125;
+featVec [&#39;myope&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] myope
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;no lenses&#39;]
+featVec [&#39;hyper&#39;, &#39;soft&#39;]
+featVec [&#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] hyper
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;soft&#39;]
+baseEntropy 1.0 i: 0 newEntropy 0.0 infoGain 1.0
+bestFeatLabel prescript
+myTree::: &#123;&#39;prescript&#39;: &#123;&#125;&#125;
+labels: []
+subLabels: []
+featVec [&#39;myope&#39;, &#39;no lenses&#39;]
+axis 0 featVec[axis] myope
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;no lenses&#39;]
+axis 0 reducedFeatVec: [&#39;no lenses&#39;]
+featVec [&#39;hyper&#39;, &#39;soft&#39;]
+labels: []
+classList: [&#39;no lenses&#39;]
+classList[0]: no lenses
+classList.count(classList[0]): 1
+subLabels: []
+featVec [&#39;myope&#39;, &#39;no lenses&#39;]
+featVec [&#39;hyper&#39;, &#39;soft&#39;]
+axis 0 featVec[axis] hyper
+axis 0 reducedFeatVec: []
+featVec[axis+1:] [&#39;soft&#39;]
+axis 0 reducedFeatVec: [&#39;soft&#39;]
+labels: []
+classList: [&#39;soft&#39;]
+classList[0]: soft
+classList.count(classList[0]): 1</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">createPlot(lensesTree)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//output_14_0.png" srcset="/img/loading.gif" lazyload alt="png">
+<figcaption aria-hidden="true">png</figcaption>
+</figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/02/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">案例-基于关联规则算法实现电影推荐系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/">
+                        <span class="hidden-mobile">决策树demo</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

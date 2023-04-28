@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Python设计模式-行为型：策略模式,观察者模式,命令模式,模板方法  行为型模式会涉及到算法和对象间的职责分配，不仅描述对象或类的模式，还描述它们之间的通信方式，刻划了运行时难以跟踪的复杂的控制流，它们将你的注意力从控制流转移到对象间的关系上来。   策略模式定义及简单实现案例 观察者模式定义及简单实现案例 命令模式定义及简单实现案例 模板方法模式定义及简单实现案例  策略模式 strateg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python设计模式-行为型">
+<meta property="og:url" content="http://oceaneyes.top/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="Python设计模式-行为型：策略模式,观察者模式,命令模式,模板方法  行为型模式会涉及到算法和对象间的职责分配，不仅描述对象或类的模式，还描述它们之间的通信方式，刻划了运行时难以跟踪的复杂的控制流，它们将你的注意力从控制流转移到对象间的关系上来。   策略模式定义及简单实现案例 观察者模式定义及简单实现案例 命令模式定义及简单实现案例 模板方法模式定义及简单实现案例  策略模式 strateg">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2022-06-01T15:31:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.181Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Python3">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>Python设计模式-行为型 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Python设计模式-行为型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-06-01 23:31" pubdate>
+        2022年6月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      66 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python设计模式-行为型</h1>
+            
+            <div class="markdown-body">
+              <h2 id="python设计模式-行为型策略模式观察者模式命令模式模板方法">Python设计模式-行为型：策略模式,观察者模式,命令模式,模板方法</h2>
+<blockquote>
+<p>行为型模式会涉及到算法和对象间的职责分配，不仅描述对象或类的模式，还描述它们之间的通信方式，刻划了运行时难以跟踪的复杂的控制流，它们将你的注意力从控制流转移到对象间的关系上来。</p>
+</blockquote>
+<ul>
+<li>策略模式定义及简单实现案例</li>
+<li>观察者模式定义及简单实现案例</li>
+<li>命令模式定义及简单实现案例</li>
+<li>模板方法模式定义及简单实现案例</li>
+</ul>
+<h3 id="策略模式-strategy">策略模式 strategy</h3>
+<div class="code-wrapper"><pre><code class="hljs">case:一个问题可能有多种显示方式。如果用户有管理权限，那么问题的详情页面可能会显示编辑按钮，如果是普通用户则只显示问题内容。这样一个对象我们该怎么实现呢</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>class Question(object):<br>    &quot;&quot;&quot;<br>    问题对象，没有使用策略模式之前的作法<br>    &quot;&quot;&quot;<br><br>    def __init__(self, admin=True):<br>        self._admin = admin<br><br>    def show(self):<br>        &quot;&quot;&quot;<br>        根据是否是管理员显示不同的信息<br>        &quot;&quot;&quot;<br>        if self._admin is True:<br>            return &quot;show page with admin&quot;<br>        else:<br>            return &quot;show page with user&quot;<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    q = Question(admin=False)<br>    print(q.show())<br></code></pre></td></tr></table></figure>
+<p>以上代码中，最重要的操作就是Question.show操作，它会根据Quesiton._admin标志的不同完成两种显示。</p>
+<p>现在我们有一些新的需求，增加Question的显示方式，怎么办？ -
+如果增加更多的显示方式，按照以上作法，我们必然要修改Quesiton.show方法，并增加更多的标志位。
+-
+这样一来Question在面对不断增加的显示需求时都需要修改其代码，显然这是一种不好的设计。</p>
+<p>下面该轮到策略模式发挥作用的时候了，策略模式将各种操作（算法）进行封装，并使它们之间可以互换。互换的意思是说可以动态改变对象的操作方式（算法）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>import abc<br><br><br>class AbsShow(object):<br>    &quot;&quot;&quot;<br>    抽象显示对象<br>    &quot;&quot;&quot;<br><br>    __metaclass__ = abc.ABCMeta<br><br>    @abc.abstractmethod<br>    def show(self):<br>        pass<br><br><br>class AdminShow(AbsShow):<br>    &quot;&quot;&quot;<br>    管理员的显示操作<br>    &quot;&quot;&quot;<br><br>    def show(self):<br>        return &quot;show with admin&quot;<br><br><br>class UserShow(AbsShow):<br>    &quot;&quot;&quot;<br>    普通用户的显示操作<br>    &quot;&quot;&quot;<br><br>    def show(self):<br>        return &quot;show with user&quot;<br><br><br>class Question(object):<br>    &quot;&quot;&quot;<br>    问题对象，使用策略模式之后的作法<br>    &quot;&quot;&quot;<br><br>    def __init__(self, show_obj):<br>        self.show_obj = show_obj<br><br>    def show(self):<br>        return self.show_obj.show()<br><br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    q = Question(show_obj=AdminShow())<br>    print(q.show())<br>    # 替换原来的显示对象，体现了策略模式的互换行为<br>    q.show_obj = UserShow()<br>    print(q.show())<br></code></pre></td></tr></table></figure>
+<p>将 Question
+对象和显示方法进行了解耦，增加新的显示方法时，只需要增加新的显示对象就可以了。同时，在代码中还可以看到我们可以动态改变
+Question 的显示方式，这也体现了策略模式的互换行为。</p>
+<h3 id="观察者模式-observer">观察者模式 Observer</h3>
+<p>所谓观察者模式，就是说当一个对象发生变化时，观察者能及时得到通知并更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>import abc<br><br><br>class Subject(object):<br>    &quot;&quot;&quot;<br>    被观察对象的基类<br>    &quot;&quot;&quot;<br><br>    def __init__(self):<br>        self._observers = []<br><br>    def attach(self, observer):<br>        &quot;&quot;&quot;<br>        注册一个观察者<br>        &quot;&quot;&quot;<br>        if observer not in self._observers:<br>            self._observers.append(observer)<br><br>    def detach(self, observer):<br>        &quot;&quot;&quot;<br>        注销一个观察者<br>        &quot;&quot;&quot;<br>        try:<br>            self._observers.remove(observer)<br>        except ValueError:<br>            pass<br><br>    def notify(self):<br>        &quot;&quot;&quot;<br>        通知所有观察者，执行观察者的更新方法<br>        &quot;&quot;&quot;<br>        for observer in self._observers:<br>            observer.update(self)<br><br><br>class Course(Subject):<br>    &quot;&quot;&quot;<br>    课程对象，被观察的对象<br>    &quot;&quot;&quot;<br><br>    def __init__(self):<br>        super(Course, self).__init__()<br>        self._message = None<br><br>    @property<br>    def message(self):<br>        &quot;&quot;&quot;<br>        message 是一个属性<br>        &quot;&quot;&quot;<br>        return self._message<br><br>    @message.setter<br>    def message(self, msg):<br>        &quot;&quot;&quot;<br>        message 属性设置器<br>        &quot;&quot;&quot;<br>        self._message = msg<br>        self.notify()<br><br><br>class Observer(object):<br>    &quot;&quot;&quot;<br>    观察者抽象类<br>    &quot;&quot;&quot;<br><br>    __metaclass__ = abc.ABCMeta<br><br>    @abc.abstractmethod<br>    def update(self, subject):<br>        pass<br><br><br>class UserObserver(Observer):<br>    &quot;&quot;&quot;<br>    用户观察者<br>    &quot;&quot;&quot;<br><br>    def update(self, subject):<br>        print(&quot;User observer: %s&quot; % subject.message)<br><br><br>class OrgObserver(Observer):<br>    &quot;&quot;&quot;<br>    机构观察者<br>    &quot;&quot;&quot;<br><br>    def update(self, subject):<br>        print(&quot;Organization observer: %s&quot; % subject.message)<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    # 初始化一个用户观察者<br>    user = UserObserver()<br>    # 初始化一个机构观察者<br>    org = OrgObserver()<br><br>    # 初始化一个课程<br>    course = Course()<br>    # 注册观察者<br>    course.attach(user)<br>    course.attach(org)<br><br>    # 设置course.message，这时观察者会收到通知<br>    course.message = &quot;two observers&quot;<br><br>    # 注销一个观察者<br>    course.detach(user)<br>    course.message = &quot;single observer&quot;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>Subject类，它实现了观察者模式中大部分功能。
+<ul>
+<li>作为一个被观察的对象，Subject实现了注册观察者，注销观察者和通知观察者的功能。</li>
+<li>接着我们基于Subject创建了我们的课程Course类，并且当我们设置Course.message属性时，Course对象会通知到所有观察者。</li>
+</ul></li>
+<li>可以看出，观察者模式使被观察的对象（主题）和观察者之间解耦了</li>
+</ul>
+<h3 id="命令模式-command">命令模式 Command</h3>
+<p>命令模式就是对命令的封装。 -
+所谓封装命令，就是将一系列操作封装到命令类中，并且命令类只需要对外公开一个执行方法execute，调用此命令的对象只需要执行命令的execute方法就可以完成所有的操作。
+- 这样调用此命令的对象就和命令具体操作之间解耦了。 -
+更进一步，通过命令模式我们可以抽象出调用者，接收者和命令三个对象。 -
+调用者就是简单的调用命令，然后将命令发送给接收者，而接收者则接收并执行命令，执行命令的方式也是简单的调用命令的execute方法就可以了。
+-
+发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>import abc<br><br><br>class VmReceiver(object):<br>    &quot;&quot;&quot;<br>    命令接收者，真正执行命令的地方<br>    &quot;&quot;&quot;<br><br>    def start(self):<br>        print(&quot;Virtual machine start&quot;)<br><br>    def stop(self):<br>        print(&quot;Virtual machine stop&quot;)<br><br><br>class Command(object):<br>    &quot;&quot;&quot;<br>    命令抽象类<br>    &quot;&quot;&quot;<br>    __metaclass__ = abc.ABCMeta<br><br>    @abc.abstractmethod<br>    def execute(self):<br>        &quot;&quot;&quot;<br>        命令对象对外只提供 execute 方法<br>        &quot;&quot;&quot;<br>        pass<br><br><br>class StartVmCommand(Command):<br>    &quot;&quot;&quot;<br>    开启虚拟机的命令<br>    &quot;&quot;&quot;<br><br>    def __init__(self, recevier):<br>        &quot;&quot;&quot;<br>        使用一个命令接收者初始化<br>        &quot;&quot;&quot;<br>        self.recevier = recevier<br><br>    def execute(self):<br>        &quot;&quot;&quot;<br>        真正执行命令的时候命令接收者开启虚拟机<br>        &quot;&quot;&quot;<br>        self.recevier.start()<br><br><br>class StopVmCommand(Command):<br>    &quot;&quot;&quot;<br>    停止虚拟机的命令<br>    &quot;&quot;&quot;<br><br>    def __init__(self, recevier):<br>        &quot;&quot;&quot;<br>        使用一个命令接收者初始化<br>        &quot;&quot;&quot;<br>        self.recevier = recevier<br><br>    def execute(self):<br>        &quot;&quot;&quot;<br>        真正执行命令的时候命令接收者关闭虚拟机<br>        &quot;&quot;&quot;<br>        self.recevier.stop()<br><br><br>class ClientInvoker(object):<br>    &quot;&quot;&quot;<br>    命令调用者<br>    &quot;&quot;&quot;<br><br>    def __init__(self, command):<br>        self.command = command<br><br>    def do(self):<br>        self.command.execute()<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    recevier = VmReceiver()<br>    start_command = StartVmCommand(recevier)<br>    # 命令调用者同时也是客户端，通过命令实例也执行真正的操作<br>    client = ClientInvoker(start_command)<br>    client.do()<br><br>    # 能告诉命令接收者执行不同的操作<br>    stop_command = StopVmCommand(recevier)<br>    client.command = stop_command<br>    client.do()<br></code></pre></td></tr></table></figure>
+<p>命令模式的封装性很好：每个命令都被封装起来，对于客户端来说，需要什么功能就去调用相应的命令，而无需知道命令具体是怎么执行的。同时命令模式的扩展性很好，在命令模式中，在接收者类中一般会对操作进行最基本的封装，命令类则通过对这些基本的操作进行二次封装，当增加新命令的时候，对命令类的编写一般不是从零开始的，有大量的接收者类可供调用，也有大量的命令类可供调用，代码的复用性很好</p>
+<h3 id="模板方法模式-template-method">模板方法模式 template method</h3>
+<p>在模板方法模式中，我们先定义一个类模板，在这个类中，我们定义了各种操作的顺序（轮毂或者说是骨架），但是并不实现这些操作，这些操作由子类来操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>import abc<br><br><br>class Fishing(object):<br>    &quot;&quot;&quot;<br>    钓鱼模板基类<br>    &quot;&quot;&quot;<br>    __metaclass__ = abc.ABCMeta<br><br>    def finishing(self):<br>        &quot;&quot;&quot;<br>        钓鱼方法中，确定了要执行哪些操作才能钓鱼<br>        &quot;&quot;&quot;<br>        self.prepare_bait()<br>        self.go_to_riverbank()<br>        self.find_location()<br>        print(&quot;start fishing&quot;)<br><br>    @abc.abstractmethod<br>    def prepare_bait(self):<br>        pass<br><br>    @abc.abstractmethod<br>    def go_to_riverbank(self):<br>        pass<br><br>    @abc.abstractmethod<br>    def find_location(self):<br>        pass<br><br><br>class JohnFishing(Fishing):<br>    &quot;&quot;&quot;<br>    John 也想去钓鱼，它必须实现钓鱼三步骤<br>    &quot;&quot;&quot;<br><br>    def prepare_bait(self):<br>        &quot;&quot;&quot;<br>        从淘宝购买鱼饵<br>        &quot;&quot;&quot;<br>        print(&quot;John: buy bait from Taobao&quot;)<br><br>    def go_to_riverbank(self):<br>        &quot;&quot;&quot;<br>        开车去钓鱼<br>        &quot;&quot;&quot;<br>        print(&quot;John: to river by driving&quot;)<br><br>    def find_location(self):<br>        &quot;&quot;&quot;<br>        在岛上选择钓点<br>        &quot;&quot;&quot;<br>        print(&quot;John: select location on the island&quot;)<br><br><br>class SimonFishing(Fishing):<br>    &quot;&quot;&quot;<br>    Simon 也想去钓鱼，它也必须实现钓鱼三步骤<br>    &quot;&quot;&quot;<br><br>    def prepare_bait(self):<br>        &quot;&quot;&quot;<br>        从京东购买鱼饵<br>        &quot;&quot;&quot;<br>        print(&quot;Simon: buy bait from JD&quot;)<br><br>    def go_to_riverbank(self):<br>        &quot;&quot;&quot;<br>        骑自行车去钓鱼<br>        &quot;&quot;&quot;<br>        print(&quot;Simon: to river by biking&quot;)<br><br>    def find_location(self):<br>        &quot;&quot;&quot;<br>        在河边选择钓点<br>        &quot;&quot;&quot;<br>        print(&quot;Simon: select location on the riverbank&quot;)<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    # John 去钓鱼<br>    f = JohnFishing()<br>    f.finishing()<br><br>    # Simon 去钓鱼<br>    f = SimonFishing()<br>    f.finishing()<br></code></pre></td></tr></table></figure>
+<p><strong>模板方法模式是结构最简单的行为型设计模式，在其结构中只存在父类与子类之间的继承关系。</strong>
+-
+通过使用模板方法模式，可以将一些复杂流程的实现步骤封装在一系列基本方法中，在抽象父类中提供一个称之为模板方法的方法来定义这些基本方法的执行次序，而通过其子类来覆盖某些步骤，从而使得相同的算法框架可以有不同的执行结果。
+-
+模板方法模式提供了一个模板方法来定义算法框架，而某些具体步骤的实现可以在其子类中完成</p>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python3/">Python3</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python3/">Python3</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python设计模式-结构型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/">
+                        <span class="hidden-mobile">Python设计模式-创建型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,902 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基于PyTorch实现图像去模糊-学习 任务描述  相机的抖动、快速运动的物体都会导致拍摄出模糊的图像，景深变化也会使图像进一步模糊。 对于传统方法来说，要想估计出每个像素点对应的 “blur kernel” 几乎是不可行的。因此，传统方法常常需要对模糊源作出假设，将 “blur kernel” 参数化。显然，这类方法不足以解决实际中各种复杂因素引起的图像模糊。 卷积神经网络能够从图像中提取出复杂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于PyTorch实现图像去模糊-学习">
+<meta property="og:url" content="http://oceaneyes.top/2021/11/19/pytorch%E5%9B%BE%E5%83%8F%E5%8E%BB%E6%A8%A1%E7%B3%8A/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="基于PyTorch实现图像去模糊-学习 任务描述  相机的抖动、快速运动的物体都会导致拍摄出模糊的图像，景深变化也会使图像进一步模糊。 对于传统方法来说，要想估计出每个像素点对应的 “blur kernel” 几乎是不可行的。因此，传统方法常常需要对模糊源作出假设，将 “blur kernel” 参数化。显然，这类方法不足以解决实际中各种复杂因素引起的图像模糊。 卷积神经网络能够从图像中提取出复杂">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120221821489.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120221933618.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120221955392.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222025823.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222042862.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222105417.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222124809.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222241087.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222352850.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222344621.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222325752.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222301708.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120222412395.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-11-19T15:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.182Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://oceaneyes.top/.top//Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211120221821489.png">
+  
+  
+  <title>基于PyTorch实现图像去模糊-学习 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于PyTorch实现图像去模糊-学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-19 23:19" pubdate>
+        2021年11月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      21k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      178 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于PyTorch实现图像去模糊-学习</h1>
+            
+            <div class="markdown-body">
+              <h2 id="基于pytorch实现图像去模糊-学习">基于PyTorch实现图像去模糊-学习</h2>
+<h2 id="任务描述">任务描述</h2>
+<ul>
+<li>相机的抖动、快速运动的物体都会导致拍摄出模糊的图像，景深变化也会使图像进一步模糊。</li>
+<li>对于传统方法来说，要想估计出每个像素点对应的 “blur kernel”
+几乎是不可行的。因此，传统方法常常需要对模糊源作出假设，将 “blur kernel”
+参数化。显然，这类方法不足以解决实际中各种复杂因素引起的图像模糊。</li>
+<li>卷积神经网络能够从图像中提取出复杂的特征，从而使得模型能够适应各种场景。<br>
+</li>
+<li>本教程以 CVPR2017 的 《Deep Multi-scale Convolutional Neural Network
+for Dynamic Scene Deblurring》 为例，来完成图像去模糊的任务。</li>
+</ul>
+<h3 id="方法概述">方法概述</h3>
+<ul>
+<li>利用pytorch深度学习工具实现一个端到端的图像去模糊模型，通过参数设置、加载数据、构建模型、训练模型和测试用例依次实现一个图像去模糊工具，在训练和预处理过程中通过可视化监督训练过程。</li>
+<li>模型采用了残差形式的CNN，输入和输出都采用高斯金字塔（Gaussian
+pyramid）的形式。</li>
+<li>整个网络结构由三个相似的CNN构成，分别对应输入金字塔中的每一层。网络最前面是分辨率最低的子网络（coarest
+level network），在这个子网络最后，是“upconvolution
+layer”，将重建的低分辨率图像放大为高分辨率图像，然后和高一层的子网络的输入连接在一起，作为上层网络的输入。</li>
+</ul>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120221821489.png" srcset="/img/loading.gif" lazyload alt="image-20211120221821489">
+<figcaption aria-hidden="true">image-20211120221821489</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs python">%config Completer.use_jedi = <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!pip install pytorch_msssim -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="hljs-comment"># !jupyter nbextension enable --py widgetsnbextension</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> tensorboardX <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">from</span> torchsummary <span class="hljs-keyword">import</span> summary<br><span class="hljs-keyword">from</span> torch.optim <span class="hljs-keyword">import</span> lr_scheduler<br><span class="hljs-keyword">from</span> torch.utils <span class="hljs-keyword">import</span> data<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms<br><span class="hljs-keyword">from</span> tqdm.notebook <span class="hljs-keyword">import</span> tqdm<br><br><br><span class="hljs-keyword">import</span> pytorch_msssim <span class="hljs-comment"># 用于计算指标 ssim 和 mssim</span><br><br>device = torch.device(<span class="hljs-string">&quot;cuda:0&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="参数设置">参数设置</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,name=<span class="hljs-string">&quot;Configs&quot;</span></span>):<br>        <span class="hljs-comment"># train set</span><br>        self.data_dir = <span class="hljs-string">&#x27;datasets/train&#x27;</span> <span class="hljs-comment"># 训练集目录</span><br>        self.patch_size = <span class="hljs-number">256</span>  <span class="hljs-comment"># 输入模型的patch的尺寸</span><br>        self.batch_size= <span class="hljs-number">2</span> <span class="hljs-comment">#16 # 训练时每个batch中的样本个数</span><br>        self.n_threads = <span class="hljs-number">1</span> <span class="hljs-comment"># 用于加载数据的线程数</span><br>        <br>        <span class="hljs-comment"># test set</span><br>        self.test_data_dir = <span class="hljs-string">&#x27;datasets/test&#x27;</span> <span class="hljs-comment"># 测试集目录</span><br>        self.test_batch_size=<span class="hljs-number">1</span> <span class="hljs-comment"># 测试时的 batch_size</span><br>        <br>        <span class="hljs-comment"># model</span><br>        self.multi = <span class="hljs-literal">True</span> <span class="hljs-comment"># 模型采用多尺度方法True</span><br>        self.skip = <span class="hljs-literal">True</span> <span class="hljs-comment"># 模型采用滑动连接方法</span><br>        self.n_resblocks = <span class="hljs-number">3</span> <span class="hljs-comment">#9  # resblock的个数</span><br>        self.n_feats = <span class="hljs-number">8</span> <span class="hljs-comment">#64  #feature map的个数</span><br>        <br>        <span class="hljs-comment"># optimization </span><br>        self.lr = <span class="hljs-number">1e-4</span>  <span class="hljs-comment"># 初始学习率</span><br>        self.epochs =<span class="hljs-number">5</span> <span class="hljs-comment">#800 # 训练epoch的数目</span><br>        self.lr_step_size = <span class="hljs-number">600</span> <span class="hljs-comment">#采用步进学习率策略所用的 step_size</span><br>        self.lr_gamma = <span class="hljs-number">0.1</span> <span class="hljs-comment">#每 lr_step_size后，学习率变成 lr * lr_gamma</span><br>        <br>        <span class="hljs-comment"># global</span><br>        self.name = name <span class="hljs-comment">#配置的名称</span><br>        self.save_dir = <span class="hljs-string">&#x27;temp/result&#x27;</span>  <span class="hljs-comment"># 保存训练过程中所产生数据的目录</span><br>        self.save_cp_dir = <span class="hljs-string">&#x27;temp/models&#x27;</span>  <span class="hljs-comment"># 保存 checkpoint的目录</span><br>        self.imgs_dir = <span class="hljs-string">&#x27;datasets/pictures&#x27;</span>  <span class="hljs-comment"># 此 notebook所需的图片目录</span><br>        <br>        <br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(self.save_dir):<br>            os.makedirs(self.save_dir)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(self.save_cp_dir):<br>            os.makedirs(self.save_cp_dir)<br><span class="hljs-comment">#         if not os.path.exists(self.data_dir):</span><br><span class="hljs-comment">#             os.makedirs(self.data_dir)</span><br><span class="hljs-comment">#         if not os.path.exists(self.test_data_dir):</span><br><span class="hljs-comment">#             os.makedirs(self.test_data_dir)</span><br><br>args =  Config(name=<span class="hljs-string">&quot;image-deblurring&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="数据准备">数据准备</h2>
+<ul>
+<li>数据集展示</li>
+<li>数据增强</li>
+<li>构造 dataset类</li>
+<li>数据加载 dataloader</li>
+</ul>
+<h3 id="数据集展示">数据集展示</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">sample_idx = <span class="hljs-number">1</span> <span class="hljs-comment"># 样本编号</span><br>blur_path = os.path.join(args.imgs_dir,<span class="hljs-string">f&quot;blur/test<span class="hljs-subst">&#123;sample_idx&#125;</span>.png&quot;</span>)  <span class="hljs-comment"># 模糊图片</span><br>sharp_path = os.path.join(args.imgs_dir,<span class="hljs-string">f&quot;sharp/test<span class="hljs-subst">&#123;sample_idx&#125;</span>.png&quot;</span>) <span class="hljs-comment"># 去模糊图片</span><br>blur_img = plt.imread(blur_path)<br>sharp_img = plt.imread(sharp_path)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">plt.figure(figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">4</span>))<br>plt.subplot(<span class="hljs-number">121</span>)<br>plt.imshow(blur_img)<br>plt.subplot(<span class="hljs-number">122</span>)<br>plt.imshow(sharp_img)<br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120221933618.png" srcset="/img/loading.gif" lazyload alt="image-20211120221933618">
+<figcaption aria-hidden="true">image-20211120221933618</figcaption>
+</figure>
+<h3 id="数据增强">数据增强</h3>
+<p>为了防止过拟合，需要对数据集进行数据增强，增强方式如下所示，对每一个输入图像，都将其进行随机角度旋转，旋转的角度在
+[0, 90, 180, 270] 中随机选取。除此之外，考虑到图像质量下降，对 HSV
+颜色空间的饱和度乘以 0.8 到 1.2 内的随机数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">augment</span>(<span class="hljs-params">img_input, img_target</span>):<br>    degree = random.choice([<span class="hljs-number">0</span>,<span class="hljs-number">90</span>,<span class="hljs-number">180</span>,<span class="hljs-number">270</span>])<br>    img_input = transforms.functional.rotate(img_input,degree)<br>    img_target = transforms.functional.rotate(img_target,degree)<br>    <br>    <span class="hljs-comment"># color augmentation</span><br>    img_input = transforms.functional.adjust_gamma(img_input,<span class="hljs-number">1</span>)<br>    img_target = transforms.functional.adjust_gamma(img_target,<span class="hljs-number">1</span>)<br>    sat_factor = <span class="hljs-number">1</span> + (<span class="hljs-number">0.2</span> - <span class="hljs-number">0.4</span>* np.random.rand())<br>    img_input = transforms.functional.adjust_saturation(img_input,sat_factor)<br>    img_target = transforms.functional.adjust_saturation(img_target,sat_factor)<br>    <br>    <span class="hljs-keyword">return</span> img_input,img_target<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">img_input = Image.<span class="hljs-built_in">open</span>(blur_path)<br>img_target = Image.<span class="hljs-built_in">open</span>(sharp_path)<br><br>img_aug_input,img_aug_target = augment(img_input,img_target)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">plt.figure(figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">5</span>))<br>plt.subplot(<span class="hljs-number">121</span>)<br>plt.imshow(img_aug_input)<br>plt.subplot(<span class="hljs-number">122</span>)<br>plt.imshow(img_aug_target)<br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120221955392.png" srcset="/img/loading.gif" lazyload alt="image-20211120221955392">
+<figcaption aria-hidden="true">image-20211120221955392</figcaption>
+</figure>
+<h3 id="构造-dataset类">构造 dataset类</h3>
+<p>对每一个输入图像，对齐进行随机裁剪，得到patch_size大小的输入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">getPatch</span>(<span class="hljs-params">img_input,img_target,patch_size</span>):<br>    w,h = img_input.size<br>    p = patch_size<br>    x = random.randrange(<span class="hljs-number">0</span>,w-p +<span class="hljs-number">1</span>)<br>    y = random.randrange(<span class="hljs-number">0</span>,h -p +<span class="hljs-number">1</span>)<br>    <br>    img_input = img_input.crop((x,y,x+p,y+p))<br>    img_target = img_target.crop((x,y,x+p,y+p))<br>    <br>    <span class="hljs-keyword">return</span> img_input,img_target<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ImgMission</span>(data.Dataset):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,data_dir, patch_size=<span class="hljs-number">256</span>, is_train= <span class="hljs-literal">False</span>, multi=<span class="hljs-literal">True</span></span>):<br>        <span class="hljs-built_in">super</span>(ImgMission,self).__init__()<br>        <br>        self.is_train = is_train  <span class="hljs-comment">#是否是训练集</span><br>        self.patch_size = patch_size <span class="hljs-comment"># 训练时 patch的尺寸</span><br>        self.multi = multi  <span class="hljs-comment"># 是否采用多尺度因子，默认采用</span><br>        <br>        self.sharp_file_paths = []<br>        sub_folders = os.listdir(data_dir)<br>        <span class="hljs-built_in">print</span>(sub_folders)<br>        <br>        <span class="hljs-keyword">for</span> folder_name <span class="hljs-keyword">in</span> sub_folders:<br>            sharp_sub_folder = os.path.join(data_dir,folder_name,<span class="hljs-string">&#x27;sharp&#x27;</span>)<br>            sharp_file_names = os.listdir(sharp_sub_folder)<br>            <span class="hljs-comment"># print(sharp_file_names)</span><br>            <span class="hljs-keyword">for</span> file_name <span class="hljs-keyword">in</span> sharp_file_names:<br>                sharp_file_path = os.path.join(sharp_sub_folder,file_name)<br>                <span class="hljs-comment"># print(sharp_file_path)</span><br>                self.sharp_file_paths.append(sharp_file_path)<br>                <br>        self.n_samples = <span class="hljs-built_in">len</span>(self.sharp_file_paths)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_img_pair</span>(<span class="hljs-params">self,idx</span>):<br>        sharp_file_path = self.sharp_file_paths[idx]<br>        blur_file_path = sharp_file_path.replace(<span class="hljs-string">&quot;sharp&quot;</span>,<span class="hljs-string">&quot;blur&quot;</span>)<br>        <span class="hljs-comment"># print(blur_file_path)</span><br>        img_input = Image.<span class="hljs-built_in">open</span>(blur_file_path).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)<br>        img_target = Image.<span class="hljs-built_in">open</span>(sharp_file_path).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)<br>        <br>        <span class="hljs-keyword">return</span> img_input,img_target<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self,idx</span>):<br>        img_input,img_target = self.get_img_pair(idx)<br>        <br>        <span class="hljs-keyword">if</span> self.is_train:<br>            img_input,img_target = getPatch(img_input,img_target, self.patch_size)<br>            img_input,img_target=  augment(img_input,img_target)<br>            <br>            <br>        <span class="hljs-comment"># 转换为 tensor类型</span><br>        input_b1 = transforms.ToTensor()(img_input)<br>        target_s1 = transforms.ToTensor()(img_target)<br>        <br>        H = input_b1.size()[<span class="hljs-number">1</span>]<br>        W= input_b1.size()[<span class="hljs-number">2</span>]<br>        <br>        <span class="hljs-keyword">if</span> self.multi:<br>            input_b1 = transforms.ToPILImage()(input_b1)<br>            target_s1 = transforms.ToPILImage()(target_s1)<br>            <br>            input_b2 = transforms.ToTensor()(transforms.Resize([<span class="hljs-built_in">int</span>(H/<span class="hljs-number">2</span>), <span class="hljs-built_in">int</span>(W/<span class="hljs-number">2</span>)])(input_b1))<br>            input_b3 = transforms.ToTensor()(transforms.Resize([<span class="hljs-built_in">int</span>(H/<span class="hljs-number">4</span>), <span class="hljs-built_in">int</span>(W/<span class="hljs-number">4</span>)])(input_b1))<br>            <br>            <span class="hljs-comment"># 只对训练集进行数据增强</span><br>            <span class="hljs-keyword">if</span> self.is_train:<br>                target_s2 = transforms.ToTensor()(transforms.Resize([<span class="hljs-built_in">int</span>(H/<span class="hljs-number">2</span>), <span class="hljs-built_in">int</span>(W/<span class="hljs-number">2</span>)])(target_s1))<br>                target_s3 = transforms.ToTensor()(transforms.Resize([<span class="hljs-built_in">int</span>(H/<span class="hljs-number">4</span>), <span class="hljs-built_in">int</span>(W/<span class="hljs-number">4</span>)])(target_s1))<br>            <span class="hljs-keyword">else</span>:<br>                target_s2 = []<br>                target_s3 = []<br>                <br>            input_b1 = transforms.ToTensor()(input_b1)<br>            target_s1 = transforms.ToTensor()(target_s1)<br>            <br>            <span class="hljs-keyword">return</span> &#123;<br>                <span class="hljs-string">&#x27;input_b1&#x27;</span>: input_b1, <span class="hljs-comment"># 参照下文的网络结构，输入图像的尺度 1</span><br>                <span class="hljs-string">&#x27;input_b2&#x27;</span>: input_b2, <span class="hljs-comment"># 输入图像的尺度 2</span><br>                <span class="hljs-string">&#x27;input_b3&#x27;</span>: input_b3, <span class="hljs-comment"># 输入图像的尺度 3</span><br>                <span class="hljs-string">&#x27;target_s1&#x27;</span>: target_s1, <span class="hljs-comment"># 目标图像的尺度 1</span><br>                <span class="hljs-string">&#x27;target_s2&#x27;</span>: target_s2, <span class="hljs-comment"># 目标图像的尺度 2</span><br>                <span class="hljs-string">&#x27;target_s3&#x27;</span>: target_s3 <span class="hljs-comment"># 目标图像的尺度 3</span><br>            &#125;<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_b1&#x27;</span>: input_b1, <span class="hljs-string">&#x27;target_s1&#x27;</span>: target_s1&#125;<br>            <br>        <br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self.n_samples<br></code></pre></td></tr></table></figure>
+<h3 id="数据加载-dataloader">数据加载 dataloader</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_dataset</span>(<span class="hljs-params">data_dir,patch_size=<span class="hljs-literal">None</span>, </span><br><span class="hljs-params">                batch_size=<span class="hljs-number">1</span>, n_threads=<span class="hljs-number">1</span>, </span><br><span class="hljs-params">                is_train=<span class="hljs-literal">False</span>,multi=<span class="hljs-literal">False</span></span>):<br>    <span class="hljs-comment"># Dataset实例化</span><br>    <br><span class="hljs-comment">#     print(data_dir)</span><br><span class="hljs-comment">#     print(patch_size)</span><br><span class="hljs-comment">#     print(is_train)</span><br><span class="hljs-comment">#     print(multi)</span><br><br>    dataset = ImgMission(data_dir,patch_size=patch_size,<br>                    is_train=is_train,multi=multi)<br>    <br>    <span class="hljs-comment"># print(dataset)</span><br>    <span class="hljs-comment"># 利用封装好的 dataloader 接口定义训练过程的迭代器</span><br>    <span class="hljs-comment"># 参数num_workers表示进程个数，在jupyter下改为0</span><br>    dataloader = torch.utils.data.DataLoader(dataset,batch_size=batch_size,<br>                                            drop_last=<span class="hljs-literal">True</span>, shuffle=is_train,<br>                                             num_workers = <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">return</span> dataloader<br></code></pre></td></tr></table></figure>
+<ul>
+<li>将训练时的dataloader实例化</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">data_loader = get_dataset(args.data_dir,<br>                          patch_size=args.patch_size,<br>                          batch_size= args.batch_size,<br>                          n_threads= args.n_threads,<br>                          is_train=<span class="hljs-literal">True</span>,<br>                          multi = args.multi<br>                         )<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;GOPR0372_07_00&#39;, &#39;GOPR0372_07_01&#39;, &#39;GOPR0374_11_00&#39;, &#39;GOPR0374_11_01&#39;, &#39;GOPR0374_11_02&#39;, &#39;GOPR0374_11_03&#39;, &#39;GOPR0378_13_00&#39;, &#39;GOPR0379_11_00&#39;, &#39;GOPR0380_11_00&#39;, &#39;GOPR0384_11_01&#39;, &#39;GOPR0384_11_02&#39;, &#39;GOPR0384_11_03&#39;, &#39;GOPR0384_11_04&#39;, &#39;GOPR0385_11_00&#39;, &#39;GOPR0386_11_00&#39;, &#39;GOPR0477_11_00&#39;, &#39;GOPR0857_11_00&#39;, &#39;GOPR0868_11_01&#39;, &#39;GOPR0868_11_02&#39;, &#39;GOPR0871_11_01&#39;, &#39;GOPR0881_11_00&#39;, &#39;GOPR0884_11_00&#39;]</code></pre></div>
+<h2 id="模型构建">模型构建</h2>
+<ul>
+<li>模型介绍</li>
+<li>模型定义</li>
+<li>实例化模型</li>
+<li>损失函数和优化器</li>
+</ul>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222025823.png" srcset="/img/loading.gif" lazyload alt="image-20211120222025823">
+<figcaption aria-hidden="true">image-20211120222025823</figcaption>
+</figure>
+<p>CONV 表示卷积层， ResBlock 表示残差模块， Upconv
+表示上采样（也可以用反卷积代替）。 从图中可以看出，该模型使用了
+“multi-scale” 的结构， 在输入和输出部分都都采用了高斯金字塔（Gaussian
+pyramid）的形式（即对原图像进行不同尺度的下采样，从而获得处于不同分辨率的图像）</p>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222042862.png" srcset="/img/loading.gif" lazyload alt="image-20211120222042862">
+<figcaption aria-hidden="true">image-20211120222042862</figcaption>
+</figure>
+<h3 id="模型定义">模型定义</h3>
+<ul>
+<li>default_conv 是模型采用的默认卷积层，</li>
+<li>UpConv 用于上采样卷积，</li>
+<li>ResidualBlock 是模型使用的残差模块，</li>
+<li>SingleScaleNet 是单个尺度网络，</li>
+<li>MultiScaleNet 将几个 SingleScaleNet
+整合成了最终的多尺度网络模型</li>
+</ul>
+<p><em>具体作用</em></p>
+<ul>
+<li>default_conv : 网络中默认采用的卷积层，定义之后，避免重复代码</li>
+<li>UpConv : 上卷积，对应上图中的 Up
+Conv，将图像的尺度扩大，输入到另一个单尺度网络</li>
+<li>ResidualBlock :
+残差模块，网络模型中采用的残差模块，之所以采用残差模块，是因为网络“只需要需要模糊图像与去模糊图像之间的差异即可”</li>
+<li>SingleScaleNet : 单尺度模型，一个尺度对应一个单尺度模型实例</li>
+<li>MultiScaleNet :
+多尺度模型，将多个单尺度模型实例组合即可得到上图所示的多尺度去模糊网络</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">default_conv</span>(<span class="hljs-params">in_channels,out_channels, kernel_size, bias</span>):<br>    <span class="hljs-keyword">return</span> nn.Conv2d(in_channels,<br>                    out_channels,<br>                    kernel_size,<br>                    padding=(kernel_size // <span class="hljs-number">2</span>),<br>                    bias=bias)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">UpConv</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(UpConv, self).__init__()<br>        self.body = nn.Sequential(default_conv(<span class="hljs-number">3</span>,<span class="hljs-number">12</span>,<span class="hljs-number">3</span>,<span class="hljs-literal">True</span>),<br>                                 nn.PixelShuffle(<span class="hljs-number">2</span>),<br>                                 nn.ReLU(inplace=<span class="hljs-literal">True</span>))<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,x</span>):<br>            <span class="hljs-keyword">return</span> self.body(x)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ResidualBlock</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,n_feats</span>):<br>        <span class="hljs-built_in">super</span>(ResidualBlock,self).__init__()<br>        <br>        modules_body = [<br>            default_conv(n_feats, n_feats, <span class="hljs-number">3</span>, bias=<span class="hljs-literal">True</span>),<br>            nn.ReLU(inplace=<span class="hljs-literal">True</span>),<br>            default_conv(n_feats,n_feats,<span class="hljs-number">3</span>,bias=<span class="hljs-literal">True</span>)<br>        ]<br>        <br>        self.body = nn.Sequential(*modules_body)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,x</span>):<br>        res= self.body(x)<br>        res += x<br>        <span class="hljs-keyword">return</span> res<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SingleScaleNet</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,n_feats,n_resblocks, is_skip, n_channels=<span class="hljs-number">3</span></span>):<br>        <span class="hljs-built_in">super</span>(SingleScaleNet, self).__init__()<br>        self.is_skip = is_skip<br>        <br>        modules_head = [<br>            default_conv(n_channels,n_feats,<span class="hljs-number">5</span>,bias=<span class="hljs-literal">True</span>),<br>            nn.ReLU(inplace=<span class="hljs-literal">True</span>)<br>        ]<br>        <br>        modules_body = [ResidualBlock(n_feats) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n_resblocks)]<br>        modules_tail = [default_conv(n_feats, <span class="hljs-number">3</span>,<span class="hljs-number">5</span>,bias=<span class="hljs-literal">True</span>)]<br>        <br>        self.head = nn.Sequential(*modules_head)<br>        self.body = nn.Sequential(*modules_body)<br>        self.tail = nn.Sequential(*modules_tail)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,x</span>):<br>        x= self.head(x)<br>        res= self.body(x)<br>        <span class="hljs-keyword">if</span> self.is_skip:<br>            res += x<br>        <br>        res = self.tail(res)<br>        <span class="hljs-keyword">return</span> res<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MultiScaleNet</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,n_feats, n_resblocks ,is_skip</span>):<br>        <span class="hljs-built_in">super</span>(MultiScaleNet,self).__init__()<br>        <br>        self.scale3_net = SingleScaleNet(n_feats,<br>                                         n_resblocks,<br>                                         is_skip,<br>                                         n_channels=<span class="hljs-number">3</span>)<br>        self.upconv3 = UpConv()<br>        self.scale2_net = SingleScaleNet(n_feats,<br>                                         n_resblocks,<br>                                         is_skip,<br>                                         n_channels=<span class="hljs-number">6</span>)<br>        self.upconv2 = UpConv()<br>        <br>        self.scale1_net = SingleScaleNet(n_feats,<br>                                        n_resblocks,<br>                                        is_skip,<br>                                        n_channels=<span class="hljs-number">6</span>)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,mulscale_input</span>):<br>        input_b1, input_b2,input_b3 = mulscale_input<br>        <br>        output_l3 = self.scale3_net(input_b3)<br>        output_l3_up = self.upconv3(output_l3)<br>        <br>        output_l2 = self.scale2_net(torch.cat((input_b2,output_l3_up),<span class="hljs-number">1</span>))<br>        output_l2_up = self.upconv2(output_l2)<br>        <br>        output_l1 = self.scale2_net(torch.cat((input_b1,output_l2_up),<span class="hljs-number">1</span>))<br>        <br>        <span class="hljs-keyword">return</span> output_l1,output_l2,output_l3<br></code></pre></td></tr></table></figure>
+<h3 id="模型实例化">模型实例化</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> args.multi:<br>    my_model = MultiScaleNet(n_feats=args.n_feats,<br>                            n_resblocks = args.n_resblocks,<br>                            is_skip= args.skip)<br><span class="hljs-keyword">else</span>:<br>    my_model = SingleScaleNet(n_feats=args.n_feats,<br>                             n_resblocks=args.n_resblocks,<br>                             is_skip = args.skip)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> torch.cuda.is_available():<br>    my_model.cuda()<br>    loss_function = nn.MSELoss().cuda()<br><span class="hljs-keyword">else</span>:<br>    loss_function = nn.MSELoss()<br>    <br>optimizer = optim.Adam(my_model.parameters(),lr=args.lr)<br><span class="hljs-built_in">print</span>(my_model)<br><span class="hljs-built_in">print</span>(loss_function)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">MultiScaleNet(
+  (scale3_net): SingleScaleNet(
+    (head): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+      (1): ReLU(inplace=True)
+    )
+    (body): Sequential(
+      (0): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (tail): Sequential(
+      (0): Conv2d(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+  )
+  (upconv3): UpConv(
+    (body): Sequential(
+      (0): Conv2d(3, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): PixelShuffle(upscale_factor=2)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (scale2_net): SingleScaleNet(
+    (head): Sequential(
+      (0): Conv2d(6, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+      (1): ReLU(inplace=True)
+    )
+    (body): Sequential(
+      (0): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (tail): Sequential(
+      (0): Conv2d(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+  )
+  (upconv2): UpConv(
+    (body): Sequential(
+      (0): Conv2d(3, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): PixelShuffle(upscale_factor=2)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (scale1_net): SingleScaleNet(
+    (head): Sequential(
+      (0): Conv2d(6, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+      (1): ReLU(inplace=True)
+    )
+    (body): Sequential(
+      (0): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): ResidualBlock(
+        (body): Sequential(
+          (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): ReLU(inplace=True)
+          (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (tail): Sequential(
+      (0): Conv2d(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+  )
+)
+MSELoss()</code></pre></div>
+<h3 id="损失函数和优化器">损失函数和优化器</h3>
+<ul>
+<li>Adam 优化器，初始学习率为 lr，其相对于
+SGD，更自动化，实际中需要调整的参数较少，但需要注意的是，其使用内存也比
+SGD 要高。</li>
+<li>损失函数使用最常见的均方损失函数（MSELoss）: <img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222105417.png" srcset="/img/loading.gif" lazyload alt="image-20211120222105417"> 其中 <span class="math inline">\(f^{\prime}(i,j)\)</span> 和 <span class="math inline">\(f(i,j)\)</span>
+分别为模型输出结果图和非模糊图上坐标为 <span class="math inline">\((i,j)\)</span>
+的像素，M,N分别表示图片的长与宽。</li>
+<li>具体的，本文所用的多尺度损失函数为： <img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222124809.png" srcset="/img/loading.gif" lazyload alt="image-20211120222124809"> <span class="math inline">\(f^{\prime}_k\)</span> 和 <span class="math inline">\(f_k\)</span> 分别表示第 <span class="math inline">\(k\)</span> 个尺度上的输出结果图和非模糊图。</li>
+</ul>
+<h2 id="模型训练">模型训练</h2>
+<ol type="1">
+<li>训练策略</li>
+<li>训练模型</li>
+<li>训练过程可视化</li>
+</ol>
+<h3 id="训练策略">训练策略</h3>
+<ul>
+<li>在模型训练过程中，随着训练的进行，更新网络参数的步进（学习率）应该越来越小，整体训练过程应该满足
+“先粗调后细调”，这就是常说的学习率策略。</li>
+<li>本次训练采用的学习率优化策略为 lr_scheduler.StepLR，步进为
+lr_step_size，学习率每隔 lr_step_size 个 epoch 乘以 lr_gamma</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">scheduler = lr_scheduler.StepLR(optimizer,args.lr_step_size,args.lr_gamma)<br><br>scheduler<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&lt;torch.optim.lr_scheduler.StepLR at 0x290378a0198&gt;</code></pre></div>
+<h3 id="训练模型">训练模型</h3>
+<p>在训练开始之前，要先创建一个
+SummaryWriter，用来记录和可视化训练过程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">writer = SummaryWriter(os.path.join(args.save_dir,<span class="hljs-string">&quot;temp/logs/&quot;</span>))<br><br>writer<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&lt;tensorboardX.writer.SummaryWriter at 0x290378d6e10&gt;</code></pre></div>
+<ul>
+<li>在命令行运行 tensorboard --logdir=experiment/logs
+来启动tensorboard。</li>
+<li>在训练模型时，每训练完一个 epoch
+将模型的参数保存下来，防止训练被意外中断以及方便测试，如果需要不断更新最新的一次训练的参数，可以取消最后一行的注释。</li>
+<li>训练过程中，使用 tqdm 的进度条来观察训练过程</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python">bar_format = <span class="hljs-string">&#x27;&#123;desc&#125;&#123;percentage:3.0f&#125;% | [&#123;elapsed&#125;&lt;&#123;remaining&#125;,&#123;rate_fmt&#125;]&#x27;</span> <span class="hljs-comment"># 进度条格式</span><br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(args.epochs):<br>    total_loss = <span class="hljs-number">0</span><br>    batch_bar =  tqdm(data_loader, bar_format=bar_format) <span class="hljs-comment"># 利用tqdm动态显示训练过程</span><br>    <span class="hljs-keyword">for</span> batch,images <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(batch_bar):<br>        my_model.train()<br>        curr_batch = epoch * data_loader.__len__() + batch <span class="hljs-comment"># 当前batch在整个训练过程中的索引</span><br><br>        input_b1 = images[<span class="hljs-string">&#x27;input_b1&#x27;</span>].to(device) <span class="hljs-comment"># 原始输入图像</span><br>        target_s1 = images[<span class="hljs-string">&#x27;target_s1&#x27;</span>].to(device) <span class="hljs-comment"># 目标非模糊图片</span><br><br>        <span class="hljs-keyword">if</span> args.multi:<br>            input_b2 = images[<span class="hljs-string">&#x27;input_b2&#x27;</span>].to(device)  <span class="hljs-comment"># level-2 尺度</span><br>            target_s2 = images[<span class="hljs-string">&#x27;target_s2&#x27;</span>].to(device)<br><br>            input_b3 = images[<span class="hljs-string">&#x27;input_b3&#x27;</span>].to(device)  <span class="hljs-comment"># level-3 尺度</span><br>            target_s3 = images[<span class="hljs-string">&#x27;target_s3&#x27;</span>].to(device)<br>            output_l1, output_l2, output_l3 = my_model((input_b1,input_b2,input_b3))<br><br>            <span class="hljs-comment"># 损失函数</span><br>            loss = (loss_function(output_l1,target_s1) + loss_function(output_l2,target_s2) + loss_function(output_l3, target_s3)) /<span class="hljs-number">3</span> <br><br>        <span class="hljs-keyword">else</span>:<br>            output_l1 = my_model(input_b1)<br>            loss = loss_function(output_l1,target_s1)<br><br>        my_model.zero_grad()<br>        loss.backward()  <span class="hljs-comment">#反向传播</span><br>        optimizer.step() <span class="hljs-comment"># 更新权值</span><br>        total_loss += loss.item()<br><br><br>        print_str = <span class="hljs-string">&quot;|&quot;</span>.join([<br>            <span class="hljs-string">&quot;epoch:%3d/%3d&quot;</span> % (epoch + <span class="hljs-number">1</span>, args.epochs),<br>            <span class="hljs-string">&quot;batch:%3d/%3d&quot;</span> % (batch + <span class="hljs-number">1</span>, data_loader.__len__()),<br>            <span class="hljs-string">&quot;loss:%.5f&quot;</span> % (loss.item()),<br>        ])<br>        batch_bar.set_description(print_str,refresh=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 更新进度条</span><br><br>        writer.add_scalar(<span class="hljs-string">&#x27;train/batch_loss&#x27;</span>, loss.item(), curr_batch)<br><br>    batch_bar.close()<br>    scheduler.step() <span class="hljs-comment">#调整学习率</span><br>    loss = total_loss / (batch +<span class="hljs-number">1</span>)<br><br>    writer.add_scalar(<span class="hljs-string">&#x27;train/batch_loss&#x27;</span>,loss,epoch)<br>    torch.save(my_model.state_dict(),os.path.join(args.save_cp_dir, <span class="hljs-string">f&#x27;Epoch_<span class="hljs-subst">&#123;epoch&#125;</span>.pt&#x27;</span>)) <span class="hljs-comment"># 保存每个 epoch 的参数</span><br><span class="hljs-comment">#     torch.save(my_model.state_dict(),os.path.join(args.save_cp_dir, f&#x27;Epoch_lastest.pt&#x27;)) # 保存最新的参数</span><br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222241087.png" srcset="/img/loading.gif" lazyload alt="image-20211120222241087">
+<figcaption aria-hidden="true">image-20211120222241087</figcaption>
+</figure>
+<h2 id="模型评估">模型评估</h2>
+<ol type="1">
+<li>指标介绍</li>
+<li>指标实现</li>
+</ol>
+<h3 id="指标介绍">指标介绍</h3>
+<p>为了评估模型的效果如何，我们通过计算 峰值信噪比（Peak Signal-to-Noise
+Ratio, PSNR）， 结构相似性（Structural Similarity, SSIM）和 多尺度的
+SSIM（Multi-Scale SSIM，MSSIM）三个指标来对结果进行分析</p>
+<h5 id="psnr">PSNR</h5>
+<p>PSNR 的定义如下： <img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222352850.png" srcset="/img/loading.gif" lazyload alt="image-20211120222352850"> 其中，<span class="math inline">\(M A
+X_{I}\)</span>表示图像点颜色的最大数值，如果每个采样点用 8
+位表示，则最大数值为 255，<span class="math inline">\(MSE\)</span>是两个图像之间的均方误差。
+PSNR值越大代表模糊图像与参考图像越接近，即去模糊效果越好。</p>
+<h5 id="ssim">SSIM</h5>
+<p>SSIM也是衡量两幅图片相似性的指标，其定义如下： <img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222344621.png" srcset="/img/loading.gif" lazyload alt="image-20211120222344621"> SSIM由模型输出图像 <span class="math inline">\(x\)</span> 和参考图像 <span class="math inline">\(y\)</span> 之间的亮度对比（$ l(, )<span class="math inline">\(）、对比度对比（\)</span>c(, )<span class="math inline">\(）和结构对比（\)</span>s(, ) <span class="math inline">\(）三部分组成，\)</span><span class="math inline">\(，\)</span>$ 和 <span class="math inline">\(\gamma\)</span>是各自的权重因子，一般都取为 1：
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222325752.png" srcset="/img/loading.gif" lazyload alt="image-20211120222325752"> 其中，<span class="math inline">\(C_{1}\)</span>，<span class="math inline">\(C_{2}\)</span>和<span class="math inline">\(C_{3}\)</span>为常数，是为了避免分母接近于0时造成的不稳定性。<span class="math inline">\(\mu_{x}\)</span> 和 <span class="math inline">\(\mu_{y}\)</span>
+分别为模型输出图像和参考图像的均值。<span class="math inline">\(\sigma_{x}\)</span> 和 <span class="math inline">\(\sigma_{y}\)</span>
+分别为模型输出图像和参考图像的标准差。通常取 <span class="math inline">\(C1=(K1*L)^2\)</span>，<span class="math inline">\(C2=(K2*L)^2\)</span>，<span class="math inline">\(C3=C2/2\)</span>，一般地<span class="math inline">\(K1=0.01\)</span>， <span class="math inline">\(K2=0.03\)</span>, <span class="math inline">\(L=255\)</span>（ <span class="math inline">\(L\)</span>是像素值的动态范围，一般都取为255）。
+输出图片和目标图片的结构相似值越大，则表示相似性越高，图像去模糊效果越好。
+SSIM是一种符合人类直觉的图像质量评价标准。从名字上我们不难发现，这种指标是在致力于向人类的真实感知看齐，详细细节可以参考<a target="_blank" rel="noopener" href="https://www.cns.nyu.edu/pub/lcv/wang03-preprint.pdf">原论文</a></p>
+<h5 id="mssim">MSSIM</h5>
+<p>MSSIM相当于是在多个尺度上来进行SSIM指标的测试，相对于SSIM，其能更好的衡量图像到观看者的距离、像素信息密集程度等因素对观看者给出的主观评价所产生的影响。
+论文中给出的一个例子是，观看者给一个分辨率为1080p的较为模糊的画面的评分可能会比分辨率为720p的较为锐利的画面的评分高。因此在评价图像质量的时候不考虑尺度因素可能会导致得出片面的结果。
+MSSIM提出在不同分辨率（尺度）下多次计算结构相似度后综合结果得到最终的评价数值。其计算过程框图如下所示
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222301708.png" srcset="/img/loading.gif" lazyload alt="image-20211120222301708"></p>
+<p>MSSIM 的详细细节可以参考<a target="_blank" rel="noopener" href="https://ece.uwaterloo.ca/~z70wang/publications/msssim.pdf">原论文</a></p>
+<h3 id="指标实现">指标实现</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># class PSNR(nn.Module):</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">PSNR</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,img1,img2</span>):<br>        mse = ((img1 - img2) ** <span class="hljs-number">2</span>).mean() <span class="hljs-comment"># 输出图像和参考图像的 MSE</span><br>        psnr = <span class="hljs-number">10</span> * torch.log10(<span class="hljs-number">1.0</span> * <span class="hljs-number">1.0</span> / (mse + <span class="hljs-number">10</span> ** (-<span class="hljs-number">10</span>)))<br>        <span class="hljs-keyword">return</span> psnr<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># SSIM 和 MSSIM 的计算较为复杂，在这里，我们直接调用 pytorch-msssim 的接口来进行计算</span><br>ssim = pytorch_msssim.SSIM(data_range=<span class="hljs-number">1.0</span>, size_average=<span class="hljs-literal">True</span>, channel=<span class="hljs-number">3</span>)<br>mssim = pytorch_msssim.MS_SSIM(data_range=<span class="hljs-number">1.0</span>, size_average=<span class="hljs-literal">True</span>, channel=<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 实例化</span><br>ssim = pytorch_msssim.SSIM(data_range=<span class="hljs-number">1.0</span>, size_average=<span class="hljs-literal">True</span>, channel=<span class="hljs-number">3</span>)<br>mssim = pytorch_msssim.MS_SSIM(data_range=<span class="hljs-number">1.0</span>, size_average=<span class="hljs-literal">True</span>, channel=<span class="hljs-number">3</span>)<br>psnr = PSNR()<br></code></pre></td></tr></table></figure>
+<h2 id="模型预测">模型预测</h2>
+<ol type="1">
+<li>绘图函数定义</li>
+<li>模型加载</li>
+<li>数据加载</li>
+<li>模型预测与指标分析</li>
+<li>结果展示与保存</li>
+</ol>
+<h3 id="绘图函数定义">绘图函数定义</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">plot_tensor</span>(<span class="hljs-params">tensor</span>):<br>    <span class="hljs-keyword">if</span> tensor.dim() == <span class="hljs-number">4</span>:<br>        tensor = tensor.squeeze(<span class="hljs-number">0</span>)<br>    ret = transforms.ToPILImage()(tensor.squeeze(<span class="hljs-number">0</span>))<br>    plt.imshow(ret)<br>    <span class="hljs-keyword">return</span><br></code></pre></td></tr></table></figure>
+<h3 id="模型加载">模型加载</h3>
+<p>训练过程中我们保存了多个 checkpoint
+，现在对其进行加载和测试。这里我们提供了两种选择 checkpoint
+的方式，一种是选择指定 checkpoint，一种是选择最新的
+checkpoint。在这里我们以最新的 checkpoint 为例进行测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># option-A ：测试指定epoch</span><br><span class="hljs-comment"># best_epoch = 100 </span><br><span class="hljs-comment"># best_cp = f&quot;&#123;args.save_cp_dir&#125;/Epoch_&#123;best_epoch&#125;.pt&quot;</span><br><br><span class="hljs-comment"># option-B ：测试最终epoch</span><br><span class="hljs-comment"># best_cp = f&quot;&#123;args.save_cp_dir&#125;/Epoch_lastest.pt&quot;</span><br>best_cp = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;args.save_cp_dir&#125;</span>/Epoch_3.pt&quot;</span><br><br>my_model.to(<span class="hljs-string">&quot;cuda&quot;</span>).load_state_dict(torch.load(best_cp))<br>my_model = my_model.<span class="hljs-built_in">eval</span>()<br></code></pre></td></tr></table></figure>
+<h3 id="数据加载">数据加载</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 由于此模型采用的是多尺度训练，因此对于单张输入图像，需要对其进行处理，定义加载图像的函数 load_images 为</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_images</span>(<span class="hljs-params">blur_img_path,multi</span>):<br>    target_s1 = <span class="hljs-literal">None</span><br>    sharp_img_path = blur_img_path.replace(<span class="hljs-string">&quot;blur&quot;</span>,<span class="hljs-string">&quot;sharp&quot;</span>)<br>    <span class="hljs-keyword">if</span> os.path.exists(sharp_img_path):<br>        img_target = Image.<span class="hljs-built_in">open</span>(sharp_img_path).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)<br>        target_s1 = transforms.ToTensor()(img_target).unsqueeze(<span class="hljs-number">0</span>)<br>        <br>    img_input = Image.<span class="hljs-built_in">open</span>(blur_img_path).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)  <span class="hljs-comment"># 转换为image类型 方便进行resize</span><br>    input_b1 = transforms.ToTensor()(img_input)<br>    <br>    <span class="hljs-keyword">if</span> multi:<br>        H = input_b1.size()[<span class="hljs-number">1</span>]<br>        W = input_b1.size()[<span class="hljs-number">2</span>]<br>        <br>        input_b1 = transforms.ToPILImage()(input_b1)<br>        input_b2 = transforms.ToTensor()(transforms.Resize([<span class="hljs-built_in">int</span>(H/<span class="hljs-number">2</span>), <span class="hljs-built_in">int</span>(W/<span class="hljs-number">2</span>)])(input_b1)).unsqueeze(<span class="hljs-number">0</span>)<br>        input_b3 = transforms.ToTensor()(transforms.Resize([<span class="hljs-built_in">int</span>(H/<span class="hljs-number">4</span>), <span class="hljs-built_in">int</span>(W/<span class="hljs-number">4</span>)])(input_b1)).unsqueeze(<span class="hljs-number">0</span>)<br>        <br>        input_b1 = transforms.ToTensor()(input_b1).unsqueeze(<span class="hljs-number">0</span>)<br>        <br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_b1&#x27;</span>:input_b1, <span class="hljs-string">&#x27;input_b2&#x27;</span>:input_b2, <span class="hljs-string">&#x27;input_b3&#x27;</span>:input_b3, <span class="hljs-string">&#x27;target_s1&#x27;</span>:target_s1&#125;<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_b1&#x27;</span>:unsqueeze(<span class="hljs-number">0</span>), <span class="hljs-string">&#x27;target_s1&#x27;</span>:target_s1&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="模型预测与指标分析">模型预测与指标分析</h2>
+<h3 id="模型预测-1">模型预测</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#目录一</span><br><span class="hljs-comment"># idx = 1</span><br><span class="hljs-comment"># blur_img_path = f&quot;datasets/pictures/blur/test&#123;idx&#125;.png&quot;  </span><br><br><span class="hljs-comment"># 目录二</span><br>idx=<span class="hljs-string">&#x27;000001&#x27;</span><br>blur_img_path =<span class="hljs-string">f&quot;datasets/test/GOPR0384_11_00/blur/<span class="hljs-subst">&#123;idx&#125;</span>.png&quot;</span><br>item = load_images(blur_img_path,args.multi)<br><br>input_b1 = item[<span class="hljs-string">&#x27;input_b1&#x27;</span>].to(device) <br>input_b2 = item[<span class="hljs-string">&#x27;input_b2&#x27;</span>].to(device) <br>input_b3 = item[<span class="hljs-string">&#x27;input_b3&#x27;</span>].to(device) <br>target_s1 = item[<span class="hljs-string">&#x27;target_s1&#x27;</span>].to(device) <br><br>output_l1,_,_ = my_model((input_b1,input_b2,input_b3))<br></code></pre></td></tr></table></figure>
+<h3 id="指标分析">指标分析</h3>
+<p>原始模糊图片与不模糊图片之间的指标计算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">blur_psnr = psnr(input_b1,target_s1)<br>blur_ssim = ssim(input_b1,target_s1)<br>blur_mssim = mssim(input_b1,target_s1)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;原始模糊图片:PSNR=<span class="hljs-subst">&#123;blur_psnr.<span class="hljs-built_in">float</span>()&#125;</span>, SSIM=<span class="hljs-subst">&#123;blur_ssim.<span class="hljs-built_in">float</span>()&#125;</span>, MSSIM=<span class="hljs-subst">&#123;blur_mssim.<span class="hljs-built_in">float</span>()&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">原始模糊图片:PSNR=24.050003051757812, SSIM=0.716961145401001, MSSIM=0.840461015701294</code></pre></div>
+<p>去模糊图片与不模糊的图片之间的指标计算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">output_psnr = psnr(output_l1,target_s1)<br>output_ssim = ssim(output_l1,target_s1)<br>output_mssim = mssim(output_l1,target_s1)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;网络输出图片:PSNR=<span class="hljs-subst">&#123;output_psnr.<span class="hljs-built_in">float</span>()&#125;</span>, SSIM=<span class="hljs-subst">&#123;output_ssim.<span class="hljs-built_in">float</span>()&#125;</span>, MSSIM=<span class="hljs-subst">&#123;output_mssim.<span class="hljs-built_in">float</span>()&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">网络输出图片:PSNR=24.012224197387695, SSIM=0.7089502811431885, MSSIM=0.8413411974906921</code></pre></div>
+<h3 id="结果展示">结果展示</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">plt.figure(figsize=(<span class="hljs-number">6</span>,<span class="hljs-number">10</span>))<br>plt.subplot(<span class="hljs-number">311</span>)<br>plot_tensor(input_b1)<br>plt.subplot(<span class="hljs-number">312</span>)<br>plot_tensor(output_l1)<br>plt.subplot(<span class="hljs-number">313</span>)<br>plot_tensor(target_s1)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211120222412395.png" srcset="/img/loading.gif" lazyload alt="image-20211120222412395">
+<figcaption aria-hidden="true">image-20211120222412395</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 将结果保存</span><br>save_name = blur_img_path.split(<span class="hljs-string">&quot;/&quot;</span>)[-<span class="hljs-number">1</span>]<br>save_path = os.path.join(args.save_dir,save_name)<br>save_img = transforms.ToPILImage()(output_l1.squeeze(<span class="hljs-number">0</span>))<br>save_img.save(save_path)<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/CV/">CV</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CV/">CV</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/15/item2vec%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">训练item2vec实现电影推荐</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/01/bert-tf2-6/">
+                        <span class="hidden-mobile">Bert-TF-2.6修改-自调适配版</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

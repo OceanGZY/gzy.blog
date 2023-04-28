@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 初期阶段 ​ 个性化推荐不是产品首次发布就能自带的。无论是基于用户行为的个性化，还是基于内容相似度的个性化，都建立在大量的用户数和内容的基础上。 ​ 产品发布之初，一般两遍的数据都有残缺，因此个性化推荐并不能完整开展。 ​ 故，产品发展初期 推荐内容一般采用更加聚合的“热度算法”，把热点的内容有限推荐给用户；虽无法做到基于兴趣和习惯为每一个用户做到准确化推荐，但能覆盖到大部分用户需求，而且启动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内容类产品——个性化推荐和热度算法">
+<meta property="og:url" content="http://oceaneyes.top/2019/01/14/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81%E2%80%94%E2%80%94%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A8%E8%8D%90%E5%92%8C%E7%83%AD%E5%BA%A6%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="1 初期阶段 ​ 个性化推荐不是产品首次发布就能自带的。无论是基于用户行为的个性化，还是基于内容相似度的个性化，都建立在大量的用户数和内容的基础上。 ​ 产品发布之初，一般两遍的数据都有残缺，因此个性化推荐并不能完整开展。 ​ 故，产品发展初期 推荐内容一般采用更加聚合的“热度算法”，把热点的内容有限推荐给用户；虽无法做到基于兴趣和习惯为每一个用户做到准确化推荐，但能覆盖到大部分用户需求，而且启动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210593928-b2cc24d5-5f9a-4e13-8f27-a1b84de07e10.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210701999-d31971f0-a790-49a2-94ec-8340e6e8b377.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210840538-f319a86b-236b-40e6-8625-7cab674fd83a.png">
+<meta property="og:image" content="http://oceaneyes.top/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117100504112.png">
+<meta property="og:image" content="http://oceaneyes.top/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117101005933.png">
+<meta property="og:image" content="http://oceaneyes.top/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117133645188.png">
+<meta property="og:image" content="http://oceaneyes.top/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117133715263.png">
+<meta property="og:image" content="http://oceaneyes.top/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117133658566.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2019-01-14T05:40:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.189Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="内容产品">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210593928-b2cc24d5-5f9a-4e13-8f27-a1b84de07e10.png">
+  
+  
+  <title>内容类产品——个性化推荐和热度算法 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="内容类产品——个性化推荐和热度算法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-01-14 13:40" pubdate>
+        2019年1月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">内容类产品——个性化推荐和热度算法</h1>
+            
+            <div class="markdown-body">
+              <h2 id="初期阶段">1 初期阶段</h2>
+<p>​
+个性化推荐不是产品首次发布就能自带的。无论是基于用户行为的个性化，还是基于内容相似度的个性化，都建立在大量的用户数和内容的基础上。</p>
+<p>​
+产品发布之初，一般两遍的数据都有残缺，因此个性化推荐并不能完整开展。</p>
+<p>​ 故，产品发展初期
+推荐内容一般采用更加聚合的“热度算法”，把热点的内容有限推荐给用户；虽无法做到基于兴趣和习惯为每一个用户做到准确化推荐，但能覆盖到大部分用户需求，而且启动成本比个性化推荐算法低很多。</p>
+<h2 id="热度算法">2 热度算法</h2>
+<h3 id="热度算法基本原理">2.1 热度算法基本原理</h3>
+<p>新闻热度分 = 初始热度分 + 用户交互产生的热度分 –
+随时间衰减的热度分</p>
+<p><strong>Score = S0 + S(Users) – S(Time)</strong></p>
+<p>1、新闻入库后，被系统赋予一个初始热度值，该新闻进入推荐列表进行排序</p>
+<p>2、随着新闻不断被用户点击阅读，收藏，分享......
+用户行为被视作帮助提升新闻热度，系统需要为每种新闻重新赋予热度值</p>
+<p>3、同时，新闻自身具有较强的实效性，随着时间的变化而变的陈旧，进而热度衰减</p>
+<h3 id="初始热度需要不一致">2.2 初始热度需要不一致</h3>
+<p>由于不同的新闻本身属性所在，受欢迎程度是不一样的。</p>
+<p>如：娱乐类比文化类受欢迎程度高；</p>
+<p>​ 某些突发事件的受关注度也会急剧变高；</p>
+<p>​ 体育活动期间，体育类的关注度也会继续变高；</p>
+<p>解决方案：把初始热度设置为变量。</p>
+<p>（1）按照新闻类别给予新闻不同的初始热度，让用户关注高的类别获得更高的初始热度分，从而获得更多的曝光</p>
+<p>​ <img src="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210593928-b2cc24d5-5f9a-4e13-8f27-a1b84de07e10.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>（2）对于重大事件的报道，可通过热词匹配来使其入库即具备更高的热度</p>
+<p>​
+对大型新闻站点的头条，Twitter热点，竞品头条监控和爬取，并将关键词维护到热词库并保持更新；</p>
+<p>​
+每条新闻入库时，用新闻的关键词去匹配热词库，匹配度越高，则有越高的初始化热度；</p>
+<h3 id="用户行为分规则不是固定不变的">2.3
+用户行为分规则不是固定不变的</h3>
+<p>​</p>
+<p>有了初始热度分之后，需要考虑热度分的变化。</p>
+<p>1、先明确用户哪些行为会影响到热度分值，并对这些行为赋予一定的得分规则</p>
+<p>2、例如：点击（click）、收藏（favor）、分享（share）、评论（comment），对行为赋予分数，即可得到实时用户行为分：</p>
+<p>​ <strong>S(Users) = 1<em>click + 5</em>favor + 10<em>comment +
+20</em>share</strong></p>
+<p>​
+示例分数：但分数值不是一成不变的，做内容运营时需要对行为分不断调整</p>
+<p>​ click ， 1分，</p>
+<p>​ favor，5分，</p>
+<p>​ share，10分，</p>
+<p>​ comment ，20分，</p>
+<p>​
+当用户规模小的时候，各项事件量小，需要提高每个事件的行为分来提升用户行为的影响力；</p>
+<p>​ 当用户规模变大时，行为分也应该相应的慢慢降低；</p>
+<h3 id="热度随时间的衰减不是线性的">2.4 热度随时间的衰减不是线性的</h3>
+<p>1、由于内容的时效性，已发布的新闻热度值必须随时间流逝二衰减，并且衰减趋势越来越快，直至趋于0热度。</p>
+<p>​
+如果一条新闻（内容）需要长期处于靠前的位置，随时间推移必须有越来越多的用户来维持。</p>
+<figure>
+<img src="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210701999-d31971f0-a790-49a2-94ec-8340e6e8b377.png" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>2、要求推荐给用户的新闻（内容）必须是24h以内，故
+衰减算法必须保证在24h后 内容热度一定会衰减到很低。</p>
+<p>​
+线性衰减：当新闻突然有大量用户点击阅读，获得极高热度分，就会持续排名靠前，会使用户感觉内容更新较慢</p>
+<p>​
+指数衰减：参考牛顿冷却定律，时间衰减因子应该是一个类似于指数函数：</p>
+<p>​ <strong>T(Time) = e ^ (k*(T1 – T0))</strong></p>
+<p>​ 其中T0是新闻发布时间，T1是当前时间</p>
+<p>而热度的发展最终是一个无限趋近于0热度的结果，最终算法调整为：</p>
+<p>​ <strong>Score = ( S0(Type) + S(Users) ) / T(Time)</strong></p>
+<h3 id="其它影响因素">2.5 其它影响因素</h3>
+<p>“赞” “踩” “不推荐此类”等选项的存在</p>
+<p>建议：把所有的调整指标均做成可配项，如：初始热度分，行为事件分，衰减因子等</p>
+<h2 id="个性化推荐">3 个性化推荐</h2>
+<p>个性化推荐
+一般常用的两种解决方案：一是基于内容的相关推荐，二是基于用户的协同过滤（对用户规模有较高要求）</p>
+<h3 id="基于内容的推荐算法">3.1 基于内容的推荐算法</h3>
+<p>“新闻（内容）特征向量”来标示新闻的属性，以及用来对比内容之间的相似度；</p>
+<p>​ 新闻（内容）特征向量是由内容所包含的关键词所决定的；</p>
+<p>​ 把新闻（内容）看作所有关键词（标签）的合集；</p>
+<p>​ 两个新闻（内容）的关键词越类似，则两个内容是相关的可能性更高；</p>
+<h4 id="分词">3.1.1 分词</h4>
+<p>得到新闻（内容）特征向量的第一步，
+就是要对新闻（内容）进行关键词级别的拆分。</p>
+<ul>
+<li>分词
+<ul>
+<li>正常词库：把内容拆解为词语的标准</li>
+</ul></li>
+</ul>
+<p>停用词 主要是没有实际含义的，如“the” "that"
+"are"之类的助词，如"behind" "under" 之类的介词，
+以及很多常用的高频但没有偏向性的动词"think" "give";</p>
+<ul>
+<li>停用词库：分词过程中需要首先去掉的内容</li>
+</ul>
+<p>分词之前剔除停用词，对剩下的标准词库进行拆词，拆词方法包含正向匹配拆分，逆向匹配拆分，最少切分等常用算法</p>
+<p>由于网络热词的频出，标准词库和停用词库也需要随之不断更新维护。</p>
+<h4 id="关键词指标">3.1.2 关键词指标</h4>
+<ul>
+<li>关键词重合度</li>
+<li>新闻（内容）内频率，TF（Term Frequency）
+<ul>
+<li>衡量每个关键词在新闻（内容）里面是否高频</li>
+</ul></li>
+<li>关键词在所有文档内出现的频率相反值，IDF（Inverse Document
+Frequency）
+<ul>
+<li>如果一个关键词在某条新闻内出现的频率最大，在所有文档内出现频率小，则该关键词对这条新闻的特征标识作用越大</li>
+</ul></li>
+</ul>
+<p><strong>TF-IDF模型</strong></p>
+<p>每个关键词对新闻的作用衡量： <strong>TFIDF = TF * IDF</strong></p>
+<h4 id="相关性算法">3.1.3 相关性算法</h4>
+<p>每一份新闻（内容）的特征，即可用关键词的集合来标识：</p>
+<figure>
+<img src="https://cdn.nlark.com/yuque/0/2018/png/153571/1542210840538-f319a86b-236b-40e6-8625-7cab674fd83a.png" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>其中word0，1，2……n是新闻的所有关键词，tfidf0，1，2……n则是每个关键词的tfidf值</p>
+<p>相关性计算：</p>
+<figure>
+<img src="/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117100504112.png" srcset="/img/loading.gif" lazyload alt="image-20190117100504112">
+<figcaption aria-hidden="true">image-20190117100504112</figcaption>
+</figure>
+<h4 id="用户特征">3.1.4 用户特征</h4>
+<p>通过用户行为来获得，用户通过阅读、点赞、评论、分享来表达对新闻（内容）的喜爱；</p>
+<p>对用户的各种行为赋予一定的“喜爱分”，例如阅读1分，点赞2分，评论5分等；</p>
+<p>新闻（内容）特征 与用户行为分结合，即可得到用户的特征分。</p>
+<figure>
+<img src="/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117101005933.png" srcset="/img/loading.gif" lazyload alt="image-20190117101005933">
+<figcaption aria-hidden="true">image-20190117101005933</figcaption>
+</figure>
+<p>随着用户阅读的新闻（内容）越来越多，该用户的标签也越来越多，并且越发精准；</p>
+<p>当我们拿到新闻（内容）的特征后，就能与用户的关键词列表做匹配，得出用户阅读特征的匹配度，做出个性推荐。</p>
+<h4 id="其他运用">3.1.5 其他运用</h4>
+<p>除了个性推荐，基于内容的相关性，可精准的给出一篇相关推荐列表；</p>
+<h4 id="优缺点">3.1.6 优缺点</h4>
+<ul>
+<li>优点
+<ul>
+<li><p>对用户数量没有要求，与日活无关，个性化推荐的早期一般可采用此方式；</p></li>
+<li><p>每个用户特征是由自己行为决定的，独立存在，不会相互干扰，
+恶意刷阅读内容不会营销到推荐算法；</p></li>
+</ul></li>
+<li>缺点
+<ul>
+<li>确定性太强，推荐内容均由用户历史访问决定，无法挖掘用户潜在兴趣</li>
+<li>基于内容的推荐一般与其他推荐算法同时存在</li>
+</ul></li>
+</ul>
+<h3 id="基于用户的协同推荐">3.2 基于用户的协同推荐</h3>
+<p>当具备内容协同过滤推荐后，推给用户的内容均为基于他们的阅读习惯来推荐，没能给用户“不期而遇”的感觉。</p>
+<p>则，需要开始实现基于用户的协同过滤。</p>
+<ul>
+<li>基于用户协同过滤推荐算法：</li>
+</ul>
+<p>​ 依据用户A的阅读喜好，为A找到与他兴趣最接近的群体；
+即“人以群分”，把这个群体内其他人喜欢的，但A未阅读的推荐给A</p>
+<h4 id="用户群体划分">3.2.1 用户群体划分</h4>
+<h5 id="外部数据借用">3.2.1.1 外部数据借用</h5>
+<p>​
+使用第三方账户授权进入的，往往会包括性别、年龄、工作、甚至社交关系等</p>
+<h5 id="产品内主动询问">3.2.1.2 产品内主动询问</h5>
+<p>​ 产品首次启动时的弹窗询问，“职业” “性别” 对内容的冷启动提供帮助，
+但性价比偏低</p>
+<h5 id="对比用户特征">3.2.1.3 对比用户特征</h5>
+<p>​ 从内容的特征+用户的阅读数据
+来得到用户特征，通过用户特征的相似性来划分群体</p>
+<h4 id="内容推荐实施">3.2.2 内容推荐实施</h4>
+<p>A B C D E 5个用户</p>
+<p>​ 阅读 1分，</p>
+<p>​ 赞 2分，</p>
+<p>​ 收藏 3分，</p>
+<p>​ 评论 4分，</p>
+<p>​ 分享 5分</p>
+<figure>
+<img src="/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117133645188.png" srcset="/img/loading.gif" lazyload alt="image-20190117133645188">
+<figcaption aria-hidden="true">image-20190117133645188</figcaption>
+</figure>
+<p>各个用户的特征向量：</p>
+<figure>
+<img src="/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117133715263.png" srcset="/img/loading.gif" lazyload alt="image-20190117133715263">
+<figcaption aria-hidden="true">image-20190117133715263</figcaption>
+</figure>
+<p>多维向量的距离需要通过欧几里得距离公式来计算，数值越小，向量距离约接近。</p>
+<figure>
+<img src="/Users/gaozhiyong/Library/Application%20Support/typora-user-images/image-20190117133658566.png" srcset="/img/loading.gif" lazyload alt="image-20190117133658566">
+<figcaption aria-hidden="true">image-20190117133658566</figcaption>
+</figure>
+<h4 id="内容选取">3.2.3 内容选取</h4>
+<p>假设用户X在系统归属于群体A，这个群体有n个用户，分别为A0，A1，A2……An，这些用户的集合用S(X,n)表示。</p>
+<ol type="1">
+<li>首先，我们需要把集合中所有用户交互过（阅读，评论等）的新闻提取出来；</li>
+<li>需要剔除掉用户X已经看过的新闻，这些就不用再推荐了，剩下的新闻集合有m条，用N(X,m)来表示；</li>
+<li>对余下的新闻进行评分和相似度加权的计算，计算包括两部分，一是用户X与S(X,n)
+每一个用户的相似性，二是每个用户对新闻集N(X,m)中每条新闻的喜好，这样就能得到每条新闻相对于用户X的最终得分；</li>
+<li>将N(X,m)中的新闻列表按照得分高低的顺序推荐给用户。</li>
+</ol>
+<h4 id="优缺点-1">3.2.4 优缺点</h4>
+<ul>
+<li>优点
+<ul>
+<li>对分词算法的精确度无较强的要求</li>
+<li>基于用户的行为数据去不断学习和完善</li>
+<li>能发现用户潜在阅读兴趣，能“制造惊喜”</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>启动门槛高，用户量不够时几乎无法开展；</li>
+<li>学习量不够时，推荐结果较差</li>
+</ul></li>
+</ul>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/01/17/%E7%9B%B4%E6%92%AD%E7%B1%BB%E4%BA%A7%E5%93%81%E5%85%A8%E6%8E%A5%E8%A7%A6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">直播类产品全接触</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/06/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9B%BE/">
+                        <span class="hidden-mobile">用户体验地图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

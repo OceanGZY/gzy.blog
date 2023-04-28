@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Java正则表达式 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061import java.util.regex.*;public class RegularExpressionDemo &amp;#123;    &#x2F;*">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java正则表达式">
+<meta property="og:url" content="http://oceaneyes.top/2016/03/02/Java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="Java正则表达式 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061import java.util.regex.*;public class RegularExpressionDemo &amp;#123;    &#x2F;*">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2016-03-02T15:20:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.160Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>Java正则表达式 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java正则表达式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-03-02 23:20" pubdate>
+        2016年3月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java正则表达式</h1>
+            
+            <div class="markdown-body">
+              <h1 id="java正则表达式">Java正则表达式</h1>
+<figure class="highlight coq"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></div></td><td class="code"><pre><code class="hljs coq">import java.util.regex.*;<br>public class RegularExpressionDemo &#123;<br>    /*<br>        Pattern 类：<br>        <span class="hljs-built_in">pattern</span> 对象是一个正则表达式的编译表示。<br>        Pattern 类没有公共构造方法。要创建一个 Pattern 对象，你必须首先调用其公共静态编译方法，它返回一个 Pattern 对象。<br>        该方法接受一个正则表达式作为它的第一个参数。<br><br>        Matcher 类：<br>        Matcher 对象是对输入字符串进行解释和匹配操作的引擎。<br>        与Pattern 类一样，Matcher 也没有公共构造方法。<br>        需要调用 Pattern 对象的 matcher 方法来获得一个 Matcher 对象。<br><br>        PatternSyntaxException：<br>        PatternSyntaxException 是一个非强制异常类，它表示一个正则表达式模式中的语法错误。<br>     */<br>    /*<br>        正则表达式语法<br>        字符          说明<br>        \             将下一字符标记为特殊字符、文本、反向引用或八进制转义符。例如，<span class="hljs-string">&quot;n&quot;</span>匹配字符<span class="hljs-string">&quot;n&quot;</span>。<span class="hljs-string">&quot;\n&quot;</span>匹配换行符。序列<span class="hljs-string">&quot;\\\\&quot;</span>匹配<span class="hljs-string">&quot;\\&quot;</span>，<span class="hljs-string">&quot;\\(&quot;</span>匹配<span class="hljs-string">&quot;(&quot;</span>。<br>        ^             匹配输入字符串开始的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与<span class="hljs-string">&quot;\n&quot;</span>或<span class="hljs-string">&quot;\r&quot;</span>之后的位置匹配。<br>        $             匹配输入字符串结尾的位置。如果设置了 RegExp 对象的 Multiline 属性，$ 还会与<span class="hljs-string">&quot;\n&quot;</span>或<span class="hljs-string">&quot;\r&quot;</span>之前的位置匹配。<br>        *             零次或多次匹配前面的字符或子表达式。例如，zo* 匹配<span class="hljs-string">&quot;z&quot;</span>和<span class="hljs-string">&quot;zoo&quot;</span>。* 等效于 &#123;<span class="hljs-number">0</span>,&#125;。<br>        +             一次或多次匹配前面的字符或子表达式。例如，<span class="hljs-string">&quot;zo+&quot;</span>与<span class="hljs-string">&quot;zo&quot;</span>和<span class="hljs-string">&quot;zoo&quot;</span>匹配，但与<span class="hljs-string">&quot;z&quot;</span>不匹配。+ 等效于 &#123;<span class="hljs-number">1</span>,&#125;。<br>        ?             零次或一次匹配前面的字符或子表达式。例如，<span class="hljs-string">&quot;do(es)?&quot;</span>匹配<span class="hljs-string">&quot;do&quot;</span>或<span class="hljs-string">&quot;does&quot;</span>中的<span class="hljs-string">&quot;do&quot;</span>。? 等效于 &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>&#125;。<br>        &#123;n&#125;           n 是非负整数。正好匹配 n 次。例如，<span class="hljs-string">&quot;o&#123;2&#125;&quot;</span>与<span class="hljs-string">&quot;Bob&quot;</span>中的<span class="hljs-string">&quot;o&quot;</span>不匹配，但与<span class="hljs-string">&quot;food&quot;</span>中的两个<span class="hljs-string">&quot;o&quot;</span>匹配。<br>        &#123;n,&#125;          n 是非负整数。至少匹配 n 次。例如，<span class="hljs-string">&quot;o&#123;2,&#125;&quot;</span>不匹配<span class="hljs-string">&quot;Bob&quot;</span>中的<span class="hljs-string">&quot;o&quot;</span>，而匹配<span class="hljs-string">&quot;foooood&quot;</span>中的所有 o。<span class="hljs-string">&quot;o&#123;1,&#125;&quot;</span>等效于<span class="hljs-string">&quot;o+&quot;</span>。<span class="hljs-string">&quot;o&#123;0,&#125;&quot;</span>等效于<span class="hljs-string">&quot;o*&quot;</span>。<br>        &#123;n,m&#125;         m 和 n 是非负整数，其中 n &lt;= m。匹配至少 n 次，至多 m 次。例如，<span class="hljs-string">&quot;o&#123;1,3&#125;&quot;</span>匹配<span class="hljs-string">&quot;fooooood&quot;</span>中的头三个 o。&#x27;o&#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>&#125;&#x27; 等效于 &#x27;o?&#x27;。注意：您不能将空格插入逗号和数字之间。<br>        ?            当此字符紧随任何其他限定符（*、+、?、&#123;n&#125;、&#123;n,&#125;、&#123;n,m&#125;）之后时，匹配模式是<span class="hljs-string">&quot;非贪心的&quot;</span>。<span class="hljs-string">&quot;非贪心的&quot;</span>模式匹配搜索到的、尽可能短的字符串，而默认的<span class="hljs-string">&quot;贪心的&quot;</span>模式匹配搜索到的、尽可能长的字符串。例如，在字符串<span class="hljs-string">&quot;oooo&quot;</span>中，<span class="hljs-string">&quot;o+?&quot;</span>只匹配单个<span class="hljs-string">&quot;o&quot;</span>，而<span class="hljs-string">&quot;o+&quot;</span>匹配所有<span class="hljs-string">&quot;o&quot;</span>。<br>        .            匹配除<span class="hljs-string">&quot;\r\n&quot;</span>之外的任何单个字符。若要匹配包括<span class="hljs-string">&quot;\r\n&quot;</span>在内的任意字符，请使用诸如<span class="hljs-string">&quot;[\s\S]&quot;</span>之类的模式。<br>        (<span class="hljs-built_in">pattern</span>)     匹配 <span class="hljs-built_in">pattern</span> 并捕获该匹配的子表达式。可以使用 $<span class="hljs-number">0</span>…$<span class="hljs-number">9</span> 属性从结果<span class="hljs-string">&quot;匹配&quot;</span>集合中检索捕获的匹配。若要匹配括号字符 ( )，请使用<span class="hljs-string">&quot;\(&quot;</span>或者<span class="hljs-string">&quot;\)&quot;</span>。<br>        (?:<span class="hljs-built_in">pattern</span>)   匹配 <span class="hljs-built_in">pattern</span> 但不捕获该匹配的子表达式，即它是一个非捕获匹配，不存储供以后使用的匹配。这对于用<span class="hljs-string">&quot;or&quot;</span>字符 (|<span class="hljs-type">) 组合模式部件的情况很有用。例如，&#x27;industr</span>(?:y|<span class="hljs-type">ies</span>) 是比 &#x27;industry|<span class="hljs-type">industries</span>&#x27; 更经济的表达式。<br>        (?=<span class="hljs-built_in">pattern</span>)   执行正向预测先行搜索的子表达式，该表达式匹配处于匹配 <span class="hljs-built_in">pattern</span> 的字符串的起始点的字符串。它是一个非捕获匹配，即不能捕获供以后使用的匹配。例如，&#x27;Windows (?=<span class="hljs-number">95</span>|<span class="hljs-type">98</span>|<span class="hljs-type">NT</span>|<span class="hljs-type">2000</span>)&#x27; 匹配<span class="hljs-string">&quot;Windows 2000&quot;</span>中的<span class="hljs-string">&quot;Windows&quot;</span>，但不匹配<span class="hljs-string">&quot;Windows 3.1&quot;</span>中的<span class="hljs-string">&quot;Windows&quot;</span>。预测先行不占用字符，即发生匹配后，下一匹配的搜索紧随上一匹配之后，而不是在组成预测先行的字符后。<br>        (?!<span class="hljs-built_in">pattern</span>)   执行反向预测先行搜索的子表达式，该表达式匹配不处于匹配 <span class="hljs-built_in">pattern</span> 的字符串的起始点的搜索字符串。它是一个非捕获匹配，即不能捕获供以后使用的匹配。例如，&#x27;Windows (?!<span class="hljs-number">95</span>|<span class="hljs-type">98</span>|<span class="hljs-type">NT</span>|<span class="hljs-type">2000</span>)&#x27; 匹配<span class="hljs-string">&quot;Windows 3.1&quot;</span>中的 <span class="hljs-string">&quot;Windows&quot;</span>，但不匹配<span class="hljs-string">&quot;Windows 2000&quot;</span>中的<span class="hljs-string">&quot;Windows&quot;</span>。预测先行不占用字符，即发生匹配后，下一匹配的搜索紧随上一匹配之后，而不是在组成预测先行的字符后。<br>        x|<span class="hljs-type">y</span>           匹配 x 或 y。例如，&#x27;z|<span class="hljs-type">food</span>&#x27; 匹配<span class="hljs-string">&quot;z&quot;</span>或<span class="hljs-string">&quot;food&quot;</span>。&#x27;(z|<span class="hljs-type">f</span>)ood&#x27; 匹配<span class="hljs-string">&quot;zood&quot;</span>或<span class="hljs-string">&quot;food&quot;</span>。<br>       [xyz]         字符集。匹配包含的任一字符。例如，<span class="hljs-string">&quot;[abc]&quot;</span>匹配<span class="hljs-string">&quot;plain&quot;</span>中的<span class="hljs-string">&quot;a&quot;</span>。<br>       [^xyz]        反向字符集。匹配未包含的任何字符。例如，<span class="hljs-string">&quot;[^abc]&quot;</span>匹配<span class="hljs-string">&quot;plain&quot;</span>中<span class="hljs-string">&quot;p&quot;</span>，<span class="hljs-string">&quot;l&quot;</span>，<span class="hljs-string">&quot;i&quot;</span>，<span class="hljs-string">&quot;n&quot;</span>。<br>       [a-z]         字符范围。匹配指定范围内的任何字符。例如，<span class="hljs-string">&quot;[a-z]&quot;</span>匹配<span class="hljs-string">&quot;a&quot;</span>到<span class="hljs-string">&quot;z&quot;</span>范围内的任何小写字母。<br>       [^a-z]       反向范围字符。匹配不在指定的范围内的任何字符。例如，<span class="hljs-string">&quot;[^a-z]&quot;</span>匹配任何不在<span class="hljs-string">&quot;a&quot;</span>到<span class="hljs-string">&quot;z&quot;</span>范围内的任何字符。<br>        \b          匹配一个字边界，即字与空格间的位置。例如，<span class="hljs-string">&quot;er\b&quot;</span>匹配<span class="hljs-string">&quot;never&quot;</span>中的<span class="hljs-string">&quot;er&quot;</span>，但不匹配<span class="hljs-string">&quot;verb&quot;</span>中的<span class="hljs-string">&quot;er&quot;</span>。<br>        \B          非字边界匹配。<span class="hljs-string">&quot;er\B&quot;</span>匹配<span class="hljs-string">&quot;verb&quot;</span>中的<span class="hljs-string">&quot;er&quot;</span>，但不匹配<span class="hljs-string">&quot;never&quot;</span>中的<span class="hljs-string">&quot;er&quot;</span>。<br>        \cx         匹配 x 指示的控制字符。例如，\cM 匹配 Control-M 或回车符。x 的值必须在 A-Z 或 a-z 之间。如果不是这样，则假定 c 就是<span class="hljs-string">&quot;c&quot;</span>字符本身。<br>        \d          数字字符匹配。等效于 [<span class="hljs-number">0</span><span class="hljs-number">-9</span>]。<br>        \D          非数字字符匹配。等效于 [^<span class="hljs-number">0</span><span class="hljs-number">-9</span>]。<br>        \f          换页符匹配。等效于 \x0c 和 \cL。<br>        \n          换行符匹配。等效于 \x0a 和 \cJ。<br>        \r          匹配一个回车符。等效于 \x0d 和 \cM。<br>        \s          匹配任何空白字符，包括空格、制表符、换页符等。与 [ \f\n\r\t\v] 等效。<br>        \S          匹配任何非空白字符。与 [^ \f\n\r\t\v] 等效。<br>        \t          制表符匹配。与 \x09 和 \cI 等效。<br>        \v          垂直制表符匹配。与 \x0b 和 \cK 等效。<br>        \w          匹配任何字类字符，包括下划线。与<span class="hljs-string">&quot;[A-Za-z0-9_]&quot;</span>等效。<br>        \W          与任何非单词字符匹配。与<span class="hljs-string">&quot;[^A-Za-z0-9_]&quot;</span>等效。<br>        \xn         匹配 n，此处的 n 是一个十六进制转义码。十六进制转义码必须正好是两位数长。例如，<span class="hljs-string">&quot;\x41&quot;</span>匹配<span class="hljs-string">&quot;A&quot;</span>。<span class="hljs-string">&quot;\x041&quot;</span>与<span class="hljs-string">&quot;\x04&quot;</span>&amp;<span class="hljs-string">&quot;1&quot;</span>等效。允许在正则表达式中使用 ASCII 代码。<br>        \num        匹配 num，此处的 num 是一个正整数。到捕获匹配的反向引用。例如，<span class="hljs-string">&quot;(.)\1&quot;</span>匹配两个连续的相同字符。<br>        \n          标识一个八进制转义码或反向引用。如果 \n 前面至少有 n 个捕获子表达式，那么 n 是反向引用。否则，如果 n 是八进制数 (<span class="hljs-number">0</span><span class="hljs-number">-7</span>)，那么 n 是八进制转义码。<br>        \nm         标识一个八进制转义码或反向引用。如果 \nm 前面至少有 nm 个捕获子表达式，那么 nm 是反向引用。如果 \nm 前面至少有 n 个捕获，则 n 是反向引用，后面跟有字符 m。如果两种前面的情况都不存在，则 \nm 匹配八进制值 nm，其中 n 和 m 是八进制数字 (<span class="hljs-number">0</span><span class="hljs-number">-7</span>)。<br>        \nml        当 n 是八进制数 (<span class="hljs-number">0</span><span class="hljs-number">-3</span>)，m 和 l 是八进制数 (<span class="hljs-number">0</span><span class="hljs-number">-7</span>) 时，匹配八进制转义码 nml。<br>     */<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/03/02/Java%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java条件语句</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/03/02/Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+                        <span class="hidden-mobile">Java基本数据类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

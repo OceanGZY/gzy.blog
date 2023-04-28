@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="PHP变量 变量 ​ 程序执行期间，可以变化的量即为变量。 声明变量  以美元$ 符号声明 注意：（PHP严格区分大小写）  变量名称以 字母、或下划线开始，后面跟上数字&#x2F;字母&#x2F;下划线，不能包含特殊字符 变量名称最好含义明确 变量名最好采用驼峰标记，或下划线法  驼峰  小驼峰 ：firstName 大驼峰：FirstName  下划线  first_name     可变变量  等量代换  使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php学习--变量和数据类型">
+<meta property="og:url" content="http://oceaneyes.top/2018/12/20/php%E5%AD%A6%E4%B9%A0--%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="PHP变量 变量 ​ 程序执行期间，可以变化的量即为变量。 声明变量  以美元$ 符号声明 注意：（PHP严格区分大小写）  变量名称以 字母、或下划线开始，后面跟上数字&#x2F;字母&#x2F;下划线，不能包含特殊字符 变量名称最好含义明确 变量名最好采用驼峰标记，或下划线法  驼峰  小驼峰 ：firstName 大驼峰：FirstName  下划线  first_name     可变变量  等量代换  使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2018-12-20T14:30:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.178Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="php">
+<meta property="article:tag" content="后端服务">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>php学习--变量和数据类型 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="php学习--变量和数据类型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-12-20 22:30" pubdate>
+        2018年12月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">php学习--变量和数据类型</h1>
+            
+            <div class="markdown-body">
+              <h3 id="php变量">PHP变量</h3>
+<h4 id="变量">变量</h4>
+<p>​ 程序执行期间，可以变化的量即为变量。</p>
+<h4 id="声明变量">声明变量</h4>
+<ul>
+<li>以美元$ 符号声明</li>
+<li>注意：（PHP严格区分大小写）
+<ul>
+<li>变量名称以
+字母、或下划线开始，后面跟上数字/字母/下划线，不能包含特殊字符</li>
+<li>变量名称最好含义明确</li>
+<li>变量名最好采用驼峰标记，或下划线法
+<ul>
+<li>驼峰
+<ul>
+<li>小驼峰 ：firstName</li>
+<li>大驼峰：FirstName</li>
+</ul></li>
+<li>下划线
+<ul>
+<li>first_name</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="可变变量">可变变量</h4>
+<ul>
+<li>等量代换</li>
+</ul>
+<h4 id="使用变量">使用变量</h4>
+<ul>
+<li>直接书写变量的名称
+<ul>
+<li>$变量名称</li>
+</ul></li>
+</ul>
+<hr>
+<h3 id="php数据类型">PHP数据类型</h3>
+<h4 id="种主要数据类型">8种主要数据类型</h4>
+<ul>
+<li>标量类型 （特点：只能存储单一数据）
+<ul>
+<li><p>整型 int | integer</p>
+<ul>
+<li>整数
+<ul>
+<li>分类
+<ul>
+<li>十进制</li>
+<li>八进制</li>
+<li>十六进制</li>
+</ul></li>
+<li>存储范围
+<ul>
+<li>带符号 （-21亿 到 21亿）</li>
+<li>不带符号 （0 到42亿）</li>
+<li>超过整型存储范围，会出现溢出现象</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>浮点型 float | double | real</p>
+<ul>
+<li>带小数点</li>
+<li>科学计数法 ，e或者 E</li>
+<li>注意：
+<ul>
+<li>浮点数是有误差的，不要比较两个浮点数的大小</li>
+</ul></li>
+</ul></li>
+<li><p>布尔型 bool | boolean</p>
+<ul>
+<li>true</li>
+<li>false</li>
+</ul></li>
+<li><p>字符串型 string 只能存储单一数据</p>
+<ul>
+<li><p>定界符</p>
+<ul>
+<li><p>' ' 不解析变量</p></li>
+<li><p>" " 解析变量</p></li>
+<li><p>heredoc “”</p>
+<ul>
+<li>``` &lt;&lt;&lt;名称 代码块 名称； <figure class="highlight autohotkey"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs autohotkey"><br>     <br><br>- ```<br>  &lt;&lt;&lt;<span class="hljs-string">&quot;名称&quot;</span><br>  	代码块<br>  名称<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>nowdoc</p></li>
+</ul></li>
+<li><p>转义符</p>
+<ul>
+<li>``` 换行 车 平制表符 \<br>
+' ' " " $ $ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-bullet">    -</span> 花括号 &#123;&#125;<br><br><span class="hljs-bullet">      -</span> 可以将PHP中的变量扩成一个整体来解析<br><span class="hljs-bullet">        -</span> &#123;$变量名&#125;<br><span class="hljs-bullet">        -</span> $&#123;变量名&#125;<br><span class="hljs-bullet">      -</span> 可以将字符串中指定字符进行增删改查的操作<br><span class="hljs-bullet">        -</span> 字符串的下标 从0开始<br><span class="hljs-bullet">        -</span> 根据下标找到对应的字符进行操作<br><span class="hljs-bullet">-</span> 复合类型<br><span class="hljs-bullet">  -</span> 数组 array<br><span class="hljs-bullet">  -</span> 对象 object<br><span class="hljs-bullet">-</span> 特殊类型<br><span class="hljs-bullet">  -</span> 资源 resource<br><span class="hljs-bullet">  -</span> 空  null | NULL<br><br><br><br><span class="hljs-section">#### 5种伪类型</span><br><br><span class="hljs-bullet">-</span> number<br><span class="hljs-bullet">-</span> mixed<br><span class="hljs-bullet">-</span> callback<br><span class="hljs-bullet">-</span> void<br><span class="hljs-bullet">-</span> ...<br><br><br><br><span class="hljs-section">### PHP数据类型转换</span><br><br><span class="hljs-section">#### 自动转换（隐式转换）</span><br><br>​	程序根据上下文自动转换<br><br><span class="hljs-bullet">-</span> 其他类型转换为数值型<br><br><span class="hljs-bullet">  -</span> true -&gt; 1<br><span class="hljs-bullet">  -</span> false -&gt; 0<br><span class="hljs-bullet">  -</span> null -&gt; 0<br><span class="hljs-bullet">  -</span> 字符串如果以 非法数值开始，直接转换成0<br><span class="hljs-bullet">  -</span> 如果字符串以合法数值开始，一直取到第一个非法数值结束<br><br><span class="hljs-bullet">-</span> 其他类型转换为字符串类型<br><br><span class="hljs-bullet">  -</span> 数值型直接转换成数值本身<br><span class="hljs-bullet">  -</span> true -&gt; 1<br><span class="hljs-bullet">  -</span> false -&gt; 空字符串<br><span class="hljs-bullet">  -</span> null -&gt; 空字符串<br><span class="hljs-bullet">  -</span> 数组 -&gt; array<br><span class="hljs-bullet">  -</span> 资源 -&gt; resource<br><span class="hljs-bullet">  -</span> 对象 不能转换为字符串<br><br><span class="hljs-bullet">-</span> 其他类型转换成布尔型<br><br><span class="hljs-bullet">   -</span> 0 -&gt; false<br><span class="hljs-bullet">   -</span> 0.0 -&gt; false<br><span class="hljs-bullet">   -</span> 空字符串 ‘’ 或者&quot;&quot; , ‘0’或者 “0” ， -&gt; false<br><span class="hljs-bullet">   -</span> null -&gt; false<br><span class="hljs-bullet">   -</span> 空数组 -&gt; false<br><br></code></pre></td></tr></table></figure> if (条件) { 执行条件为真的代码段; }else {
+执行条件为假的代码段; } <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-code">    </span><br><span class="hljs-code"></span><br><span class="hljs-section">#### 强制转换（显示转换）</span><br><br><span class="hljs-bullet">-</span> 临时转换   (不会改变变量本身的类型)<br><br><span class="hljs-bullet">  -</span> (变量类型)$变量名称<br><span class="hljs-bullet">    -</span> 整型  (int | integer)$变量名称      <br><span class="hljs-bullet">    -</span> 浮点型   (float | double | real)$变量名称      <br><span class="hljs-bullet">    -</span> 字符型   (string)$变量名称      <br><span class="hljs-bullet">    -</span> 布尔型    (bool | bollean)$变量名称      <br><span class="hljs-bullet">    -</span> 空     (unset)$变量名称      <br><span class="hljs-bullet">    -</span> 数组      (array)$变量名称      <br><span class="hljs-bullet">    -</span> 对象     (object)$变量名称<br><span class="hljs-bullet">  -</span> 通过系统函数实现      <br><span class="hljs-bullet">    -</span> intval<br><span class="hljs-bullet">    -</span> floatval<br><span class="hljs-bullet">    -</span> ...<br><br><span class="hljs-bullet">-</span> 永久转换<br><br><span class="hljs-bullet">  -</span> <span class="hljs-code">```</span><br><span class="hljs-code">    settype($var,$type)</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+<li><div class="code-wrapper"><pre><code class="hljs">  gettype($var)</code></pre></div></li>
+</ul></li>
+<li>通过变量函数库检查变量的类型</li>
+</ul>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/php/">php</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/php/">php</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/">后端服务</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/12/20/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E5%92%8C%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E7%9A%84%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%E9%A2%9D/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">什么是图像识别和图像识别的特征提取</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/12/20/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%EF%BC%88%E4%B8%80%EF%BC%89/">
+                        <span class="hidden-mobile">推荐算法理论与实践（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

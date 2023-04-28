@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="LSTM原理 一、基础介绍 1.1 神经网络模型 简单来说，常见的神经网络模型结构有前馈神经网络(DNN)、RNN（常用于文本 &#x2F; 时间系列任务）、CNN（常用于图像任务）等等。具体可以看之前文章：一文概览神经网络模型。 前馈神经网络是神经网络模型中最为常见的，信息从输入层开始输入，每层的神经元接收前一级输入，并输出到下一级，直至输出层。整个网络信息输入传输中无反馈（循环）。即任何层的输出都不会影">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSTM">
+<meta property="og:url" content="http://oceaneyes.top/2021/03/01/lstm/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="LSTM原理 一、基础介绍 1.1 神经网络模型 简单来说，常见的神经网络模型结构有前馈神经网络(DNN)、RNN（常用于文本 &#x2F; 时间系列任务）、CNN（常用于图像任务）等等。具体可以看之前文章：一文概览神经网络模型。 前馈神经网络是神经网络模型中最为常见的，信息从输入层开始输入，每层的神经元接收前一级输入，并输出到下一级，直至输出层。整个网络信息输入传输中无反馈（循环）。即任何层的输出都不会影">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://camo.githubusercontent.com/b463c73dc5cb2fcd7c356c0aa1501cd44065cc7bf018ddc1e2ddc5252bb4b70d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633165616464353863386136356639622e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/6f33cfec65bf836ce91e9040c5bff43defca9965eb37edf6911f17ba099176f7/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d316266373331313061656562306634642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/5e1105f1d2a1295456d6f50bd8bdf0618ed1671c62438e2c40a2591ff59a18db/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d373366626538303433643163313034342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/03e8e57928e72ed61c2d05964ffcbbb3cc56537dbf77cd399b012e47663880c0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d386665373562353932653064373764662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/87785eeb21f6319c756acfbbd10fe9428e35477395c4f81ff97fbe3ad25af32b/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d326634346233633737636635306537632e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/edc2645e0f370d37a8e711ecce87f1b7205a02d39fbe97f92fcf338d7ba93b42/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d626331383535363034383664613965662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/8112de4e3ca5b8d779b7dda15f8fec8fae31d243571b64e51347cb0fa53073bf/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d303232316333653932333839336337302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/760a23e3bc9d0e7b39f038ab61156c47d701b46a52cd55fe573f1fe0b70605e1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d356432616433653735373133346362382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/915e8fc4731ac7dec46dac3a0561bcac86ea8805bca90031b1d85a1e528e6396/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d303639376232356637663732616363642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://camo.githubusercontent.com/561bc8e2c4c87fefecb71aecb1e70b6119afcdabc817546ac6fd26b54fa44795/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633837383135646665643364663666362e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-03-01T15:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.176Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="LSTM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/b463c73dc5cb2fcd7c356c0aa1501cd44065cc7bf018ddc1e2ddc5252bb4b70d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633165616464353863386136356639622e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+  
+  
+  <title>LSTM - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="LSTM">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-01 23:19" pubdate>
+        2021年3月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">LSTM</h1>
+            
+            <div class="markdown-body">
+              <h2 id="lstm原理">LSTM原理</h2>
+<h2 id="一基础介绍">一、基础介绍</h2>
+<h3 id="神经网络模型">1.1 神经网络模型</h3>
+<p>简单来说，常见的神经网络模型结构有前馈神经网络(DNN)、RNN（常用于文本
+/ 时间系列任务）、CNN（常用于图像任务）等等。具体可以看之前文章：<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2Fovx_lj2rCrrTx8DeU03yjQ">一文概览神经网络模型。</a></p>
+<p>前馈神经网络是神经网络模型中最为常见的，信息从输入层开始输入，每层的神经元接收前一级输入，并输出到下一级，直至输出层。整个网络信息输入传输中无反馈（循环）。即任何层的输出都不会影响同级层，可用一个有向无环图表示。
+<a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/b463c73dc5cb2fcd7c356c0aa1501cd44065cc7bf018ddc1e2ddc5252bb4b70d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633165616464353863386136356639622e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/b463c73dc5cb2fcd7c356c0aa1501cd44065cc7bf018ddc1e2ddc5252bb4b70d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633165616464353863386136356639622e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h3 id="rnn-介绍">1.2 RNN 介绍</h3>
+<p>循环神经网络（RNN）是基于序列数据（如语言、语音、时间序列）的递归性质而设计的，是一种反馈类型的神经网络，它专门用于处理序列数据，如逐字生成文本或预测时间序列数据(例如股票价格、诗歌生成)。
+<a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/6f33cfec65bf836ce91e9040c5bff43defca9965eb37edf6911f17ba099176f7/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d316266373331313061656562306634642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/6f33cfec65bf836ce91e9040c5bff43defca9965eb37edf6911f17ba099176f7/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d316266373331313061656562306634642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>RNN和全连接神经网络的本质差异在于“输入是带有反馈信息的”，RNN除了接受每一步的输入x(t)
+，同时还有输入上一步的历史反馈信息——隐藏状态h (t-1)
+，也就是当前时刻的隐藏状态h(t) 或决策输出O(t) 由当前时刻的输入 x(t)
+和上一时刻的隐藏状态h (t-1)
+共同决定。从某种程度，RNN和大脑的决策很像，大脑接受当前时刻感官到的信息（外部的x(t)
+）和之前的想法（内部的h (t-1) ）的输入一起决策。</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/5e1105f1d2a1295456d6f50bd8bdf0618ed1671c62438e2c40a2591ff59a18db/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d373366626538303433643163313034342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/5e1105f1d2a1295456d6f50bd8bdf0618ed1671c62438e2c40a2591ff59a18db/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d373366626538303433643163313034342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>RNN的结构原理可以简要概述为两个公式，具体介绍可以看下<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI4MDE1NjExMQ==&amp;mid=2247486492&amp;idx=1&amp;sn=46c4391755acaf19607fe3ddd3d7b70a&amp;scene=19#wechat_redirect">【一文详解RNN】</a>：</p>
+<blockquote>
+<p>RNN的隐藏状态为：h(t) = f( U * x(t) + W * h(t-1) + b1)，
+f为激活函数，常用tanh、relu; RNN的输出为：o(t) = g( V * h(t) +
+b2)，g为激活函数，当用于分类任务，一般用softmax;</p>
+</blockquote>
+<h3 id="从rnn到lstm">1.3 从RNN到LSTM</h3>
+<p>但是在实际中，RNN在长序列数据处理中，容易导致梯度爆炸或者梯度消失，也就是长期依赖（long-term
+dependencies）问题，其根本原因就是模型“记忆”的序列信息太长了，都会一股脑地记忆和学习，时间一长，就容易忘掉更早的信息（梯度消失）或者崩溃（梯度爆炸）。</p>
+<blockquote>
+<p>梯度消失：历史时间步的信息距离当前时间步越长，反馈的梯度信号就会越弱（甚至为0）的现象，梯度被近距离梯度主导，导致模型难以学到远距离的依赖关系。
+改善措施：可以使用 ReLU 激活函数；门控RNN 如GRU、LSTM
+以改善梯度消失。</p>
+</blockquote>
+<blockquote>
+<p>梯度爆炸：网络层之间的梯度（值大于
+1）重复相乘导致的指数级增长会产生梯度爆炸，导致模型无法有效学习。
+改善措施：可以使用 梯度截断；引导信息流的正则化；ReLU 激活函数；门控RNN
+如GRU、LSTM（和普通 RNN 相比多经过了很多次导数都小于 1激活函数，因此
+LSTM 发生梯度爆炸的频率要低得多）以改善梯度爆炸。</p>
+</blockquote>
+<p>所以，如果我们能让 RNN
+在接受上一时刻的状态和当前时刻的输入时，有选择地记忆和遗忘一部分内容（或者说信息），问题就可以解决了。比如上上句话提及”我去考试了“，然后后面提及”我考试通过了“，那么在此之前说的”我去考试了“的内容就没那么重要，选择性地遗忘就好了。这也就是长短期记忆网络（Long
+Short-Term Memory， LSTM）的基本思想。</p>
+<h2 id="二lstm原理">二、LSTM原理</h2>
+<p>LSTM是种特殊RNN网络，在RNN的基础上引入了“门控”的选择性机制，分别是遗忘门、输入门和输出门，从而有选择性地保留或删除信息，以能够<strong>较好地</strong>学习长期依赖关系。如下图RNN（上）
+对比 LSTM（下）：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/03e8e57928e72ed61c2d05964ffcbbb3cc56537dbf77cd399b012e47663880c0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d386665373562353932653064373764662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/03e8e57928e72ed61c2d05964ffcbbb3cc56537dbf77cd399b012e47663880c0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d386665373562353932653064373764662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h3 id="lstm的核心">2.1 LSTM的核心</h3>
+<p>在RNN基础上引入门控后的LSTM，结构看起来好复杂！但其实LSTM作为一种反馈神经网络，<strong>核心还是历史的隐藏状态信息的反馈</strong>，也就是下图的Ct：
+<a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/87785eeb21f6319c756acfbbd10fe9428e35477395c4f81ff97fbe3ad25af32b/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d326634346233633737636635306537632e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/87785eeb21f6319c756acfbbd10fe9428e35477395c4f81ff97fbe3ad25af32b/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d326634346233633737636635306537632e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a>
+对标RNN的ht隐藏状态的更新，<strong>LSTM的Ct只是多个些“门控”删除或添加信息到状态信息</strong>。由下面依次介绍LSTM的“门控”：遗忘门，输入门，输出门的​功能，LSTM的原理也就好理解了。</p>
+<h3 id="遗忘门">2.2 遗忘门</h3>
+<p>LSTM 的第一步是通过"遗忘门"从上个时间点的状态Ct-1中丢弃哪些信息。</p>
+<p>具体来说，输入Ct-1，会先根据上一个时间点的输出ht-1和当前时间点的输入xt，并通过sigmoid激活函数的输出结果ft来确定要让Ct-1，来忘记多少，sigmoid后等于1表示要保存多一些Ct-1的比重，等于0表示完全忘记之前的Ct-1。
+<a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/edc2645e0f370d37a8e711ecce87f1b7205a02d39fbe97f92fcf338d7ba93b42/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d626331383535363034383664613965662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/edc2645e0f370d37a8e711ecce87f1b7205a02d39fbe97f92fcf338d7ba93b42/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d626331383535363034383664613965662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h3 id="输入门">2.3 输入门</h3>
+<p>下一步是通过输入门，决定我们将在状态中存储哪些新信息。</p>
+<p>我们根据上一个时间点的输出ht-1和当前时间点的输入xt 生成两部分信息i t
+及C<del>t，通过sigmoid输出i t，用tanh输出C</del>t。之后通过把i t
+及C~t两个部分相乘，共同决定在状态中存储哪些新信息。 <a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/8112de4e3ca5b8d779b7dda15f8fec8fae31d243571b64e51347cb0fa53073bf/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d303232316333653932333839336337302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/8112de4e3ca5b8d779b7dda15f8fec8fae31d243571b64e51347cb0fa53073bf/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d303232316333653932333839336337302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>在输入门 + 遗忘门控制下，当前时间点状态信息Ct为：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/760a23e3bc9d0e7b39f038ab61156c47d701b46a52cd55fe573f1fe0b70605e1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d356432616433653735373133346362382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/760a23e3bc9d0e7b39f038ab61156c47d701b46a52cd55fe573f1fe0b70605e1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d356432616433653735373133346362382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<h3 id="输出门">2.4 输出门</h3>
+<p>最后，我们根据上一个时间点的输出ht-1和当前时间点的输入xt 通过sigmid
+输出Ot，再根据Ot 与 tanh控制的当前时间点状态信息Ct 相乘作为最终的输出。
+<a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/915e8fc4731ac7dec46dac3a0561bcac86ea8805bca90031b1d85a1e528e6396/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d303639376232356637663732616363642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/915e8fc4731ac7dec46dac3a0561bcac86ea8805bca90031b1d85a1e528e6396/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d303639376232356637663732616363642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><strong>综上，一张图可以说清LSTM原理：</strong> <a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/561bc8e2c4c87fefecb71aecb1e70b6119afcdabc817546ac6fd26b54fa44795/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633837383135646665643364663666362e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/561bc8e2c4c87fefecb71aecb1e70b6119afcdabc817546ac6fd26b54fa44795/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31313638323237312d633837383135646665643364663666362e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LSTM/">LSTM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/28/ctr-predict/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">广告投放中的CTR预估模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/17/%E8%88%AA%E7%A9%BA%E5%85%AC%E5%8F%B8%E5%AE%A2%E6%88%B7%E4%BB%B7%E5%80%BC%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">航空公司客户价值聚类分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

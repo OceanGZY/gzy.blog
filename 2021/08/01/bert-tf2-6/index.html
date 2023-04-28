@@ -1,0 +1,1151 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Bert-TF-2.6修改-自调适配版 背景 bert开源版适配的为tf1版本，当机器的tf环境为2以上版本时，会出现各种异常。 因此我根据tf的函数库，进行了bert适配tf2.6的修改适配。 代码 run_classifier.py 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bert-TF-2.6修改-自调适配版">
+<meta property="og:url" content="http://oceaneyes.top/2021/08/01/bert-tf2-6/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="Bert-TF-2.6修改-自调适配版 背景 bert开源版适配的为tf1版本，当机器的tf环境为2以上版本时，会出现各种异常。 因此我根据tf的函数库，进行了bert适配tf2.6的修改适配。 代码 run_classifier.py 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-08-01T15:57:08.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.166Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Bert">
+<meta property="article:tag" content="Natural Language Processing">
+<meta property="article:tag" content="Tensorflow 2.6">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>Bert-TF-2.6修改-自调适配版 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Bert-TF-2.6修改-自调适配版">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-01 23:57" pubdate>
+        2021年8月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      81k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      676 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bert-TF-2.6修改-自调适配版</h1>
+            
+            <div class="markdown-body">
+              <h1 id="bert-tf-2.6修改-自调适配版">Bert-TF-2.6修改-自调适配版</h1>
+<h4 id="背景">背景</h4>
+<p>bert开源版适配的为tf1版本，当机器的tf环境为2以上版本时，会出现各种异常。</p>
+<p>因此我根据tf的函数库，进行了bert适配tf2.6的修改适配。</p>
+<h4 id="代码">代码</h4>
+<h5 id="run_classifier.py">run_classifier.py</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br><span class="line">753</span><br><span class="line">754</span><br><span class="line">755</span><br><span class="line">756</span><br><span class="line">757</span><br><span class="line">758</span><br><span class="line">759</span><br><span class="line">760</span><br><span class="line">761</span><br><span class="line">762</span><br><span class="line">763</span><br><span class="line">764</span><br><span class="line">765</span><br><span class="line">766</span><br><span class="line">767</span><br><span class="line">768</span><br><span class="line">769</span><br><span class="line">770</span><br><span class="line">771</span><br><span class="line">772</span><br><span class="line">773</span><br><span class="line">774</span><br><span class="line">775</span><br><span class="line">776</span><br><span class="line">777</span><br><span class="line">778</span><br><span class="line">779</span><br><span class="line">780</span><br><span class="line">781</span><br><span class="line">782</span><br><span class="line">783</span><br><span class="line">784</span><br><span class="line">785</span><br><span class="line">786</span><br><span class="line">787</span><br><span class="line">788</span><br><span class="line">789</span><br><span class="line">790</span><br><span class="line">791</span><br><span class="line">792</span><br><span class="line">793</span><br><span class="line">794</span><br><span class="line">795</span><br><span class="line">796</span><br><span class="line">797</span><br><span class="line">798</span><br><span class="line">799</span><br><span class="line">800</span><br><span class="line">801</span><br><span class="line">802</span><br><span class="line">803</span><br><span class="line">804</span><br><span class="line">805</span><br><span class="line">806</span><br><span class="line">807</span><br><span class="line">808</span><br><span class="line">809</span><br><span class="line">810</span><br><span class="line">811</span><br><span class="line">812</span><br><span class="line">813</span><br><span class="line">814</span><br><span class="line">815</span><br><span class="line">816</span><br><span class="line">817</span><br><span class="line">818</span><br><span class="line">819</span><br><span class="line">820</span><br><span class="line">821</span><br><span class="line">822</span><br><span class="line">823</span><br><span class="line">824</span><br><span class="line">825</span><br><span class="line">826</span><br><span class="line">827</span><br><span class="line">828</span><br><span class="line">829</span><br><span class="line">830</span><br><span class="line">831</span><br><span class="line">832</span><br><span class="line">833</span><br><span class="line">834</span><br><span class="line">835</span><br><span class="line">836</span><br><span class="line">837</span><br><span class="line">838</span><br><span class="line">839</span><br><span class="line">840</span><br><span class="line">841</span><br><span class="line">842</span><br><span class="line">843</span><br><span class="line">844</span><br><span class="line">845</span><br><span class="line">846</span><br><span class="line">847</span><br><span class="line">848</span><br><span class="line">849</span><br><span class="line">850</span><br><span class="line">851</span><br><span class="line">852</span><br><span class="line">853</span><br><span class="line">854</span><br><span class="line">855</span><br><span class="line">856</span><br><span class="line">857</span><br><span class="line">858</span><br><span class="line">859</span><br><span class="line">860</span><br><span class="line">861</span><br><span class="line">862</span><br><span class="line">863</span><br><span class="line">864</span><br><span class="line">865</span><br><span class="line">866</span><br><span class="line">867</span><br><span class="line">868</span><br><span class="line">869</span><br><span class="line">870</span><br><span class="line">871</span><br><span class="line">872</span><br><span class="line">873</span><br><span class="line">874</span><br><span class="line">875</span><br><span class="line">876</span><br><span class="line">877</span><br><span class="line">878</span><br><span class="line">879</span><br><span class="line">880</span><br><span class="line">881</span><br><span class="line">882</span><br><span class="line">883</span><br><span class="line">884</span><br><span class="line">885</span><br><span class="line">886</span><br><span class="line">887</span><br><span class="line">888</span><br><span class="line">889</span><br><span class="line">890</span><br><span class="line">891</span><br><span class="line">892</span><br><span class="line">893</span><br><span class="line">894</span><br><span class="line">895</span><br><span class="line">896</span><br><span class="line">897</span><br><span class="line">898</span><br><span class="line">899</span><br><span class="line">900</span><br><span class="line">901</span><br><span class="line">902</span><br><span class="line">903</span><br><span class="line">904</span><br><span class="line">905</span><br><span class="line">906</span><br><span class="line">907</span><br><span class="line">908</span><br><span class="line">909</span><br><span class="line">910</span><br><span class="line">911</span><br><span class="line">912</span><br><span class="line">913</span><br><span class="line">914</span><br><span class="line">915</span><br><span class="line">916</span><br><span class="line">917</span><br><span class="line">918</span><br><span class="line">919</span><br><span class="line">920</span><br><span class="line">921</span><br><span class="line">922</span><br><span class="line">923</span><br><span class="line">924</span><br><span class="line">925</span><br><span class="line">926</span><br><span class="line">927</span><br><span class="line">928</span><br><span class="line">929</span><br><span class="line">930</span><br><span class="line">931</span><br><span class="line">932</span><br><span class="line">933</span><br><span class="line">934</span><br><span class="line">935</span><br><span class="line">936</span><br><span class="line">937</span><br><span class="line">938</span><br><span class="line">939</span><br><span class="line">940</span><br><span class="line">941</span><br><span class="line">942</span><br><span class="line">943</span><br><span class="line">944</span><br><span class="line">945</span><br><span class="line">946</span><br><span class="line">947</span><br><span class="line">948</span><br><span class="line">949</span><br><span class="line">950</span><br><span class="line">951</span><br><span class="line">952</span><br><span class="line">953</span><br><span class="line">954</span><br><span class="line">955</span><br><span class="line">956</span><br><span class="line">957</span><br><span class="line">958</span><br><span class="line">959</span><br><span class="line">960</span><br><span class="line">961</span><br><span class="line">962</span><br><span class="line">963</span><br><span class="line">964</span><br><span class="line">965</span><br><span class="line">966</span><br><span class="line">967</span><br><span class="line">968</span><br><span class="line">969</span><br><span class="line">970</span><br><span class="line">971</span><br><span class="line">972</span><br><span class="line">973</span><br><span class="line">974</span><br><span class="line">975</span><br><span class="line">976</span><br><span class="line">977</span><br><span class="line">978</span><br><span class="line">979</span><br><span class="line">980</span><br><span class="line">981</span><br><span class="line">982</span><br><span class="line">983</span><br><span class="line">984</span><br><span class="line">985</span><br><span class="line">986</span><br><span class="line">987</span><br><span class="line">988</span><br><span class="line">989</span><br><span class="line">990</span><br><span class="line">991</span><br><span class="line">992</span><br><span class="line">993</span><br><span class="line">994</span><br><span class="line">995</span><br><span class="line">996</span><br><span class="line">997</span><br><span class="line">998</span><br><span class="line">999</span><br><span class="line">1000</span><br><span class="line">1001</span><br><span class="line">1002</span><br></pre></div></td><td class="code"><pre><code class="hljs python3">from __future__ import absolute_import<br>from __future__ import division<br>from __future__ import print_function<br><br>import collections<br>import csv<br>import os<br>import modeling<br>import optimization<br>import tokenization<br>import tensorflow as tf<br>from absl import flags<br>from absl import app<br>import pickle<br><br># flags = tf.flags<br><br>FLAGS = flags.FLAGS<br><br>## Required parameters<br>flags.DEFINE_string(<br>    &quot;data_dir&quot;, None,<br>    &quot;The input data dir. Should contain the .tsv files (or other data files) &quot;<br>    &quot;for the task.&quot;)<br><br>flags.DEFINE_string(<br>    &quot;bert_config_file&quot;, None,<br>    &quot;The config json file corresponding to the pre-trained BERT model. &quot;<br>    &quot;This specifies the model architecture.&quot;)<br><br>flags.DEFINE_string(&quot;task_name&quot;, None, &quot;The name of the task to train.&quot;)<br><br>flags.DEFINE_string(&quot;vocab_file&quot;, None,<br>                    &quot;The vocabulary file that the BERT model was trained on.&quot;)<br><br>flags.DEFINE_string(<br>    &quot;output_dir&quot;, None,<br>    &quot;The output directory where the model checkpoints will be written.&quot;)<br><br>flags.DEFINE_string(<br>    &quot;trans_model_dir&quot;, None,<br>    &quot;The trans_model_dir directory where the model will be written.&quot;)<br><br><br>## Other parameters<br><br>flags.DEFINE_string(<br>    &quot;init_checkpoint&quot;, None,<br>    &quot;Initial checkpoint (usually from a pre-trained BERT model).&quot;)<br><br>flags.DEFINE_bool(<br>    &quot;do_lower_case&quot;, True,<br>    &quot;Whether to lower case the input text. Should be True for uncased &quot;<br>    &quot;models and False for cased models.&quot;)<br><br>flags.DEFINE_integer(<br>    &quot;max_seq_length&quot;, 128,<br>    &quot;The maximum total input sequence length after WordPiece tokenization. &quot;<br>    &quot;Sequences longer than this will be truncated, and sequences shorter &quot;<br>    &quot;than this will be padded.&quot;)<br><br>flags.DEFINE_bool(&quot;do_train&quot;, False, &quot;Whether to run training.&quot;)<br><br>flags.DEFINE_bool(&quot;do_eval&quot;, False, &quot;Whether to run eval on the dev set.&quot;)<br><br>flags.DEFINE_bool(<br>    &quot;do_predict&quot;, False,<br>    &quot;Whether to run the model in inference mode on the test set.&quot;)<br><br>flags.DEFINE_integer(&quot;train_batch_size&quot;, 32, &quot;Total batch size for training.&quot;)<br><br>flags.DEFINE_integer(&quot;eval_batch_size&quot;, 8, &quot;Total batch size for eval.&quot;)<br><br>flags.DEFINE_integer(&quot;predict_batch_size&quot;, 8, &quot;Total batch size for predict.&quot;)<br><br>flags.DEFINE_float(&quot;learning_rate&quot;, 5e-5, &quot;The initial learning rate for Adam.&quot;)<br><br>flags.DEFINE_float(&quot;num_train_epochs&quot;, 3.0,<br>                   &quot;Total number of training epochs to perform.&quot;)<br><br>flags.DEFINE_float(<br>    &quot;warmup_proportion&quot;, 0.1,<br>    &quot;Proportion of training to perform linear learning rate warmup for. &quot;<br>    &quot;E.g., 0.1 = 10% of training.&quot;)<br><br>flags.DEFINE_integer(&quot;save_checkpoints_steps&quot;, 1000,<br>                     &quot;How often to save the model checkpoint.&quot;)<br><br>flags.DEFINE_integer(&quot;iterations_per_loop&quot;, 1000,<br>                     &quot;How many steps to make in each estimator call.&quot;)<br><br>flags.DEFINE_bool(&quot;use_tpu&quot;, False, &quot;Whether to use TPU or GPU/CPU.&quot;)<br><br>flags.DEFINE_string(<br>    &quot;tpu_name&quot;, None,<br>    &quot;The Cloud TPU to use for training. This should be either the name &quot;<br>    &quot;used when creating the Cloud TPU, or a grpc://ip.address.of.tpu:8470 &quot;<br>    &quot;url.&quot;)<br><br>flags.DEFINE_string(<br>    &quot;tpu_zone&quot;, None,<br>    &quot;[Optional] GCE zone where the Cloud TPU is located in. If not &quot;<br>    &quot;specified, we will attempt to automatically detect the GCE project from &quot;<br>    &quot;metadata.&quot;)<br><br>flags.DEFINE_string(<br>    &quot;gcp_project&quot;, None,<br>    &quot;[Optional] Project name for the Cloud TPU-enabled project. If not &quot;<br>    &quot;specified, we will attempt to automatically detect the GCE project from &quot;<br>    &quot;metadata.&quot;)<br><br>flags.DEFINE_string(&quot;master&quot;, None, &quot;[Optional] TensorFlow master URL.&quot;)<br><br>flags.DEFINE_integer(<br>    &quot;num_tpu_cores&quot;, 8,<br>    &quot;Only used if `use_tpu` is True. Total number of TPU cores to use.&quot;)<br><br><br>class InputExample(object):<br>  &quot;&quot;&quot;A single training/test example for simple sequence classification.&quot;&quot;&quot;<br><br>  def __init__(self, guid, text_a, text_b=None, label=None):<br>    &quot;&quot;&quot;Constructs a InputExample.<br><br>    Args:<br>      guid: Unique id for the example.<br>      text_a: string. The untokenized text of the first sequence. For single<br>        sequence tasks, only this sequence must be specified.<br>      text_b: (Optional) string. The untokenized text of the second sequence.<br>        Only must be specified for sequence pair tasks.<br>      label: (Optional) string. The label of the example. This should be<br>        specified for train and dev examples, but not for test examples.<br>    &quot;&quot;&quot;<br>    self.guid = guid<br>    self.text_a = text_a<br>    self.text_b = text_b<br>    self.label = label<br><br><br>class PaddingInputExample(object):<br>  &quot;&quot;&quot;Fake example so the num input examples is a multiple of the batch size.<br><br>  When running eval/predict on the TPU, we need to pad the number of examples<br>  to be a multiple of the batch size, because the TPU requires a fixed batch<br>  size. The alternative is to drop the last batch, which is bad because it means<br>  the entire output data won&#x27;t be generated.<br><br>  We use this class instead of `None` because treating `None` as padding<br>  battches could cause silent errors.<br>  &quot;&quot;&quot;<br><br><br>class InputFeatures(object):<br>  &quot;&quot;&quot;A single set of features of data.&quot;&quot;&quot;<br><br>  def __init__(self,<br>               input_ids,<br>               input_mask,<br>               segment_ids,<br>               label_id,<br>               is_real_example=True):<br>    self.input_ids = input_ids<br>    self.input_mask = input_mask<br>    self.segment_ids = segment_ids<br>    self.label_id = label_id<br>    self.is_real_example = is_real_example<br><br><br>class DataProcessor(object):<br>  &quot;&quot;&quot;Base class for data converters for sequence classification data sets.&quot;&quot;&quot;<br><br>  def get_train_examples(self, data_dir):<br>    &quot;&quot;&quot;Gets a collection of `InputExample`s for the train set.&quot;&quot;&quot;<br>    raise NotImplementedError()<br><br>  def get_dev_examples(self, data_dir):<br>    &quot;&quot;&quot;Gets a collection of `InputExample`s for the dev set.&quot;&quot;&quot;<br>    raise NotImplementedError()<br><br>  def get_test_examples(self, data_dir):<br>    &quot;&quot;&quot;Gets a collection of `InputExample`s for prediction.&quot;&quot;&quot;<br>    raise NotImplementedError()<br><br>  def get_labels(self):<br>    &quot;&quot;&quot;Gets the list of labels for this data set.&quot;&quot;&quot;<br>    raise NotImplementedError()<br><br>  @classmethod<br>  def _read_tsv(cls, input_file, quotechar=None):<br>    &quot;&quot;&quot;Reads a tab separated value file.&quot;&quot;&quot;<br>    with tf.io.gfile.GFile(input_file, &quot;r&quot;) as f:<br>      reader = csv.reader(f, delimiter=&quot;\t&quot;, quotechar=quotechar)<br>      lines = []<br>      for line in reader:<br>        lines.append(line)<br>      return lines<br><br><br>class XnliProcessor(DataProcessor):<br>  &quot;&quot;&quot;Processor for the XNLI data set.&quot;&quot;&quot;<br><br>  def __init__(self):<br>    self.language = &quot;zh&quot;<br><br>  def get_train_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    lines = self._read_tsv(<br>        os.path.join(data_dir, &quot;multinli&quot;,<br>                     &quot;multinli.train.%s.tsv&quot; % self.language))<br>    examples = []<br>    for (i, line) in enumerate(lines):<br>      if i == 0:<br>        continue<br>      guid = &quot;train-%d&quot; % (i)<br>      text_a = tokenization.convert_to_unicode(line[0])<br>      text_b = tokenization.convert_to_unicode(line[1])<br>      label = tokenization.convert_to_unicode(line[2])<br>      if label == tokenization.convert_to_unicode(&quot;contradictory&quot;):<br>        label = tokenization.convert_to_unicode(&quot;contradiction&quot;)<br>      examples.append(<br>          InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))<br>    return examples<br><br>  def get_dev_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    lines = self._read_tsv(os.path.join(data_dir, &quot;xnli.dev.tsv&quot;))<br>    examples = []<br>    for (i, line) in enumerate(lines):<br>      if i == 0:<br>        continue<br>      guid = &quot;dev-%d&quot; % (i)<br>      language = tokenization.convert_to_unicode(line[0])<br>      if language != tokenization.convert_to_unicode(self.language):<br>        continue<br>      text_a = tokenization.convert_to_unicode(line[6])<br>      text_b = tokenization.convert_to_unicode(line[7])<br>      label = tokenization.convert_to_unicode(line[1])<br>      examples.append(<br>          InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))<br>    return examples<br><br>  def get_labels(self):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return [&quot;contradiction&quot;, &quot;entailment&quot;, &quot;neutral&quot;]<br><br><br>class MnliProcessor(DataProcessor):<br>  &quot;&quot;&quot;Processor for the MultiNLI data set (GLUE version).&quot;&quot;&quot;<br><br>  def get_train_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;train.tsv&quot;)), &quot;train&quot;)<br><br>  def get_dev_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;dev_matched.tsv&quot;)),<br>        &quot;dev_matched&quot;)<br><br>  def get_test_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;test_matched.tsv&quot;)), &quot;test&quot;)<br><br>  def get_labels(self):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return [&quot;contradiction&quot;, &quot;entailment&quot;, &quot;neutral&quot;]<br><br>  def _create_examples(self, lines, set_type):<br>    &quot;&quot;&quot;Creates examples for the training and dev sets.&quot;&quot;&quot;<br>    examples = []<br>    for (i, line) in enumerate(lines):<br>      if i == 0:<br>        continue<br>      guid = &quot;%s-%s&quot; % (set_type, tokenization.convert_to_unicode(line[0]))<br>      text_a = tokenization.convert_to_unicode(line[8])<br>      text_b = tokenization.convert_to_unicode(line[9])<br>      if set_type == &quot;test&quot;:<br>        label = &quot;contradiction&quot;<br>      else:<br>        label = tokenization.convert_to_unicode(line[-1])<br>      examples.append(<br>          InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))<br>    return examples<br><br><br>class MrpcProcessor(DataProcessor):<br>  &quot;&quot;&quot;Processor for the MRPC data set (GLUE version).&quot;&quot;&quot;<br><br>  def get_train_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;train.tsv&quot;)), &quot;train&quot;)<br><br>  def get_dev_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;dev.tsv&quot;)), &quot;dev&quot;)<br><br>  def get_test_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;test.tsv&quot;)), &quot;test&quot;)<br><br>  def get_labels(self):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return [&quot;0&quot;, &quot;1&quot;]<br><br>  def _create_examples(self, lines, set_type):<br>    &quot;&quot;&quot;Creates examples for the training and dev sets.&quot;&quot;&quot;<br>    examples = []<br>    for (i, line) in enumerate(lines):<br>      if i == 0:<br>        continue<br>      guid = &quot;%s-%s&quot; % (set_type, i)<br>      text_a = tokenization.convert_to_unicode(line[3])<br>      text_b = tokenization.convert_to_unicode(line[4])<br>      if set_type == &quot;test&quot;:<br>        label = &quot;0&quot;<br>      else:<br>        label = tokenization.convert_to_unicode(line[0])<br>      examples.append(<br>          InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))<br>    return examples<br><br><br>class ColaProcessor(DataProcessor):<br>  &quot;&quot;&quot;Processor for the CoLA data set (GLUE version).&quot;&quot;&quot;<br><br>  def get_train_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;train.tsv&quot;)), &quot;train&quot;)<br><br>  def get_dev_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;dev.tsv&quot;)), &quot;dev&quot;)<br><br>  def get_test_examples(self, data_dir):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return self._create_examples(<br>        self._read_tsv(os.path.join(data_dir, &quot;test.tsv&quot;)), &quot;test&quot;)<br><br>  def get_labels(self):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    return [&quot;0&quot;, &quot;1&quot;]<br><br>  def _create_examples(self, lines, set_type):<br>    &quot;&quot;&quot;Creates examples for the training and dev sets.&quot;&quot;&quot;<br>    examples = []<br>    for (i, line) in enumerate(lines):<br>      # Only the test set has a header<br>      if set_type == &quot;test&quot; and i == 0:<br>        continue<br>      guid = &quot;%s-%s&quot; % (set_type, i)<br>      if set_type == &quot;test&quot;:<br>        text_a = tokenization.convert_to_unicode(line[1])<br>        label = &quot;0&quot;<br>      else:<br>        text_a = tokenization.convert_to_unicode(line[3])<br>        label = tokenization.convert_to_unicode(line[1])<br>      examples.append(<br>          InputExample(guid=guid, text_a=text_a, text_b=None, label=label))<br>    return examples<br><br><br>def convert_single_example(ex_index, example, label_list, max_seq_length,<br>                           tokenizer):<br>  &quot;&quot;&quot;Converts a single `InputExample` into a single `InputFeatures`.&quot;&quot;&quot;<br><br>  if isinstance(example, PaddingInputExample):<br>    return InputFeatures(<br>        input_ids=[0] * max_seq_length,<br>        input_mask=[0] * max_seq_length,<br>        segment_ids=[0] * max_seq_length,<br>        label_id=0,<br>        is_real_example=False)<br><br>  label_map = &#123;&#125;<br>  for (i, label) in enumerate(label_list):<br>    label_map[label] = i<br><br>  output_label2id_file = os.path.join(FLAGS.trans_model_dir, &quot;label2id.pkl&quot;)<br>  if not os.path.exists(output_label2id_file):<br>    with open(output_label2id_file, &#x27;wb&#x27;) as w:<br>        pickle.dump(label_map, w)<br><br>  tokens_a = tokenizer.tokenize(example.text_a)<br>  tokens_b = None<br>  if example.text_b:<br>    tokens_b = tokenizer.tokenize(example.text_b)<br><br>  if tokens_b:<br>    # Modifies `tokens_a` and `tokens_b` in place so that the total<br>    # length is less than the specified length.<br>    # Account for [CLS], [SEP], [SEP] with &quot;- 3&quot;<br>    _truncate_seq_pair(tokens_a, tokens_b, max_seq_length - 3)<br>  else:<br>    # Account for [CLS] and [SEP] with &quot;- 2&quot;<br>    if len(tokens_a) &gt; max_seq_length - 2:<br>      tokens_a = tokens_a[0:(max_seq_length - 2)]<br><br>  # The convention in BERT is:<br>  # (a) For sequence pairs:<br>  #  tokens:   [CLS] is this jack ##son ##ville ? [SEP] no it is not . [SEP]<br>  #  type_ids: 0     0  0    0    0     0       0 0     1  1  1  1   1 1<br>  # (b) For single sequences:<br>  #  tokens:   [CLS] the dog is hairy . [SEP]<br>  #  type_ids: 0     0   0   0  0     0 0<br>  #<br>  # Where &quot;type_ids&quot; are used to indicate whether this is the first<br>  # sequence or the second sequence. The embedding vectors for `type=0` and<br>  # `type=1` were learned during pre-training and are added to the wordpiece<br>  # embedding vector (and position vector). This is not *strictly* necessary<br>  # since the [SEP] token unambiguously separates the sequences, but it makes<br>  # it easier for the model to learn the concept of sequences.<br>  #<br>  # For classification tasks, the first vector (corresponding to [CLS]) is<br>  # used as the &quot;sentence vector&quot;. Note that this only makes sense because<br>  # the entire model is fine-tuned.<br>  tokens = []<br>  segment_ids = []<br>  tokens.append(&quot;[CLS]&quot;)<br>  segment_ids.append(0)<br>  for token in tokens_a:<br>    tokens.append(token)<br>    segment_ids.append(0)<br>  tokens.append(&quot;[SEP]&quot;)<br>  segment_ids.append(0)<br><br>  if tokens_b:<br>    for token in tokens_b:<br>      tokens.append(token)<br>      segment_ids.append(1)<br>    tokens.append(&quot;[SEP]&quot;)<br>    segment_ids.append(1)<br><br>  input_ids = tokenizer.convert_tokens_to_ids(tokens)<br><br>  # The mask has 1 for real tokens and 0 for padding tokens. Only real<br>  # tokens are attended to.<br>  input_mask = [1] * len(input_ids)<br><br>  # Zero-pad up to the sequence length.<br>  while len(input_ids) &lt; max_seq_length:<br>    input_ids.append(0)<br>    input_mask.append(0)<br>    segment_ids.append(0)<br><br>  assert len(input_ids) == max_seq_length<br>  assert len(input_mask) == max_seq_length<br>  assert len(segment_ids) == max_seq_length<br><br>  label_id = label_map[example.label]<br>  if ex_index &lt; 5:<br>    tf.compat.v1.logging.info(&quot;*** Example ***&quot;)<br>    tf.compat.v1.logging.info(&quot;guid: %s&quot; % (example.guid))<br>    tf.compat.v1.logging.info(&quot;tokens: %s&quot; % &quot; &quot;.join(<br>        [tokenization.printable_text(x) for x in tokens]))<br>    tf.compat.v1.logging.info(&quot;input_ids: %s&quot; % &quot; &quot;.join([str(x) for x in input_ids]))<br>    tf.compat.v1.logging.info(&quot;input_mask: %s&quot; % &quot; &quot;.join([str(x) for x in input_mask]))<br>    tf.compat.v1.logging.info(&quot;segment_ids: %s&quot; % &quot; &quot;.join([str(x) for x in segment_ids]))<br>    tf.compat.v1.logging.info(&quot;label: %s (id = %d)&quot; % (example.label, label_id))<br><br>  feature = InputFeatures(<br>      input_ids=input_ids,<br>      input_mask=input_mask,<br>      segment_ids=segment_ids,<br>      label_id=label_id,<br>      is_real_example=True)<br>  return feature<br><br><br>def file_based_convert_examples_to_features(<br>    examples, label_list, max_seq_length, tokenizer, output_file):<br>  &quot;&quot;&quot;Convert a set of `InputExample`s to a TFRecord file.&quot;&quot;&quot;<br><br>  writer = tf.io.TFRecordWriter(output_file)<br><br>  for (ex_index, example) in enumerate(examples):<br>    if ex_index % 10000 == 0:<br>      tf.compat.v1.logging.info(&quot;Writing example %d of %d&quot; % (ex_index, len(examples)))<br><br>    feature = convert_single_example(ex_index, example, label_list,<br>                                     max_seq_length, tokenizer)<br><br>    def create_int_feature(values):<br>      f = tf.train.Feature(int64_list=tf.train.Int64List(value=list(values)))<br>      return f<br><br>    features = collections.OrderedDict()<br>    features[&quot;input_ids&quot;] = create_int_feature(feature.input_ids)<br>    features[&quot;input_mask&quot;] = create_int_feature(feature.input_mask)<br>    features[&quot;segment_ids&quot;] = create_int_feature(feature.segment_ids)<br>    features[&quot;label_ids&quot;] = create_int_feature([feature.label_id])<br>    features[&quot;is_real_example&quot;] = create_int_feature(<br>        [int(feature.is_real_example)])<br><br>    tf_example = tf.train.Example(features=tf.train.Features(feature=features))<br>    writer.write(tf_example.SerializeToString())<br>  writer.close()<br><br><br>def file_based_input_fn_builder(input_file, seq_length, is_training,<br>                                drop_remainder):<br>  &quot;&quot;&quot;Creates an `input_fn` closure to be passed to TPUEstimator.&quot;&quot;&quot;<br><br>  name_to_features = &#123;<br>      &quot;input_ids&quot;: tf.io.FixedLenFeature([seq_length], tf.int64),<br>      &quot;input_mask&quot;: tf.io.FixedLenFeature([seq_length], tf.int64),<br>      &quot;segment_ids&quot;: tf.io.FixedLenFeature([seq_length], tf.int64),<br>      &quot;label_ids&quot;: tf.io.FixedLenFeature([], tf.int64),<br>      &quot;is_real_example&quot;: tf.io.FixedLenFeature([], tf.int64),<br>  &#125;<br><br>  def _decode_record(record, name_to_features):<br>    &quot;&quot;&quot;Decodes a record to a TensorFlow example.&quot;&quot;&quot;<br>    example = tf.io.parse_single_example(record, name_to_features)<br><br>    # tf.Example only supports tf.int64, but the TPU only supports tf.int32.<br>    # So cast all int64 to int32.<br>    for name in list(example.keys()):<br>      t = example[name]<br>      if t.dtype == tf.int64:<br>        t = tf.compat.v1.to_int32(t)<br>      example[name] = t<br><br>    return example<br><br>  def input_fn(params):<br>    &quot;&quot;&quot;The actual input function.&quot;&quot;&quot;<br>    batch_size = params[&quot;batch_size&quot;]<br><br>    # For training, we want a lot of parallel reading and shuffling.<br>    # For eval, we want no shuffling and parallel reading doesn&#x27;t matter.<br>    d = tf.data.TFRecordDataset(input_file)<br>    if is_training:<br>      d = d.repeat()<br>      d = d.shuffle(buffer_size=100)<br><br>    d = d.apply(<br>        tf.data.experimental.map_and_batch(<br>            lambda record: _decode_record(record, name_to_features),<br>            batch_size=batch_size,<br>            drop_remainder=drop_remainder))<br><br><br>    return d<br><br>  return input_fn<br><br><br>def _truncate_seq_pair(tokens_a, tokens_b, max_length):<br>  &quot;&quot;&quot;Truncates a sequence pair in place to the maximum length.&quot;&quot;&quot;<br><br>  # This is a simple heuristic which will always truncate the longer sequence<br>  # one token at a time. This makes more sense than truncating an equal percent<br>  # of tokens from each, since if one sequence is very short then each token<br>  # that&#x27;s truncated likely contains more information than a longer sequence.<br>  while True:<br>    total_length = len(tokens_a) + len(tokens_b)<br>    if total_length &lt;= max_length:<br>      break<br>    if len(tokens_a) &gt; len(tokens_b):<br>      tokens_a.pop()<br>    else:<br>      tokens_b.pop()<br><br><br>def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,<br>                 labels, num_labels, use_one_hot_embeddings):<br>  &quot;&quot;&quot;Creates a classification model.&quot;&quot;&quot;<br>  model = modeling.BertModel(<br>      config=bert_config,<br>      is_training=is_training,<br>      input_ids=input_ids,<br>      input_mask=input_mask,<br>      token_type_ids=segment_ids,<br>      use_one_hot_embeddings=use_one_hot_embeddings)<br><br>  # In the demo, we are doing a simple classification task on the entire<br>  # segment.<br>  #<br>  # If you want to use the token-level output, use model.get_sequence_output()<br>  # instead.<br>  output_layer = model.get_pooled_output()<br><br>  hidden_size = output_layer.shape[-1]<br><br>  output_weights = tf.compat.v1.get_variable(<br>      &quot;output_weights&quot;, [num_labels, hidden_size],<br>      initializer=tf.compat.v1.truncated_normal_initializer(stddev=0.02))<br><br>  output_bias = tf.compat.v1.get_variable(<br>      &quot;output_bias&quot;, [num_labels], initializer=tf.zeros_initializer())<br><br>  with tf.compat.v1.variable_scope(&quot;loss&quot;):<br>    if is_training:<br>      # I.e., 0.1 dropout<br>      output_layer = tf.compat.v1.nn.dropout(output_layer, keep_prob=0.9)<br><br>    logits = tf.matmul(output_layer, output_weights, transpose_b=True)<br>    logits = tf.nn.bias_add(logits, output_bias)<br>    probabilities = tf.nn.softmax(logits, axis=-1)<br>    log_probs = tf.nn.log_softmax(logits, axis=-1)<br><br>    one_hot_labels = tf.one_hot(labels, depth=num_labels, dtype=tf.float32)<br><br>    per_example_loss = -tf.reduce_sum(one_hot_labels * log_probs, axis=-1)<br>    loss = tf.reduce_mean(per_example_loss)<br><br>    return (loss, per_example_loss, logits, probabilities)<br><br><br>def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,<br>                     num_train_steps, num_warmup_steps, use_tpu,<br>                     use_one_hot_embeddings):<br>  &quot;&quot;&quot;Returns `model_fn` closure for TPUEstimator.&quot;&quot;&quot;<br><br>  def model_fn(features, labels, mode, params):  # pylint: disable=unused-argument<br>    &quot;&quot;&quot;The `model_fn` for TPUEstimator.&quot;&quot;&quot;<br><br>    tf.compat.v1.logging.info(&quot;*** Features ***&quot;)<br>    for name in sorted(features.keys()):<br>      tf.compat.v1.logging.info(&quot;  name = %s, shape = %s&quot; % (name, features[name].shape))<br><br>    input_ids = features[&quot;input_ids&quot;]<br>    input_mask = features[&quot;input_mask&quot;]<br>    segment_ids = features[&quot;segment_ids&quot;]<br>    label_ids = features[&quot;label_ids&quot;]<br>    is_real_example = None<br>    if &quot;is_real_example&quot; in features:<br>      is_real_example = tf.cast(features[&quot;is_real_example&quot;], dtype=tf.float32)<br>    else:<br>      is_real_example = tf.ones(tf.shape(label_ids), dtype=tf.float32)<br><br>    is_training = (mode == tf.estimator.ModeKeys.TRAIN)<br><br>    (total_loss, per_example_loss, logits, probabilities) = create_model(<br>        bert_config, is_training, input_ids, input_mask, segment_ids, label_ids,<br>        num_labels, use_one_hot_embeddings)<br><br>    tvars = tf.compat.v1.trainable_variables()<br>    initialized_variable_names = &#123;&#125;<br>    scaffold_fn = None<br>    if init_checkpoint:<br>      (assignment_map, initialized_variable_names<br>      ) = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)<br>      if use_tpu:<br><br>        def tpu_scaffold():<br>          tf.compat.v1.train.init_from_checkpoint(init_checkpoint, assignment_map)<br>          return tf.compat.v1.train.Scaffold()<br><br>        scaffold_fn = tpu_scaffold<br>      else:<br>        tf.compat.v1.train.init_from_checkpoint(init_checkpoint, assignment_map)<br><br>    tf.compat.v1.logging.info(&quot;**** Trainable Variables ****&quot;)<br>    for var in tvars:<br>      init_string = &quot;&quot;<br>      if var.name in initialized_variable_names:<br>        init_string = &quot;, *INIT_FROM_CKPT*&quot;<br>      tf.compat.v1.logging.info(&quot;  name = %s, shape = %s%s&quot;, var.name, var.shape,<br>                      init_string)<br><br>    output_spec = None<br>    if mode == tf.estimator.ModeKeys.TRAIN:<br><br>      train_op = optimization.create_optimizer(<br>          total_loss, learning_rate, num_train_steps, num_warmup_steps, use_tpu)<br><br>      output_spec = tf.compat.v1.estimator.tpu.TPUEstimatorSpec(<br>          mode=mode,<br>          loss=total_loss,<br>          train_op=train_op,<br>          scaffold_fn=scaffold_fn)<br>    elif mode == tf.estimator.ModeKeys.EVAL:<br><br>      def metric_fn(per_example_loss, label_ids, logits, is_real_example):<br>        predictions = tf.argmax(logits, axis=-1, output_type=tf.int32)<br>        accuracy = tf.compat.v1.metrics.accuracy(<br>            labels=label_ids, predictions=predictions, weights=is_real_example)<br>        loss = tf.compat.v1.metrics.mean(values=per_example_loss, weights=is_real_example)<br>        return &#123;<br>            &quot;eval_accuracy&quot;: accuracy,<br>            &quot;eval_loss&quot;: loss,<br>        &#125;<br><br>      eval_metrics = (metric_fn,<br>                      [per_example_loss, label_ids, logits, is_real_example])<br>      output_spec = tf.compat.v1.estimator.tpu.TPUEstimatorSpec(<br>          mode=mode,<br>          loss=total_loss,<br>          eval_metrics=eval_metrics,<br>          scaffold_fn=scaffold_fn)<br>    else:<br>      output_spec = tf.compat.v1.estimator.tpu.TPUEstimatorSpec(<br>          mode=mode,<br>          predictions=&#123;&quot;probabilities&quot;: probabilities&#125;,<br>          scaffold_fn=scaffold_fn)<br>    return output_spec<br><br>  return model_fn<br><br><br># This function is not used by this file but is still used by the Colab and<br># people who depend on it.<br>def input_fn_builder(features, seq_length, is_training, drop_remainder):<br>  &quot;&quot;&quot;Creates an `input_fn` closure to be passed to TPUEstimator.&quot;&quot;&quot;<br><br>  all_input_ids = []<br>  all_input_mask = []<br>  all_segment_ids = []<br>  all_label_ids = []<br><br>  for feature in features:<br>    all_input_ids.append(feature.input_ids)<br>    all_input_mask.append(feature.input_mask)<br>    all_segment_ids.append(feature.segment_ids)<br>    all_label_ids.append(feature.label_id)<br><br>  def input_fn(params):<br>    &quot;&quot;&quot;The actual input function.&quot;&quot;&quot;<br>    batch_size = params[&quot;batch_size&quot;]<br><br>    num_examples = len(features)<br><br>    # This is for demo purposes and does NOT scale to large data sets. We do<br>    # not use Dataset.from_generator() because that uses tf.py_func which is<br>    # not TPU compatible. The right way to load data is with TFRecordReader.<br>    d = tf.data.Dataset.from_tensor_slices(&#123;<br>        &quot;input_ids&quot;:<br>            tf.constant(<br>                all_input_ids, shape=[num_examples, seq_length],<br>                dtype=tf.int32),<br>        &quot;input_mask&quot;:<br>            tf.constant(<br>                all_input_mask,<br>                shape=[num_examples, seq_length],<br>                dtype=tf.int32),<br>        &quot;segment_ids&quot;:<br>            tf.constant(<br>                all_segment_ids,<br>                shape=[num_examples, seq_length],<br>                dtype=tf.int32),<br>        &quot;label_ids&quot;:<br>            tf.constant(all_label_ids, shape=[num_examples], dtype=tf.int32),<br>    &#125;)<br><br>    if is_training:<br>      d = d.repeat()<br>      d = d.shuffle(buffer_size=100)<br><br>    d = d.batch(batch_size=batch_size, drop_remainder=drop_remainder)<br>    return d<br><br>  return input_fn<br><br><br># This function is not used by this file but is still used by the Colab and<br># people who depend on it.<br>def convert_examples_to_features(examples, label_list, max_seq_length,<br>                                 tokenizer):<br>  &quot;&quot;&quot;Convert a set of `InputExample`s to a list of `InputFeatures`.&quot;&quot;&quot;<br><br>  features = []<br>  for (ex_index, example) in enumerate(examples):<br>    if ex_index % 10000 == 0:<br>      tf.compat.v1.logging.info(&quot;Writing example %d of %d&quot; % (ex_index, len(examples)))<br><br>    feature = convert_single_example(ex_index, example, label_list,<br>                                     max_seq_length, tokenizer)<br><br>    features.append(feature)<br>  return features<br><br><br>def serving_input_fn():<br>    # 保存模型为SaveModel格式<br>    # 采用最原始的feature方式，输入是feature Tensors。<br>    # 如果采用build_parsing_serving_input_receiver_fn，则输入是tf.Examples<br><br>    label_ids = tf.compat.v1.placeholder(tf.int32, [None, 3], name=&#x27;label_ids&#x27;)<br>    input_ids = tf.compat.v1.placeholder(tf.int32, [None, 200], name=&#x27;input_ids&#x27;)<br>    input_mask = tf.compat.v1.placeholder(tf.int32, [None, 200], name=&#x27;input_mask&#x27;)<br>    segment_ids = tf.compat.v1.placeholder(tf.int32, [None, 200], name=&#x27;segment_ids&#x27;)<br>    input_fn = tf.estimator.export.build_raw_serving_input_receiver_fn(&#123;<br>        &#x27;label_ids&#x27;: label_ids,<br>        &#x27;input_ids&#x27;: input_ids,<br>        &#x27;input_mask&#x27;: input_mask,<br>        &#x27;segment_ids&#x27;: segment_ids,<br>    &#125;)()<br>    return input_fn<br><br>def main(_):<br>  tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)<br><br>  processors = &#123;<br>      &quot;cola&quot;: ColaProcessor,<br>      &quot;mnli&quot;: MnliProcessor,<br>      &quot;mrpc&quot;: MrpcProcessor,<br>      &quot;xnli&quot;: XnliProcessor,<br>  &#125;<br><br>  tokenization.validate_case_matches_checkpoint(FLAGS.do_lower_case,<br>                                                FLAGS.init_checkpoint)<br><br>  if not FLAGS.do_train and not FLAGS.do_eval and not FLAGS.do_predict:<br>    raise ValueError(<br>        &quot;At least one of `do_train`, `do_eval` or `do_predict&#x27; must be True.&quot;)<br><br>  bert_config = modeling.BertConfig.from_json_file(FLAGS.bert_config_file)<br><br>  if FLAGS.max_seq_length &gt; bert_config.max_position_embeddings:<br>    raise ValueError(<br>        &quot;Cannot use sequence length %d because the BERT model &quot;<br>        &quot;was only trained up to sequence length %d&quot; %<br>        (FLAGS.max_seq_length, bert_config.max_position_embeddings))<br><br>  tf.io.gfile.makedirs(FLAGS.output_dir)<br>  tf.io.gfile.makedirs(FLAGS.trans_model_dir)<br><br>  task_name = FLAGS.task_name.lower()<br><br>  if task_name not in processors:<br>    raise ValueError(&quot;Task not found: %s&quot; % (task_name))<br><br>  processor = processors[task_name]()<br><br>  label_list = processor.get_labels()<br><br>  tokenizer = tokenization.FullTokenizer(<br>      vocab_file=FLAGS.vocab_file, do_lower_case=FLAGS.do_lower_case)<br><br>  tpu_cluster_resolver = None<br>  if FLAGS.use_tpu and FLAGS.tpu_name:<br>    tpu_cluster_resolver = tf.distribute.cluster_resolver.TPUClusterResolver(<br>        FLAGS.tpu_name, zone=FLAGS.tpu_zone, project=FLAGS.gcp_project)<br><br>  is_per_host = tf.compat.v1.estimator.tpu.InputPipelineConfig.PER_HOST_V2<br>  run_config = tf.compat.v1.estimator.tpu.RunConfig(<br>      cluster=tpu_cluster_resolver,<br>      master=FLAGS.master,<br>      model_dir=FLAGS.output_dir,<br>      save_checkpoints_steps=FLAGS.save_checkpoints_steps,<br>      tpu_config=tf.compat.v1.estimator.tpu.TPUConfig(<br>          iterations_per_loop=FLAGS.iterations_per_loop,<br>          num_shards=FLAGS.num_tpu_cores,<br>          per_host_input_for_training=is_per_host))<br><br>  train_examples = None<br>  num_train_steps = None<br>  num_warmup_steps = None<br>  if FLAGS.do_train:<br>    train_examples = processor.get_train_examples(FLAGS.data_dir)<br>    num_train_steps = int(<br>        len(train_examples) / FLAGS.train_batch_size * FLAGS.num_train_epochs)<br>    num_warmup_steps = int(num_train_steps * FLAGS.warmup_proportion)<br><br>  model_fn = model_fn_builder(<br>      bert_config=bert_config,<br>      num_labels=len(label_list),<br>      init_checkpoint=FLAGS.init_checkpoint,<br>      learning_rate=FLAGS.learning_rate,<br>      num_train_steps=num_train_steps,<br>      num_warmup_steps=num_warmup_steps,<br>      use_tpu=FLAGS.use_tpu,<br>      use_one_hot_embeddings=FLAGS.use_tpu)<br><br>  # If TPU is not available, this will fall back to normal Estimator on CPU<br>  # or GPU.<br>  estimator = tf.compat.v1.estimator.tpu.TPUEstimator(<br>      use_tpu=FLAGS.use_tpu,<br>      model_fn=model_fn,<br>      config=run_config,<br>      train_batch_size=FLAGS.train_batch_size,<br>      eval_batch_size=FLAGS.eval_batch_size,<br>      predict_batch_size=FLAGS.predict_batch_size)<br><br>  if FLAGS.do_train:<br>    train_file = os.path.join(FLAGS.output_dir, &quot;train.tf_record&quot;)<br>    file_based_convert_examples_to_features(<br>        train_examples, label_list, FLAGS.max_seq_length, tokenizer, train_file)<br>    tf.compat.v1.logging.info(&quot;***** Running training *****&quot;)<br>    tf.compat.v1.logging.info(&quot;  Num examples = %d&quot;, len(train_examples))<br>    tf.compat.v1.logging.info(&quot;  Batch size = %d&quot;, FLAGS.train_batch_size)<br>    tf.compat.v1.logging.info(&quot;  Num steps = %d&quot;, num_train_steps)<br>    train_input_fn = file_based_input_fn_builder(<br>        input_file=train_file,<br>        seq_length=FLAGS.max_seq_length,<br>        is_training=True,<br>        drop_remainder=True)<br>    estimator.train(input_fn=train_input_fn, max_steps=num_train_steps)<br><br>  if FLAGS.do_eval:<br>    eval_examples = processor.get_dev_examples(FLAGS.data_dir)<br>    num_actual_eval_examples = len(eval_examples)<br>    if FLAGS.use_tpu:<br>      # TPU requires a fixed batch size for all batches, therefore the number<br>      # of examples must be a multiple of the batch size, or else examples<br>      # will get dropped. So we pad with fake examples which are ignored<br>      # later on. These do NOT count towards the metric (all tf.metrics<br>      # support a per-instance weight, and these get a weight of 0.0).<br>      while len(eval_examples) % FLAGS.eval_batch_size != 0:<br>        eval_examples.append(PaddingInputExample())<br><br>    eval_file = os.path.join(FLAGS.output_dir, &quot;eval.tf_record&quot;)<br>    file_based_convert_examples_to_features(<br>        eval_examples, label_list, FLAGS.max_seq_length, tokenizer, eval_file)<br><br>    tf.compat.v1.logging.info(&quot;***** Running evaluation *****&quot;)<br>    tf.compat.v1.logging.info(&quot;  Num examples = %d (%d actual, %d padding)&quot;,<br>                    len(eval_examples), num_actual_eval_examples,<br>                    len(eval_examples) - num_actual_eval_examples)<br>    tf.compat.v1.logging.info(&quot;  Batch size = %d&quot;, FLAGS.eval_batch_size)<br><br>    # This tells the estimator to run through the entire set.<br>    eval_steps = None<br>    # However, if running eval on the TPU, you will need to specify the<br>    # number of steps.<br>    if FLAGS.use_tpu:<br>      assert len(eval_examples) % FLAGS.eval_batch_size == 0<br>      eval_steps = int(len(eval_examples) // FLAGS.eval_batch_size)<br><br>    eval_drop_remainder = True if FLAGS.use_tpu else False<br>    eval_input_fn = file_based_input_fn_builder(<br>        input_file=eval_file,<br>        seq_length=FLAGS.max_seq_length,<br>        is_training=False,<br>        drop_remainder=eval_drop_remainder)<br><br>    result = estimator.evaluate(input_fn=eval_input_fn, steps=eval_steps)<br><br>    # trans_model_dir模型转换后输出目录，将模型转换为saved model<br>    estimator._export_to_tpu = False<br>    estimator.export_savedmodel(FLAGS.trans_model_dir, serving_input_fn)<br><br>    output_eval_file = os.path.join(FLAGS.output_dir, &quot;eval_results.txt&quot;)<br>    with tf.io.gfile.GFile(output_eval_file, &quot;w&quot;) as writer:<br>      tf.compat.v1.logging.info(&quot;***** Eval results *****&quot;)<br>      for key in sorted(result.keys()):<br>        tf.compat.v1.logging.info(&quot;  %s = %s&quot;, key, str(result[key]))<br>        writer.write(&quot;%s = %s\n&quot; % (key, str(result[key])))<br><br>  if FLAGS.do_predict:<br>    predict_examples = processor.get_test_examples(FLAGS.data_dir)<br>    num_actual_predict_examples = len(predict_examples)<br>    if FLAGS.use_tpu:<br>      # TPU requires a fixed batch size for all batches, therefore the number<br>      # of examples must be a multiple of the batch size, or else examples<br>      # will get dropped. So we pad with fake examples which are ignored<br>      # later on.<br>      while len(predict_examples) % FLAGS.predict_batch_size != 0:<br>        predict_examples.append(PaddingInputExample())<br><br>    predict_file = os.path.join(FLAGS.output_dir, &quot;predict.tf_record&quot;)<br>    file_based_convert_examples_to_features(predict_examples, label_list,<br>                                            FLAGS.max_seq_length, tokenizer,<br>                                            predict_file)<br><br>    tf.compat.v1.logging.info(&quot;***** Running prediction*****&quot;)<br>    tf.compat.v1.logging.info(&quot;  Num examples = %d (%d actual, %d padding)&quot;,<br>                    len(predict_examples), num_actual_predict_examples,<br>                    len(predict_examples) - num_actual_predict_examples)<br>    tf.compat.v1.logging.info(&quot;  Batch size = %d&quot;, FLAGS.predict_batch_size)<br><br>    predict_drop_remainder = True if FLAGS.use_tpu else False<br>    predict_input_fn = file_based_input_fn_builder(<br>        input_file=predict_file,<br>        seq_length=FLAGS.max_seq_length,<br>        is_training=False,<br>        drop_remainder=predict_drop_remainder)<br><br>    result = estimator.predict(input_fn=predict_input_fn)<br><br>    output_predict_file = os.path.join(FLAGS.output_dir, &quot;test_results.tsv&quot;)<br>    with tf.io.gfile.GFile(output_predict_file, &quot;w&quot;) as writer:<br>      num_written_lines = 0<br>      tf.compat.v1.logging.info(&quot;***** Predict results *****&quot;)<br>      for (i, prediction) in enumerate(result):<br>        probabilities = prediction[&quot;probabilities&quot;]<br>        if i &gt;= num_actual_predict_examples:<br>          break<br>        output_line = &quot;\t&quot;.join(<br>            str(class_probability)<br>            for class_probability in probabilities) + &quot;\n&quot;<br>        writer.write(output_line)<br>        num_written_lines += 1<br>    assert num_written_lines == num_actual_predict_examples<br><br><br>if __name__ == &quot;__main__&quot;:<br>  flags.mark_flag_as_required(&quot;data_dir&quot;)<br>  flags.mark_flag_as_required(&quot;task_name&quot;)<br>  flags.mark_flag_as_required(&quot;vocab_file&quot;)<br>  flags.mark_flag_as_required(&quot;bert_config_file&quot;)<br>  flags.mark_flag_as_required(&quot;output_dir&quot;)<br>  flags.mark_flag_as_required(&quot;trans_model_dir&quot;)<br>  app.run(main)<br></code></pre></td></tr></table></figure>
+<h5 id="optimization.py">optimization.py</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><code class="hljs python3">from __future__ import absolute_import<br>from __future__ import division<br>from __future__ import print_function<br><br>import re<br>import tensorflow as tf<br><br><br>def create_optimizer(loss, init_lr, num_train_steps, num_warmup_steps, use_tpu):<br>  &quot;&quot;&quot;Creates an optimizer training op.&quot;&quot;&quot;<br>  global_step = tf.compat.v1.train.get_or_create_global_step()<br><br>  learning_rate = tf.constant(value=init_lr, shape=[], dtype=tf.float32)<br><br>  # Implements linear decay of the learning rate.<br>  learning_rate = tf.compat.v1.train.polynomial_decay(<br>      learning_rate,<br>      global_step,<br>      num_train_steps,<br>      end_learning_rate=0.0,<br>      power=1.0,<br>      cycle=False)<br><br>  # Implements linear warmup. I.e., if global_step &lt; num_warmup_steps, the<br>  # learning rate will be `global_step/num_warmup_steps * init_lr`.<br>  if num_warmup_steps:<br>    global_steps_int = tf.cast(global_step, tf.int32)<br>    warmup_steps_int = tf.constant(num_warmup_steps, dtype=tf.int32)<br><br>    global_steps_float = tf.cast(global_steps_int, tf.float32)<br>    warmup_steps_float = tf.cast(warmup_steps_int, tf.float32)<br><br>    warmup_percent_done = global_steps_float / warmup_steps_float<br>    warmup_learning_rate = init_lr * warmup_percent_done<br><br>    is_warmup = tf.cast(global_steps_int &lt; warmup_steps_int, tf.float32)<br>    learning_rate = (<br>        (1.0 - is_warmup) * learning_rate + is_warmup * warmup_learning_rate)<br><br>  # It is recommended that you use this optimizer for fine tuning, since this<br>  # is how the model was trained (note that the Adam m/v variables are NOT<br>  # loaded from init_checkpoint.)<br>  optimizer = AdamWeightDecayOptimizer(<br>      learning_rate=learning_rate,<br>      weight_decay_rate=0.01,<br>      beta_1=0.9,<br>      beta_2=0.999,<br>      epsilon=1e-6,<br>      exclude_from_weight_decay=[&quot;LayerNorm&quot;, &quot;layer_norm&quot;, &quot;bias&quot;])<br><br>  if use_tpu:<br>    optimizer = tf.compat.v1.estimator.tpu.CrossShardOptimizer(optimizer)<br><br>  tvars = tf.compat.v1.trainable_variables()<br>  grads = tf.gradients(loss, tvars)<br><br>  # This is how the model was pre-trained.<br>  (grads, _) = tf.clip_by_global_norm(grads, clip_norm=1.0)<br><br>  train_op = optimizer.apply_gradients(<br>      zip(grads, tvars), global_step=global_step)<br><br>  # Normally the global step update is done inside of `apply_gradients`.<br>  # However, `AdamWeightDecayOptimizer` doesn&#x27;t do this. But if you use<br>  # a different optimizer, you should probably take this line out.<br>  new_global_step = global_step + 1<br>  train_op = tf.group(train_op, [global_step.assign(new_global_step)])<br>  return train_op<br><br><br>class AdamWeightDecayOptimizer(tf.keras.optimizers.Optimizer):<br>  &quot;&quot;&quot;A basic Adam optimizer that includes &quot;correct&quot; L2 weight decay.&quot;&quot;&quot;<br><br>  def __init__(self,<br>               learning_rate,<br>               weight_decay_rate=0.0,<br>               beta_1=0.9,<br>               beta_2=0.999,<br>               epsilon=1e-6,<br>               exclude_from_weight_decay=None,<br>               name=&quot;AdamWeightDecayOptimizer&quot;):<br>    &quot;&quot;&quot;Constructs a AdamWeightDecayOptimizer.&quot;&quot;&quot;<br>    super(AdamWeightDecayOptimizer, self).__init__(False, name)<br><br>    self.learning_rate = learning_rate<br>    self.weight_decay_rate = weight_decay_rate<br>    self.beta_1 = beta_1<br>    self.beta_2 = beta_2<br>    self.epsilon = epsilon<br>    self.exclude_from_weight_decay = exclude_from_weight_decay<br><br>  def apply_gradients(self, grads_and_vars, global_step=None, name=None):<br>    &quot;&quot;&quot;See base class.&quot;&quot;&quot;<br>    assignments = []<br>    for (grad, param) in grads_and_vars:<br>      if grad is None or param is None:<br>        continue<br><br>      param_name = self._get_variable_name(param.name)<br><br>      m = tf.compat.v1.get_variable(<br>          name=param_name + &quot;/adam_m&quot;,<br>          shape=param.shape.as_list(),<br>          dtype=tf.float32,<br>          trainable=False,<br>          initializer=tf.zeros_initializer())<br>      v = tf.compat.v1.get_variable(<br>          name=param_name + &quot;/adam_v&quot;,<br>          shape=param.shape.as_list(),<br>          dtype=tf.float32,<br>          trainable=False,<br>          initializer=tf.zeros_initializer())<br><br>      # Standard Adam update.<br>      next_m = (<br>          tf.multiply(self.beta_1, m) + tf.multiply(1.0 - self.beta_1, grad))<br>      next_v = (<br>          tf.multiply(self.beta_2, v) + tf.multiply(1.0 - self.beta_2,<br>                                                    tf.square(grad)))<br><br>      update = next_m / (tf.sqrt(next_v) + self.epsilon)<br><br>      # Just adding the square of the weights to the loss function is *not*<br>      # the correct way of using L2 regularization/weight decay with Adam,<br>      # since that will interact with the m and v parameters in strange ways.<br>      #<br>      # Instead we want ot decay the weights in a manner that doesn&#x27;t interact<br>      # with the m/v parameters. This is equivalent to adding the square<br>      # of the weights to the loss with plain (non-momentum) SGD.<br>      if self._do_use_weight_decay(param_name):<br>        update += self.weight_decay_rate * param<br><br>      update_with_lr = self.learning_rate * update<br><br>      next_param = param - update_with_lr<br><br>      assignments.extend(<br>          [param.assign(next_param),<br>           m.assign(next_m),<br>           v.assign(next_v)])<br>    return tf.group(*assignments, name=name)<br><br>  def _do_use_weight_decay(self, param_name):<br>    &quot;&quot;&quot;Whether to use L2 weight decay for `param_name`.&quot;&quot;&quot;<br>    if not self.weight_decay_rate:<br>      return False<br>    if self.exclude_from_weight_decay:<br>      for r in self.exclude_from_weight_decay:<br>        if re.search(r, param_name) is not None:<br>          return False<br>    return True<br><br>  def _get_variable_name(self, param_name):<br>    &quot;&quot;&quot;Get the variable name from the tensor name.&quot;&quot;&quot;<br>    m = re.match(&quot;^(.*):\\d+$&quot;, param_name)<br>    if m is not None:<br>      param_name = m.group(1)<br>    return param_name<br><br></code></pre></td></tr></table></figure>
+<h5 id="tokenization.py">tokenization.py</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br></pre></td><td class="code"><pre><code class="hljs python3"><br>from __future__ import absolute_import<br>from __future__ import division<br>from __future__ import print_function<br><br>import collections<br>import re<br>import unicodedata<br>import six<br>import tensorflow as tf<br><br><br>def validate_case_matches_checkpoint(do_lower_case, init_checkpoint):<br>  &quot;&quot;&quot;Checks whether the casing config is consistent with the checkpoint name.&quot;&quot;&quot;<br><br>  # The casing has to be passed in by the user and there is no explicit check<br>  # as to whether it matches the checkpoint. The casing information probably<br>  # should have been stored in the bert_config.json file, but it&#x27;s not, so<br>  # we have to heuristically detect it to validate.<br><br>  if not init_checkpoint:<br>    return<br><br>  m = re.match(&quot;^.*?([A-Za-z0-9_-]+)/bert_model.ckpt&quot;, init_checkpoint)<br>  if m is None:<br>    return<br><br>  model_name = m.group(1)<br><br>  lower_models = [<br>      &quot;uncased_L-24_H-1024_A-16&quot;, &quot;uncased_L-12_H-768_A-12&quot;,<br>      &quot;multilingual_L-12_H-768_A-12&quot;, &quot;chinese_L-12_H-768_A-12&quot;<br>  ]<br><br>  cased_models = [<br>      &quot;cased_L-12_H-768_A-12&quot;, &quot;cased_L-24_H-1024_A-16&quot;,<br>      &quot;multi_cased_L-12_H-768_A-12&quot;<br>  ]<br><br>  is_bad_config = False<br>  if model_name in lower_models and not do_lower_case:<br>    is_bad_config = True<br>    actual_flag = &quot;False&quot;<br>    case_name = &quot;lowercased&quot;<br>    opposite_flag = &quot;True&quot;<br><br>  if model_name in cased_models and do_lower_case:<br>    is_bad_config = True<br>    actual_flag = &quot;True&quot;<br>    case_name = &quot;cased&quot;<br>    opposite_flag = &quot;False&quot;<br><br>  if is_bad_config:<br>    raise ValueError(<br>        &quot;You passed in `--do_lower_case=%s` with `--init_checkpoint=%s`. &quot;<br>        &quot;However, `%s` seems to be a %s model, so you &quot;<br>        &quot;should pass in `--do_lower_case=%s` so that the fine-tuning matches &quot;<br>        &quot;how the model was pre-training. If this error is wrong, please &quot;<br>        &quot;just comment out this check.&quot; % (actual_flag, init_checkpoint,<br>                                          model_name, case_name, opposite_flag))<br><br><br>def convert_to_unicode(text):<br>  &quot;&quot;&quot;Converts `text` to Unicode (if it&#x27;s not already), assuming utf-8 input.&quot;&quot;&quot;<br>  if six.PY3:<br>    if isinstance(text, str):<br>      return text<br>    elif isinstance(text, bytes):<br>      return text.decode(&quot;utf-8&quot;, &quot;ignore&quot;)<br>    else:<br>      raise ValueError(&quot;Unsupported string type: %s&quot; % (type(text)))<br>  elif six.PY2:<br>    if isinstance(text, str):<br>      return text.decode(&quot;utf-8&quot;, &quot;ignore&quot;)<br>    elif isinstance(text, unicode):<br>      return text<br>    else:<br>      raise ValueError(&quot;Unsupported string type: %s&quot; % (type(text)))<br>  else:<br>    raise ValueError(&quot;Not running on Python2 or Python 3?&quot;)<br><br><br>def printable_text(text):<br>  &quot;&quot;&quot;Returns text encoded in a way suitable for print or `tf.logging`.&quot;&quot;&quot;<br><br>  # These functions want `str` for both Python2 and Python3, but in one case<br>  # it&#x27;s a Unicode string and in the other it&#x27;s a byte string.<br>  if six.PY3:<br>    if isinstance(text, str):<br>      return text<br>    elif isinstance(text, bytes):<br>      return text.decode(&quot;utf-8&quot;, &quot;ignore&quot;)<br>    else:<br>      raise ValueError(&quot;Unsupported string type: %s&quot; % (type(text)))<br>  elif six.PY2:<br>    if isinstance(text, str):<br>      return text<br>    elif isinstance(text, unicode):<br>      return text.encode(&quot;utf-8&quot;)<br>    else:<br>      raise ValueError(&quot;Unsupported string type: %s&quot; % (type(text)))<br>  else:<br>    raise ValueError(&quot;Not running on Python2 or Python 3?&quot;)<br><br><br>def load_vocab(vocab_file):<br>  &quot;&quot;&quot;Loads a vocabulary file into a dictionary.&quot;&quot;&quot;<br>  vocab = collections.OrderedDict()<br>  index = 0<br>  with tf.io.gfile.GFile(vocab_file, &quot;r&quot;) as reader:<br>    while True:<br>      token = convert_to_unicode(reader.readline())<br>      if not token:<br>        break<br>      token = token.strip()<br>      vocab[token] = index<br>      index += 1<br>  return vocab<br><br><br>def convert_by_vocab(vocab, items):<br>  &quot;&quot;&quot;Converts a sequence of [tokens|ids] using the vocab.&quot;&quot;&quot;<br>  output = []<br>  for item in items:<br>    output.append(vocab[item])<br>  return output<br><br><br>def convert_tokens_to_ids(vocab, tokens):<br>  return convert_by_vocab(vocab, tokens)<br><br><br>def convert_ids_to_tokens(inv_vocab, ids):<br>  return convert_by_vocab(inv_vocab, ids)<br><br><br>def whitespace_tokenize(text):<br>  &quot;&quot;&quot;Runs basic whitespace cleaning and splitting on a piece of text.&quot;&quot;&quot;<br>  text = text.strip()<br>  if not text:<br>    return []<br>  tokens = text.split()<br>  return tokens<br><br><br>class FullTokenizer(object):<br>  &quot;&quot;&quot;Runs end-to-end tokenziation.&quot;&quot;&quot;<br><br>  def __init__(self, vocab_file, do_lower_case=True):<br>    self.vocab = load_vocab(vocab_file)<br>    self.inv_vocab = &#123;v: k for k, v in self.vocab.items()&#125;<br>    self.basic_tokenizer = BasicTokenizer(do_lower_case=do_lower_case)<br>    self.wordpiece_tokenizer = WordpieceTokenizer(vocab=self.vocab)<br><br>  def tokenize(self, text):<br>    split_tokens = []<br>    for token in self.basic_tokenizer.tokenize(text):<br>      for sub_token in self.wordpiece_tokenizer.tokenize(token):<br>        split_tokens.append(sub_token)<br><br>    return split_tokens<br><br>  def convert_tokens_to_ids(self, tokens):<br>    return convert_by_vocab(self.vocab, tokens)<br><br>  def convert_ids_to_tokens(self, ids):<br>    return convert_by_vocab(self.inv_vocab, ids)<br><br><br>class BasicTokenizer(object):<br>  &quot;&quot;&quot;Runs basic tokenization (punctuation splitting, lower casing, etc.).&quot;&quot;&quot;<br><br>  def __init__(self, do_lower_case=True):<br>    &quot;&quot;&quot;Constructs a BasicTokenizer.<br><br>    Args:<br>      do_lower_case: Whether to lower case the input.<br>    &quot;&quot;&quot;<br>    self.do_lower_case = do_lower_case<br><br>  def tokenize(self, text):<br>    &quot;&quot;&quot;Tokenizes a piece of text.&quot;&quot;&quot;<br>    text = convert_to_unicode(text)<br>    text = self._clean_text(text)<br><br>    # This was added on November 1st, 2018 for the multilingual and Chinese<br>    # models. This is also applied to the English models now, but it doesn&#x27;t<br>    # matter since the English models were not trained on any Chinese data<br>    # and generally don&#x27;t have any Chinese data in them (there are Chinese<br>    # characters in the vocabulary because Wikipedia does have some Chinese<br>    # words in the English Wikipedia.).<br>    text = self._tokenize_chinese_chars(text)<br><br>    orig_tokens = whitespace_tokenize(text)<br>    split_tokens = []<br>    for token in orig_tokens:<br>      if self.do_lower_case:<br>        token = token.lower()<br>        token = self._run_strip_accents(token)<br>      split_tokens.extend(self._run_split_on_punc(token))<br><br>    output_tokens = whitespace_tokenize(&quot; &quot;.join(split_tokens))<br>    return output_tokens<br><br>  def _run_strip_accents(self, text):<br>    &quot;&quot;&quot;Strips accents from a piece of text.&quot;&quot;&quot;<br>    text = unicodedata.normalize(&quot;NFD&quot;, text)<br>    output = []<br>    for char in text:<br>      cat = unicodedata.category(char)<br>      if cat == &quot;Mn&quot;:<br>        continue<br>      output.append(char)<br>    return &quot;&quot;.join(output)<br><br>  def _run_split_on_punc(self, text):<br>    &quot;&quot;&quot;Splits punctuation on a piece of text.&quot;&quot;&quot;<br>    chars = list(text)<br>    i = 0<br>    start_new_word = True<br>    output = []<br>    while i &lt; len(chars):<br>      char = chars[i]<br>      if _is_punctuation(char):<br>        output.append([char])<br>        start_new_word = True<br>      else:<br>        if start_new_word:<br>          output.append([])<br>        start_new_word = False<br>        output[-1].append(char)<br>      i += 1<br><br>    return [&quot;&quot;.join(x) for x in output]<br><br>  def _tokenize_chinese_chars(self, text):<br>    &quot;&quot;&quot;Adds whitespace around any CJK character.&quot;&quot;&quot;<br>    output = []<br>    for char in text:<br>      cp = ord(char)<br>      if self._is_chinese_char(cp):<br>        output.append(&quot; &quot;)<br>        output.append(char)<br>        output.append(&quot; &quot;)<br>      else:<br>        output.append(char)<br>    return &quot;&quot;.join(output)<br><br>  def _is_chinese_char(self, cp):<br>    &quot;&quot;&quot;Checks whether CP is the codepoint of a CJK character.&quot;&quot;&quot;<br>    # This defines a &quot;chinese character&quot; as anything in the CJK Unicode block:<br>    #   https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_(Unicode_block)<br>    #<br>    # Note that the CJK Unicode block is NOT all Japanese and Korean characters,<br>    # despite its name. The modern Korean Hangul alphabet is a different block,<br>    # as is Japanese Hiragana and Katakana. Those alphabets are used to write<br>    # space-separated words, so they are not treated specially and handled<br>    # like the all of the other languages.<br>    if ((cp &gt;= 0x4E00 and cp &lt;= 0x9FFF) or  #<br>        (cp &gt;= 0x3400 and cp &lt;= 0x4DBF) or  #<br>        (cp &gt;= 0x20000 and cp &lt;= 0x2A6DF) or  #<br>        (cp &gt;= 0x2A700 and cp &lt;= 0x2B73F) or  #<br>        (cp &gt;= 0x2B740 and cp &lt;= 0x2B81F) or  #<br>        (cp &gt;= 0x2B820 and cp &lt;= 0x2CEAF) or<br>        (cp &gt;= 0xF900 and cp &lt;= 0xFAFF) or  #<br>        (cp &gt;= 0x2F800 and cp &lt;= 0x2FA1F)):  #<br>      return True<br><br>    return False<br><br>  def _clean_text(self, text):<br>    &quot;&quot;&quot;Performs invalid character removal and whitespace cleanup on text.&quot;&quot;&quot;<br>    output = []<br>    for char in text:<br>      cp = ord(char)<br>      if cp == 0 or cp == 0xfffd or _is_control(char):<br>        continue<br>      if _is_whitespace(char):<br>        output.append(&quot; &quot;)<br>      else:<br>        output.append(char)<br>    return &quot;&quot;.join(output)<br><br><br>class WordpieceTokenizer(object):<br>  &quot;&quot;&quot;Runs WordPiece tokenziation.&quot;&quot;&quot;<br><br>  def __init__(self, vocab, unk_token=&quot;[UNK]&quot;, max_input_chars_per_word=200):<br>    self.vocab = vocab<br>    self.unk_token = unk_token<br>    self.max_input_chars_per_word = max_input_chars_per_word<br><br>  def tokenize(self, text):<br>    &quot;&quot;&quot;Tokenizes a piece of text into its word pieces.<br><br>    This uses a greedy longest-match-first algorithm to perform tokenization<br>    using the given vocabulary.<br><br>    For example:<br>      input = &quot;unaffable&quot;<br>      output = [&quot;un&quot;, &quot;##aff&quot;, &quot;##able&quot;]<br><br>    Args:<br>      text: A single token or whitespace separated tokens. This should have<br>        already been passed through `BasicTokenizer.<br><br>    Returns:<br>      A list of wordpiece tokens.<br>    &quot;&quot;&quot;<br><br>    text = convert_to_unicode(text)<br><br>    output_tokens = []<br>    for token in whitespace_tokenize(text):<br>      chars = list(token)<br>      if len(chars) &gt; self.max_input_chars_per_word:<br>        output_tokens.append(self.unk_token)<br>        continue<br><br>      is_bad = False<br>      start = 0<br>      sub_tokens = []<br>      while start &lt; len(chars):<br>        end = len(chars)<br>        cur_substr = None<br>        while start &lt; end:<br>          substr = &quot;&quot;.join(chars[start:end])<br>          if start &gt; 0:<br>            substr = &quot;##&quot; + substr<br>          if substr in self.vocab:<br>            cur_substr = substr<br>            break<br>          end -= 1<br>        if cur_substr is None:<br>          is_bad = True<br>          break<br>        sub_tokens.append(cur_substr)<br>        start = end<br><br>      if is_bad:<br>        output_tokens.append(self.unk_token)<br>      else:<br>        output_tokens.extend(sub_tokens)<br>    return output_tokens<br><br><br>def _is_whitespace(char):<br>  &quot;&quot;&quot;Checks whether `chars` is a whitespace character.&quot;&quot;&quot;<br>  # \t, \n, and \r are technically contorl characters but we treat them<br>  # as whitespace since they are generally considered as such.<br>  if char == &quot; &quot; or char == &quot;\t&quot; or char == &quot;\n&quot; or char == &quot;\r&quot;:<br>    return True<br>  cat = unicodedata.category(char)<br>  if cat == &quot;Zs&quot;:<br>    return True<br>  return False<br><br><br>def _is_control(char):<br>  &quot;&quot;&quot;Checks whether `chars` is a control character.&quot;&quot;&quot;<br>  # These are technically control characters but we count them as whitespace<br>  # characters.<br>  if char == &quot;\t&quot; or char == &quot;\n&quot; or char == &quot;\r&quot;:<br>    return False<br>  cat = unicodedata.category(char)<br>  if cat in (&quot;Cc&quot;, &quot;Cf&quot;):<br>    return True<br>  return False<br><br><br>def _is_punctuation(char):<br>  &quot;&quot;&quot;Checks whether `chars` is a punctuation character.&quot;&quot;&quot;<br>  cp = ord(char)<br>  # We treat all non-letter/number ASCII as punctuation.<br>  # Characters such as &quot;^&quot;, &quot;$&quot;, and &quot;`&quot; are not in the Unicode<br>  # Punctuation class but we treat them as punctuation anyways, for<br>  # consistency.<br>  if ((cp &gt;= 33 and cp &lt;= 47) or (cp &gt;= 58 and cp &lt;= 64) or<br>      (cp &gt;= 91 and cp &lt;= 96) or (cp &gt;= 123 and cp &lt;= 126)):<br>    return True<br>  cat = unicodedata.category(char)<br>  if cat.startswith(&quot;P&quot;):<br>    return True<br>  return False<br><br></code></pre></td></tr></table></figure>
+<h5 id="modeling.py">modeling.py</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><code class="hljs python3"><br>from __future__ import absolute_import<br>from __future__ import division<br>from __future__ import print_function<br><br>import collections<br>import copy<br>import json<br>import math<br>import re<br>import numpy as np<br>import six<br>import tensorflow as tf<br><br><br>class BertConfig(object):<br>  &quot;&quot;&quot;Configuration for `BertModel`.&quot;&quot;&quot;<br><br>  def __init__(self,<br>               vocab_size,<br>               hidden_size=768,<br>               num_hidden_layers=12,<br>               num_attention_heads=12,<br>               intermediate_size=3072,<br>               hidden_act=&quot;gelu&quot;,<br>               hidden_dropout_prob=0.1,<br>               attention_probs_dropout_prob=0.1,<br>               max_position_embeddings=512,<br>               type_vocab_size=16,<br>               initializer_range=0.02):<br>    &quot;&quot;&quot;Constructs BertConfig.<br><br>    Args:<br>      vocab_size: Vocabulary size of `inputs_ids` in `BertModel`.<br>      hidden_size: Size of the encoder layers and the pooler layer.<br>      num_hidden_layers: Number of hidden layers in the Transformer encoder.<br>      num_attention_heads: Number of attention heads for each attention layer in<br>        the Transformer encoder.<br>      intermediate_size: The size of the &quot;intermediate&quot; (i.e., feed-forward)<br>        layer in the Transformer encoder.<br>      hidden_act: The non-linear activation function (function or string) in the<br>        encoder and pooler.<br>      hidden_dropout_prob: The dropout probability for all fully connected<br>        layers in the embeddings, encoder, and pooler.<br>      attention_probs_dropout_prob: The dropout ratio for the attention<br>        probabilities.<br>      max_position_embeddings: The maximum sequence length that this model might<br>        ever be used with. Typically set this to something large just in case<br>        (e.g., 512 or 1024 or 2048).<br>      type_vocab_size: The vocabulary size of the `token_type_ids` passed into<br>        `BertModel`.<br>      initializer_range: The stdev of the truncated_normal_initializer for<br>        initializing all weight matrices.<br>    &quot;&quot;&quot;<br>    self.vocab_size = vocab_size<br>    self.hidden_size = hidden_size<br>    self.num_hidden_layers = num_hidden_layers<br>    self.num_attention_heads = num_attention_heads<br>    self.hidden_act = hidden_act<br>    self.intermediate_size = intermediate_size<br>    self.hidden_dropout_prob = hidden_dropout_prob<br>    self.attention_probs_dropout_prob = attention_probs_dropout_prob<br>    self.max_position_embeddings = max_position_embeddings<br>    self.type_vocab_size = type_vocab_size<br>    self.initializer_range = initializer_range<br><br>  @classmethod<br>  def from_dict(cls, json_object):<br>    &quot;&quot;&quot;Constructs a `BertConfig` from a Python dictionary of parameters.&quot;&quot;&quot;<br>    config = BertConfig(vocab_size=None)<br>    for (key, value) in six.iteritems(json_object):<br>      config.__dict__[key] = value<br>    return config<br><br>  @classmethod<br>  def from_json_file(cls, json_file):<br>    &quot;&quot;&quot;Constructs a `BertConfig` from a json file of parameters.&quot;&quot;&quot;<br>    with tf.io.gfile.GFile(json_file, &quot;r&quot;) as reader:<br>      text = reader.read()<br>    return cls.from_dict(json.loads(text))<br><br>  def to_dict(self):<br>    &quot;&quot;&quot;Serializes this instance to a Python dictionary.&quot;&quot;&quot;<br>    output = copy.deepcopy(self.__dict__)<br>    return output<br><br>  def to_json_string(self):<br>    &quot;&quot;&quot;Serializes this instance to a JSON string.&quot;&quot;&quot;<br>    return json.dumps(self.to_dict(), indent=2, sort_keys=True) + &quot;\n&quot;<br><br><br>class BertModel(object):<br>  &quot;&quot;&quot;BERT model (&quot;Bidirectional Encoder Representations from Transformers&quot;).<br><br>  Example usage:<br><br>  ```python<br>  # Already been converted into WordPiece token ids<br>  input_ids = tf.constant([[31, 51, 99], [15, 5, 0]])<br>  input_mask = tf.constant([[1, 1, 1], [1, 1, 0]])<br>  token_type_ids = tf.constant([[0, 0, 1], [0, 2, 0]])<br><br>  config = modeling.BertConfig(vocab_size=32000, hidden_size=512,<br>    num_hidden_layers=8, num_attention_heads=6, intermediate_size=1024)<br><br>  model = modeling.BertModel(config=config, is_training=True,<br>    input_ids=input_ids, input_mask=input_mask, token_type_ids=token_type_ids)<br><br>  label_embeddings = tf.compact.v1.get_variable(...)<br>  pooled_output = model.get_pooled_output()<br>  logits = tf.matmul(pooled_output, label_embeddings)<br>  ...<br></code></pre></td></tr></table></figure>
+<p>"""</p>
+<p>def <strong>init</strong>(self, config, is_training, input_ids,
+input_mask=None, token_type_ids=None, use_one_hot_embeddings=False,
+scope=None): """Constructor for BertModel.</p>
+<div class="code-wrapper"><pre><code class="hljs">Args:
+  config: `BertConfig` instance.
+  is_training: bool. true for training model, false for eval model. Controls
+    whether dropout will be applied.
+  input_ids: int32 Tensor of shape [batch_size, seq_length].
+  input_mask: (optional) int32 Tensor of shape [batch_size, seq_length].
+  token_type_ids: (optional) int32 Tensor of shape [batch_size, seq_length].
+  use_one_hot_embeddings: (optional) bool. Whether to use one-hot word
+    embeddings or tf.embedding_lookup() for the word embeddings.
+  scope: (optional) variable scope. Defaults to &quot;bert&quot;.
+
+Raises:
+  ValueError: The config is invalid or one of the input tensor shapes
+    is invalid.
+&quot;&quot;&quot;
+config = copy.deepcopy(config)
+if not is_training:
+  config.hidden_dropout_prob = 0.0
+  config.attention_probs_dropout_prob = 0.0
+
+input_shape = get_shape_list(input_ids, expected_rank=2)
+batch_size = input_shape[0]
+seq_length = input_shape[1]
+
+if input_mask is None:
+  input_mask = tf.ones(shape=[batch_size, seq_length], dtype=tf.int32)
+
+if token_type_ids is None:
+  token_type_ids = tf.zeros(shape=[batch_size, seq_length], dtype=tf.int32)
+
+with tf.compat.v1.variable_scope(scope, default_name=&quot;bert&quot;):
+  with tf.compat.v1.variable_scope(&quot;embeddings&quot;):
+    # Perform embedding lookup on the word ids.
+    (self.embedding_output, self.embedding_table) = embedding_lookup(
+        input_ids=input_ids,
+        vocab_size=config.vocab_size,
+        embedding_size=config.hidden_size,
+        initializer_range=config.initializer_range,
+        word_embedding_name=&quot;word_embeddings&quot;,
+        use_one_hot_embeddings=use_one_hot_embeddings)
+
+    # Add positional embeddings and token type embeddings, then layer
+    # normalize and perform dropout.
+    self.embedding_output = embedding_postprocessor(
+        input_tensor=self.embedding_output,
+        use_token_type=True,
+        token_type_ids=token_type_ids,
+        token_type_vocab_size=config.type_vocab_size,
+        token_type_embedding_name=&quot;token_type_embeddings&quot;,
+        use_position_embeddings=True,
+        position_embedding_name=&quot;position_embeddings&quot;,
+        initializer_range=config.initializer_range,
+        max_position_embeddings=config.max_position_embeddings,
+        dropout_prob=config.hidden_dropout_prob)
+
+  with tf.compat.v1.variable_scope(&quot;encoder&quot;):
+    # This converts a 2D mask of shape [batch_size, seq_length] to a 3D
+    # mask of shape [batch_size, seq_length, seq_length] which is used
+    # for the attention scores.
+    attention_mask = create_attention_mask_from_input_mask(
+        input_ids, input_mask)
+
+    # Run the stacked transformer.
+    # `sequence_output` shape = [batch_size, seq_length, hidden_size].
+    self.all_encoder_layers = transformer_model(
+        input_tensor=self.embedding_output,
+        attention_mask=attention_mask,
+        hidden_size=config.hidden_size,
+        num_hidden_layers=config.num_hidden_layers,
+        num_attention_heads=config.num_attention_heads,
+        intermediate_size=config.intermediate_size,
+        intermediate_act_fn=get_activation(config.hidden_act),
+        hidden_dropout_prob=config.hidden_dropout_prob,
+        attention_probs_dropout_prob=config.attention_probs_dropout_prob,
+        initializer_range=config.initializer_range,
+        do_return_all_layers=True)
+
+  self.sequence_output = self.all_encoder_layers[-1]
+  # The &quot;pooler&quot; converts the encoded sequence tensor of shape
+  # [batch_size, seq_length, hidden_size] to a tensor of shape
+  # [batch_size, hidden_size]. This is necessary for segment-level
+  # (or segment-pair-level) classification tasks where we need a fixed
+  # dimensional representation of the segment.
+  with tf.compat.v1.variable_scope(&quot;pooler&quot;):
+    # We &quot;pool&quot; the model by simply taking the hidden state corresponding
+    # to the first token. We assume that this has been pre-trained
+    first_token_tensor = tf.squeeze(self.sequence_output[:, 0:1, :], axis=1)
+    self.pooled_output = tf.compat.v1.layers.dense(
+        first_token_tensor,
+        config.hidden_size,
+        activation=tf.tanh,
+        kernel_initializer=create_initializer(config.initializer_range))</code></pre></div>
+<p>def get_pooled_output(self): return self.pooled_output</p>
+<p>def get_sequence_output(self): """Gets final hidden layer of
+encoder.</p>
+<div class="code-wrapper"><pre><code class="hljs">Returns:
+  float Tensor of shape [batch_size, seq_length, hidden_size] corresponding
+  to the final hidden of the transformer encoder.
+&quot;&quot;&quot;
+return self.sequence_output</code></pre></div>
+<p>def get_all_encoder_layers(self): return self.all_encoder_layers</p>
+<p>def get_embedding_output(self): """Gets output of the embedding
+lookup (i.e., input to the transformer).</p>
+<div class="code-wrapper"><pre><code class="hljs">Returns:
+  float Tensor of shape [batch_size, seq_length, hidden_size] corresponding
+  to the output of the embedding layer, after summing the word
+  embeddings with the positional embeddings and the token type embeddings,
+  then performing layer normalization. This is the input to the transformer.
+&quot;&quot;&quot;
+return self.embedding_output</code></pre></div>
+<p>def get_embedding_table(self): return self.embedding_table</p>
+<p>def gelu(x): """Gaussian Error Linear Unit.</p>
+<p>This is a smoother version of the RELU. Original paper:
+https://arxiv.org/abs/1606.08415 Args: x: float Tensor to perform
+activation.</p>
+<p>Returns: <code>x</code> with the GELU activation applied. """ cdf =
+0.5 * (1.0 + tf.tanh( (np.sqrt(2 / np.pi) * (x + 0.044715 * tf.pow(x,
+3))))) return x * cdf</p>
+<p>def get_activation(activation_string): """Maps a string to a Python
+function, e.g., "relu" =&gt; <code>tf.nn.relu</code>.</p>
+<p>Args: activation_string: String name of the activation function.</p>
+<p>Returns: A Python function corresponding to the activation function.
+If <code>activation_string</code> is None, empty, or "linear", this will
+return None. If <code>activation_string</code> is not a string, it will
+return <code>activation_string</code>.</p>
+<p>Raises: ValueError: The <code>activation_string</code> does not
+correspond to a known activation. """</p>
+<p># We assume that anything that"s not a string is already an
+activation # function, so we just return it. if not
+isinstance(activation_string, six.string_types): return
+activation_string</p>
+<p>if not activation_string: return None</p>
+<p>act = activation_string.lower() if act == "linear": return None elif
+act == "relu": return tf.nn.relu elif act == "gelu": return gelu elif
+act == "tanh": return tf.tanh else: raise ValueError("Unsupported
+activation: %s" % act)</p>
+<p>def get_assignment_map_from_checkpoint(tvars, init_checkpoint):
+"""Compute the union of the current variables and checkpoint
+variables.""" assignment_map = {} initialized_variable_names = {}</p>
+<p>name_to_variable = collections.OrderedDict() for var in tvars: name =
+var.name m = re.match("^(.*):\d+$", name) if m is not None: name =
+m.group(1) name_to_variable[name] = var</p>
+<p>init_vars = tf.compat.v1.train.list_variables(init_checkpoint)</p>
+<p>assignment_map = collections.OrderedDict() for x in init_vars: (name,
+var) = (x[0], x[1]) if name not in name_to_variable: continue
+assignment_map[name] = name initialized_variable_names[name] = 1
+initialized_variable_names[name + ":0"] = 1</p>
+<p>return (assignment_map, initialized_variable_names)</p>
+<p>def dropout(input_tensor, dropout_prob): """Perform dropout.</p>
+<p>Args: input_tensor: float Tensor. dropout_prob: Python float. The
+probability of dropping out a value (NOT of <em>keeping</em> a dimension
+as in <code>tf.nn.dropout</code>).</p>
+<p>Returns: A version of <code>input_tensor</code> with dropout applied.
+""" if dropout_prob is None or dropout_prob == 0.0: return
+input_tensor</p>
+<p>output = tf.nn.dropout(input_tensor, 1.0 - dropout_prob) return
+output</p>
+<p>def layer_norm(input_tensor, name=None): """Run layer normalization
+on the last dimension of the tensor.""" layernorm =
+tf.keras.layers.LayerNormalization(axis=-1) return
+layernorm(input_tensor)</p>
+<p>def layer_norm_and_dropout(input_tensor, dropout_prob, name=None):
+"""Runs layer normalization followed by dropout.""" output_tensor =
+layer_norm(input_tensor, name) output_tensor = dropout(output_tensor,
+dropout_prob) return output_tensor</p>
+<p>def create_initializer(initializer_range=0.02): """Creates a
+<code>truncated_normal_initializer</code> with the given range."""
+return
+tf.compat.v1.truncated_normal_initializer(stddev=initializer_range)</p>
+<p>def embedding_lookup(input_ids, vocab_size, embedding_size=128,
+initializer_range=0.02, word_embedding_name="word_embeddings",
+use_one_hot_embeddings=False): """Looks up words embeddings for id
+tensor.</p>
+<p>Args: input_ids: int32 Tensor of shape [batch_size, seq_length]
+containing word ids. vocab_size: int. Size of the embedding vocabulary.
+embedding_size: int. Width of the word embeddings. initializer_range:
+float. Embedding initialization range. word_embedding_name: string. Name
+of the embedding table. use_one_hot_embeddings: bool. If True, use
+one-hot method for word embeddings. If False, use
+<code>tf.gather()</code>.</p>
+<p>Returns: float Tensor of shape [batch_size, seq_length,
+embedding_size]. """ # This function assumes that the input is of shape
+[batch_size, seq_length, # num_inputs]. # # If the input is a 2D tensor
+of shape [batch_size, seq_length], we # reshape to [batch_size,
+seq_length, 1]. if input_ids.shape.ndims == 2: input_ids =
+tf.expand_dims(input_ids, axis=[-1])</p>
+<p>embedding_table = tf.compat.v1.get_variable(
+name=word_embedding_name, shape=[vocab_size, embedding_size],
+initializer=create_initializer(initializer_range))</p>
+<p>flat_input_ids = tf.reshape(input_ids, [-1]) if
+use_one_hot_embeddings: one_hot_input_ids = tf.one_hot(flat_input_ids,
+depth=vocab_size) output = tf.matmul(one_hot_input_ids, embedding_table)
+else: output = tf.gather(embedding_table, flat_input_ids)</p>
+<p>input_shape = get_shape_list(input_ids)</p>
+<p>output = tf.reshape(output, input_shape[0:-1] + [input_shape[-1] *
+embedding_size]) return (output, embedding_table)</p>
+<p>def embedding_postprocessor(input_tensor, use_token_type=False,
+token_type_ids=None, token_type_vocab_size=16,
+token_type_embedding_name="token_type_embeddings",
+use_position_embeddings=True,
+position_embedding_name="position_embeddings", initializer_range=0.02,
+max_position_embeddings=512, dropout_prob=0.1): """Performs various
+post-processing on a word embedding tensor.</p>
+<p>Args: input_tensor: float Tensor of shape [batch_size, seq_length,
+embedding_size]. use_token_type: bool. Whether to add embeddings for
+<code>token_type_ids</code>. token_type_ids: (optional) int32 Tensor of
+shape [batch_size, seq_length]. Must be specified if
+<code>use_token_type</code> is True. token_type_vocab_size: int. The
+vocabulary size of <code>token_type_ids</code>.
+token_type_embedding_name: string. The name of the embedding table
+variable for token type ids. use_position_embeddings: bool. Whether to
+add position embeddings for the position of each token in the sequence.
+position_embedding_name: string. The name of the embedding table
+variable for positional embeddings. initializer_range: float. Range of
+the weight initialization. max_position_embeddings: int. Maximum
+sequence length that might ever be used with this model. This can be
+longer than the sequence length of input_tensor, but cannot be shorter.
+dropout_prob: float. Dropout probability applied to the final output
+tensor.</p>
+<p>Returns: float tensor with same shape as
+<code>input_tensor</code>.</p>
+<p>Raises: ValueError: One of the tensor shapes or input values is
+invalid. """ input_shape = get_shape_list(input_tensor, expected_rank=3)
+batch_size = input_shape[0] seq_length = input_shape[1] width =
+input_shape[2]</p>
+<p>output = input_tensor</p>
+<p>if use_token_type: if token_type_ids is None: raise
+ValueError("<code>token_type_ids</code> must be specified if"
+"<code>use_token_type</code> is True.") token_type_table =
+tf.compat.v1.get_variable( name=token_type_embedding_name,
+shape=[token_type_vocab_size, width],
+initializer=create_initializer(initializer_range)) # This vocab will be
+small so we always do one-hot here, since it is always # faster for a
+small vocabulary. flat_token_type_ids = tf.reshape(token_type_ids, [-1])
+one_hot_ids = tf.one_hot(flat_token_type_ids,
+depth=token_type_vocab_size) token_type_embeddings =
+tf.matmul(one_hot_ids, token_type_table) token_type_embeddings =
+tf.reshape(token_type_embeddings, [batch_size, seq_length, width])
+output += token_type_embeddings</p>
+<p>if use_position_embeddings: assert_op =
+tf.debugging.assert_less_equal(seq_length, max_position_embeddings) with
+tf.control_dependencies([assert_op]): full_position_embeddings =
+tf.compat.v1.get_variable( name=position_embedding_name,
+shape=[max_position_embeddings, width],
+initializer=create_initializer(initializer_range)) # Since the position
+embedding table is a learned variable, we create it # using a (long)
+sequence length <code>max_position_embeddings</code>. The actual #
+sequence length might be shorter than this, for faster training of #
+tasks that do not have long sequences. # # So
+<code>full_position_embeddings</code> is effectively an embedding table
+# for position [0, 1, 2, ..., max_position_embeddings-1], and the
+current # sequence has positions [0, 1, 2, ... seq_length-1], so we can
+just # perform a slice. position_embeddings =
+tf.slice(full_position_embeddings, [0, 0], [seq_length, -1]) num_dims =
+len(output.shape.as_list())</p>
+<div class="code-wrapper"><pre><code class="hljs">  # Only the last two dimensions are relevant (`seq_length` and `width`), so
+  # we broadcast among the first dimensions, which is typically just
+  # the batch size.
+  position_broadcast_shape = []
+  for _ in range(num_dims - 2):
+    position_broadcast_shape.append(1)
+  position_broadcast_shape.extend([seq_length, width])
+  position_embeddings = tf.reshape(position_embeddings,
+                                   position_broadcast_shape)
+  output += position_embeddings</code></pre></div>
+<p>output = layer_norm_and_dropout(output, dropout_prob) return
+output</p>
+<p>def create_attention_mask_from_input_mask(from_tensor, to_mask):
+"""Create 3D attention mask from a 2D tensor mask.</p>
+<p>Args: from_tensor: 2D or 3D Tensor of shape [batch_size,
+from_seq_length, ...]. to_mask: int32 Tensor of shape [batch_size,
+to_seq_length].</p>
+<p>Returns: float Tensor of shape [batch_size, from_seq_length,
+to_seq_length]. """ from_shape = get_shape_list(from_tensor,
+expected_rank=[2, 3]) batch_size = from_shape[0] from_seq_length =
+from_shape[1]</p>
+<p>to_shape = get_shape_list(to_mask, expected_rank=2) to_seq_length =
+to_shape[1]</p>
+<p>to_mask = tf.cast( tf.reshape(to_mask, [batch_size, 1,
+to_seq_length]), tf.float32)</p>
+<p># We don't assume that <code>from_tensor</code> is a mask (although
+it could be). We # don't actually care if we attend <em>from</em>
+padding tokens (only <em>to</em> padding) # tokens so we create a tensor
+of all ones. # # <code>broadcast_ones</code> = [batch_size,
+from_seq_length, 1] broadcast_ones = tf.ones( shape=[batch_size,
+from_seq_length, 1], dtype=tf.float32)</p>
+<p># Here we broadcast along two dimensions to create the mask. mask =
+broadcast_ones * to_mask</p>
+<p>return mask</p>
+<p>def attention_layer(from_tensor, to_tensor, attention_mask=None,
+num_attention_heads=1, size_per_head=512, query_act=None, key_act=None,
+value_act=None, attention_probs_dropout_prob=0.0,
+initializer_range=0.02, do_return_2d_tensor=False, batch_size=None,
+from_seq_length=None, to_seq_length=None): """Performs multi-headed
+attention from <code>from_tensor</code> to <code>to_tensor</code>.</p>
+<p>This is an implementation of multi-headed attention based on
+"Attention is all you Need". If <code>from_tensor</code> and
+<code>to_tensor</code> are the same, then this is self-attention. Each
+timestep in <code>from_tensor</code> attends to the corresponding
+sequence in <code>to_tensor</code>, and returns a fixed-with vector.</p>
+<p>This function first projects <code>from_tensor</code> into a "query"
+tensor and <code>to_tensor</code> into "key" and "value" tensors. These
+are (effectively) a list of tensors of length
+<code>num_attention_heads</code>, where each tensor is of shape
+[batch_size, seq_length, size_per_head].</p>
+<p>Then, the query and key tensors are dot-producted and scaled. These
+are softmaxed to obtain attention probabilities. The value tensors are
+then interpolated by these probabilities, then concatenated back to a
+single tensor and returned.</p>
+<p>In practice, the multi-headed attention are done with transposes and
+reshapes rather than actual separate tensors.</p>
+<p>Args: from_tensor: float Tensor of shape [batch_size,
+from_seq_length, from_width]. to_tensor: float Tensor of shape
+[batch_size, to_seq_length, to_width]. attention_mask: (optional) int32
+Tensor of shape [batch_size, from_seq_length, to_seq_length]. The values
+should be 1 or 0. The attention scores will effectively be set to
+-infinity for any positions in the mask that are 0, and will be
+unchanged for positions that are 1. num_attention_heads: int. Number of
+attention heads. size_per_head: int. Size of each attention head.
+query_act: (optional) Activation function for the query transform.
+key_act: (optional) Activation function for the key transform.
+value_act: (optional) Activation function for the value transform.
+attention_probs_dropout_prob: (optional) float. Dropout probability of
+the attention probabilities. initializer_range: float. Range of the
+weight initializer. do_return_2d_tensor: bool. If True, the output will
+be of shape [batch_size * from_seq_length, num_attention_heads *
+size_per_head]. If False, the output will be of shape [batch_size,
+from_seq_length, num_attention_heads * size_per_head]. batch_size:
+(Optional) int. If the input is 2D, this might be the batch size of the
+3D version of the <code>from_tensor</code> and <code>to_tensor</code>.
+from_seq_length: (Optional) If the input is 2D, this might be the seq
+length of the 3D version of the <code>from_tensor</code>. to_seq_length:
+(Optional) If the input is 2D, this might be the seq length of the 3D
+version of the <code>to_tensor</code>.</p>
+<p>Returns: float Tensor of shape [batch_size, from_seq_length,
+num_attention_heads * size_per_head]. (If
+<code>do_return_2d_tensor</code> is true, this will be of shape
+[batch_size * from_seq_length, num_attention_heads *
+size_per_head]).</p>
+<p>Raises: ValueError: Any of the arguments or tensor shapes are
+invalid. """</p>
+<p>def transpose_for_scores(input_tensor, batch_size,
+num_attention_heads, seq_length, width): output_tensor = tf.reshape(
+input_tensor, [batch_size, seq_length, num_attention_heads, width])</p>
+<div class="code-wrapper"><pre><code class="hljs">output_tensor = tf.transpose(output_tensor, [0, 2, 1, 3])
+return output_tensor</code></pre></div>
+<p>from_shape = get_shape_list(from_tensor, expected_rank=[2, 3])
+to_shape = get_shape_list(to_tensor, expected_rank=[2, 3])</p>
+<p>if len(from_shape) != len(to_shape): raise ValueError( "The rank of
+<code>from_tensor</code> must match the rank of
+<code>to_tensor</code>.")</p>
+<p>if len(from_shape) == 3: batch_size = from_shape[0] from_seq_length =
+from_shape[1] to_seq_length = to_shape[1] elif len(from_shape) == 2: if
+(batch_size is None or from_seq_length is None or to_seq_length is
+None): raise ValueError( "When passing in rank 2 tensors to
+attention_layer, the values " "for <code>batch_size</code>,
+<code>from_seq_length</code>, and <code>to_seq_length</code> " "must all
+be specified.")</p>
+<p># Scalar dimensions referenced here: # B = batch size (number of
+sequences) # F = <code>from_tensor</code> sequence length # T =
+<code>to_tensor</code> sequence length # N =
+<code>num_attention_heads</code> # H = <code>size_per_head</code></p>
+<p>from_tensor_2d = reshape_to_matrix(from_tensor) to_tensor_2d =
+reshape_to_matrix(to_tensor)</p>
+<p># <code>query_layer</code> = [B<em>F, N</em>H] query_layer =
+tf.compat.v1.layers.dense( from_tensor_2d, num_attention_heads *
+size_per_head, activation=query_act, name="query",
+kernel_initializer=create_initializer(initializer_range))</p>
+<p># <code>key_layer</code> = [B<em>T, N</em>H] key_layer =
+tf.compat.v1.layers.dense( to_tensor_2d, num_attention_heads *
+size_per_head, activation=key_act, name="key",
+kernel_initializer=create_initializer(initializer_range))</p>
+<p># <code>value_layer</code> = [B<em>T, N</em>H] value_layer =
+tf.compat.v1.layers.dense( to_tensor_2d, num_attention_heads *
+size_per_head, activation=value_act, name="value",
+kernel_initializer=create_initializer(initializer_range))</p>
+<p># <code>query_layer</code> = [B, N, F, H] query_layer =
+transpose_for_scores(query_layer, batch_size, num_attention_heads,
+from_seq_length, size_per_head)</p>
+<p># <code>key_layer</code> = [B, N, T, H] key_layer =
+transpose_for_scores(key_layer, batch_size, num_attention_heads,
+to_seq_length, size_per_head)</p>
+<p># Take the dot product between "query" and "key" to get the raw #
+attention scores. # <code>attention_scores</code> = [B, N, F, T]
+attention_scores = tf.matmul(query_layer, key_layer, transpose_b=True)
+attention_scores = tf.multiply(attention_scores, 1.0 /
+math.sqrt(float(size_per_head)))</p>
+<p>if attention_mask is not None: # <code>attention_mask</code> = [B, 1,
+F, T] attention_mask = tf.expand_dims(attention_mask, axis=[1])</p>
+<div class="code-wrapper"><pre><code class="hljs"># Since attention_mask is 1.0 for positions we want to attend and 0.0 for
+# masked positions, this operation will create a tensor which is 0.0 for
+# positions we want to attend and -10000.0 for masked positions.
+adder = (1.0 - tf.cast(attention_mask, tf.float32)) * -10000.0
+
+# Since we are adding it to the raw scores before the softmax, this is
+# effectively the same as removing these entirely.
+attention_scores += adder</code></pre></div>
+<p># Normalize the attention scores to probabilities. #
+<code>attention_probs</code> = [B, N, F, T] attention_probs =
+tf.nn.softmax(attention_scores)</p>
+<p># This is actually dropping out entire tokens to attend to, which
+might # seem a bit unusual, but is taken from the original Transformer
+paper. attention_probs = dropout(attention_probs,
+attention_probs_dropout_prob)</p>
+<p># <code>value_layer</code> = [B, T, N, H] value_layer = tf.reshape(
+value_layer, [batch_size, to_seq_length, num_attention_heads,
+size_per_head])</p>
+<p># <code>value_layer</code> = [B, N, T, H] value_layer =
+tf.transpose(value_layer, [0, 2, 1, 3])</p>
+<p># <code>context_layer</code> = [B, N, F, H] context_layer =
+tf.matmul(attention_probs, value_layer)</p>
+<p># <code>context_layer</code> = [B, F, N, H] context_layer =
+tf.transpose(context_layer, [0, 2, 1, 3])</p>
+<p>if do_return_2d_tensor: # <code>context_layer</code> = [B<em>F,
+N</em>H] context_layer = tf.reshape( context_layer, [batch_size *
+from_seq_length, num_attention_heads * size_per_head]) else: #
+<code>context_layer</code> = [B, F, N*H] context_layer = tf.reshape(
+context_layer, [batch_size, from_seq_length, num_attention_heads *
+size_per_head])</p>
+<p>return context_layer</p>
+<p>def transformer_model(input_tensor, attention_mask=None,
+hidden_size=768, num_hidden_layers=12, num_attention_heads=12,
+intermediate_size=3072, intermediate_act_fn=gelu,
+hidden_dropout_prob=0.1, attention_probs_dropout_prob=0.1,
+initializer_range=0.02, do_return_all_layers=False): """Multi-headed,
+multi-layer Transformer from "Attention is All You Need".</p>
+<p>This is almost an exact implementation of the original Transformer
+encoder.</p>
+<p>See the original paper: https://arxiv.org/abs/1706.03762</p>
+<p>Also see:
+https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/models/transformer.py</p>
+<p>Args: input_tensor: float Tensor of shape [batch_size, seq_length,
+hidden_size]. attention_mask: (optional) int32 Tensor of shape
+[batch_size, seq_length, seq_length], with 1 for positions that can be
+attended to and 0 in positions that should not be. hidden_size: int.
+Hidden size of the Transformer. num_hidden_layers: int. Number of layers
+(blocks) in the Transformer. num_attention_heads: int. Number of
+attention heads in the Transformer. intermediate_size: int. The size of
+the "intermediate" (a.k.a., feed forward) layer. intermediate_act_fn:
+function. The non-linear activation function to apply to the output of
+the intermediate/feed-forward layer. hidden_dropout_prob: float. Dropout
+probability for the hidden layers. attention_probs_dropout_prob: float.
+Dropout probability of the attention probabilities. initializer_range:
+float. Range of the initializer (stddev of truncated normal).
+do_return_all_layers: Whether to also return all layers or just the
+final layer.</p>
+<p>Returns: float Tensor of shape [batch_size, seq_length, hidden_size],
+the final hidden layer of the Transformer.</p>
+<p>Raises: ValueError: A Tensor shape or parameter is invalid. """ if
+hidden_size % num_attention_heads != 0: raise ValueError( "The hidden
+size (%d) is not a multiple of the number of attention " "heads (%d)" %
+(hidden_size, num_attention_heads))</p>
+<p>attention_head_size = int(hidden_size / num_attention_heads)
+input_shape = get_shape_list(input_tensor, expected_rank=3) batch_size =
+input_shape[0] seq_length = input_shape[1] input_width =
+input_shape[2]</p>
+<p># The Transformer performs sum residuals on all layers so the input
+needs # to be the same as the hidden size. if input_width !=
+hidden_size: raise ValueError("The width of the input tensor (%d) !=
+hidden size (%d)" % (input_width, hidden_size))</p>
+<p># We keep the representation as a 2D tensor to avoid re-shaping it
+back and # forth from a 3D tensor to a 2D tensor. Re-shapes are normally
+free on # the GPU/CPU but may not be free on the TPU, so we want to
+minimize them to # help the optimizer. prev_output =
+reshape_to_matrix(input_tensor)</p>
+<p>all_layer_outputs = [] for layer_idx in range(num_hidden_layers):
+with tf.compat.v1.variable_scope("layer_%d" % layer_idx): layer_input =
+prev_output</p>
+<div class="code-wrapper"><pre><code class="hljs">  with tf.compat.v1.variable_scope(&quot;attention&quot;):
+    attention_heads = []
+    with tf.compat.v1.variable_scope(&quot;self&quot;):
+      attention_head = attention_layer(
+          from_tensor=layer_input,
+          to_tensor=layer_input,
+          attention_mask=attention_mask,
+          num_attention_heads=num_attention_heads,
+          size_per_head=attention_head_size,
+          attention_probs_dropout_prob=attention_probs_dropout_prob,
+          initializer_range=initializer_range,
+          do_return_2d_tensor=True,
+          batch_size=batch_size,
+          from_seq_length=seq_length,
+          to_seq_length=seq_length)
+      attention_heads.append(attention_head)
+
+    attention_output = None
+    if len(attention_heads) == 1:
+      attention_output = attention_heads[0]
+    else:
+      # In the case where we have other sequences, we just concatenate
+      # them to the self-attention head before the projection.
+      attention_output = tf.concat(attention_heads, axis=-1)
+
+    # Run a linear projection of `hidden_size` then add a residual
+    # with `layer_input`.
+    with tf.compat.v1.variable_scope(&quot;output&quot;):
+      attention_output = tf.compat.v1.layers.dense(
+          attention_output,
+          hidden_size,
+          kernel_initializer=create_initializer(initializer_range))
+      attention_output = dropout(attention_output, hidden_dropout_prob)
+      attention_output = layer_norm(attention_output + layer_input)
+
+  # The activation is only applied to the &quot;intermediate&quot; hidden layer.
+  with tf.compat.v1.variable_scope(&quot;intermediate&quot;):
+    intermediate_output = tf.compat.v1.layers.dense(
+        attention_output,
+        intermediate_size,
+        activation=intermediate_act_fn,
+        kernel_initializer=create_initializer(initializer_range))
+
+  # Down-project back to `hidden_size` then add the residual.
+  with tf.compat.v1.variable_scope(&quot;output&quot;):
+    layer_output = tf.compat.v1.layers.dense(
+        intermediate_output,
+        hidden_size,
+        kernel_initializer=create_initializer(initializer_range))
+    layer_output = dropout(layer_output, hidden_dropout_prob)
+    layer_output = layer_norm(layer_output + attention_output)
+    prev_output = layer_output
+    all_layer_outputs.append(layer_output)</code></pre></div>
+<p>if do_return_all_layers: final_outputs = [] for layer_output in
+all_layer_outputs: final_output = reshape_from_matrix(layer_output,
+input_shape) final_outputs.append(final_output) return final_outputs
+else: final_output = reshape_from_matrix(prev_output, input_shape)
+return final_output</p>
+<p>def get_shape_list(tensor, expected_rank=None, name=None): """Returns
+a list of the shape of tensor, preferring static dimensions.</p>
+<p>Args: tensor: A tf.Tensor object to find the shape of. expected_rank:
+(optional) int. The expected rank of <code>tensor</code>. If this is
+specified and the <code>tensor</code> has a different rank, and
+exception will be thrown. name: Optional name of the tensor for the
+error message.</p>
+<p>Returns: A list of dimensions of the shape of tensor. All static
+dimensions will be returned as python integers, and dynamic dimensions
+will be returned as tf.Tensor scalars. """ if name is None: name =
+tensor.name</p>
+<p>if expected_rank is not None: assert_rank(tensor, expected_rank,
+name)</p>
+<p>shape = tensor.shape.as_list()</p>
+<p>non_static_indexes = [] for (index, dim) in enumerate(shape): if dim
+is None: non_static_indexes.append(index)</p>
+<p>if not non_static_indexes: return shape</p>
+<p>dyn_shape = tf.shape(tensor) for index in non_static_indexes:
+shape[index] = dyn_shape[index] return shape</p>
+<p>def reshape_to_matrix(input_tensor): """Reshapes a &gt;= rank 2
+tensor to a rank 2 tensor (i.e., a matrix).""" ndims =
+input_tensor.shape.ndims if ndims &lt; 2: raise ValueError("Input tensor
+must have at least rank 2. Shape = %s" % (input_tensor.shape)) if ndims
+== 2: return input_tensor</p>
+<p>width = input_tensor.shape[-1] output_tensor =
+tf.reshape(input_tensor, [-1, width]) return output_tensor</p>
+<p>def reshape_from_matrix(output_tensor, orig_shape_list): """Reshapes
+a rank 2 tensor back to its original rank &gt;= 2 tensor.""" if
+len(orig_shape_list) == 2: return output_tensor</p>
+<p>output_shape = get_shape_list(output_tensor)</p>
+<p>orig_dims = orig_shape_list[0:-1] width = output_shape[-1]</p>
+<p>return tf.reshape(output_tensor, orig_dims + [width])</p>
+<p>def assert_rank(tensor, expected_rank, name=None): """Raises an
+exception if the tensor rank is not of the expected rank.</p>
+<p>Args: tensor: A tf.Tensor to check the rank of. expected_rank: Python
+integer or list of integers, expected rank. name: Optional name of the
+tensor for the error message.</p>
+<p>Raises: ValueError: If the expected shape doesn't match the actual
+shape. """ if name is None: name = tensor.name</p>
+<p>expected_rank_dict = {} if isinstance(expected_rank,
+six.integer_types): expected_rank_dict[expected_rank] = True else: for x
+in expected_rank: expected_rank_dict[x] = True</p>
+<p>actual_rank = tensor.shape.ndims if actual_rank not in
+expected_rank_dict: scope_name = tf.compat.v1.get_variable_scope().name
+raise ValueError( "For the tensor <code>%s</code> in scope
+<code>%s</code>, the actual rank " "<code>%d</code> (shape = %s) is not
+equal to the expected rank <code>%s</code>" % (name, scope_name,
+actual_rank, str(tensor.shape), str(expected_rank)))</p>
+<p>```</p>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Natural-Language-Processing/">Natural Language Processing</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Natural-Language-Processing/Bert/">Bert</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Natural-Language-Processing/Bert/Tensorflow-2-6/">Tensorflow 2.6</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Bert/">Bert</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Natural-Language-Processing/">Natural Language Processing</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Tensorflow-2-6/">Tensorflow 2.6</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/19/pytorch%E5%9B%BE%E5%83%8F%E5%8E%BB%E6%A8%A1%E7%B3%8A/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于PyTorch实现图像去模糊-学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/17/%E5%9F%BA%E4%BA%8ELSTM-CRF%E7%9A%84%E4%B8%AD%E6%96%87%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">
+                        <span class="hidden-mobile">基于LSTM+CRF的中文命名实体识别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,646 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="概述 用户体验地图（User Experience Map），也被叫 User&#x2F;CustomerJourney Map，它是用户增长策略体系的一部分，是产品优化的重要工具。 它从用户视角了解产品流程，可以帮助我们找到用户的痛点、发现产品存在问题的阶段，从而有的放矢地进行优化，因此它更适用于产品从1-∞的阶段（0-1阶段的产品的用户是虚拟的、数据是缺失的，因此整个体验地图可靠性低）。   img">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用户体验地图">
+<meta property="og:url" content="http://oceaneyes.top/2019/01/06/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9B%BE/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="概述 用户体验地图（User Experience Map），也被叫 User&#x2F;CustomerJourney Map，它是用户增长策略体系的一部分，是产品优化的重要工具。 它从用户视角了解产品流程，可以帮助我们找到用户的痛点、发现产品存在问题的阶段，从而有的放矢地进行优化，因此它更适用于产品从1-∞的阶段（0-1阶段的产品的用户是虚拟的、数据是缺失的，因此整个体验地图可靠性低）。   img">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-3.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-8.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-10.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-7.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-6.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-5.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-1.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-9.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-2.jpg">
+<meta property="og:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-4.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2019-01-06T05:40:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.201Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="用户体验">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-3.jpg">
+  
+  
+  <title>用户体验地图 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="用户体验地图">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-01-06 13:40" pubdate>
+        2019年1月6日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">用户体验地图</h1>
+            
+            <div class="markdown-body">
+              <h2 id="概述">概述</h2>
+<p>用户体验地图（User Experience Map），也被叫 User/CustomerJourney
+Map，它是用户增长策略体系的一部分，是产品优化的重要工具。</p>
+<p>它从用户视角了解产品流程，可以帮助我们找到用户的痛点、发现产品存在问题的阶段，从而有的放矢地进行优化，因此它更适用于产品从1-∞的阶段（0-1阶段的产品的用户是虚拟的、数据是缺失的，因此整个体验地图可靠性低）。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-3.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ Crash-Course-CX</p>
+<h2 id="组成">组成</h2>
+<p>一个标准的用户体验地图一般包含以下三大组成部分：</p>
+<ul>
+<li>用户：用户画像（persona）、用户目标（user goals/needs）；</li>
+<li>用户和产品：用户行为（doing）、触点（touch
+point）、想法（thinking）、情绪曲线（feeling/experience）；</li>
+<li>产品机会：痛点（pain point）、机会点（opportunities）。</li>
+</ul>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-8.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 三大部分</p>
+<p>如下图，raileurope体验地图，它的时间比较早，但因为非常全面和标准，包含体验地图相关的所有要素，至今仍然被各大公司当作参照的模板。</p>
+<p>原版是英文，为了方便大家理解和参考，我把这个体验地图做了汉化。</p>
+<p>因为完成体验地图整个步骤耗时长，时间成本和人力成本高。它比较适合用来梳理产品的整体流程线和主业务线。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-10.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 欧洲铁路体验地图-标准版</p>
+<p>当然，上面的3大部分内容不一定都是必须的，体验地图也可以根据需求进行简化。它适用于周期短、团队人员有限、分析产品业务支线的需求。</p>
+<p>就如同 Airtable
+的这个体验地图，直接分析用户的痛点和情绪，直接梳理用户的痛点、接触点、情绪，以表格的形式呈现。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-7.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ airtable体验地图-简化版</p>
+<h2 id="为什么要做用户体验地图">为什么要做用户体验地图？</h2>
+<ul>
+<li>避免产品设计者和决策者的管理员视角，真正考虑用户要什么，而不是有什么放什么。</li>
+<li>能够帮助我们梳理场景中可能存在的问题，精准地找到用户的痛点，对产品优化更加有的放矢，提升用户体验。</li>
+<li>创建一个共同视角，团队中各环节的同事都能参与进来，对用户行为、痛点等内容达成一致，认同感强。利于各个环节工作的协调，对产品的用户体验达成共识、有效沟通和协作。</li>
+</ul>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-6.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 用户体验地图-模板</p>
+<h2 id="如何绘制用户体验地图">如何绘制用户体验地图？</h2>
+<h3 id="用户画像"><strong>1. 用户画像</strong></h3>
+<p>本次主要通过途家的案例来示范如何制作一个标准的用户体验地图。</p>
+<p>在产品的1-∞阶段，通常团队内已经有构建好的用户画像，所以直接调用即可。</p>
+<p>注意：如果产品的用户层跨度大，那么需要对不同的用户类型分别做体验地图。</p>
+<h3 id="用户目标"><strong>2. 用户目标</strong></h3>
+<p>明确用户要完成的任务或者目标。在案例中，用户的目标就是在整个订房流程中，他的要求，或者说需求。列出用户目标，可以让我们真正考虑用户在每个环节，想要的是什么。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-5.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 明确用户目标</p>
+<h3 id="提炼用户行为"><strong>3. 提炼用户行为</strong></h3>
+<p>用户行为是用户在使用产品时采取的行为、操作，通常是根据用户调研、用户追踪的资料进行收集整理。用户行为讲述的是每一个阶段用户的执行细节。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-1.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 梳理用户行为</p>
+<h3 id="用户想法和情绪曲线"><strong>4. 用户想法和情绪曲线</strong></h3>
+<p>根据对应的阶段的用户行为，写下当时用户的思考和想法，可以将它们以便利贴的形式整理出来。</p>
+<p>然后提炼用户每个节点的情绪，提炼情绪时，为了防止个人主观判断导致的误差，建议两个人一组用相同的数据进行提炼。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-9.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 绘制情绪曲线</p>
+<h3 id="归纳痛点和机会点"><strong>5. 归纳痛点和机会点</strong></h3>
+<p>通过用户每个阶段的行为和情绪曲线，整理出每个阶段的痛点和问题，以及思考痛点背后的原因，此处是否可以采取什么措施，来满足用户的目标，提升用户的体验，这就是机会点。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-2.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 归纳痛点</p>
+<h3 id="后续工作"><strong>6. 后续工作</strong></h3>
+<p>后续的工作首先是对体验地图进行整理和美化产出。然后整理出地图中的机会点，根据重要程度和难易程度排出优先级来安排执行。优化用户体验地图中的痛点，帮助用户实现目标，或者确立新的产品功能的方向。</p>
+<figure>
+<img src="https://image.uisdc.com/wp-content/uploads/2019/01/uisdc-yh-20190103-4.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>△ 用户体验地图示例-途家</p>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/">用户体验</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/">用户体验</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/01/14/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81%E2%80%94%E2%80%94%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A8%E8%8D%90%E5%92%8C%E7%83%AD%E5%BA%A6%E7%AE%97%E6%B3%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">内容类产品——个性化推荐和热度算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/04/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E2%80%94%E2%80%94%E6%A6%82%E8%A6%81/">
+                        <span class="hidden-mobile">Python数据挖掘——概要</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

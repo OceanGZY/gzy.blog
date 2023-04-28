@@ -1,0 +1,1587 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="思路  收集数据：提供文本数据 准备数据：解析文本数据 分析数据：使用matplotlib 二维扩散图 训练算法：不适用于k-近邻 测试算法：切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误 使用算法：程序执行，输入一些特征数据来判断是否为喜欢的类型  三种类型：不喜欢的、一般的、喜欢的   准备数据 123import numpy as npimport m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="案例-k-近邻-改进约会网站的配对效果">
+<meta property="og:url" content="http://oceaneyes.top/2020/12/29/%E6%A1%88%E4%BE%8B-%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="思路  收集数据：提供文本数据 准备数据：解析文本数据 分析数据：使用matplotlib 二维扩散图 训练算法：不适用于k-近邻 测试算法：切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误 使用算法：程序执行，输入一些特征数据来判断是否为喜欢的类型  三种类型：不喜欢的、一般的、喜欢的   准备数据 123import numpy as npimport m">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oceaneyes.top/.top//output_9_0.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//output_10_0.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//output_11_0.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//output_12_0.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:8b397d01-55e2-4a32-a401-58859e3b2224.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2020-12-29T14:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.199Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="k-近邻">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://oceaneyes.top/.top//output_9_0.png">
+  
+  
+  <title>案例-k-近邻-改进约会网站的配对效果 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="案例-k-近邻-改进约会网站的配对效果">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-29 22:19" pubdate>
+        2020年12月29日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      25k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      207 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">案例-k-近邻-改进约会网站的配对效果</h1>
+            
+            <div class="markdown-body">
+              <h1 id="思路">思路</h1>
+<ul>
+<li>收集数据：提供文本数据</li>
+<li>准备数据：解析文本数据</li>
+<li>分析数据：使用matplotlib 二维扩散图</li>
+<li>训练算法：不适用于k-近邻</li>
+<li>测试算法：切分测试样本；
+测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误</li>
+<li>使用算法：程序执行，输入一些特征数据来判断是否为喜欢的类型
+<ul>
+<li>三种类型：不喜欢的、一般的、喜欢的</li>
+</ul></li>
+</ul>
+<h3 id="准备数据">准备数据</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> operator<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">np.zeros((<span class="hljs-number">1000</span>,<span class="hljs-number">3</span>)).shape<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">(1000, 3)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">file2matrix</span>(<span class="hljs-params">filename</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (filename,<span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        arrayOLines = f.readlines()<br><span class="hljs-comment">#         print(arrayLines)</span><br>        numberOflines= <span class="hljs-built_in">len</span>(arrayOLines)<br><span class="hljs-comment">#         print(numberOflines)</span><br>        returnMat = np.zeros((numberOflines,<span class="hljs-number">3</span>)) <span class="hljs-comment"># 创建numpy矩阵</span><br><span class="hljs-comment">#         print(returnMat)</span><br>        classLabelVector = []<br>        index= <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> arrayOLines:<br>            line = line.strip()<br><span class="hljs-comment">#             print(line)</span><br>            listFromLine = line.split(<span class="hljs-string">&#x27;\t&#x27;</span>)<br><span class="hljs-comment">#             print(listFromLine)</span><br>            <span class="hljs-comment"># x[:,n]表示在全部数组（维）中取第n个数据，直观来说，x[:,n]就是取所有集合的第n个数据, </span><br>            <span class="hljs-comment"># x[n,:]表示在n个数组（维）中取全部数据，直观来说，x[n,:]就是取第n集合的所有数据, </span><br>        <br>            returnMat[index,:] = listFromLine[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>]<br><span class="hljs-comment">#             print(returnMat)</span><br>            classLabelVector.append(<span class="hljs-built_in">int</span>(listFromLine[-<span class="hljs-number">1</span>]))<br><span class="hljs-comment">#             print(classLabelVector)</span><br>            index +=<span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> returnMat,classLabelVector<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 每年获得的飞行常客里程数、玩视频游戏所耗时间的占比、每周消费的冰淇淋公升数</span><br>datingDataMat,datingLabels =file2matrix(<span class="hljs-string">&quot;./dataset/datingTestSet2.txt&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">datingDataMat<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([[4.0920000e+04, 8.3269760e+00, 9.5395200e-01],
+       [1.4488000e+04, 7.1534690e+00, 1.6739040e+00],
+       [2.6052000e+04, 1.4418710e+00, 8.0512400e-01],
+       ...,
+       [2.6575000e+04, 1.0650102e+01, 8.6662700e-01],
+       [4.8111000e+04, 9.1345280e+00, 7.2804500e-01],
+       [4.3757000e+04, 7.8826010e+00, 1.3324460e+00]])</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">datingLabels[<span class="hljs-number">0</span>:<span class="hljs-number">20</span>]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 2, 3]</code></pre></div>
+<h3 id="分析数据">分析数据</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">fig=  plt.figure()<br>ax = fig.add_subplot(<span class="hljs-number">111</span>)<br><span class="hljs-comment"># 第二列和第三列数据</span><br>ax.scatter(datingDataMat[:,<span class="hljs-number">1</span>], datingDataMat[:,<span class="hljs-number">2</span>])<br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//output_9_0.png" srcset="/img/loading.gif" lazyload alt="png">
+<figcaption aria-hidden="true">png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">fig=  plt.figure()<br>ax = fig.add_subplot(<span class="hljs-number">111</span>)<br><span class="hljs-comment"># 第二列和第三列数据</span><br>ax.scatter(datingDataMat[:,<span class="hljs-number">1</span>], datingDataMat[:,<span class="hljs-number">2</span>], <span class="hljs-number">15.0</span>*np.array(datingLabels) , <span class="hljs-number">15.0</span>*np.array(datingLabels))<br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//output_10_0.png" srcset="/img/loading.gif" lazyload alt="png">
+<figcaption aria-hidden="true">png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">fig=  plt.figure()<br>ax = fig.add_subplot(<span class="hljs-number">111</span>)<br><span class="hljs-comment"># 第二列和第三列数据</span><br>ax.scatter(datingDataMat[:,<span class="hljs-number">0</span>], datingDataMat[:,<span class="hljs-number">1</span>], <span class="hljs-number">15.0</span>*np.array(datingLabels) , <span class="hljs-number">15.0</span>*np.array(datingLabels))<br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//output_11_0.png" srcset="/img/loading.gif" lazyload alt="png">
+<figcaption aria-hidden="true">png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">fig=  plt.figure()<br>ax = fig.add_subplot(<span class="hljs-number">111</span>)<br><span class="hljs-comment"># 第二列和第三列数据</span><br>ax.scatter(datingDataMat[:,<span class="hljs-number">0</span>], datingDataMat[:,<span class="hljs-number">2</span>], <span class="hljs-number">15.0</span>*np.array(datingLabels) , <span class="hljs-number">15.0</span>*np.array(datingLabels))<br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//output_12_0.png" srcset="/img/loading.gif" lazyload alt="png">
+<figcaption aria-hidden="true">png</figcaption>
+</figure>
+<h3 id="准备数据归一化数据">准备数据：归一化数据</h3>
+<ul>
+<li>将数值归一化，如将取值范围 8 处理为0到1或者-1到1之间 newValue =
+(oldValue -min) / (max-min)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">autoNorm</span>(<span class="hljs-params">dataSet</span>):<br>    minVals = dataSet.<span class="hljs-built_in">min</span>(<span class="hljs-number">0</span>)<br>    maxVals = dataSet.<span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>)<br>    ranges = maxVals- minVals<br>    normDataSet = np.zeros(np.shape(dataSet))<br>    m = dataSet.shape[<span class="hljs-number">0</span>] <span class="hljs-comment"># 行数</span><br><span class="hljs-comment">#     print(m) </span><br>    normDataSet = dataSet - np.tile(minVals , (m,<span class="hljs-number">1</span>))<br>    normDataSet = normDataSet / np.tile(ranges,(m,<span class="hljs-number">1</span>))  <span class="hljs-comment"># 特征值相除</span><br>    <span class="hljs-keyword">return</span> normDataSet,ranges,minVals<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/.top//attachment:8b397d01-55e2-4a32-a401-58859e3b2224.png" srcset="/img/loading.gif" lazyload alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">datingDataMat.shape<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">(1000, 3)</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">normMat , ranges, minVals = autoNorm(datingDataMat)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">1000</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">normMat<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([[0.44832535, 0.39805139, 0.56233353],
+       [0.15873259, 0.34195467, 0.98724416],
+       [0.28542943, 0.06892523, 0.47449629],
+       ...,
+       [0.29115949, 0.50910294, 0.51079493],
+       [0.52711097, 0.43665451, 0.4290048 ],
+       [0.47940793, 0.3768091 , 0.78571804]])</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">normMat[<span class="hljs-number">10</span>:<span class="hljs-number">20</span>,:]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([[0.55045851, 0.17799301, 0.49030933],
+       [0.69324992, 0.40086711, 0.9846361 ],
+       [0.06101476, 0.23305864, 0.42936659],
+       [0.55933299, 0.22372102, 0.36832056],
+       [0.84769866, 0.73135976, 0.19487878],
+       [0.47848761, 0.09032121, 0.11221162],
+       [0.67231273, 0.35932065, 0.74836944],
+       [0.76334732, 0.68067104, 0.15355464],
+       [0.1716718 , 0.        , 0.73716817],
+       [0.31211859, 0.50329267, 0.76942753]])</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">datingDataMat.<span class="hljs-built_in">min</span>(<span class="hljs-number">0</span>).shape<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([9.1273000e+04, 2.0919349e+01, 1.6943610e+00])</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">minVals<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([0.      , 0.      , 0.001156])</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">classify0</span>(<span class="hljs-params">inX, dataSet, labels, k</span>):<br>    <span class="hljs-comment"># shape[0]：表示矩阵的行数</span><br>    <span class="hljs-comment"># shape[1]：表示矩阵的列数</span><br>    dataSetSize = dataSet.shape[<span class="hljs-number">0</span>]<br><span class="hljs-comment">#     print(dataSetSize)</span><br>    <span class="hljs-comment"># 距离计算</span><br>    <span class="hljs-comment"># np.tile(a,(2,1))第一个参数为Y轴扩大倍数，第二个为X轴行扩大倍数。</span><br>    <span class="hljs-comment"># np.tile（a,(2)）函数的作用就是将函数将函数沿着X轴/行扩大两倍。如果扩大倍数只有一个，默认为X轴</span><br>    diffMat = np.tile(inX, (dataSetSize,<span class="hljs-number">1</span>))-dataSet<br>    sqDiffMat = diffMat ** <span class="hljs-number">2</span><br>    sqDistances = sqDiffMat.<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>)<br>    distances = sqDistances ** <span class="hljs-number">0.5</span><br>    sortedDistIndicies = distances.argsort()<br><span class="hljs-comment">#     print(sortedDistIndicies)</span><br>    <span class="hljs-comment"># 选择距离最小的k个点</span><br>    classCount=&#123;&#125;<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>        voteIlabel = labels[sortedDistIndicies[i]]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;voteIlabel:&quot;</span>,voteIlabel)<br>        classCount[voteIlabel]= classCount.get(voteIlabel,<span class="hljs-number">0</span>) +<span class="hljs-number">1</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classCount[voteIlabel]:&quot;</span>,classCount[voteIlabel])<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;classCount:&quot;</span>,classCount)<br>    <span class="hljs-comment"># 排序</span><br>    sortedClassCount = <span class="hljs-built_in">sorted</span>(classCount.items(),key=operator.itemgetter(<span class="hljs-number">1</span>), reverse=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">return</span> sortedClassCount[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<h3 id="测试算法作为完整程序验证分类器">测试算法：作为完整程序验证分类器</h3>
+<ul>
+<li>通常使用90%作为训练样本来训练分类器，使用其余的10%数据去测试分类器</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">datingClassTest</span>():<br>    hoRatio = <span class="hljs-number">0.10</span><br>    datingDataMat ,datingLabels = file2matrix(<span class="hljs-string">&quot;./dataset/datingTestSet2.txt&quot;</span>)<br>    normMat, ranges, minVals = autoNorm(datingDataMat)<br>    m = normMat.shape[<span class="hljs-number">0</span>]<br>    numTestVecs = <span class="hljs-built_in">int</span>(m * hoRatio)<br>    <span class="hljs-built_in">print</span>(numTestVecs)<br>    errorCount = <span class="hljs-number">0.0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numTestVecs):<br>        classifierResult = classify0(normMat[i,:], normMat[numTestVecs:m,:], datingLabels[numTestVecs:m],<span class="hljs-number">3</span>)<br><span class="hljs-comment">#         print(&quot;最近邻的结果&quot;,classifierResult,&quot;realanswer&quot;, datingLabels[i])</span><br>        <span class="hljs-keyword">if</span> (classifierResult != datingLabels[i]):<br>            errorCount +=<span class="hljs-number">1.0</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;正确率&quot;</span>,<span class="hljs-number">1.0</span>-errorCount/<span class="hljs-built_in">float</span>(numTestVecs))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">datingClassTest()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">1000
+100
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1, 3: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2, 3: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;3: 2, 1: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 2: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 2: 1, 1: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 1: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2, 1: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 2: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2, 2: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;3: 1, 2: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;1: 2, 3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;3: 1, 1: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1, 2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;3: 1, 2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;3: 2, 2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;3: 2, 1: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 3
+classCount: &#123;2: 3&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 3
+classCount: &#123;1: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;3: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 3
+classCount: &#123;3: 3&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;2: 2, 3: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1, 1: 1&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 2
+classCount: &#123;2: 1, 1: 2&#125;
+voteIlabel: 1
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;1: 1, 3: 1&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 2
+classCount: &#123;1: 1, 3: 2&#125;
+正确率 0.95</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">classifyPerson</span>():<br>    resultList=[<span class="hljs-string">&#x27;not at all&#x27;</span>,<span class="hljs-string">&#x27;in small doses&#x27;</span>,<span class="hljs-string">&#x27;in large doses&#x27;</span>]<br>    percentTats = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;percentage of time spent playing video games?&quot;</span>))<br>    ffMiles = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;frequent flier miles per year?&quot;</span>))<br>    iceCream = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;liters of ice cream per week?&quot;</span>))<br>    datingDataMat, datingLabels = file2matrix(<span class="hljs-string">&quot;./dataset/datingTestSet2.txt&quot;</span>)<br>    normMat ,ranges, minVals = autoNorm(datingDataMat)<br>    <br>    inArr=  np.array([ffMiles,percentTats,iceCream])<br>    classifierResult = classify0((inArr-minVals)/ranges , normMat, datingLabels ,<span class="hljs-number">3</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;probably result:&quot;</span>,resultList[classifierResult-<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">classifyPerson()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">percentage of time spent playing video games? 12
+frequent flier miles per year? 999
+liters of ice cream per week? 2
+
+
+1000
+1000
+voteIlabel 2
+voteIlabel 3
+voteIlabel 3
+probably result: in large doses</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">classifyPerson()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">percentage of time spent playing video games? 10
+frequent flier miles per year? 10000
+liters of ice cream per week? 0.5
+
+
+1000
+voteIlabel: 2
+classCount[voteIlabel]: 1
+classCount: &#123;2: 1&#125;
+voteIlabel: 2
+classCount[voteIlabel]: 2
+classCount: &#123;2: 2&#125;
+voteIlabel: 3
+classCount[voteIlabel]: 1
+classCount: &#123;2: 2, 3: 1&#125;
+probably result: in small doses</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/k-%E8%BF%91%E9%82%BB/">k-近邻</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">机器学习实战-笔记3-决策树</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">案例-k-近邻-手写字识别系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

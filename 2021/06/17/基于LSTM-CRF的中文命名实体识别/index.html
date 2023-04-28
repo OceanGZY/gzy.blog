@@ -1,0 +1,4017 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基于LSTM+CRF的中文命名实体识别  任务描述：命名实体识别是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。  实现一个简单的命名实体识别方法，该方法通过BiLSTM+CRF模型预测出文本中文字所对应的标签，再根据标签提取出文本中的实体。 从数据文件中加载数据并进行预处理、构建模型、训练模型、评估模型和测试模型。  说明：目前本文档仅作为示例，为了加快训练速度模型较为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于LSTM+CRF的中文命名实体识别">
+<meta property="og:url" content="http://oceaneyes.top/2021/06/17/%E5%9F%BA%E4%BA%8ELSTM-CRF%E7%9A%84%E4%B8%AD%E6%96%87%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="基于LSTM+CRF的中文命名实体识别  任务描述：命名实体识别是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。  实现一个简单的命名实体识别方法，该方法通过BiLSTM+CRF模型预测出文本中文字所对应的标签，再根据标签提取出文本中的实体。 从数据文件中加载数据并进行预处理、构建模型、训练模型、评估模型和测试模型。  说明：目前本文档仅作为示例，为了加快训练速度模型较为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-06-17T14:42:44.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.191Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="LSTM">
+<meta property="article:tag" content="NER">
+<meta property="article:tag" content="CRF">
+<meta property="article:tag" content="tensorflow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>基于LSTM+CRF的中文命名实体识别 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于LSTM+CRF的中文命名实体识别">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-17 22:42" pubdate>
+        2021年6月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      65k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      541 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于LSTM+CRF的中文命名实体识别</h1>
+            
+            <div class="markdown-body">
+              <h2 id="基于lstmcrf的中文命名实体识别">基于LSTM+CRF的中文命名实体识别</h2>
+<ul>
+<li><strong>任务描述</strong>：命名实体识别是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。
+<ul>
+<li>实现一个简单的命名实体识别方法，该方法通过BiLSTM+CRF模型预测出文本中文字所对应的标签，再根据标签提取出文本中的实体。</li>
+<li>从数据文件中加载数据并进行预处理、构建模型、训练模型、评估模型和测试模型。
+<ul>
+<li>说明：目前本文档仅作为示例，为了加快训练速度模型较为简单，词向量维度也比较低，因此导致模型准确率较低。</li>
+</ul></li>
+</ul></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow_addons <span class="hljs-keyword">as</span> tfa<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>tf 2.0 的新特性：eager execution</p>
+<ul>
+<li>可以用tf.executing_eargerly()查看Eager
+Execution当前的启动状态，返回True则是开启，False是关闭。</li>
+<li>可以用tf.compat.v1.enable_eager_execution()启动eager模式。</li>
+<li>关闭eager模式的函数是 tf.compat.v1.disable_eager_execution()</li>
+</ul></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">tf.compat.v1.disable_eager_execution()<br></code></pre></td></tr></table></figure>
+<h3 id="文本数准备">文本数准备</h3>
+<ul>
+<li>数据说明</li>
+<li>数据整理</li>
+<li>加载数据</li>
+</ul>
+<h4 id="数据说明">数据说明</h4>
+<ul>
+<li><p>数据集共包含约2.7万中文文本，其中包括约2.08万训练集，0.23万验证集和0.46万测试集。</p></li>
+<li><p>数据集分别命名为example.train,example.dev,example.test,保存在datasets目录下。</p>
+<ul>
+<li>1.训练集：包含文本和对应的标签，用于模型训练。</li>
+<li>2.验证集：包含文本和对应的标签，用于模型训练和参数调试。</li>
+<li>3.测试集：包含文本和对应的标签，用于预测结果、验证效果。</li>
+</ul></li>
+<li><p>数据集中标注有三种实体，分别为人名、地名、机构名，标注集合为{'O','B-PER','I-PER','B-ORG','I-ORG','B-LOC','I-LOC'}。</p>
+<ul>
+<li>其中'O'表示非实体，</li>
+<li>'B-'表示实体的首字，</li>
+<li>'I-'表示实体的其他位置的字，</li>
+<li>'PER'表示人名，</li>
+<li>'ORG'表示机构名，</li>
+<li>'LOC'表示地名。IOB（Inside–outside–beginning）是用于标记标志的通用标记格式。</li>
+</ul></li>
+</ul>
+<h4 id="数据整理">数据整理</h4>
+<p>根据数据集中的字符建立字典，并保存在datasets/vocab.txt中，
+标签根据数据集中字符建立字典，并保存在datasets/.txt中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_vocab_list</span>(<span class="hljs-params">path_list</span>):<br>    vocab_set = <span class="hljs-built_in">set</span>()<br>    vocab_list = <span class="hljs-built_in">list</span>()<br>    <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> path_list:<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:<br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(line.strip()) == <span class="hljs-number">0</span>:<br>                    <span class="hljs-keyword">continue</span><br>                <span class="hljs-keyword">if</span> line[<span class="hljs-number">0</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> vocab_set:<br>                    vocab_set.add(line[<span class="hljs-number">0</span>])<br>                    vocab_list.append(line[<span class="hljs-number">0</span>])<br>    <span class="hljs-keyword">return</span> vocab_list<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">save_vocab</span>(<span class="hljs-params">path,vocab_list</span>):<br>    output = <span class="hljs-string">&#x27;&#x27;</span>.join([vocab + <span class="hljs-string">&#x27;\n&#x27;</span> <span class="hljs-keyword">for</span> vocab <span class="hljs-keyword">in</span> vocab_list])<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(output)<br>        <br>vocab_list = get_vocab_list([<span class="hljs-string">&#x27;./datasets/example.train&#x27;</span>,<span class="hljs-string">&#x27;./datasets/example.dev&#x27;</span>,<span class="hljs-string">&#x27;./datasets/example.test&#x27;</span>])<br>save_vocab(<span class="hljs-string">&#x27;./datasets/vocab.txt&#x27;</span>,vocab_list)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">vocab_list<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;海&#39;,
+ &#39;钓&#39;,
+ &#39;比&#39;,
+ &#39;赛&#39;,
+ &#39;地&#39;,
+ &#39;点&#39;,
+ &#39;在&#39;,
+ &#39;厦&#39;,
+ &#39;门&#39;,
+ &#39;与&#39;,
+ &#39;金&#39;,
+ &#39;之&#39;,
+ &#39;间&#39;,
+ &#39;的&#39;,
+ &#39;域&#39;,
+ &#39;。&#39;,
+ &#39;这&#39;,
+ &#39;座&#39;,
+ &#39;依&#39;,
+ &#39;山&#39;,
+ &#39;傍&#39;,
+ &#39;水&#39;,
+ &#39;博&#39;,
+ &#39;物&#39;,
+ &#39;馆&#39;,
+ &#39;由&#39;,
+ &#39;国&#39;,
+ &#39;内&#39;,
+ &#39;一&#39;,
+ &#39;流&#39;,
+ &#39;设&#39;,
+ &#39;计&#39;,
+ &#39;师&#39;,
+ &#39;主&#39;,
+ &#39;持&#39;,
+ &#39;，&#39;,
+ &#39;整&#39;,
+ &#39;个&#39;,
+ &#39;建&#39;,
+ &#39;筑&#39;,
+ &#39;群&#39;,
+ &#39;精&#39;,
+ &#39;美&#39;,
+ &#39;而&#39;,
+ &#39;恢&#39;,
+ &#39;宏&#39;,
+ &#39;但&#39;,
+ &#39;作&#39;,
+ &#39;为&#39;,
+ &#39;共&#39;,
+ &#39;产&#39;,
+ &#39;党&#39;,
+ &#39;员&#39;,
+ &#39;、&#39;,
+ &#39;人&#39;,
+ &#39;民&#39;,
+ &#39;公&#39;,
+ &#39;仆&#39;,
+ &#39;应&#39;,
+ &#39;当&#39;,
+ &#39;胸&#39;,
+ &#39;怀&#39;,
+ &#39;宽&#39;,
+ &#39;阔&#39;,
+ &#39;真&#39;,
+ &#39;正&#39;,
+ &#39;做&#39;,
+ &#39;到&#39;,
+ &#39;“&#39;,
+ &#39;先&#39;,
+ &#39;天&#39;,
+ &#39;下&#39;,
+ &#39;忧&#39;,
+ &#39;后&#39;,
+ &#39;乐&#39;,
+ &#39;”&#39;,
+ &#39;淡&#39;,
+ &#39;化&#39;,
+ &#39;名&#39;,
+ &#39;利&#39;,
+ &#39;得&#39;,
+ &#39;失&#39;,
+ &#39;和&#39;,
+ &#39;宠&#39;,
+ &#39;辱&#39;,
+ &#39;悲&#39;,
+ &#39;喜&#39;,
+ &#39;把&#39;,
+ &#39;改&#39;,
+ &#39;革&#39;,
+ &#39;大&#39;,
+ &#39;业&#39;,
+ &#39;摆&#39;,
+ &#39;首&#39;,
+ &#39;位&#39;,
+ &#39;样&#39;,
+ &#39;才&#39;,
+ &#39;能&#39;,
+ &#39;超&#39;,
+ &#39;越&#39;,
+ &#39;自&#39;,
+ &#39;我&#39;,
+ &#39;脱&#39;,
+ &#39;世&#39;,
+ &#39;俗&#39;,
+ &#39;有&#39;,
+ &#39;所&#39;,
+ &#39;发&#39;,
+ &#39;达&#39;,
+ &#39;家&#39;,
+ &#39;急&#39;,
+ &#39;救&#39;,
+ &#39;保&#39;,
+ &#39;险&#39;,
+ &#39;十&#39;,
+ &#39;分&#39;,
+ &#39;普&#39;,
+ &#39;及&#39;,
+ &#39;已&#39;,
+ &#39;成&#39;,
+ &#39;社&#39;,
+ &#39;会&#39;,
+ &#39;障&#39;,
+ &#39;体&#39;,
+ &#39;系&#39;,
+ &#39;重&#39;,
+ &#39;要&#39;,
+ &#39;组&#39;,
+ &#39;部&#39;,
+ &#39;日&#39;,
+ &#39;俄&#39;,
+ &#39;两&#39;,
+ &#39;政&#39;,
+ &#39;局&#39;,
+ &#39;都&#39;,
+ &#39;充&#39;,
+ &#39;满&#39;,
+ &#39;变&#39;,
+ &#39;数&#39;,
+ &#39;尽&#39;,
+ &#39;管&#39;,
+ &#39;关&#39;,
+ &#39;目&#39;,
+ &#39;前&#39;,
+ &#39;是&#39;,
+ &#39;历&#39;,
+ &#39;史&#39;,
+ &#39;最&#39;,
+ &#39;佳&#39;,
+ &#39;时&#39;,
+ &#39;期&#39;,
+ &#39;其&#39;,
+ &#39;脆&#39;,
+ &#39;弱&#39;,
+ &#39;性&#39;,
+ &#39;不&#39;,
+ &#39;言&#39;,
+ &#39;明&#39;,
+ &#39;克&#39;,
+ &#39;马&#39;,
+ &#39;尔&#39;,
+ &#39;女&#39;,
+ &#39;儿&#39;,
+ &#39;让&#39;,
+ &#39;娜&#39;,
+ &#39;今&#39;,
+ &#39;年&#39;,
+ &#39;读&#39;,
+ &#39;五&#39;,
+ &#39;级&#39;,
+ &#39;她&#39;,
+ &#39;班&#39;,
+ &#39;上&#39;,
+ &#39;3&#39;,
+ &#39;0&#39;,
+ &#39;多&#39;,
+ &#39;同&#39;,
+ &#39;学&#39;,
+ &#39;该&#39;,
+ &#39;委&#39;,
+ &#39;1&#39;,
+ &#39;长&#39;,
+ &#39;参&#39;,
+ &#39;加&#39;,
+ &#39;步&#39;,
+ &#39;行&#39;,
+ &#39;男&#39;,
+ &#39;轻&#39;,
+ &#39;也&#39;,
+ &#39;中&#39;,
+ &#39;沙&#39;,
+ &#39;特&#39;,
+ &#39;队&#39;,
+ &#39;教&#39;,
+ &#39;练&#39;,
+ &#39;佩&#39;,
+ &#39;雷&#39;,
+ &#39;拉&#39;,
+ &#39;：&#39;,
+ &#39;支&#39;,
+ &#39;想&#39;,
+ &#39;胜&#39;,
+ &#39;因&#39;,
+ &#39;此&#39;,
+ &#39;出&#39;,
+ &#39;了&#39;,
+ &#39;努&#39;,
+ &#39;力&#39;,
+ &#39;种&#39;,
+ &#39;混&#39;,
+ &#39;乱&#39;,
+ &#39;面&#39;,
+ &#39;导&#39;,
+ &#39;致&#39;,
+ &#39;些&#39;,
+ &#39;使&#39;,
+ &#39;用&#39;,
+ &#39;者&#39;,
+ &#39;合&#39;,
+ &#39;法&#39;,
+ &#39;权&#39;,
+ &#39;益&#39;,
+ &#39;难&#39;,
+ &#39;以&#39;,
+ &#39;维&#39;,
+ &#39;护&#39;,
+ &#39;鲁&#39;,
+ &#39;宾&#39;,
+ &#39;确&#39;,
+ &#39;指&#39;,
+ &#39;对&#39;,
+ &#39;府&#39;,
+ &#39;控&#39;,
+ &#39;完&#39;,
+ &#39;全&#39;,
+ &#39;没&#39;,
+ &#39;事&#39;,
+ &#39;实&#39;,
+ &#39;根&#39;,
+ &#39;据&#39;,
+ &#39;向&#39;,
+ &#39;转&#39;,
+ &#39;敏&#39;,
+ &#39;感&#39;,
+ &#39;技&#39;,
+ &#39;术&#39;,
+ &#39;相&#39;,
+ &#39;总&#39;,
+ &#39;白&#39;,
+ &#39;于&#39;,
+ &#39;；&#39;,
+ &#39;众&#39;,
+ &#39;议&#39;,
+ &#39;院&#39;,
+ &#39;令&#39;,
+ &#39;非&#39;,
+ &#39;常&#39;,
+ &#39;望&#39;,
+ &#39;将&#39;,
+ &#39;商&#39;,
+ &#39;卫&#39;,
+ &#39;星&#39;,
+ &#39;受&#39;,
+ &#39;威&#39;,
+ &#39;胁&#39;,
+ &#39;竞&#39;,
+ &#39;争&#39;,
+ &#39;损&#39;,
+ &#39;害&#39;,
+ &#39;育&#39;,
+ &#39;场&#39;,
+ &#39;每&#39;,
+ &#39;早&#39;,
+ &#39;6&#39;,
+ &#39;至&#39;,
+ &#39;8&#39;,
+ &#39;免&#39;,
+ &#39;费&#39;,
+ &#39;开&#39;,
+ &#39;放&#39;,
+ &#39;游&#39;,
+ &#39;泳&#39;,
+ &#39;等&#39;,
+ &#39;则&#39;,
+ &#39;增&#39;,
+ &#39;综&#39;,
+ &#39;服&#39;,
+ &#39;务&#39;,
+ &#39;延&#39;,
+ &#39;采&#39;,
+ &#39;取&#39;,
+ &#39;灵&#39;,
+ &#39;活&#39;,
+ &#39;收&#39;,
+ &#39;再&#39;,
+ &#39;看&#39;,
+ &#39;容&#39;,
+ &#39;图&#39;,
+ &#39;文&#39;,
+ &#39;并&#39;,
+ &#39;茂&#39;,
+ &#39;简&#39;,
+ &#39;短&#39;,
+ &#39;字&#39;,
+ &#39;准&#39;,
+ &#39;反&#39;,
+ &#39;映&#39;,
+ &#39;六&#39;,
+ &#39;族&#39;,
+ &#39;风&#39;,
+ &#39;土&#39;,
+ &#39;情&#39;,
+ &#39;传&#39;,
+ &#39;统&#39;,
+ &#39;各&#39;,
+ &#39;讲&#39;,
+ &#39;很&#39;,
+ &#39;哥&#39;,
+ &#39;伦&#39;,
+ &#39;亚&#39;,
+ &#39;号&#39;,
+ &#39;航&#39;,
+ &#39;飞&#39;,
+ &#39;机&#39;,
+ &#39;宇&#39;,
+ &#39;边&#39;,
+ &#39;进&#39;,
+ &#39;验&#39;,
+ &#39;继&#39;,
+ &#39;续&#39;,
+ &#39;抢&#39;,
+ &#39;修&#39;,
+ &#39;故&#39;,
+ &#39;二&#39;,
+ &#39;氧&#39;,
+ &#39;碳&#39;,
+ &#39;清&#39;,
+ &#39;除&#39;,
+ &#39;装&#39;,
+ &#39;置&#39;,
+ &#39;从&#39;,
+ &#39;剥&#39;,
+ &#39;削&#39;,
+ &#39;阶&#39;,
+ &#39;劳&#39;,
+ &#39;动&#39;,
+ &#39;生&#39;,
+ &#39;率&#39;,
+ &#39;低&#39;,
+ &#39;况&#39;,
+ &#39;占&#39;,
+ &#39;限&#39;,
+ &#39;剩&#39;,
+ &#39;余&#39;,
+ &#39;品&#39;,
+ &#39;足&#39;,
+ &#39;豪&#39;,
+ &#39;华&#39;,
+ &#39;需&#39;,
+ &#39;量&#39;,
+ &#39;扩&#39;,
+ &#39;现&#39;,
+ &#39;资&#39;,
+ &#39;条&#39;,
+ &#39;件&#39;,
+ &#39;榨&#39;,
+ &#39;价&#39;,
+ &#39;值&#39;,
+ &#39;供&#39;,
+ &#39;身&#39;,
+ &#39;求&#39;,
+ &#39;外&#39;,
+ &#39;又&#39;,
+ &#39;本&#39;,
+ &#39;新&#39;,
+ &#39;雇&#39;,
+ &#39;佣&#39;,
+ &#39;私&#39;,
+ &#39;来&#39;,
+ &#39;料&#39;,
+ &#39;集&#39;,
+ &#39;代&#39;,
+ &#39;表&#39;,
+ &#39;澳&#39;,
+ &#39;别&#39;,
+ &#39;区&#39;,
+ &#39;筹&#39;,
+ &#39;备&#39;,
+ &#39;第&#39;,
+ &#39;次&#39;,
+ &#39;午&#39;,
+ &#39;北&#39;,
+ &#39;京&#39;,
+ &#39;堂&#39;,
+ &#39;幕&#39;,
+ &#39;副&#39;,
+ &#39;理&#39;,
+ &#39;任&#39;,
+ &#39;钱&#39;,
+ &#39;琛&#39;,
+ &#39;词&#39;,
+ &#39;工&#39;,
+ &#39;经&#39;,
+ &#39;启&#39;,
+ &#39;临&#39;,
+ &#39;紧&#39;,
+ &#39;迫&#39;,
+ &#39;们&#39;,
+ &#39;道&#39;,
+ &#39;远&#39;,
+ &#39;希&#39;,
+ &#39;齐&#39;,
+ &#39;心&#39;,
+ &#39;协&#39;,
+ &#39;平&#39;,
+ &#39;稳&#39;,
+ &#39;过&#39;,
+ &#39;渡&#39;,
+ &#39;顺&#39;,
+ &#39;交&#39;,
+ &#39;接&#39;,
+ &#39;贡&#39;,
+ &#39;献&#39;,
+ &#39;济&#39;,
+ &#39;程&#39;,
+ &#39;界&#39;,
+ &#39;深&#39;,
+ &#39;信&#39;,
+ &#39;观&#39;,
+ &#39;必&#39;,
+ &#39;须&#39;,
+ &#39;微&#39;,
+ &#39;基&#39;,
+ &#39;础&#39;,
+ &#39;病&#39;,
+ &#39;好&#39;,
+ &#39;颈&#39;,
+ &#39;背&#39;,
+ &#39;躯&#39;,
+ &#39;干&#39;,
+ &#39;殖&#39;,
+ &#39;器&#39;,
+ &#39;可&#39;,
+ &#39;见&#39;,
+ &#39;龄&#39;,
+ &#39;市&#39;,
+ &#39;柔&#39;,
+ &#39;县&#39;,
+ &#39;试&#39;,
+ &#39;遍&#39;,
+ &#39;觉&#39;,
+ &#39;四&#39;,
+ &#39;节&#39;,
+ &#39;课&#39;,
+ &#39;饥&#39;,
+ &#39;饿&#39;,
+ &#39;消&#39;,
+ &#39;川&#39;,
+ &#39;省&#39;,
+ &#39;江&#39;,
+ &#39;油&#39;,
+ &#39;丰&#39;,
+ &#39;选&#39;,
+ &#39;豆&#39;,
+ &#39;奶&#39;,
+ &#39;复&#39;,
+ &#39;营&#39;,
+ &#39;养&#39;,
+ &#39;素&#39;,
+ &#39;贫&#39;,
+ &#39;血&#39;,
+ &#39;降&#39;,
+ &#39;百&#39;,
+ &#39;照&#39;,
+ &#39;只&#39;,
+ &#39;．&#39;,
+ &#39;4&#39;,
+ &#39;宗&#39;,
+ &#39;旨&#39;,
+ &#39;决&#39;,
+ &#39;定&#39;,
+ &#39;奉&#39;,
+ &#39;甘&#39;,
+ &#39;愿&#39;,
+ &#39;吃&#39;,
+ &#39;亏&#39;,
+ &#39;苦&#39;,
+ &#39;享&#39;,
+ &#39;困&#39;,
+ &#39;危&#39;,
+ &#39;留&#39;,
+ &#39;给&#39;,
+ &#39;己&#39;,
+ &#39;方&#39;,
+ &#39;便&#39;,
+ &#39;安&#39;,
+ &#39;初&#39;,
+ &#39;央&#39;,
+ &#39;形&#39;,
+ &#39;势&#39;,
+ &#39;快&#39;,
+ &#39;速&#39;,
+ &#39;策&#39;,
+ &#39;立&#39;,
+ &#39;研&#39;,
+ &#39;究&#39;,
+ &#39;派&#39;,
+ &#39;就&#39;,
+ &#39;提&#39;,
+ &#39;许&#39;,
+ &#39;富&#39;,
+ &#39;意&#39;,
+ &#39;味&#39;,
+ &#39;论&#39;,
+ &#39;话&#39;,
+ &#39;题&#39;,
+ &#39;书&#39;,
+ &#39;记&#39;,
+ &#39;粟&#39;,
+ &#39;光&#39;,
+ &#39;断&#39;,
+ &#39;他&#39;,
+ &#39;亲&#39;,
+ &#39;兄&#39;,
+ &#39;弟&#39;,
+ &#39;签&#39;,
+ &#39;！&#39;,
+ &#39;熟&#39;,
+ &#39;悉&#39;,
+ &#39;运&#39;,
+ &#39;士&#39;,
+ &#39;说&#39;,
+ &#39;贷&#39;,
+ &#39;款&#39;,
+ &#39;旦&#39;,
+ &#39;被&#39;,
+ &#39;推&#39;,
+ &#39;迟&#39;,
+ &#39;几&#39;,
+ &#39;月&#39;,
+ &#39;甚&#39;,
+ &#39;更&#39;,
+ &#39;考&#39;,
+ &#39;虑&#39;,
+ &#39;伍&#39;,
+ &#39;义&#39;,
+ &#39;气&#39;,
+ &#39;原&#39;,
+ &#39;惠&#39;,
+ &#39;象&#39;,
+ &#39;估&#39;,
+ &#39;像&#39;,
+ &#39;疤&#39;,
+ &#39;痕&#39;,
+ &#39;笨&#39;,
+ &#39;拙&#39;,
+ &#39;手&#39;,
+ &#39;针&#39;,
+ &#39;线&#39;,
+ &#39;周&#39;,
+ &#39;恩&#39;,
+ &#39;那&#39;,
+ &#39;送&#39;,
+ &#39;株&#39;,
+ &#39;万&#39;,
+ &#39;古&#39;,
+ &#39;青&#39;,
+ &#39;友&#39;,
+ &#39;谊&#39;,
+ &#39;红&#39;,
+ &#39;杉&#39;,
+ &#39;吧&#39;,
+ &#39;巴&#39;,
+ &#39;谈&#39;,
+ &#39;问&#39;,
+ &#39;印&#39;,
+ &#39;声&#39;,
+ &#39;宣&#39;,
+ &#39;称&#39;,
+ &#39;何&#39;,
+ &#39;三&#39;,
+ &#39;介&#39;,
+ &#39;入&#39;,
+ &#39;久&#39;,
+ &#39;赴&#39;,
+ &#39;西&#39;,
+ &#39;老&#39;,
+ &#39;访&#39;,
+ &#39;广&#39;,
+ &#39;职&#39;,
+ &#39;积&#39;,
+ &#39;极&#39;,
+ &#39;企&#39;,
+ &#39;监&#39;,
+ &#39;督&#39;,
+ &#39;如&#39;,
+ &#39;居&#39;,
+ &#39;子&#39;,
+ &#39;倘&#39;,
+ &#39;若&#39;,
+ &#39;客&#39;,
+ &#39;环&#39;,
+ &#39;境&#39;,
+ &#39;钝&#39;,
+ &#39;迅&#39;,
+ &#39;判&#39;,
+ &#39;陷&#39;,
+ &#39;处&#39;,
+ &#39;碰&#39;,
+ &#39;壁&#39;,
+ &#39;然&#39;,
+ &#39;热&#39;,
+ &#39;解&#39;,
+ &#39;寻&#39;,
+ &#39;找&#39;,
+ &#39;联&#39;,
+ &#39;邦&#39;,
+ &#39;州&#39;,
+ &#39;予&#39;,
+ &#39;适&#39;,
+ &#39;具&#39;,
+ &#39;骤&#39;,
+ &#39;吸&#39;,
+ &#39;七&#39;,
+ &#39;团&#39;,
+ &#39;另&#39;,
+ &#39;龙&#39;,
+ &#39;口&#39;,
+ &#39;科&#39;,
+ &#39;投&#39;,
+ &#39;视&#39;,
+ &#39;息&#39;,
+ &#39;创&#39;,
+ &#39;跳&#39;,
+ &#39;跃&#39;,
+ &#39;式&#39;,
+ &#39;展&#39;,
+ &#39;强&#39;,
+ &#39;调&#39;,
+ &#39;高&#39;,
+ &#39;培&#39;,
+ &#39;训&#39;,
+ &#39;认&#39;,
+ &#39;识&#39;,
+ &#39;密&#39;,
+ &#39;结&#39;,
+ &#39;小&#39;,
+ &#39;九&#39;,
+ &#39;升&#39;,
+ &#39;或&#39;,
+ &#39;段&#39;,
+ &#39;少&#39;,
+ &#39;懂&#39;,
+ &#39;习&#39;,
+ &#39;互&#39;,
+ &#39;贵&#39;,
+ &#39;贱&#39;,
+ &#39;请&#39;,
+ &#39;注&#39;,
+ &#39;语&#39;,
+ &#39;构&#39;,
+ &#39;偏&#39;,
+ &#39;孝&#39;,
+ &#39;父&#39;,
+ &#39;母&#39;,
+ &#39;始&#39;,
+ &#39;票&#39;,
+ &#39;否&#39;,
+ &#39;制&#39;,
+ &#39;还&#39;,
+ &#39;缺&#39;,
+ &#39;乏&#39;,
+ &#39;际&#39;,
+ &#39;电&#39;,
+ &#39;影&#39;,
+ &#39;摄&#39;,
+ &#39;录&#39;,
+ &#39;音&#39;,
+ &#39;剪&#39;,
+ &#39;辑&#39;,
+ &#39;诸&#39;,
+ &#39;趋&#39;,
+ &#39;激&#39;,
+ &#39;烈&#39;,
+ &#39;造&#39;,
+ &#39;奇&#39;,
+ &#39;夺&#39;,
+ &#39;起&#39;,
+ &#39;直&#39;,
+ &#39;追&#39;,
+ &#39;医&#39;,
+ &#39;药&#39;,
+ &#39;李&#39;,
+ &#39;珍&#39;,
+ &#39;闻&#39;,
+ &#39;屡&#39;,
+ &#39;仕&#39;,
+ &#39;寄&#39;,
+ &#39;托&#39;,
+ &#39;八&#39;,
+ &#39;股&#39;,
+ &#39;兴&#39;,
+ &#39;趣&#39;,
+ &#39;酷&#39;,
+ &#39;爱&#39;,
+ &#39;召&#39;,
+ &#39;吴&#39;,
+ &#39;英&#39;,
+ &#39;司&#39;,
+ &#39;董&#39;,
+ &#39;德&#39;,
+ &#39;·&#39;,
+ &#39;葛&#39;,
+ &#39;夫&#39;,
+ &#39;邀&#39;,
+ &#39;席&#39;,
+ &#39;车&#39;,
+ &#39;闲&#39;,
+ &#39;防&#39;,
+ &#39;施&#39;,
+ &#39;配&#39;,
+ &#39;套&#39;,
+ &#39;存&#39;,
+ &#39;鹅&#39;,
+ &#39;洲&#39;,
+ &#39;源&#39;,
+ &#39;终&#39;,
+ &#39;连&#39;,
+ &#39;串&#39;,
+ &#39;井&#39;,
+ &#39;序&#39;,
+ &#39;顾&#39;,
+ &#39;犯&#39;,
+ &#39;罪&#39;,
+ &#39;讳&#39;,
+ &#39;审&#39;,
+ &#39;死&#39;,
+ &#39;刑&#39;,
+ &#39;笔&#39;,
+ &#39;融&#39;,
+ &#39;农&#39;,
+ &#39;假&#39;,
+ &#39;币&#39;,
+ &#39;知&#39;,
+ &#39;巧&#39;,
+ &#39;律&#39;,
+ &#39;规&#39;,
+ &#39;村&#39;,
+ &#39;秩&#39;,
+ &#39;『&#39;,
+ &#39;范&#39;,
+ &#39;茅&#39;,
+ &#39;迹&#39;,
+ &#39;览&#39;,
+ &#39;』&#39;,
+ &#39;磁&#39;,
+ &#39;球&#39;,
+ &#39;孩&#39;,
+ &#39;格&#39;,
+ &#39;散&#39;,
+ &#39;着&#39;,
+ &#39;独&#39;,
+ &#39;魅&#39;,
+ &#39;莱&#39;,
+ &#39;坞&#39;,
+ &#39;千&#39;,
+ &#39;模&#39;,
+ &#39;翻&#39;,
+ &#39;版&#39;,
+ &#39;？&#39;,
+ &#39;燃&#39;,
+ &#39;汽&#39;,
+ &#39;仅&#39;,
+ &#39;守&#39;,
+ &#39;—&#39;,
+ &#39;路&#39;,
+ &#39;易&#39;,
+ &#39;斯&#39;,
+ &#39;切&#39;,
+ &#39;迪&#39;,
+ &#39;阿&#39;,
+ &#39;塞&#39;,
+ &#39;瓦&#39;,
+ &#39;萨&#39;,
+ &#39;卡&#39;,
+ &#39;里&#39;,
+ &#39;罗&#39;,
+ &#39;弗&#39;,
+ &#39;哈&#39;,
+ &#39;丹&#39;,
+ &#39;尼&#39;,
+ &#39;扎&#39;,
+ &#39;胡&#39;,
+ &#39;埃&#39;,
+ &#39;索&#39;,
+ &#39;库&#39;,
+ &#39;纳&#39;,
+ &#39;吉&#39;,
+ &#39;莫&#39;,
+ &#39;帕&#39;,
+ &#39;锋&#39;,
+ &#39;米&#39;,
+ &#39;贝&#39;,
+ &#39;耶&#39;,
+ &#39;冈&#39;,
+ &#39;玻&#39;,
+ &#39;乌&#39;,
+ &#39;布&#39;,
+ &#39;苏&#39;,
+ &#39;念&#39;,
+ &#39;案&#39;,
+ &#39;罚&#39;,
+ &#39;较&#39;,
+ &#39;战&#39;,
+ &#39;略&#39;,
+ &#39;均&#39;,
+ &#39;贸&#39;,
+ &#39;拓&#39;,
+ &#39;5&#39;,
+ &#39;份&#39;,
+ &#39;去&#39;,
+ &#39;阅&#39;,
+ &#39;室&#39;,
+ &#39;刊&#39;,
+ &#39;晚&#39;,
+ &#39;智&#39;,
+ &#39;藏&#39;,
+ &#39;突&#39;,
+ &#39;破&#39;,
+ &#39;借&#39;,
+ &#39;架&#39;,
+ &#39;办&#39;,
+ &#39;沃&#39;,
+ &#39;盟&#39;,
+ &#39;昨&#39;,
+ &#39;约&#39;,
+ &#39;南&#39;,
+ &#39;举&#39;,
+ &#39;空&#39;,
+ &#39;军&#39;,
+ &#39;演&#39;,
+ &#39;示&#39;,
+ &#39;欢&#39;,
+ &#39;迎&#39;,
+ &#39;帮&#39;,
+ &#39;助&#39;,
+ &#39;7&#39;,
+ &#39;叫&#39;,
+ &#39;迈&#39;,
+ &#39;菲&#39;,
+ &#39;查&#39;,
+ &#39;奋&#39;,
+ &#39;剂&#39;,
+ &#39;通&#39;,
+ &#39;未&#39;,
+ &#39;勇&#39;,
+ &#39;曲&#39;,
+ &#39;绕&#39;,
+ &#39;桥&#39;,
+ &#39;绝&#39;,
+ &#39;《&#39;,
+ &#39;嫂&#39;,
+ &#39;》&#39;,
+ &#39;警&#39;,
+ &#39;魂&#39;,
+ &#39;片&#39;,
+ &#39;获&#39;,
+ &#39;房&#39;,
+ &#39;石&#39;,
+ &#39;香&#39;,
+ &#39;港&#39;,
+ &#39;朝&#39;,
+ &#39;蓬&#39;,
+ &#39;勃&#39;,
+ &#39;拼&#39;,
+ &#39;搏&#39;,
+ &#39;斗&#39;,
+ &#39;神&#39;,
+ &#39;写&#39;,
+ &#39;2&#39;,
+ &#39;春&#39;,
+ &#39;季&#39;,
+ &#39;招&#39;,
+ &#39;兵&#39;,
+ &#39;募&#39;,
+ &#39;既&#39;,
+ &#39;食&#39;,
+ &#39;预&#39;,
+ &#39;止&#39;,
+ &#39;癌&#39;,
+ &#39;症&#39;,
+ &#39;城&#39;,
+ &#39;引&#39;,
+ &#39;项&#39;,
+ &#39;懈&#39;,
+ &#39;液&#39;,
+ &#39;尾&#39;,
+ &#39;9&#39;,
+ &#39;％&#39;,
+ &#39;氢&#39;,
+ &#39;减&#39;,
+ &#39;污&#39;,
+ &#39;染&#39;,
+ &#39;双&#39;,
+ &#39;网&#39;,
+ &#39;抽&#39;,
+ &#39;封&#39;,
+ &#39;差&#39;,
+ &#39;亟&#39;,
+ &#39;待&#39;,
+ &#39;单&#39;,
+ &#39;麦&#39;,
+ &#39;果&#39;,
+ &#39;∶&#39;,
+ &#39;松&#39;,
+ &#39;赢&#39;,
+ &#39;测&#39;,
+ &#39;析&#39;,
+ &#39;迷&#39;,
+ &#39;叶&#39;,
+ &#39;钦&#39;,
+ &#39;岁&#39;,
+ &#39;刻&#39;,
+ &#39;哲&#39;,
+ &#39;思&#39;,
+ &#39;虽&#39;,
+ &#39;担&#39;,
+ &#39;负&#39;,
+ &#39;领&#39;,
+ &#39;责&#39;,
+ &#39;专&#39;,
+ &#39;却&#39;,
+ &#39;爸&#39;,
+ &#39;劲&#39;,
+ &#39;抗&#39;,
+ &#39;艰&#39;,
+ &#39;聘&#39;,
+ &#39;仍&#39;,
+ &#39;治&#39;,
+ &#39;洋&#39;,
+ &#39;尊&#39;,
+ &#39;庄&#39;,
+ &#39;志&#39;,
+ &#39;回&#39;,
+ &#39;忆&#39;,
+ &#39;淳&#39;,
+ &#39;朴&#39;,
+ &#39;报&#39;,
+ &#39;届&#39;,
+ &#39;张&#39;,
+ &#39;君&#39;,
+ &#39;秋&#39;,
+ &#39;剧&#39;,
+ &#39;角&#39;,
+ &#39;艺&#39;,
+ &#39;校&#39;,
+ &#39;坚&#39;,
+ &#39;质&#39;,
+ &#39;围&#39;,
+ &#39;侧&#39;,
+ &#39;缓&#39;,
+ &#39;财&#39;,
+ &#39;状&#39;,
+ &#39;聚&#39;,
+ &#39;渠&#39;,
+ &#39;逐&#39;,
+ &#39;靠&#39;,
+ &#39;优&#39;,
+ &#39;征&#39;,
+ &#39;稿&#39;,
+ &#39;截&#39;,
+ &#39;句&#39;,
+ &#39;晤&#39;,
+ &#39;纠&#39;,
+ &#39;纷&#39;,
+ &#39;朋&#39;,
+ &#39;坏&#39;,
+ &#39;它&#39;,
+ &#39;促&#39;,
+ &#39;岗&#39;,
+ &#39;标&#39;,
+ &#39;织&#39;,
+ &#39;践&#39;,
+ &#39;邓&#39;,
+ &#39;按&#39;,
+ &#39;署&#39;,
+ &#39;挥&#39;,
+ &#39;核&#39;,
+ &#39;●&#39;,
+ &#39;承&#39;,
+ &#39;键&#39;,
+ &#39;街&#39;,
+ &#39;巷&#39;,
+ &#39;横&#39;,
+ &#39;幅&#39;,
+ &#39;悬&#39;,
+ &#39;画&#39;,
+ &#39;头&#39;,
+ &#39;欣&#39;,
+ &#39;慰&#39;,
+ ...]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_label_list</span>(<span class="hljs-params">path_list</span>):<br>    label_set = <span class="hljs-built_in">set</span>()<br>    label_list = <span class="hljs-built_in">list</span>()<br>    <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> path_list:<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:<br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(line.strip()) == <span class="hljs-number">0</span>:<br>                    <span class="hljs-keyword">continue</span><br>                <span class="hljs-keyword">if</span> line[<span class="hljs-number">2</span>:].strip() <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> label_set:<br>                    label_set.add(line[<span class="hljs-number">2</span>:].strip())<br>                    label_list.append(line[<span class="hljs-number">2</span>:].strip())<br>    <span class="hljs-keyword">return</span> label_list<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">save_label</span>(<span class="hljs-params">path,label_list</span>):<br>    output = <span class="hljs-string">&#x27;&#x27;</span>.join([label + <span class="hljs-string">&#x27;\n&#x27;</span> <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> label_list])<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(output)<br>        <br>label_list = get_label_list([<span class="hljs-string">&#x27;./datasets/example.train&#x27;</span>,<span class="hljs-string">&#x27;./datasets/example.dev&#x27;</span>,<span class="hljs-string">&#x27;./datasets/example.test&#x27;</span>])<br>save_label(<span class="hljs-string">&#x27;./datasets/label.txt&#x27;</span>,label_list)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">label_list<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;O&#39;, &#39;B-LOC&#39;, &#39;I-LOC&#39;, &#39;B-PER&#39;, &#39;I-PER&#39;, &#39;B-ORG&#39;, &#39;I-ORG&#39;]</code></pre></div>
+<h4 id="加载数据">加载数据</h4>
+<p>分别获取vocab 和label与id的映射</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_string2id</span>(<span class="hljs-params">path</span>):    string2id = &#123;&#125;    id2string = []    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:             string2id[line.strip()] = <span class="hljs-built_in">len</span>(string2id)            id2string.append(line.strip())    <span class="hljs-keyword">return</span> id2string,string2idid2label,label2id = get_string2id(<span class="hljs-string">&quot;./datasets/label.txt&quot;</span>)id2vocab,vocab2id = get_string2id(<span class="hljs-string">&quot;./datasets/vocab.txt&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">id2label<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;O&#39;, &#39;B-LOC&#39;, &#39;I-LOC&#39;, &#39;B-PER&#39;, &#39;I-PER&#39;, &#39;B-ORG&#39;, &#39;I-ORG&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">label2id<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&#123;&#39;O&#39;: 0,
+ &#39;B-LOC&#39;: 1,
+ &#39;I-LOC&#39;: 2,
+ &#39;B-PER&#39;: 3,
+ &#39;I-PER&#39;: 4,
+ &#39;B-ORG&#39;: 5,
+ &#39;I-ORG&#39;: 6&#125;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">id2vocab<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;海&#39;,
+ &#39;钓&#39;,
+ &#39;比&#39;,
+ &#39;赛&#39;,
+ &#39;地&#39;,
+ &#39;点&#39;,
+ &#39;在&#39;,
+ &#39;厦&#39;,
+ &#39;门&#39;,
+ &#39;与&#39;,
+ &#39;金&#39;,
+ &#39;之&#39;,
+ &#39;间&#39;,
+ &#39;的&#39;,
+ &#39;域&#39;,
+ &#39;。&#39;,
+ &#39;这&#39;,
+ &#39;座&#39;,
+ &#39;依&#39;,
+ &#39;山&#39;,
+ &#39;傍&#39;,
+ &#39;水&#39;,
+ &#39;博&#39;,
+ &#39;物&#39;,
+ &#39;馆&#39;,
+ &#39;由&#39;,
+ &#39;国&#39;,
+ &#39;内&#39;,
+ &#39;一&#39;,
+ &#39;流&#39;,
+ &#39;设&#39;,
+ &#39;计&#39;,
+ &#39;师&#39;,
+ &#39;主&#39;,
+ &#39;持&#39;,
+ &#39;，&#39;,
+ &#39;整&#39;,
+ &#39;个&#39;,
+ &#39;建&#39;,
+ &#39;筑&#39;,
+ &#39;群&#39;,
+ &#39;精&#39;,
+ &#39;美&#39;,
+ &#39;而&#39;,
+ &#39;恢&#39;,
+ &#39;宏&#39;,
+ &#39;但&#39;,
+ &#39;作&#39;,
+ &#39;为&#39;,
+ &#39;共&#39;,
+ &#39;产&#39;,
+ &#39;党&#39;,
+ &#39;员&#39;,
+ &#39;、&#39;,
+ &#39;人&#39;,
+ &#39;民&#39;,
+ &#39;公&#39;,
+ &#39;仆&#39;,
+ &#39;应&#39;,
+ &#39;当&#39;,
+ &#39;胸&#39;,
+ &#39;怀&#39;,
+ &#39;宽&#39;,
+ &#39;阔&#39;,
+ &#39;真&#39;,
+ &#39;正&#39;,
+ &#39;做&#39;,
+ &#39;到&#39;,
+ &#39;“&#39;,
+ &#39;先&#39;,
+ &#39;天&#39;,
+ &#39;下&#39;,
+ &#39;忧&#39;,
+ &#39;后&#39;,
+ &#39;乐&#39;,
+ &#39;”&#39;,
+ &#39;淡&#39;,
+ &#39;化&#39;,
+ &#39;名&#39;,
+ &#39;利&#39;,
+ &#39;得&#39;,
+ &#39;失&#39;,
+ &#39;和&#39;,
+ &#39;宠&#39;,
+ &#39;辱&#39;,
+ &#39;悲&#39;,
+ &#39;喜&#39;,
+ &#39;把&#39;,
+ &#39;改&#39;,
+ &#39;革&#39;,
+ &#39;大&#39;,
+ &#39;业&#39;,
+ &#39;摆&#39;,
+ &#39;首&#39;,
+ &#39;位&#39;,
+ &#39;样&#39;,
+ &#39;才&#39;,
+ &#39;能&#39;,
+ &#39;超&#39;,
+ &#39;越&#39;,
+ &#39;自&#39;,
+ &#39;我&#39;,
+ &#39;脱&#39;,
+ &#39;世&#39;,
+ &#39;俗&#39;,
+ &#39;有&#39;,
+ &#39;所&#39;,
+ &#39;发&#39;,
+ &#39;达&#39;,
+ &#39;家&#39;,
+ &#39;急&#39;,
+ &#39;救&#39;,
+ &#39;保&#39;,
+ &#39;险&#39;,
+ &#39;十&#39;,
+ &#39;分&#39;,
+ &#39;普&#39;,
+ &#39;及&#39;,
+ &#39;已&#39;,
+ &#39;成&#39;,
+ &#39;社&#39;,
+ &#39;会&#39;,
+ &#39;障&#39;,
+ &#39;体&#39;,
+ &#39;系&#39;,
+ &#39;重&#39;,
+ &#39;要&#39;,
+ &#39;组&#39;,
+ &#39;部&#39;,
+ &#39;日&#39;,
+ &#39;俄&#39;,
+ &#39;两&#39;,
+ &#39;政&#39;,
+ &#39;局&#39;,
+ &#39;都&#39;,
+ &#39;充&#39;,
+ &#39;满&#39;,
+ &#39;变&#39;,
+ &#39;数&#39;,
+ &#39;尽&#39;,
+ &#39;管&#39;,
+ &#39;关&#39;,
+ &#39;目&#39;,
+ &#39;前&#39;,
+ &#39;是&#39;,
+ &#39;历&#39;,
+ &#39;史&#39;,
+ &#39;最&#39;,
+ &#39;佳&#39;,
+ &#39;时&#39;,
+ &#39;期&#39;,
+ &#39;其&#39;,
+ &#39;脆&#39;,
+ &#39;弱&#39;,
+ &#39;性&#39;,
+ &#39;不&#39;,
+ &#39;言&#39;,
+ &#39;明&#39;,
+ &#39;克&#39;,
+ &#39;马&#39;,
+ &#39;尔&#39;,
+ &#39;女&#39;,
+ &#39;儿&#39;,
+ &#39;让&#39;,
+ &#39;娜&#39;,
+ &#39;今&#39;,
+ &#39;年&#39;,
+ &#39;读&#39;,
+ &#39;五&#39;,
+ &#39;级&#39;,
+ &#39;她&#39;,
+ &#39;班&#39;,
+ &#39;上&#39;,
+ &#39;3&#39;,
+ &#39;0&#39;,
+ &#39;多&#39;,
+ &#39;同&#39;,
+ &#39;学&#39;,
+ &#39;该&#39;,
+ &#39;委&#39;,
+ &#39;1&#39;,
+ &#39;长&#39;,
+ &#39;参&#39;,
+ &#39;加&#39;,
+ &#39;步&#39;,
+ &#39;行&#39;,
+ &#39;男&#39;,
+ &#39;轻&#39;,
+ &#39;也&#39;,
+ &#39;中&#39;,
+ &#39;沙&#39;,
+ &#39;特&#39;,
+ &#39;队&#39;,
+ &#39;教&#39;,
+ &#39;练&#39;,
+ &#39;佩&#39;,
+ &#39;雷&#39;,
+ &#39;拉&#39;,
+ &#39;：&#39;,
+ &#39;支&#39;,
+ &#39;想&#39;,
+ &#39;胜&#39;,
+ &#39;因&#39;,
+ &#39;此&#39;,
+ &#39;出&#39;,
+ &#39;了&#39;,
+ &#39;努&#39;,
+ &#39;力&#39;,
+ &#39;种&#39;,
+ &#39;混&#39;,
+ &#39;乱&#39;,
+ &#39;面&#39;,
+ &#39;导&#39;,
+ &#39;致&#39;,
+ &#39;些&#39;,
+ &#39;使&#39;,
+ &#39;用&#39;,
+ &#39;者&#39;,
+ &#39;合&#39;,
+ &#39;法&#39;,
+ &#39;权&#39;,
+ &#39;益&#39;,
+ &#39;难&#39;,
+ &#39;以&#39;,
+ &#39;维&#39;,
+ &#39;护&#39;,
+ &#39;鲁&#39;,
+ &#39;宾&#39;,
+ &#39;确&#39;,
+ &#39;指&#39;,
+ &#39;对&#39;,
+ &#39;府&#39;,
+ &#39;控&#39;,
+ &#39;完&#39;,
+ &#39;全&#39;,
+ &#39;没&#39;,
+ &#39;事&#39;,
+ &#39;实&#39;,
+ &#39;根&#39;,
+ &#39;据&#39;,
+ &#39;向&#39;,
+ &#39;转&#39;,
+ &#39;敏&#39;,
+ &#39;感&#39;,
+ &#39;技&#39;,
+ &#39;术&#39;,
+ &#39;相&#39;,
+ &#39;总&#39;,
+ &#39;白&#39;,
+ &#39;于&#39;,
+ &#39;；&#39;,
+ &#39;众&#39;,
+ &#39;议&#39;,
+ &#39;院&#39;,
+ &#39;令&#39;,
+ &#39;非&#39;,
+ &#39;常&#39;,
+ &#39;望&#39;,
+ &#39;将&#39;,
+ &#39;商&#39;,
+ &#39;卫&#39;,
+ &#39;星&#39;,
+ &#39;受&#39;,
+ &#39;威&#39;,
+ &#39;胁&#39;,
+ &#39;竞&#39;,
+ &#39;争&#39;,
+ &#39;损&#39;,
+ &#39;害&#39;,
+ &#39;育&#39;,
+ &#39;场&#39;,
+ &#39;每&#39;,
+ &#39;早&#39;,
+ &#39;6&#39;,
+ &#39;至&#39;,
+ &#39;8&#39;,
+ &#39;免&#39;,
+ &#39;费&#39;,
+ &#39;开&#39;,
+ &#39;放&#39;,
+ &#39;游&#39;,
+ &#39;泳&#39;,
+ &#39;等&#39;,
+ &#39;则&#39;,
+ &#39;增&#39;,
+ &#39;综&#39;,
+ &#39;服&#39;,
+ &#39;务&#39;,
+ &#39;延&#39;,
+ &#39;采&#39;,
+ &#39;取&#39;,
+ &#39;灵&#39;,
+ &#39;活&#39;,
+ &#39;收&#39;,
+ &#39;再&#39;,
+ &#39;看&#39;,
+ &#39;容&#39;,
+ &#39;图&#39;,
+ &#39;文&#39;,
+ &#39;并&#39;,
+ &#39;茂&#39;,
+ &#39;简&#39;,
+ &#39;短&#39;,
+ &#39;字&#39;,
+ &#39;准&#39;,
+ &#39;反&#39;,
+ &#39;映&#39;,
+ &#39;六&#39;,
+ &#39;族&#39;,
+ &#39;风&#39;,
+ &#39;土&#39;,
+ &#39;情&#39;,
+ &#39;传&#39;,
+ &#39;统&#39;,
+ &#39;各&#39;,
+ &#39;讲&#39;,
+ &#39;很&#39;,
+ &#39;哥&#39;,
+ &#39;伦&#39;,
+ &#39;亚&#39;,
+ &#39;号&#39;,
+ &#39;航&#39;,
+ &#39;飞&#39;,
+ &#39;机&#39;,
+ &#39;宇&#39;,
+ &#39;边&#39;,
+ &#39;进&#39;,
+ &#39;验&#39;,
+ &#39;继&#39;,
+ &#39;续&#39;,
+ &#39;抢&#39;,
+ &#39;修&#39;,
+ &#39;故&#39;,
+ &#39;二&#39;,
+ &#39;氧&#39;,
+ &#39;碳&#39;,
+ &#39;清&#39;,
+ &#39;除&#39;,
+ &#39;装&#39;,
+ &#39;置&#39;,
+ &#39;从&#39;,
+ &#39;剥&#39;,
+ &#39;削&#39;,
+ &#39;阶&#39;,
+ &#39;劳&#39;,
+ &#39;动&#39;,
+ &#39;生&#39;,
+ &#39;率&#39;,
+ &#39;低&#39;,
+ &#39;况&#39;,
+ &#39;占&#39;,
+ &#39;限&#39;,
+ &#39;剩&#39;,
+ &#39;余&#39;,
+ &#39;品&#39;,
+ &#39;足&#39;,
+ &#39;豪&#39;,
+ &#39;华&#39;,
+ &#39;需&#39;,
+ &#39;量&#39;,
+ &#39;扩&#39;,
+ &#39;现&#39;,
+ &#39;资&#39;,
+ &#39;条&#39;,
+ &#39;件&#39;,
+ &#39;榨&#39;,
+ &#39;价&#39;,
+ &#39;值&#39;,
+ &#39;供&#39;,
+ &#39;身&#39;,
+ &#39;求&#39;,
+ &#39;外&#39;,
+ &#39;又&#39;,
+ &#39;本&#39;,
+ &#39;新&#39;,
+ &#39;雇&#39;,
+ &#39;佣&#39;,
+ &#39;私&#39;,
+ &#39;来&#39;,
+ &#39;料&#39;,
+ &#39;集&#39;,
+ &#39;代&#39;,
+ &#39;表&#39;,
+ &#39;澳&#39;,
+ &#39;别&#39;,
+ &#39;区&#39;,
+ &#39;筹&#39;,
+ &#39;备&#39;,
+ &#39;第&#39;,
+ &#39;次&#39;,
+ &#39;午&#39;,
+ &#39;北&#39;,
+ &#39;京&#39;,
+ &#39;堂&#39;,
+ &#39;幕&#39;,
+ &#39;副&#39;,
+ &#39;理&#39;,
+ &#39;任&#39;,
+ &#39;钱&#39;,
+ &#39;琛&#39;,
+ &#39;词&#39;,
+ &#39;工&#39;,
+ &#39;经&#39;,
+ &#39;启&#39;,
+ &#39;临&#39;,
+ &#39;紧&#39;,
+ &#39;迫&#39;,
+ &#39;们&#39;,
+ &#39;道&#39;,
+ &#39;远&#39;,
+ &#39;希&#39;,
+ &#39;齐&#39;,
+ &#39;心&#39;,
+ &#39;协&#39;,
+ &#39;平&#39;,
+ &#39;稳&#39;,
+ &#39;过&#39;,
+ &#39;渡&#39;,
+ &#39;顺&#39;,
+ &#39;交&#39;,
+ &#39;接&#39;,
+ &#39;贡&#39;,
+ &#39;献&#39;,
+ &#39;济&#39;,
+ &#39;程&#39;,
+ &#39;界&#39;,
+ &#39;深&#39;,
+ &#39;信&#39;,
+ &#39;观&#39;,
+ &#39;必&#39;,
+ &#39;须&#39;,
+ &#39;微&#39;,
+ &#39;基&#39;,
+ &#39;础&#39;,
+ &#39;病&#39;,
+ &#39;好&#39;,
+ &#39;颈&#39;,
+ &#39;背&#39;,
+ &#39;躯&#39;,
+ &#39;干&#39;,
+ &#39;殖&#39;,
+ &#39;器&#39;,
+ &#39;可&#39;,
+ &#39;见&#39;,
+ &#39;龄&#39;,
+ &#39;市&#39;,
+ &#39;柔&#39;,
+ &#39;县&#39;,
+ &#39;试&#39;,
+ &#39;遍&#39;,
+ &#39;觉&#39;,
+ &#39;四&#39;,
+ &#39;节&#39;,
+ &#39;课&#39;,
+ &#39;饥&#39;,
+ &#39;饿&#39;,
+ &#39;消&#39;,
+ &#39;川&#39;,
+ &#39;省&#39;,
+ &#39;江&#39;,
+ &#39;油&#39;,
+ &#39;丰&#39;,
+ &#39;选&#39;,
+ &#39;豆&#39;,
+ &#39;奶&#39;,
+ &#39;复&#39;,
+ &#39;营&#39;,
+ &#39;养&#39;,
+ &#39;素&#39;,
+ &#39;贫&#39;,
+ &#39;血&#39;,
+ &#39;降&#39;,
+ &#39;百&#39;,
+ &#39;照&#39;,
+ &#39;只&#39;,
+ &#39;．&#39;,
+ &#39;4&#39;,
+ &#39;宗&#39;,
+ &#39;旨&#39;,
+ &#39;决&#39;,
+ &#39;定&#39;,
+ &#39;奉&#39;,
+ &#39;甘&#39;,
+ &#39;愿&#39;,
+ &#39;吃&#39;,
+ &#39;亏&#39;,
+ &#39;苦&#39;,
+ &#39;享&#39;,
+ &#39;困&#39;,
+ &#39;危&#39;,
+ &#39;留&#39;,
+ &#39;给&#39;,
+ &#39;己&#39;,
+ &#39;方&#39;,
+ &#39;便&#39;,
+ &#39;安&#39;,
+ &#39;初&#39;,
+ &#39;央&#39;,
+ &#39;形&#39;,
+ &#39;势&#39;,
+ &#39;快&#39;,
+ &#39;速&#39;,
+ &#39;策&#39;,
+ &#39;立&#39;,
+ &#39;研&#39;,
+ &#39;究&#39;,
+ &#39;派&#39;,
+ &#39;就&#39;,
+ &#39;提&#39;,
+ &#39;许&#39;,
+ &#39;富&#39;,
+ &#39;意&#39;,
+ &#39;味&#39;,
+ &#39;论&#39;,
+ &#39;话&#39;,
+ &#39;题&#39;,
+ &#39;书&#39;,
+ &#39;记&#39;,
+ &#39;粟&#39;,
+ &#39;光&#39;,
+ &#39;断&#39;,
+ &#39;他&#39;,
+ &#39;亲&#39;,
+ &#39;兄&#39;,
+ &#39;弟&#39;,
+ &#39;签&#39;,
+ &#39;！&#39;,
+ &#39;熟&#39;,
+ &#39;悉&#39;,
+ &#39;运&#39;,
+ &#39;士&#39;,
+ &#39;说&#39;,
+ &#39;贷&#39;,
+ &#39;款&#39;,
+ &#39;旦&#39;,
+ &#39;被&#39;,
+ &#39;推&#39;,
+ &#39;迟&#39;,
+ &#39;几&#39;,
+ &#39;月&#39;,
+ &#39;甚&#39;,
+ &#39;更&#39;,
+ &#39;考&#39;,
+ &#39;虑&#39;,
+ &#39;伍&#39;,
+ &#39;义&#39;,
+ &#39;气&#39;,
+ &#39;原&#39;,
+ &#39;惠&#39;,
+ &#39;象&#39;,
+ &#39;估&#39;,
+ &#39;像&#39;,
+ &#39;疤&#39;,
+ &#39;痕&#39;,
+ &#39;笨&#39;,
+ &#39;拙&#39;,
+ &#39;手&#39;,
+ &#39;针&#39;,
+ &#39;线&#39;,
+ &#39;周&#39;,
+ &#39;恩&#39;,
+ &#39;那&#39;,
+ &#39;送&#39;,
+ &#39;株&#39;,
+ &#39;万&#39;,
+ &#39;古&#39;,
+ &#39;青&#39;,
+ &#39;友&#39;,
+ &#39;谊&#39;,
+ &#39;红&#39;,
+ &#39;杉&#39;,
+ &#39;吧&#39;,
+ &#39;巴&#39;,
+ &#39;谈&#39;,
+ &#39;问&#39;,
+ &#39;印&#39;,
+ &#39;声&#39;,
+ &#39;宣&#39;,
+ &#39;称&#39;,
+ &#39;何&#39;,
+ &#39;三&#39;,
+ &#39;介&#39;,
+ &#39;入&#39;,
+ &#39;久&#39;,
+ &#39;赴&#39;,
+ &#39;西&#39;,
+ &#39;老&#39;,
+ &#39;访&#39;,
+ &#39;广&#39;,
+ &#39;职&#39;,
+ &#39;积&#39;,
+ &#39;极&#39;,
+ &#39;企&#39;,
+ &#39;监&#39;,
+ &#39;督&#39;,
+ &#39;如&#39;,
+ &#39;居&#39;,
+ &#39;子&#39;,
+ &#39;倘&#39;,
+ &#39;若&#39;,
+ &#39;客&#39;,
+ &#39;环&#39;,
+ &#39;境&#39;,
+ &#39;钝&#39;,
+ &#39;迅&#39;,
+ &#39;判&#39;,
+ &#39;陷&#39;,
+ &#39;处&#39;,
+ &#39;碰&#39;,
+ &#39;壁&#39;,
+ &#39;然&#39;,
+ &#39;热&#39;,
+ &#39;解&#39;,
+ &#39;寻&#39;,
+ &#39;找&#39;,
+ &#39;联&#39;,
+ &#39;邦&#39;,
+ &#39;州&#39;,
+ &#39;予&#39;,
+ &#39;适&#39;,
+ &#39;具&#39;,
+ &#39;骤&#39;,
+ &#39;吸&#39;,
+ &#39;七&#39;,
+ &#39;团&#39;,
+ &#39;另&#39;,
+ &#39;龙&#39;,
+ &#39;口&#39;,
+ &#39;科&#39;,
+ &#39;投&#39;,
+ &#39;视&#39;,
+ &#39;息&#39;,
+ &#39;创&#39;,
+ &#39;跳&#39;,
+ &#39;跃&#39;,
+ &#39;式&#39;,
+ &#39;展&#39;,
+ &#39;强&#39;,
+ &#39;调&#39;,
+ &#39;高&#39;,
+ &#39;培&#39;,
+ &#39;训&#39;,
+ &#39;认&#39;,
+ &#39;识&#39;,
+ &#39;密&#39;,
+ &#39;结&#39;,
+ &#39;小&#39;,
+ &#39;九&#39;,
+ &#39;升&#39;,
+ &#39;或&#39;,
+ &#39;段&#39;,
+ &#39;少&#39;,
+ &#39;懂&#39;,
+ &#39;习&#39;,
+ &#39;互&#39;,
+ &#39;贵&#39;,
+ &#39;贱&#39;,
+ &#39;请&#39;,
+ &#39;注&#39;,
+ &#39;语&#39;,
+ &#39;构&#39;,
+ &#39;偏&#39;,
+ &#39;孝&#39;,
+ &#39;父&#39;,
+ &#39;母&#39;,
+ &#39;始&#39;,
+ &#39;票&#39;,
+ &#39;否&#39;,
+ &#39;制&#39;,
+ &#39;还&#39;,
+ &#39;缺&#39;,
+ &#39;乏&#39;,
+ &#39;际&#39;,
+ &#39;电&#39;,
+ &#39;影&#39;,
+ &#39;摄&#39;,
+ &#39;录&#39;,
+ &#39;音&#39;,
+ &#39;剪&#39;,
+ &#39;辑&#39;,
+ &#39;诸&#39;,
+ &#39;趋&#39;,
+ &#39;激&#39;,
+ &#39;烈&#39;,
+ &#39;造&#39;,
+ &#39;奇&#39;,
+ &#39;夺&#39;,
+ &#39;起&#39;,
+ &#39;直&#39;,
+ &#39;追&#39;,
+ &#39;医&#39;,
+ &#39;药&#39;,
+ &#39;李&#39;,
+ &#39;珍&#39;,
+ &#39;闻&#39;,
+ &#39;屡&#39;,
+ &#39;仕&#39;,
+ &#39;寄&#39;,
+ &#39;托&#39;,
+ &#39;八&#39;,
+ &#39;股&#39;,
+ &#39;兴&#39;,
+ &#39;趣&#39;,
+ &#39;酷&#39;,
+ &#39;爱&#39;,
+ &#39;召&#39;,
+ &#39;吴&#39;,
+ &#39;英&#39;,
+ &#39;司&#39;,
+ &#39;董&#39;,
+ &#39;德&#39;,
+ &#39;·&#39;,
+ &#39;葛&#39;,
+ &#39;夫&#39;,
+ &#39;邀&#39;,
+ &#39;席&#39;,
+ &#39;车&#39;,
+ &#39;闲&#39;,
+ &#39;防&#39;,
+ &#39;施&#39;,
+ &#39;配&#39;,
+ &#39;套&#39;,
+ &#39;存&#39;,
+ &#39;鹅&#39;,
+ &#39;洲&#39;,
+ &#39;源&#39;,
+ &#39;终&#39;,
+ &#39;连&#39;,
+ &#39;串&#39;,
+ &#39;井&#39;,
+ &#39;序&#39;,
+ &#39;顾&#39;,
+ &#39;犯&#39;,
+ &#39;罪&#39;,
+ &#39;讳&#39;,
+ &#39;审&#39;,
+ &#39;死&#39;,
+ &#39;刑&#39;,
+ &#39;笔&#39;,
+ &#39;融&#39;,
+ &#39;农&#39;,
+ &#39;假&#39;,
+ &#39;币&#39;,
+ &#39;知&#39;,
+ &#39;巧&#39;,
+ &#39;律&#39;,
+ &#39;规&#39;,
+ &#39;村&#39;,
+ &#39;秩&#39;,
+ &#39;『&#39;,
+ &#39;范&#39;,
+ &#39;茅&#39;,
+ &#39;迹&#39;,
+ &#39;览&#39;,
+ &#39;』&#39;,
+ &#39;磁&#39;,
+ &#39;球&#39;,
+ &#39;孩&#39;,
+ &#39;格&#39;,
+ &#39;散&#39;,
+ &#39;着&#39;,
+ &#39;独&#39;,
+ &#39;魅&#39;,
+ &#39;莱&#39;,
+ &#39;坞&#39;,
+ &#39;千&#39;,
+ &#39;模&#39;,
+ &#39;翻&#39;,
+ &#39;版&#39;,
+ &#39;？&#39;,
+ &#39;燃&#39;,
+ &#39;汽&#39;,
+ &#39;仅&#39;,
+ &#39;守&#39;,
+ &#39;—&#39;,
+ &#39;路&#39;,
+ &#39;易&#39;,
+ &#39;斯&#39;,
+ &#39;切&#39;,
+ &#39;迪&#39;,
+ &#39;阿&#39;,
+ &#39;塞&#39;,
+ &#39;瓦&#39;,
+ &#39;萨&#39;,
+ &#39;卡&#39;,
+ &#39;里&#39;,
+ &#39;罗&#39;,
+ &#39;弗&#39;,
+ &#39;哈&#39;,
+ &#39;丹&#39;,
+ &#39;尼&#39;,
+ &#39;扎&#39;,
+ &#39;胡&#39;,
+ &#39;埃&#39;,
+ &#39;索&#39;,
+ &#39;库&#39;,
+ &#39;纳&#39;,
+ &#39;吉&#39;,
+ &#39;莫&#39;,
+ &#39;帕&#39;,
+ &#39;锋&#39;,
+ &#39;米&#39;,
+ &#39;贝&#39;,
+ &#39;耶&#39;,
+ &#39;冈&#39;,
+ &#39;玻&#39;,
+ &#39;乌&#39;,
+ &#39;布&#39;,
+ &#39;苏&#39;,
+ &#39;念&#39;,
+ &#39;案&#39;,
+ &#39;罚&#39;,
+ &#39;较&#39;,
+ &#39;战&#39;,
+ &#39;略&#39;,
+ &#39;均&#39;,
+ &#39;贸&#39;,
+ &#39;拓&#39;,
+ &#39;5&#39;,
+ &#39;份&#39;,
+ &#39;去&#39;,
+ &#39;阅&#39;,
+ &#39;室&#39;,
+ &#39;刊&#39;,
+ &#39;晚&#39;,
+ &#39;智&#39;,
+ &#39;藏&#39;,
+ &#39;突&#39;,
+ &#39;破&#39;,
+ &#39;借&#39;,
+ &#39;架&#39;,
+ &#39;办&#39;,
+ &#39;沃&#39;,
+ &#39;盟&#39;,
+ &#39;昨&#39;,
+ &#39;约&#39;,
+ &#39;南&#39;,
+ &#39;举&#39;,
+ &#39;空&#39;,
+ &#39;军&#39;,
+ &#39;演&#39;,
+ &#39;示&#39;,
+ &#39;欢&#39;,
+ &#39;迎&#39;,
+ &#39;帮&#39;,
+ &#39;助&#39;,
+ &#39;7&#39;,
+ &#39;叫&#39;,
+ &#39;迈&#39;,
+ &#39;菲&#39;,
+ &#39;查&#39;,
+ &#39;奋&#39;,
+ &#39;剂&#39;,
+ &#39;通&#39;,
+ &#39;未&#39;,
+ &#39;勇&#39;,
+ &#39;曲&#39;,
+ &#39;绕&#39;,
+ &#39;桥&#39;,
+ &#39;绝&#39;,
+ &#39;《&#39;,
+ &#39;嫂&#39;,
+ &#39;》&#39;,
+ &#39;警&#39;,
+ &#39;魂&#39;,
+ &#39;片&#39;,
+ &#39;获&#39;,
+ &#39;房&#39;,
+ &#39;石&#39;,
+ &#39;香&#39;,
+ &#39;港&#39;,
+ &#39;朝&#39;,
+ &#39;蓬&#39;,
+ &#39;勃&#39;,
+ &#39;拼&#39;,
+ &#39;搏&#39;,
+ &#39;斗&#39;,
+ &#39;神&#39;,
+ &#39;写&#39;,
+ &#39;2&#39;,
+ &#39;春&#39;,
+ &#39;季&#39;,
+ &#39;招&#39;,
+ &#39;兵&#39;,
+ &#39;募&#39;,
+ &#39;既&#39;,
+ &#39;食&#39;,
+ &#39;预&#39;,
+ &#39;止&#39;,
+ &#39;癌&#39;,
+ &#39;症&#39;,
+ &#39;城&#39;,
+ &#39;引&#39;,
+ &#39;项&#39;,
+ &#39;懈&#39;,
+ &#39;液&#39;,
+ &#39;尾&#39;,
+ &#39;9&#39;,
+ &#39;％&#39;,
+ &#39;氢&#39;,
+ &#39;减&#39;,
+ &#39;污&#39;,
+ &#39;染&#39;,
+ &#39;双&#39;,
+ &#39;网&#39;,
+ &#39;抽&#39;,
+ &#39;封&#39;,
+ &#39;差&#39;,
+ &#39;亟&#39;,
+ &#39;待&#39;,
+ &#39;单&#39;,
+ &#39;麦&#39;,
+ &#39;果&#39;,
+ &#39;∶&#39;,
+ &#39;松&#39;,
+ &#39;赢&#39;,
+ &#39;测&#39;,
+ &#39;析&#39;,
+ &#39;迷&#39;,
+ &#39;叶&#39;,
+ &#39;钦&#39;,
+ &#39;岁&#39;,
+ &#39;刻&#39;,
+ &#39;哲&#39;,
+ &#39;思&#39;,
+ &#39;虽&#39;,
+ &#39;担&#39;,
+ &#39;负&#39;,
+ &#39;领&#39;,
+ &#39;责&#39;,
+ &#39;专&#39;,
+ &#39;却&#39;,
+ &#39;爸&#39;,
+ &#39;劲&#39;,
+ &#39;抗&#39;,
+ &#39;艰&#39;,
+ &#39;聘&#39;,
+ &#39;仍&#39;,
+ &#39;治&#39;,
+ &#39;洋&#39;,
+ &#39;尊&#39;,
+ &#39;庄&#39;,
+ &#39;志&#39;,
+ &#39;回&#39;,
+ &#39;忆&#39;,
+ &#39;淳&#39;,
+ &#39;朴&#39;,
+ &#39;报&#39;,
+ &#39;届&#39;,
+ &#39;张&#39;,
+ &#39;君&#39;,
+ &#39;秋&#39;,
+ &#39;剧&#39;,
+ &#39;角&#39;,
+ &#39;艺&#39;,
+ &#39;校&#39;,
+ &#39;坚&#39;,
+ &#39;质&#39;,
+ &#39;围&#39;,
+ &#39;侧&#39;,
+ &#39;缓&#39;,
+ &#39;财&#39;,
+ &#39;状&#39;,
+ &#39;聚&#39;,
+ &#39;渠&#39;,
+ &#39;逐&#39;,
+ &#39;靠&#39;,
+ &#39;优&#39;,
+ &#39;征&#39;,
+ &#39;稿&#39;,
+ &#39;截&#39;,
+ &#39;句&#39;,
+ &#39;晤&#39;,
+ &#39;纠&#39;,
+ &#39;纷&#39;,
+ &#39;朋&#39;,
+ &#39;坏&#39;,
+ &#39;它&#39;,
+ &#39;促&#39;,
+ &#39;岗&#39;,
+ &#39;标&#39;,
+ &#39;织&#39;,
+ &#39;践&#39;,
+ &#39;邓&#39;,
+ &#39;按&#39;,
+ &#39;署&#39;,
+ &#39;挥&#39;,
+ &#39;核&#39;,
+ &#39;●&#39;,
+ &#39;承&#39;,
+ &#39;键&#39;,
+ &#39;街&#39;,
+ &#39;巷&#39;,
+ &#39;横&#39;,
+ &#39;幅&#39;,
+ &#39;悬&#39;,
+ &#39;画&#39;,
+ &#39;头&#39;,
+ &#39;欣&#39;,
+ &#39;慰&#39;,
+ ...]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">vocab2id<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&#123;&#39;海&#39;: 0,
+ &#39;钓&#39;: 1,
+ &#39;比&#39;: 2,
+ &#39;赛&#39;: 3,
+ &#39;地&#39;: 4,
+ &#39;点&#39;: 5,
+ &#39;在&#39;: 6,
+ &#39;厦&#39;: 7,
+ &#39;门&#39;: 8,
+ &#39;与&#39;: 9,
+ &#39;金&#39;: 10,
+ &#39;之&#39;: 11,
+ &#39;间&#39;: 12,
+ &#39;的&#39;: 13,
+ &#39;域&#39;: 14,
+ &#39;。&#39;: 15,
+ &#39;这&#39;: 16,
+ &#39;座&#39;: 17,
+ &#39;依&#39;: 18,
+ &#39;山&#39;: 19,
+ &#39;傍&#39;: 20,
+ &#39;水&#39;: 21,
+ &#39;博&#39;: 22,
+ &#39;物&#39;: 23,
+ &#39;馆&#39;: 24,
+ &#39;由&#39;: 25,
+ &#39;国&#39;: 26,
+ &#39;内&#39;: 27,
+ &#39;一&#39;: 28,
+ &#39;流&#39;: 29,
+ &#39;设&#39;: 30,
+ &#39;计&#39;: 31,
+ &#39;师&#39;: 32,
+ &#39;主&#39;: 33,
+ &#39;持&#39;: 34,
+ &#39;，&#39;: 35,
+ &#39;整&#39;: 36,
+ &#39;个&#39;: 37,
+ &#39;建&#39;: 38,
+ &#39;筑&#39;: 39,
+ &#39;群&#39;: 40,
+ &#39;精&#39;: 41,
+ &#39;美&#39;: 42,
+ &#39;而&#39;: 43,
+ &#39;恢&#39;: 44,
+ &#39;宏&#39;: 45,
+ &#39;但&#39;: 46,
+ &#39;作&#39;: 47,
+ &#39;为&#39;: 48,
+ &#39;共&#39;: 49,
+ &#39;产&#39;: 50,
+ &#39;党&#39;: 51,
+ &#39;员&#39;: 52,
+ &#39;、&#39;: 53,
+ &#39;人&#39;: 54,
+ &#39;民&#39;: 55,
+ &#39;公&#39;: 56,
+ &#39;仆&#39;: 57,
+ &#39;应&#39;: 58,
+ &#39;当&#39;: 59,
+ &#39;胸&#39;: 60,
+ &#39;怀&#39;: 61,
+ &#39;宽&#39;: 62,
+ &#39;阔&#39;: 63,
+ &#39;真&#39;: 64,
+ &#39;正&#39;: 65,
+ &#39;做&#39;: 66,
+ &#39;到&#39;: 67,
+ &#39;“&#39;: 68,
+ &#39;先&#39;: 69,
+ &#39;天&#39;: 70,
+ &#39;下&#39;: 71,
+ &#39;忧&#39;: 72,
+ &#39;后&#39;: 73,
+ &#39;乐&#39;: 74,
+ &#39;”&#39;: 75,
+ &#39;淡&#39;: 76,
+ &#39;化&#39;: 77,
+ &#39;名&#39;: 78,
+ &#39;利&#39;: 79,
+ &#39;得&#39;: 80,
+ &#39;失&#39;: 81,
+ &#39;和&#39;: 82,
+ &#39;宠&#39;: 83,
+ &#39;辱&#39;: 84,
+ &#39;悲&#39;: 85,
+ &#39;喜&#39;: 86,
+ &#39;把&#39;: 87,
+ &#39;改&#39;: 88,
+ &#39;革&#39;: 89,
+ &#39;大&#39;: 90,
+ &#39;业&#39;: 91,
+ &#39;摆&#39;: 92,
+ &#39;首&#39;: 93,
+ &#39;位&#39;: 94,
+ &#39;样&#39;: 95,
+ &#39;才&#39;: 96,
+ &#39;能&#39;: 97,
+ &#39;超&#39;: 98,
+ &#39;越&#39;: 99,
+ &#39;自&#39;: 100,
+ &#39;我&#39;: 101,
+ &#39;脱&#39;: 102,
+ &#39;世&#39;: 103,
+ &#39;俗&#39;: 104,
+ &#39;有&#39;: 105,
+ &#39;所&#39;: 106,
+ &#39;发&#39;: 107,
+ &#39;达&#39;: 108,
+ &#39;家&#39;: 109,
+ &#39;急&#39;: 110,
+ &#39;救&#39;: 111,
+ &#39;保&#39;: 112,
+ &#39;险&#39;: 113,
+ &#39;十&#39;: 114,
+ &#39;分&#39;: 115,
+ &#39;普&#39;: 116,
+ &#39;及&#39;: 117,
+ &#39;已&#39;: 118,
+ &#39;成&#39;: 119,
+ &#39;社&#39;: 120,
+ &#39;会&#39;: 121,
+ &#39;障&#39;: 122,
+ &#39;体&#39;: 123,
+ &#39;系&#39;: 124,
+ &#39;重&#39;: 125,
+ &#39;要&#39;: 126,
+ &#39;组&#39;: 127,
+ &#39;部&#39;: 128,
+ &#39;日&#39;: 129,
+ &#39;俄&#39;: 130,
+ &#39;两&#39;: 131,
+ &#39;政&#39;: 132,
+ &#39;局&#39;: 133,
+ &#39;都&#39;: 134,
+ &#39;充&#39;: 135,
+ &#39;满&#39;: 136,
+ &#39;变&#39;: 137,
+ &#39;数&#39;: 138,
+ &#39;尽&#39;: 139,
+ &#39;管&#39;: 140,
+ &#39;关&#39;: 141,
+ &#39;目&#39;: 142,
+ &#39;前&#39;: 143,
+ &#39;是&#39;: 144,
+ &#39;历&#39;: 145,
+ &#39;史&#39;: 146,
+ &#39;最&#39;: 147,
+ &#39;佳&#39;: 148,
+ &#39;时&#39;: 149,
+ &#39;期&#39;: 150,
+ &#39;其&#39;: 151,
+ &#39;脆&#39;: 152,
+ &#39;弱&#39;: 153,
+ &#39;性&#39;: 154,
+ &#39;不&#39;: 155,
+ &#39;言&#39;: 156,
+ &#39;明&#39;: 157,
+ &#39;克&#39;: 158,
+ &#39;马&#39;: 159,
+ &#39;尔&#39;: 160,
+ &#39;女&#39;: 161,
+ &#39;儿&#39;: 162,
+ &#39;让&#39;: 163,
+ &#39;娜&#39;: 164,
+ &#39;今&#39;: 165,
+ &#39;年&#39;: 166,
+ &#39;读&#39;: 167,
+ &#39;五&#39;: 168,
+ &#39;级&#39;: 169,
+ &#39;她&#39;: 170,
+ &#39;班&#39;: 171,
+ &#39;上&#39;: 172,
+ &#39;3&#39;: 173,
+ &#39;0&#39;: 174,
+ &#39;多&#39;: 175,
+ &#39;同&#39;: 176,
+ &#39;学&#39;: 177,
+ &#39;该&#39;: 178,
+ &#39;委&#39;: 179,
+ &#39;1&#39;: 180,
+ &#39;长&#39;: 181,
+ &#39;参&#39;: 182,
+ &#39;加&#39;: 183,
+ &#39;步&#39;: 184,
+ &#39;行&#39;: 185,
+ &#39;男&#39;: 186,
+ &#39;轻&#39;: 187,
+ &#39;也&#39;: 188,
+ &#39;中&#39;: 189,
+ &#39;沙&#39;: 190,
+ &#39;特&#39;: 191,
+ &#39;队&#39;: 192,
+ &#39;教&#39;: 193,
+ &#39;练&#39;: 194,
+ &#39;佩&#39;: 195,
+ &#39;雷&#39;: 196,
+ &#39;拉&#39;: 197,
+ &#39;：&#39;: 198,
+ &#39;支&#39;: 199,
+ &#39;想&#39;: 200,
+ &#39;胜&#39;: 201,
+ &#39;因&#39;: 202,
+ &#39;此&#39;: 203,
+ &#39;出&#39;: 204,
+ &#39;了&#39;: 205,
+ &#39;努&#39;: 206,
+ &#39;力&#39;: 207,
+ &#39;种&#39;: 208,
+ &#39;混&#39;: 209,
+ &#39;乱&#39;: 210,
+ &#39;面&#39;: 211,
+ &#39;导&#39;: 212,
+ &#39;致&#39;: 213,
+ &#39;些&#39;: 214,
+ &#39;使&#39;: 215,
+ &#39;用&#39;: 216,
+ &#39;者&#39;: 217,
+ &#39;合&#39;: 218,
+ &#39;法&#39;: 219,
+ &#39;权&#39;: 220,
+ &#39;益&#39;: 221,
+ &#39;难&#39;: 222,
+ &#39;以&#39;: 223,
+ &#39;维&#39;: 224,
+ &#39;护&#39;: 225,
+ &#39;鲁&#39;: 226,
+ &#39;宾&#39;: 227,
+ &#39;确&#39;: 228,
+ &#39;指&#39;: 229,
+ &#39;对&#39;: 230,
+ &#39;府&#39;: 231,
+ &#39;控&#39;: 232,
+ &#39;完&#39;: 233,
+ &#39;全&#39;: 234,
+ &#39;没&#39;: 235,
+ &#39;事&#39;: 236,
+ &#39;实&#39;: 237,
+ &#39;根&#39;: 238,
+ &#39;据&#39;: 239,
+ &#39;向&#39;: 240,
+ &#39;转&#39;: 241,
+ &#39;敏&#39;: 242,
+ &#39;感&#39;: 243,
+ &#39;技&#39;: 244,
+ &#39;术&#39;: 245,
+ &#39;相&#39;: 246,
+ &#39;总&#39;: 247,
+ &#39;白&#39;: 248,
+ &#39;于&#39;: 249,
+ &#39;；&#39;: 250,
+ &#39;众&#39;: 251,
+ &#39;议&#39;: 252,
+ &#39;院&#39;: 253,
+ &#39;令&#39;: 254,
+ &#39;非&#39;: 255,
+ &#39;常&#39;: 256,
+ &#39;望&#39;: 257,
+ &#39;将&#39;: 258,
+ &#39;商&#39;: 259,
+ &#39;卫&#39;: 260,
+ &#39;星&#39;: 261,
+ &#39;受&#39;: 262,
+ &#39;威&#39;: 263,
+ &#39;胁&#39;: 264,
+ &#39;竞&#39;: 265,
+ &#39;争&#39;: 266,
+ &#39;损&#39;: 267,
+ &#39;害&#39;: 268,
+ &#39;育&#39;: 269,
+ &#39;场&#39;: 270,
+ &#39;每&#39;: 271,
+ &#39;早&#39;: 272,
+ &#39;6&#39;: 273,
+ &#39;至&#39;: 274,
+ &#39;8&#39;: 275,
+ &#39;免&#39;: 276,
+ &#39;费&#39;: 277,
+ &#39;开&#39;: 278,
+ &#39;放&#39;: 279,
+ &#39;游&#39;: 280,
+ &#39;泳&#39;: 281,
+ &#39;等&#39;: 282,
+ &#39;则&#39;: 283,
+ &#39;增&#39;: 284,
+ &#39;综&#39;: 285,
+ &#39;服&#39;: 286,
+ &#39;务&#39;: 287,
+ &#39;延&#39;: 288,
+ &#39;采&#39;: 289,
+ &#39;取&#39;: 290,
+ &#39;灵&#39;: 291,
+ &#39;活&#39;: 292,
+ &#39;收&#39;: 293,
+ &#39;再&#39;: 294,
+ &#39;看&#39;: 295,
+ &#39;容&#39;: 296,
+ &#39;图&#39;: 297,
+ &#39;文&#39;: 298,
+ &#39;并&#39;: 299,
+ &#39;茂&#39;: 300,
+ &#39;简&#39;: 301,
+ &#39;短&#39;: 302,
+ &#39;字&#39;: 303,
+ &#39;准&#39;: 304,
+ &#39;反&#39;: 305,
+ &#39;映&#39;: 306,
+ &#39;六&#39;: 307,
+ &#39;族&#39;: 308,
+ &#39;风&#39;: 309,
+ &#39;土&#39;: 310,
+ &#39;情&#39;: 311,
+ &#39;传&#39;: 312,
+ &#39;统&#39;: 313,
+ &#39;各&#39;: 314,
+ &#39;讲&#39;: 315,
+ &#39;很&#39;: 316,
+ &#39;哥&#39;: 317,
+ &#39;伦&#39;: 318,
+ &#39;亚&#39;: 319,
+ &#39;号&#39;: 320,
+ &#39;航&#39;: 321,
+ &#39;飞&#39;: 322,
+ &#39;机&#39;: 323,
+ &#39;宇&#39;: 324,
+ &#39;边&#39;: 325,
+ &#39;进&#39;: 326,
+ &#39;验&#39;: 327,
+ &#39;继&#39;: 328,
+ &#39;续&#39;: 329,
+ &#39;抢&#39;: 330,
+ &#39;修&#39;: 331,
+ &#39;故&#39;: 332,
+ &#39;二&#39;: 333,
+ &#39;氧&#39;: 334,
+ &#39;碳&#39;: 335,
+ &#39;清&#39;: 336,
+ &#39;除&#39;: 337,
+ &#39;装&#39;: 338,
+ &#39;置&#39;: 339,
+ &#39;从&#39;: 340,
+ &#39;剥&#39;: 341,
+ &#39;削&#39;: 342,
+ &#39;阶&#39;: 343,
+ &#39;劳&#39;: 344,
+ &#39;动&#39;: 345,
+ &#39;生&#39;: 346,
+ &#39;率&#39;: 347,
+ &#39;低&#39;: 348,
+ &#39;况&#39;: 349,
+ &#39;占&#39;: 350,
+ &#39;限&#39;: 351,
+ &#39;剩&#39;: 352,
+ &#39;余&#39;: 353,
+ &#39;品&#39;: 354,
+ &#39;足&#39;: 355,
+ &#39;豪&#39;: 356,
+ &#39;华&#39;: 357,
+ &#39;需&#39;: 358,
+ &#39;量&#39;: 359,
+ &#39;扩&#39;: 360,
+ &#39;现&#39;: 361,
+ &#39;资&#39;: 362,
+ &#39;条&#39;: 363,
+ &#39;件&#39;: 364,
+ &#39;榨&#39;: 365,
+ &#39;价&#39;: 366,
+ &#39;值&#39;: 367,
+ &#39;供&#39;: 368,
+ &#39;身&#39;: 369,
+ &#39;求&#39;: 370,
+ &#39;外&#39;: 371,
+ &#39;又&#39;: 372,
+ &#39;本&#39;: 373,
+ &#39;新&#39;: 374,
+ &#39;雇&#39;: 375,
+ &#39;佣&#39;: 376,
+ &#39;私&#39;: 377,
+ &#39;来&#39;: 378,
+ &#39;料&#39;: 379,
+ &#39;集&#39;: 380,
+ &#39;代&#39;: 381,
+ &#39;表&#39;: 382,
+ &#39;澳&#39;: 383,
+ &#39;别&#39;: 384,
+ &#39;区&#39;: 385,
+ &#39;筹&#39;: 386,
+ &#39;备&#39;: 387,
+ &#39;第&#39;: 388,
+ &#39;次&#39;: 389,
+ &#39;午&#39;: 390,
+ &#39;北&#39;: 391,
+ &#39;京&#39;: 392,
+ &#39;堂&#39;: 393,
+ &#39;幕&#39;: 394,
+ &#39;副&#39;: 395,
+ &#39;理&#39;: 396,
+ &#39;任&#39;: 397,
+ &#39;钱&#39;: 398,
+ &#39;琛&#39;: 399,
+ &#39;词&#39;: 400,
+ &#39;工&#39;: 401,
+ &#39;经&#39;: 402,
+ &#39;启&#39;: 403,
+ &#39;临&#39;: 404,
+ &#39;紧&#39;: 405,
+ &#39;迫&#39;: 406,
+ &#39;们&#39;: 407,
+ &#39;道&#39;: 408,
+ &#39;远&#39;: 409,
+ &#39;希&#39;: 410,
+ &#39;齐&#39;: 411,
+ &#39;心&#39;: 412,
+ &#39;协&#39;: 413,
+ &#39;平&#39;: 414,
+ &#39;稳&#39;: 415,
+ &#39;过&#39;: 416,
+ &#39;渡&#39;: 417,
+ &#39;顺&#39;: 418,
+ &#39;交&#39;: 419,
+ &#39;接&#39;: 420,
+ &#39;贡&#39;: 421,
+ &#39;献&#39;: 422,
+ &#39;济&#39;: 423,
+ &#39;程&#39;: 424,
+ &#39;界&#39;: 425,
+ &#39;深&#39;: 426,
+ &#39;信&#39;: 427,
+ &#39;观&#39;: 428,
+ &#39;必&#39;: 429,
+ &#39;须&#39;: 430,
+ &#39;微&#39;: 431,
+ &#39;基&#39;: 432,
+ &#39;础&#39;: 433,
+ &#39;病&#39;: 434,
+ &#39;好&#39;: 435,
+ &#39;颈&#39;: 436,
+ &#39;背&#39;: 437,
+ &#39;躯&#39;: 438,
+ &#39;干&#39;: 439,
+ &#39;殖&#39;: 440,
+ &#39;器&#39;: 441,
+ &#39;可&#39;: 442,
+ &#39;见&#39;: 443,
+ &#39;龄&#39;: 444,
+ &#39;市&#39;: 445,
+ &#39;柔&#39;: 446,
+ &#39;县&#39;: 447,
+ &#39;试&#39;: 448,
+ &#39;遍&#39;: 449,
+ &#39;觉&#39;: 450,
+ &#39;四&#39;: 451,
+ &#39;节&#39;: 452,
+ &#39;课&#39;: 453,
+ &#39;饥&#39;: 454,
+ &#39;饿&#39;: 455,
+ &#39;消&#39;: 456,
+ &#39;川&#39;: 457,
+ &#39;省&#39;: 458,
+ &#39;江&#39;: 459,
+ &#39;油&#39;: 460,
+ &#39;丰&#39;: 461,
+ &#39;选&#39;: 462,
+ &#39;豆&#39;: 463,
+ &#39;奶&#39;: 464,
+ &#39;复&#39;: 465,
+ &#39;营&#39;: 466,
+ &#39;养&#39;: 467,
+ &#39;素&#39;: 468,
+ &#39;贫&#39;: 469,
+ &#39;血&#39;: 470,
+ &#39;降&#39;: 471,
+ &#39;百&#39;: 472,
+ &#39;照&#39;: 473,
+ &#39;只&#39;: 474,
+ &#39;．&#39;: 475,
+ &#39;4&#39;: 476,
+ &#39;宗&#39;: 477,
+ &#39;旨&#39;: 478,
+ &#39;决&#39;: 479,
+ &#39;定&#39;: 480,
+ &#39;奉&#39;: 481,
+ &#39;甘&#39;: 482,
+ &#39;愿&#39;: 483,
+ &#39;吃&#39;: 484,
+ &#39;亏&#39;: 485,
+ &#39;苦&#39;: 486,
+ &#39;享&#39;: 487,
+ &#39;困&#39;: 488,
+ &#39;危&#39;: 489,
+ &#39;留&#39;: 490,
+ &#39;给&#39;: 491,
+ &#39;己&#39;: 492,
+ &#39;方&#39;: 493,
+ &#39;便&#39;: 494,
+ &#39;安&#39;: 495,
+ &#39;初&#39;: 496,
+ &#39;央&#39;: 497,
+ &#39;形&#39;: 498,
+ &#39;势&#39;: 499,
+ &#39;快&#39;: 500,
+ &#39;速&#39;: 501,
+ &#39;策&#39;: 502,
+ &#39;立&#39;: 503,
+ &#39;研&#39;: 504,
+ &#39;究&#39;: 505,
+ &#39;派&#39;: 506,
+ &#39;就&#39;: 507,
+ &#39;提&#39;: 508,
+ &#39;许&#39;: 509,
+ &#39;富&#39;: 510,
+ &#39;意&#39;: 511,
+ &#39;味&#39;: 512,
+ &#39;论&#39;: 513,
+ &#39;话&#39;: 514,
+ &#39;题&#39;: 515,
+ &#39;书&#39;: 516,
+ &#39;记&#39;: 517,
+ &#39;粟&#39;: 518,
+ &#39;光&#39;: 519,
+ &#39;断&#39;: 520,
+ &#39;他&#39;: 521,
+ &#39;亲&#39;: 522,
+ &#39;兄&#39;: 523,
+ &#39;弟&#39;: 524,
+ &#39;签&#39;: 525,
+ &#39;！&#39;: 526,
+ &#39;熟&#39;: 527,
+ &#39;悉&#39;: 528,
+ &#39;运&#39;: 529,
+ &#39;士&#39;: 530,
+ &#39;说&#39;: 531,
+ &#39;贷&#39;: 532,
+ &#39;款&#39;: 533,
+ &#39;旦&#39;: 534,
+ &#39;被&#39;: 535,
+ &#39;推&#39;: 536,
+ &#39;迟&#39;: 537,
+ &#39;几&#39;: 538,
+ &#39;月&#39;: 539,
+ &#39;甚&#39;: 540,
+ &#39;更&#39;: 541,
+ &#39;考&#39;: 542,
+ &#39;虑&#39;: 543,
+ &#39;伍&#39;: 544,
+ &#39;义&#39;: 545,
+ &#39;气&#39;: 546,
+ &#39;原&#39;: 547,
+ &#39;惠&#39;: 548,
+ &#39;象&#39;: 549,
+ &#39;估&#39;: 550,
+ &#39;像&#39;: 551,
+ &#39;疤&#39;: 552,
+ &#39;痕&#39;: 553,
+ &#39;笨&#39;: 554,
+ &#39;拙&#39;: 555,
+ &#39;手&#39;: 556,
+ &#39;针&#39;: 557,
+ &#39;线&#39;: 558,
+ &#39;周&#39;: 559,
+ &#39;恩&#39;: 560,
+ &#39;那&#39;: 561,
+ &#39;送&#39;: 562,
+ &#39;株&#39;: 563,
+ &#39;万&#39;: 564,
+ &#39;古&#39;: 565,
+ &#39;青&#39;: 566,
+ &#39;友&#39;: 567,
+ &#39;谊&#39;: 568,
+ &#39;红&#39;: 569,
+ &#39;杉&#39;: 570,
+ &#39;吧&#39;: 571,
+ &#39;巴&#39;: 572,
+ &#39;谈&#39;: 573,
+ &#39;问&#39;: 574,
+ &#39;印&#39;: 575,
+ &#39;声&#39;: 576,
+ &#39;宣&#39;: 577,
+ &#39;称&#39;: 578,
+ &#39;何&#39;: 579,
+ &#39;三&#39;: 580,
+ &#39;介&#39;: 581,
+ &#39;入&#39;: 582,
+ &#39;久&#39;: 583,
+ &#39;赴&#39;: 584,
+ &#39;西&#39;: 585,
+ &#39;老&#39;: 586,
+ &#39;访&#39;: 587,
+ &#39;广&#39;: 588,
+ &#39;职&#39;: 589,
+ &#39;积&#39;: 590,
+ &#39;极&#39;: 591,
+ &#39;企&#39;: 592,
+ &#39;监&#39;: 593,
+ &#39;督&#39;: 594,
+ &#39;如&#39;: 595,
+ &#39;居&#39;: 596,
+ &#39;子&#39;: 597,
+ &#39;倘&#39;: 598,
+ &#39;若&#39;: 599,
+ &#39;客&#39;: 600,
+ &#39;环&#39;: 601,
+ &#39;境&#39;: 602,
+ &#39;钝&#39;: 603,
+ &#39;迅&#39;: 604,
+ &#39;判&#39;: 605,
+ &#39;陷&#39;: 606,
+ &#39;处&#39;: 607,
+ &#39;碰&#39;: 608,
+ &#39;壁&#39;: 609,
+ &#39;然&#39;: 610,
+ &#39;热&#39;: 611,
+ &#39;解&#39;: 612,
+ &#39;寻&#39;: 613,
+ &#39;找&#39;: 614,
+ &#39;联&#39;: 615,
+ &#39;邦&#39;: 616,
+ &#39;州&#39;: 617,
+ &#39;予&#39;: 618,
+ &#39;适&#39;: 619,
+ &#39;具&#39;: 620,
+ &#39;骤&#39;: 621,
+ &#39;吸&#39;: 622,
+ &#39;七&#39;: 623,
+ &#39;团&#39;: 624,
+ &#39;另&#39;: 625,
+ &#39;龙&#39;: 626,
+ &#39;口&#39;: 627,
+ &#39;科&#39;: 628,
+ &#39;投&#39;: 629,
+ &#39;视&#39;: 630,
+ &#39;息&#39;: 631,
+ &#39;创&#39;: 632,
+ &#39;跳&#39;: 633,
+ &#39;跃&#39;: 634,
+ &#39;式&#39;: 635,
+ &#39;展&#39;: 636,
+ &#39;强&#39;: 637,
+ &#39;调&#39;: 638,
+ &#39;高&#39;: 639,
+ &#39;培&#39;: 640,
+ &#39;训&#39;: 641,
+ &#39;认&#39;: 642,
+ &#39;识&#39;: 643,
+ &#39;密&#39;: 644,
+ &#39;结&#39;: 645,
+ &#39;小&#39;: 646,
+ &#39;九&#39;: 647,
+ &#39;升&#39;: 648,
+ &#39;或&#39;: 649,
+ &#39;段&#39;: 650,
+ &#39;少&#39;: 651,
+ &#39;懂&#39;: 652,
+ &#39;习&#39;: 653,
+ &#39;互&#39;: 654,
+ &#39;贵&#39;: 655,
+ &#39;贱&#39;: 656,
+ &#39;请&#39;: 657,
+ &#39;注&#39;: 658,
+ &#39;语&#39;: 659,
+ &#39;构&#39;: 660,
+ &#39;偏&#39;: 661,
+ &#39;孝&#39;: 662,
+ &#39;父&#39;: 663,
+ &#39;母&#39;: 664,
+ &#39;始&#39;: 665,
+ &#39;票&#39;: 666,
+ &#39;否&#39;: 667,
+ &#39;制&#39;: 668,
+ &#39;还&#39;: 669,
+ &#39;缺&#39;: 670,
+ &#39;乏&#39;: 671,
+ &#39;际&#39;: 672,
+ &#39;电&#39;: 673,
+ &#39;影&#39;: 674,
+ &#39;摄&#39;: 675,
+ &#39;录&#39;: 676,
+ &#39;音&#39;: 677,
+ &#39;剪&#39;: 678,
+ &#39;辑&#39;: 679,
+ &#39;诸&#39;: 680,
+ &#39;趋&#39;: 681,
+ &#39;激&#39;: 682,
+ &#39;烈&#39;: 683,
+ &#39;造&#39;: 684,
+ &#39;奇&#39;: 685,
+ &#39;夺&#39;: 686,
+ &#39;起&#39;: 687,
+ &#39;直&#39;: 688,
+ &#39;追&#39;: 689,
+ &#39;医&#39;: 690,
+ &#39;药&#39;: 691,
+ &#39;李&#39;: 692,
+ &#39;珍&#39;: 693,
+ &#39;闻&#39;: 694,
+ &#39;屡&#39;: 695,
+ &#39;仕&#39;: 696,
+ &#39;寄&#39;: 697,
+ &#39;托&#39;: 698,
+ &#39;八&#39;: 699,
+ &#39;股&#39;: 700,
+ &#39;兴&#39;: 701,
+ &#39;趣&#39;: 702,
+ &#39;酷&#39;: 703,
+ &#39;爱&#39;: 704,
+ &#39;召&#39;: 705,
+ &#39;吴&#39;: 706,
+ &#39;英&#39;: 707,
+ &#39;司&#39;: 708,
+ &#39;董&#39;: 709,
+ &#39;德&#39;: 710,
+ &#39;·&#39;: 711,
+ &#39;葛&#39;: 712,
+ &#39;夫&#39;: 713,
+ &#39;邀&#39;: 714,
+ &#39;席&#39;: 715,
+ &#39;车&#39;: 716,
+ &#39;闲&#39;: 717,
+ &#39;防&#39;: 718,
+ &#39;施&#39;: 719,
+ &#39;配&#39;: 720,
+ &#39;套&#39;: 721,
+ &#39;存&#39;: 722,
+ &#39;鹅&#39;: 723,
+ &#39;洲&#39;: 724,
+ &#39;源&#39;: 725,
+ &#39;终&#39;: 726,
+ &#39;连&#39;: 727,
+ &#39;串&#39;: 728,
+ &#39;井&#39;: 729,
+ &#39;序&#39;: 730,
+ &#39;顾&#39;: 731,
+ &#39;犯&#39;: 732,
+ &#39;罪&#39;: 733,
+ &#39;讳&#39;: 734,
+ &#39;审&#39;: 735,
+ &#39;死&#39;: 736,
+ &#39;刑&#39;: 737,
+ &#39;笔&#39;: 738,
+ &#39;融&#39;: 739,
+ &#39;农&#39;: 740,
+ &#39;假&#39;: 741,
+ &#39;币&#39;: 742,
+ &#39;知&#39;: 743,
+ &#39;巧&#39;: 744,
+ &#39;律&#39;: 745,
+ &#39;规&#39;: 746,
+ &#39;村&#39;: 747,
+ &#39;秩&#39;: 748,
+ &#39;『&#39;: 749,
+ &#39;范&#39;: 750,
+ &#39;茅&#39;: 751,
+ &#39;迹&#39;: 752,
+ &#39;览&#39;: 753,
+ &#39;』&#39;: 754,
+ &#39;磁&#39;: 755,
+ &#39;球&#39;: 756,
+ &#39;孩&#39;: 757,
+ &#39;格&#39;: 758,
+ &#39;散&#39;: 759,
+ &#39;着&#39;: 760,
+ &#39;独&#39;: 761,
+ &#39;魅&#39;: 762,
+ &#39;莱&#39;: 763,
+ &#39;坞&#39;: 764,
+ &#39;千&#39;: 765,
+ &#39;模&#39;: 766,
+ &#39;翻&#39;: 767,
+ &#39;版&#39;: 768,
+ &#39;？&#39;: 769,
+ &#39;燃&#39;: 770,
+ &#39;汽&#39;: 771,
+ &#39;仅&#39;: 772,
+ &#39;守&#39;: 773,
+ &#39;—&#39;: 774,
+ &#39;路&#39;: 775,
+ &#39;易&#39;: 776,
+ &#39;斯&#39;: 777,
+ &#39;切&#39;: 778,
+ &#39;迪&#39;: 779,
+ &#39;阿&#39;: 780,
+ &#39;塞&#39;: 781,
+ &#39;瓦&#39;: 782,
+ &#39;萨&#39;: 783,
+ &#39;卡&#39;: 784,
+ &#39;里&#39;: 785,
+ &#39;罗&#39;: 786,
+ &#39;弗&#39;: 787,
+ &#39;哈&#39;: 788,
+ &#39;丹&#39;: 789,
+ &#39;尼&#39;: 790,
+ &#39;扎&#39;: 791,
+ &#39;胡&#39;: 792,
+ &#39;埃&#39;: 793,
+ &#39;索&#39;: 794,
+ &#39;库&#39;: 795,
+ &#39;纳&#39;: 796,
+ &#39;吉&#39;: 797,
+ &#39;莫&#39;: 798,
+ &#39;帕&#39;: 799,
+ &#39;锋&#39;: 800,
+ &#39;米&#39;: 801,
+ &#39;贝&#39;: 802,
+ &#39;耶&#39;: 803,
+ &#39;冈&#39;: 804,
+ &#39;玻&#39;: 805,
+ &#39;乌&#39;: 806,
+ &#39;布&#39;: 807,
+ &#39;苏&#39;: 808,
+ &#39;念&#39;: 809,
+ &#39;案&#39;: 810,
+ &#39;罚&#39;: 811,
+ &#39;较&#39;: 812,
+ &#39;战&#39;: 813,
+ &#39;略&#39;: 814,
+ &#39;均&#39;: 815,
+ &#39;贸&#39;: 816,
+ &#39;拓&#39;: 817,
+ &#39;5&#39;: 818,
+ &#39;份&#39;: 819,
+ &#39;去&#39;: 820,
+ &#39;阅&#39;: 821,
+ &#39;室&#39;: 822,
+ &#39;刊&#39;: 823,
+ &#39;晚&#39;: 824,
+ &#39;智&#39;: 825,
+ &#39;藏&#39;: 826,
+ &#39;突&#39;: 827,
+ &#39;破&#39;: 828,
+ &#39;借&#39;: 829,
+ &#39;架&#39;: 830,
+ &#39;办&#39;: 831,
+ &#39;沃&#39;: 832,
+ &#39;盟&#39;: 833,
+ &#39;昨&#39;: 834,
+ &#39;约&#39;: 835,
+ &#39;南&#39;: 836,
+ &#39;举&#39;: 837,
+ &#39;空&#39;: 838,
+ &#39;军&#39;: 839,
+ &#39;演&#39;: 840,
+ &#39;示&#39;: 841,
+ &#39;欢&#39;: 842,
+ &#39;迎&#39;: 843,
+ &#39;帮&#39;: 844,
+ &#39;助&#39;: 845,
+ &#39;7&#39;: 846,
+ &#39;叫&#39;: 847,
+ &#39;迈&#39;: 848,
+ &#39;菲&#39;: 849,
+ &#39;查&#39;: 850,
+ &#39;奋&#39;: 851,
+ &#39;剂&#39;: 852,
+ &#39;通&#39;: 853,
+ &#39;未&#39;: 854,
+ &#39;勇&#39;: 855,
+ &#39;曲&#39;: 856,
+ &#39;绕&#39;: 857,
+ &#39;桥&#39;: 858,
+ &#39;绝&#39;: 859,
+ &#39;《&#39;: 860,
+ &#39;嫂&#39;: 861,
+ &#39;》&#39;: 862,
+ &#39;警&#39;: 863,
+ &#39;魂&#39;: 864,
+ &#39;片&#39;: 865,
+ &#39;获&#39;: 866,
+ &#39;房&#39;: 867,
+ &#39;石&#39;: 868,
+ &#39;香&#39;: 869,
+ &#39;港&#39;: 870,
+ &#39;朝&#39;: 871,
+ &#39;蓬&#39;: 872,
+ &#39;勃&#39;: 873,
+ &#39;拼&#39;: 874,
+ &#39;搏&#39;: 875,
+ &#39;斗&#39;: 876,
+ &#39;神&#39;: 877,
+ &#39;写&#39;: 878,
+ &#39;2&#39;: 879,
+ &#39;春&#39;: 880,
+ &#39;季&#39;: 881,
+ &#39;招&#39;: 882,
+ &#39;兵&#39;: 883,
+ &#39;募&#39;: 884,
+ &#39;既&#39;: 885,
+ &#39;食&#39;: 886,
+ &#39;预&#39;: 887,
+ &#39;止&#39;: 888,
+ &#39;癌&#39;: 889,
+ &#39;症&#39;: 890,
+ &#39;城&#39;: 891,
+ &#39;引&#39;: 892,
+ &#39;项&#39;: 893,
+ &#39;懈&#39;: 894,
+ &#39;液&#39;: 895,
+ &#39;尾&#39;: 896,
+ &#39;9&#39;: 897,
+ &#39;％&#39;: 898,
+ &#39;氢&#39;: 899,
+ &#39;减&#39;: 900,
+ &#39;污&#39;: 901,
+ &#39;染&#39;: 902,
+ &#39;双&#39;: 903,
+ &#39;网&#39;: 904,
+ &#39;抽&#39;: 905,
+ &#39;封&#39;: 906,
+ &#39;差&#39;: 907,
+ &#39;亟&#39;: 908,
+ &#39;待&#39;: 909,
+ &#39;单&#39;: 910,
+ &#39;麦&#39;: 911,
+ &#39;果&#39;: 912,
+ &#39;∶&#39;: 913,
+ &#39;松&#39;: 914,
+ &#39;赢&#39;: 915,
+ &#39;测&#39;: 916,
+ &#39;析&#39;: 917,
+ &#39;迷&#39;: 918,
+ &#39;叶&#39;: 919,
+ &#39;钦&#39;: 920,
+ &#39;岁&#39;: 921,
+ &#39;刻&#39;: 922,
+ &#39;哲&#39;: 923,
+ &#39;思&#39;: 924,
+ &#39;虽&#39;: 925,
+ &#39;担&#39;: 926,
+ &#39;负&#39;: 927,
+ &#39;领&#39;: 928,
+ &#39;责&#39;: 929,
+ &#39;专&#39;: 930,
+ &#39;却&#39;: 931,
+ &#39;爸&#39;: 932,
+ &#39;劲&#39;: 933,
+ &#39;抗&#39;: 934,
+ &#39;艰&#39;: 935,
+ &#39;聘&#39;: 936,
+ &#39;仍&#39;: 937,
+ &#39;治&#39;: 938,
+ &#39;洋&#39;: 939,
+ &#39;尊&#39;: 940,
+ &#39;庄&#39;: 941,
+ &#39;志&#39;: 942,
+ &#39;回&#39;: 943,
+ &#39;忆&#39;: 944,
+ &#39;淳&#39;: 945,
+ &#39;朴&#39;: 946,
+ &#39;报&#39;: 947,
+ &#39;届&#39;: 948,
+ &#39;张&#39;: 949,
+ &#39;君&#39;: 950,
+ &#39;秋&#39;: 951,
+ &#39;剧&#39;: 952,
+ &#39;角&#39;: 953,
+ &#39;艺&#39;: 954,
+ &#39;校&#39;: 955,
+ &#39;坚&#39;: 956,
+ &#39;质&#39;: 957,
+ &#39;围&#39;: 958,
+ &#39;侧&#39;: 959,
+ &#39;缓&#39;: 960,
+ &#39;财&#39;: 961,
+ &#39;状&#39;: 962,
+ &#39;聚&#39;: 963,
+ &#39;渠&#39;: 964,
+ &#39;逐&#39;: 965,
+ &#39;靠&#39;: 966,
+ &#39;优&#39;: 967,
+ &#39;征&#39;: 968,
+ &#39;稿&#39;: 969,
+ &#39;截&#39;: 970,
+ &#39;句&#39;: 971,
+ &#39;晤&#39;: 972,
+ &#39;纠&#39;: 973,
+ &#39;纷&#39;: 974,
+ &#39;朋&#39;: 975,
+ &#39;坏&#39;: 976,
+ &#39;它&#39;: 977,
+ &#39;促&#39;: 978,
+ &#39;岗&#39;: 979,
+ &#39;标&#39;: 980,
+ &#39;织&#39;: 981,
+ &#39;践&#39;: 982,
+ &#39;邓&#39;: 983,
+ &#39;按&#39;: 984,
+ &#39;署&#39;: 985,
+ &#39;挥&#39;: 986,
+ &#39;核&#39;: 987,
+ &#39;●&#39;: 988,
+ &#39;承&#39;: 989,
+ &#39;键&#39;: 990,
+ &#39;街&#39;: 991,
+ &#39;巷&#39;: 992,
+ &#39;横&#39;: 993,
+ &#39;幅&#39;: 994,
+ &#39;悬&#39;: 995,
+ &#39;画&#39;: 996,
+ &#39;头&#39;: 997,
+ &#39;欣&#39;: 998,
+ &#39;慰&#39;: 999,
+ ...&#125;</code></pre></div>
+<h4 id="获取每个句子的长度并得到最大长度">获取每个句子的长度，并得到最大长度</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_sequence_len</span>(<span class="hljs-params">path</span>):<br>    sequence_len = <span class="hljs-built_in">list</span>()<br>    tmp_len = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:<br>            line = line.strip()<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(line) == <span class="hljs-number">0</span> :<br><span class="hljs-comment">#                 print(tmp_len)</span><br>                sequence_len.append(tmp_len)<br>                tmp_len = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">else</span>:<br>                tmp_len +=<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> np.array(sequence_len)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train_sequence_len= get_sequence_len(<span class="hljs-string">&#x27;./datasets/example.train&#x27;</span>)dev_sequence_len= get_sequence_len(<span class="hljs-string">&#x27;./datasets/example.dev&#x27;</span>)test_sequence_len= get_sequence_len(<span class="hljs-string">&#x27;./datasets/example.test&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train_sequence_len,dev_sequence_len,test_sequence_len<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">(array([18, 35, 88, ..., 53, 65, 41]), array([69, 35, 54, ..., 46, 38, 29]), array([40, 39, 43, ..., 42, 29, 52]))</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">max_length = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">max</span>(train_sequence_len),<span class="hljs-built_in">max</span>(dev_sequence_len),<span class="hljs-built_in">max</span>(test_sequence_len))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">max_length<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">577</code></pre></div>
+<h4 id="读取数据对不足最大长度的句子进行padding">读取数据，对不足最大长度的句子进行padding</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_data</span>(<span class="hljs-params">path,vocab2id,label2id,max_len</span>):    data_x = <span class="hljs-built_in">list</span>()    data_y = <span class="hljs-built_in">list</span>()    tmp_text = <span class="hljs-built_in">list</span>()    tmp_label = <span class="hljs-built_in">list</span>()        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:            line = line.strip()            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(line) ==<span class="hljs-number">0</span>:                <span class="hljs-comment"># 数据集中以空行作为句子分隔符，说明前一个句子已经结束，tmp_text为vocab（id），tmp_label为label(id)                # padding 至max_len                tmp_text += [len(vocab2id)] * (max_len - len(tmp_text))                tmp_label += [0] * (max_len - len(tmp_label))                                # 保存已经结束的句子并清空tmp                data_x.append(tmp_text)                data_y.append(tmp_label)                tmp_text = list()                tmp_label = list()            else:                # 将字符和标签转换为相应的id放入tmp                # 根据数据格式，line[0]为vocab,line[1]为空格                # line[2:]为label                tmp_text.append(vocab2id[line[0]])                tmp_label.append(label2id[line[2:]])    print(&#x27;&#123;&#125; include sequences &#123;&#125;&#x27;.format(path,len(data_x)))    return np.array(data_x), np.array(data_y)</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train_text,train_label = read_data(<span class="hljs-string">&quot;./datasets/example.train&quot;</span>,vocab2id,label2id,max_length)dev_text,dev_label = read_data(<span class="hljs-string">&quot;./datasets/example.dev&quot;</span>,vocab2id,label2id,max_length)test_text,test_label = read_data(<span class="hljs-string">&quot;./datasets/example.test&quot;</span>,vocab2id,label2id,max_length)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">./datasets/example.train include sequences 20864./datasets/example.dev include sequences 2318./datasets/example.test include sequences 4636</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train_text[<span class="hljs-number">0</span>],train_label[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">(array([   0,    1,    2,    3,    4,    5,    6,    7,    8,    9,   10,
+           8,   11,   12,   13,    0,   14,   15, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465, 4465,
+        4465, 4465, 4465, 4465, 4465]),
+ array([0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0]))</code></pre></div>
+<h4 id="讲数据通过tf.data.dataset加载">讲数据通过tf.data.Dataset加载</h4>
+<p>Dataset可以看作是相同类型“元素”的有序列表，可以通过Iterator对其中的元素进行读取，通过初始化不同的initializer实现读取不同的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">train_dataset = tf.compat.v1.data.Dataset.from_tensor_slices((train_text,train_label,train_sequence_len))<br>train_dataset = train_dataset.batch(<span class="hljs-number">1</span>)  <span class="hljs-comment">#指定读取数据时的batch_size</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">dev_dataset = tf.compat.v1.data.Dataset.from_tensor_slices((dev_text,dev_label,dev_sequence_len))dev_dataset = dev_dataset.batch(<span class="hljs-number">1</span>)  <span class="hljs-comment">#指定读取数据时的batch_size</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">test_dataset = tf.compat.v1.data.Dataset.from_tensor_slices((test_text,test_label,test_sequence_len))test_dataset = test_dataset.batch(<span class="hljs-number">1</span>)  <span class="hljs-comment">#指定读取数据时的batch_size</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">iterator = tf.compat.v1.data.Iterator.from_structure(train_dataset.output_types,                                                     train_dataset.output_shapes)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">WARNING:tensorflow:From &lt;ipython-input-24-248b28ede763&gt;:1: DatasetV1.output_types (from tensorflow.python.data.ops.dataset_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.compat.v1.data.get_output_types(dataset)`.
+WARNING:tensorflow:From &lt;ipython-input-24-248b28ede763&gt;:2: DatasetV1.output_shapes (from tensorflow.python.data.ops.dataset_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.compat.v1.data.get_output_shapes(dataset)`.</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#初始化不同的initializer，从X,Y,S读取的数据不同</span><br>train_initializer = iterator.make_initializer(train_dataset)<br>dev_initializer = iterator.make_initializer(dev_dataset)<br>test_initializer = iterator.make_initializer(test_dataset)<br>X,Y,S = iterator.get_next() <span class="hljs-comment">#运行时每次读取一个batch_size的text,label和sequence_len</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">WARNING:tensorflow:From c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\tensorflow\python\data\ops\iterator_ops.py:336: Iterator.output_types (from tensorflow.python.data.ops.iterator_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.compat.v1.data.get_output_types(iterator)`.
+WARNING:tensorflow:From c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\tensorflow\python\data\ops\iterator_ops.py:337: Iterator.output_shapes (from tensorflow.python.data.ops.iterator_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.compat.v1.data.get_output_shapes(iterator)`.
+WARNING:tensorflow:From c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\tensorflow\python\data\ops\iterator_ops.py:339: Iterator.output_classes (from tensorflow.python.data.ops.iterator_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.compat.v1.data.get_output_classes(iterator)`.</code></pre></div>
+<h3 id="命名实体识别模型构建">命名实体识别模型构建</h3>
+<ul>
+<li>输入文本经过预处理后得到字符的id，</li>
+<li>首先经过Embedding层得到字符向量，</li>
+<li>然后经过BiLSTM层得到句子表示，</li>
+<li>再经过CRF计算每个字符的标签得分，</li>
+<li>对于每个字符，选取得分最高的标签作为该字符的类别。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">embedding_size = <span class="hljs-number">5</span><br>hidden_dim = <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># embedding层</span><br><span class="hljs-keyword">with</span> tf.compat.v1.variable_scope(<span class="hljs-string">&#x27;embedding&#x27;</span>): <span class="hljs-comment">#随机生成字符向量</span><br>    embedding = tf.compat.v1.Variable(<br>        tf.compat.v1.random_normal([<span class="hljs-built_in">len</span>(vocab2id)+<span class="hljs-number">1</span>, embedding_size]),<br>        dtype= tf.compat.v1.float32<br>    )<br>inputs = tf.compat.v1.nn.embedding_lookup(embedding,X) <span class="hljs-comment">#将X中vocab的id转换为对应的字符向量</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># BiLSTM隐藏层</span><br><span class="hljs-comment"># 前向lstm</span><br>lstm_fw_cell = tf.compat.v1.nn.rnn_cell.LSTMCell(hidden_dim,reuse = tf.compat.v1.AUTO_REUSE)<br><span class="hljs-comment"># 后向lstm</span><br>lstm_bw_cell = tf.compat.v1.nn.rnn_cell.LSTMCell(hidden_dim,reuse = tf.compat.v1.AUTO_REUSE)<br><span class="hljs-comment"># 组合成双向lstm</span><br>(output,output_states) = tf.compat.v1.nn.bidirectional_dynamic_rnn(<br>    lstm_fw_cell,<br>    lstm_bw_cell,<br>    inputs,<br>    S,<br>    dtype=tf.compat.v1.float32<br>)<br><span class="hljs-comment">#list -&gt; tensor [batch_size,max_len,hidden_dim * 2]</span><br>output = tf.stack(output,axis=<span class="hljs-number">1</span>)<br><span class="hljs-comment"># -&gt; [batch_size * max_len,hidden_dim * 2]</span><br>output = tf.reshape(output,[-<span class="hljs-number">1</span>,hidden_dim *<span class="hljs-number">2</span>])<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">WARNING:tensorflow:From &lt;ipython-input-28-215bd7d8a5e9&gt;:12: bidirectional_dynamic_rnn (from tensorflow.python.ops.rnn) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `keras.layers.Bidirectional(keras.layers.RNN(cell))`, which is equivalent to this API
+WARNING:tensorflow:From c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\tensorflow\python\ops\rnn.py:447: dynamic_rnn (from tensorflow.python.ops.rnn) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `keras.layers.RNN(cell)`, which is equivalent to this API
+WARNING:tensorflow:From c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\keras\layers\legacy_rnn\rnn_cell_impl.py:979: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+
+
+c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\keras\layers\legacy_rnn\rnn_cell_impl.py:901: UserWarning: `tf.nn.rnn_cell.LSTMCell` is deprecated and will be removed in a future version. This class is equivalent as `tf.keras.layers.LSTMCell`, and will be replaced by that in Tensorflow 2.0.
+  warnings.warn(&quot;`tf.nn.rnn_cell.LSTMCell` is deprecated and will be &quot;
+c:\users\ysilhouette\documents\pyenv\py_365_tf_2\lib\site-packages\keras\engine\base_layer_v1.py:1684: UserWarning: `layer.add_variable` is deprecated and will be removed in a future version. Please use `layer.add_weight` method instead.
+  warnings.warn(&#39;`layer.add_variable` is deprecated and &#39;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># BiLSTM输出层</span><br><span class="hljs-keyword">with</span> tf.compat.v1.variable_scope(<span class="hljs-string">&#x27;output&#x27;</span>):<br>    W = tf.compat.v1.Variable(<br>        tf.compat.v1.truncated_normal(<br>            shape=[hidden_dim *<span class="hljs-number">2</span> , <span class="hljs-built_in">len</span>(label2id)],<br>            mean=<span class="hljs-number">0</span>,<br>            stddev=<span class="hljs-number">0.1</span>),<br>        dtype=tf.compat.v1.float32<br>    )<br>    B = tf.compat.v1.Variable(<br>        np.zeros(<span class="hljs-built_in">len</span>(label2id)),<br>        dtype=tf.compat.v1.float32)<br>    <span class="hljs-comment">#[batch_size * max_len,label_size]</span><br>    Y_out = tf.matmul(output,W) + B <br>scores = tf.reshape(Y_out,[-<span class="hljs-number">1</span>, max_length,<span class="hljs-built_in">len</span>(label2id)])  <span class="hljs-comment">#[batch_size,max_len,label_size]</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">scores<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&lt;tf.Tensor &#39;Reshape_1:0&#39; shape=(None, 577, 7) dtype=float32&gt;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">Y<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&lt;tf.Tensor &#39;IteratorGetNext:1&#39; shape=(None, 577) dtype=int32&gt;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">S<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">&lt;tf.Tensor &#39;IteratorGetNext:2&#39; shape=(None,) dtype=int32&gt;</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># CRF层</span><br><span class="hljs-keyword">with</span> tf.compat.v1.variable_scope(<span class="hljs-string">&#x27;crf&#x27;</span>,reuse=tf.compat.v1.AUTO_REUSE):<br>    trans_matrix = tf.compat.v1.get_variable(<span class="hljs-string">&#x27;transition&#x27;</span>, [<span class="hljs-built_in">len</span>(label2id),<span class="hljs-built_in">len</span>(label2id)])<br>log_likelihood,_ =tfa.text.crf_log_likelihood(scores,Y,S,trans_matrix)<br>loss=tf.reduce_mean(-log_likelihood)<br><span class="hljs-comment"># optimizer = tf.keras.optimizers.SGD(learning_rate=0.5)</span><br><span class="hljs-comment"># train_op =optimizer.minimize(loss)#梯度下降法，学习率0.1</span><br>train_op = tf.compat.v1.train.GradientDescentOptimizer(<span class="hljs-number">0.1</span>).minimize(loss)<span class="hljs-comment">#梯度下降法，学习率0.1</span><br>saver = tf.compat.v1.train.Saver() <span class="hljs-comment">#用来保存和加载模型</span><br>min_Loss = <span class="hljs-built_in">int</span>(<span class="hljs-number">1e8</span>) <span class="hljs-comment">#维护当前最小的Loss,初始化为一个较大的值</span><br></code></pre></td></tr></table></figure>
+<h3 id="命名实体识别模型训练">命名实体识别模型训练</h3>
+<ul>
+<li>通过训练集训练，并保存当前loss值最小的模型。</li>
+<li>构建的模型抽象出来是一个包含计算和变量的图。定义变量时不会进行运算，也没有具体的值，变量在Session中进行初始化后才有值。</li>
+<li>在Session中通过run可以执行图，进行相应的计算或取出对应的值。通过训练改变变量的值，最终可以得到模型需要的参数。</li>
+<li>变量的值仅在一个Session中有效，通过saver保存变量后，可以在新的Session中通过saver加载变量，就无需再重新训练模型。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">sess = tf.compat.v1.Session() <span class="hljs-comment"># 创建一个Session</span><br>sess.run(tf.compat.v1.global_variables_initializer()) <span class="hljs-comment"># 初始化所有变量</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    sess.run(train_initializer) <span class="hljs-comment">#初始化训练集和initializer</span><br>    <span class="hljs-keyword">for</span> step <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>): <span class="hljs-comment">#使用了10个batch的数据</span><br>        tf_train_scores,tf_trans_matrix,Loss,_ = sess.run(<br>            [scores,trans_matrix,loss,train_op]<br>        ) <span class="hljs-comment"># 执行训练过程</span><br>        <br>    <span class="hljs-keyword">if</span> Loss &lt;min_Loss:<br>        saver.save(sess,<span class="hljs-string">&#x27;model/my_model&#x27;</span>) <span class="hljs-comment"># 保存当前loss最小的model</span><br>        min_Loss = Loss<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;** epoch&quot;</span>,epoch+<span class="hljs-number">1</span>,<span class="hljs-string">&quot;Loss&quot;</span>,Loss)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">** epoch 1 Loss 58.72455
+** epoch 2 Loss 53.927124
+** epoch 3 Loss 50.51535
+** epoch 4 Loss 49.02472
+** epoch 5 Loss 50.43283
+** epoch 6 Loss 50.08667
+** epoch 7 Loss 46.792816
+** epoch 8 Loss 44.00418
+** epoch 9 Loss 42.740723
+** epoch 10 Loss 38.633057
+** epoch 11 Loss 34.638123
+** epoch 12 Loss 30.238342
+** epoch 13 Loss 31.892944
+** epoch 14 Loss 28.726074
+** epoch 15 Loss 27.086182
+** epoch 16 Loss 25.640747
+** epoch 17 Loss 24.253967
+** epoch 18 Loss 23.045715
+** epoch 19 Loss 22.389526
+** epoch 20 Loss 21.917236
+** epoch 21 Loss 21.551575
+** epoch 22 Loss 21.257202
+** epoch 23 Loss 21.010925
+** epoch 24 Loss 20.801147
+** epoch 25 Loss 20.622559
+** epoch 26 Loss 20.46753
+** epoch 27 Loss 20.330994
+** epoch 28 Loss 20.209717
+** epoch 29 Loss 20.09906
+** epoch 30 Loss 20.002686
+** epoch 31 Loss 19.913574
+** epoch 32 Loss 19.83197
+** epoch 33 Loss 19.756409
+** epoch 34 Loss 19.690308
+** epoch 35 Loss 19.62616
+** epoch 36 Loss 19.563904
+** epoch 37 Loss 19.511597
+** epoch 38 Loss 19.460754
+** epoch 39 Loss 19.409851
+** epoch 40 Loss 19.362366
+** epoch 41 Loss 19.32257
+** epoch 42 Loss 19.281921
+** epoch 43 Loss 19.241943
+** epoch 44 Loss 19.204895
+** epoch 45 Loss 19.17163
+** epoch 46 Loss 19.14154
+** epoch 47 Loss 19.10846
+** epoch 48 Loss 19.077393
+** epoch 49 Loss 19.050842
+** epoch 50 Loss 19.02295
+** epoch 51 Loss 18.999817
+** epoch 52 Loss 18.973328
+** epoch 53 Loss 18.948425
+** epoch 54 Loss 18.927612
+** epoch 55 Loss 18.903809
+** epoch 56 Loss 18.88678
+** epoch 57 Loss 18.864624
+** epoch 58 Loss 18.844116
+** epoch 59 Loss 18.824219
+** epoch 60 Loss 18.807495
+** epoch 61 Loss 18.79132
+** epoch 62 Loss 18.773804
+** epoch 63 Loss 18.757812
+** epoch 64 Loss 18.743103
+** epoch 65 Loss 18.72815
+** epoch 66 Loss 18.71283
+** epoch 67 Loss 18.69812
+** epoch 68 Loss 18.68335
+** epoch 69 Loss 18.670227
+** epoch 70 Loss 18.656555
+** epoch 71 Loss 18.646484
+** epoch 72 Loss 18.633667
+** epoch 73 Loss 18.621033
+** epoch 74 Loss 18.611145
+** epoch 75 Loss 18.603027
+** epoch 76 Loss 18.591614
+** epoch 77 Loss 18.577148
+** epoch 78 Loss 18.568176
+** epoch 79 Loss 18.558899
+** epoch 80 Loss 18.550049
+** epoch 81 Loss 18.5401
+** epoch 82 Loss 18.531128
+** epoch 83 Loss 18.52301
+** epoch 84 Loss 18.51294
+** epoch 85 Loss 18.504944
+** epoch 86 Loss 18.495544
+** epoch 87 Loss 18.486633
+** epoch 88 Loss 18.481384
+** epoch 89 Loss 18.473328
+** epoch 90 Loss 18.466125
+** epoch 91 Loss 18.459839
+** epoch 92 Loss 18.45227
+** epoch 93 Loss 18.444885
+** epoch 94 Loss 18.435303
+** epoch 95 Loss 18.432373
+** epoch 96 Loss 18.423462
+** epoch 97 Loss 18.418274
+** epoch 98 Loss 18.411194
+** epoch 99 Loss 18.403381
+** epoch 100 Loss 18.400818</code></pre></div>
+<h3 id="命名实体识别模型评估">命名实体识别模型评估</h3>
+<h4 id="计算验证集f1_score并查看验证集预测结果">计算验证集f1_score并查看验证集预测结果。</h4>
+<ul>
+<li><strong>精确率pression、召回率recall和f1_score</strong></li>
+<li>对于结果仅包括“正负”的二分类问题，
+<ul>
+<li>“预测为正，实际也为正”被称为真阳性，“预测为正，实际为负”被称为假阳性，“预测为负，实际为正”被称为假阴性，</li>
+<li>精确率定义为<span class="math inline">\(\frac
+{真阳性}{真阳性+假阳性}\)</span>，召回率定义为<span class="math inline">\(\frac{真阳性}{真阳性+假阴性}\)</span>，f1_score可以看作是精确率和召回率的一种加权平均，定义为$
+2*$。</li>
+</ul></li>
+<li>对于多分类问题
+<ul>
+<li>既可以分别计算出每一类的精确率、召回率和f1_score
+<ul>
+<li>计算某一类时可认为该类为“正”，其他所有类为“负”，以此得到每一类的真阳性、假阳性和假阴性数量），再计算出f1_score的平均值，这种f1_score被称为macro-f1。</li>
+</ul></li>
+<li>也可以计算出总的精确率和召回率
+<ul>
+<li>得到每一类的真阳性、假阳性和假阴性数量，分别求和得到总的数量），再计算出f1_score，这种f1_score被称为micro-f1</li>
+</ul></li>
+<li>当预测结果未出现错误类别（即未包含在类别集合的类别）时，这种方式计算得到的精确率、召回率和f1_score都相等，值为$
+$。</li>
+</ul></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">sess.run(dev_initializer) <span class="hljs-comment"># 初始化验证集的 initializer</span><br>tf_dev_scores,tf_trans_matrix,tf_dev_text,tf_dev_label,tf_dev_sequence_len = sess.run(<br>    [scores,trans_matrix,X,Y,S]<br>)<br><span class="hljs-comment"># viterbi_decode每次处理一个句子，这里因为我们设定的batch_size为1，可以直接通过reshape将该维去掉</span><br><span class="hljs-comment"># 同时去掉句子的padding部分</span><br>tf_dev_sequence_len = <span class="hljs-built_in">int</span>(tf_dev_sequence_len)<br>tf_dev_text = tf_dev_text.reshape(max_length)[:tf_dev_sequence_len]<br><br>tf_dev_scores = tf_dev_scores.reshape(max_length,<span class="hljs-built_in">len</span>(label2id))[:tf_dev_sequence_len]<br>tf_dev_label = tf_dev_label.reshape(max_length)[:tf_dev_sequence_len]<br><br><span class="hljs-comment"># viterbi_decode传入的scores参数的shape应为[sequence_length,label_size],trans_matix应为[label_size，label_size]</span><br>viterbi_sequence,_ = tfa.text.viterbi_decode(tf_dev_scores,tf_trans_matrix)<br><br>correct_labels = np.<span class="hljs-built_in">sum</span>(np.equal(viterbi_sequence,tf_dev_label)) <span class="hljs-comment"># 预测正确的标签数</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;f1_score:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(correct_labels / tf_dev_sequence_len))<br><span class="hljs-built_in">print</span>(viterbi_sequence)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">f1_score:0.463768115942029
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0]</code></pre></div>
+<h4 id="命名实体识别模型预测">命名实体识别模型预测</h4>
+<h5 id="加载模型">加载模型</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">sess = tf.compat.v1.Session()<br>saver.restore(sess,<span class="hljs-string">&quot;model/my_model&quot;</span>) <span class="hljs-comment">#加载模型参数</span><br>sess.run(test_initializer)  <span class="hljs-comment"># 初始化测试集的initializer</span><br><br>tf_test_scores,tf_test_matrix,tf_test_text,tf_test_label,tf_test_sequence_len = sess.run(<br>    [scores,trans_matrix,X,Y,S]<br>)<br>tf_test_sequence_len = <span class="hljs-built_in">int</span>(tf_test_sequence_len)<br>tf_test_text = tf_test_text.reshape(max_length)[:tf_test_sequence_len]<br><br>tf_test_scores = tf_test_scores.reshape(max_length,<span class="hljs-built_in">len</span>(label2id))[:tf_test_sequence_len]<br>tf_test_label = tf_test_label.reshape(max_length)[:tf_test_sequence_len]<br><br>viterbi_sequence,_ = tfa.text.viterbi_decode(tf_test_scores,tf_trans_matrix)<br><br>example_test_text = [id2vocab[vocab] <span class="hljs-keyword">for</span> vocab <span class="hljs-keyword">in</span> tf_test_text] <span class="hljs-comment"># id转换为vocab</span><br>example_prediction_label = [id2label[label] <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> viterbi_sequence] <span class="hljs-comment"># id转换为label</span><br><br><span class="hljs-built_in">print</span>([id2vocab[tf_test_text[index]] + <span class="hljs-string">&#x27;&#x27;</span> + id2label[viterbi_sequence[index]] <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(tf_test_text))])<br>sess.close()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">INFO:tensorflow:Restoring parameters from model/my_model
+[&#39;我I-ORG&#39;, &#39;们I-ORG&#39;, &#39;变I-ORG&#39;, &#39;而O&#39;, &#39;以O&#39;, &#39;书O&#39;, &#39;会O&#39;, &#39;友O&#39;, &#39;，O&#39;, &#39;以O&#39;, &#39;书O&#39;, &#39;结O&#39;, &#39;缘O&#39;, &#39;，O&#39;, &#39;把O&#39;, &#39;欧O&#39;, &#39;美O&#39;, &#39;、O&#39;, &#39;港O&#39;, &#39;台O&#39;, &#39;流B-ORG&#39;, &#39;行I-ORG&#39;, &#39;的I-ORG&#39;, &#39;食I-ORG&#39;, &#39;品I-ORG&#39;, &#39;类I-ORG&#39;, &#39;图I-ORG&#39;, &#39;谱I-ORG&#39;, &#39;、I-ORG&#39;, &#39;画I-ORG&#39;, &#39;册I-ORG&#39;, &#39;、I-ORG&#39;, &#39;工I-ORG&#39;, &#39;具I-ORG&#39;, &#39;书I-ORG&#39;, &#39;汇I-ORG&#39;, &#39;集I-ORG&#39;, &#39;一I-ORG&#39;, &#39;堂I-ORG&#39;, &#39;。O&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">example_test_text<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;我&#39;,
+ &#39;们&#39;,
+ &#39;变&#39;,
+ &#39;而&#39;,
+ &#39;以&#39;,
+ &#39;书&#39;,
+ &#39;会&#39;,
+ &#39;友&#39;,
+ &#39;，&#39;,
+ &#39;以&#39;,
+ &#39;书&#39;,
+ &#39;结&#39;,
+ &#39;缘&#39;,
+ &#39;，&#39;,
+ &#39;把&#39;,
+ &#39;欧&#39;,
+ &#39;美&#39;,
+ &#39;、&#39;,
+ &#39;港&#39;,
+ &#39;台&#39;,
+ &#39;流&#39;,
+ &#39;行&#39;,
+ &#39;的&#39;,
+ &#39;食&#39;,
+ &#39;品&#39;,
+ &#39;类&#39;,
+ &#39;图&#39;,
+ &#39;谱&#39;,
+ &#39;、&#39;,
+ &#39;画&#39;,
+ &#39;册&#39;,
+ &#39;、&#39;,
+ &#39;工&#39;,
+ &#39;具&#39;,
+ &#39;书&#39;,
+ &#39;汇&#39;,
+ &#39;集&#39;,
+ &#39;一&#39;,
+ &#39;堂&#39;,
+ &#39;。&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">example_prediction_label <br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;O&#39;,
+ &#39;B-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;I-ORG&#39;,
+ &#39;O&#39;]</code></pre></div>
+<h4 id="结果展示">结果展示</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">exam_test_text = [<span class="hljs-string">&#x27;我&#x27;</span>,<span class="hljs-string">&#x27;们&#x27;</span>,<span class="hljs-string">&#x27;变&#x27;</span>,<span class="hljs-string">&#x27;而&#x27;</span>,<span class="hljs-string">&#x27;以&#x27;</span>,<span class="hljs-string">&#x27;书&#x27;</span>,<span class="hljs-string">&#x27;会&#x27;</span>,<span class="hljs-string">&#x27;友&#x27;</span>,<span class="hljs-string">&#x27;，&#x27;</span>,<span class="hljs-string">&#x27;以&#x27;</span>,<span class="hljs-string">&#x27;书&#x27;</span>,<span class="hljs-string">&#x27;结&#x27;</span>,<span class="hljs-string">&#x27;缘&#x27;</span>,<span class="hljs-string">&#x27;，&#x27;</span>,<br>                     <span class="hljs-string">&#x27;把&#x27;</span>,<span class="hljs-string">&#x27;欧&#x27;</span>,<span class="hljs-string">&#x27;美&#x27;</span>,<span class="hljs-string">&#x27;、&#x27;</span>,<span class="hljs-string">&#x27;港&#x27;</span>,<span class="hljs-string">&#x27;台&#x27;</span>,<span class="hljs-string">&#x27;流&#x27;</span>,<span class="hljs-string">&#x27;行&#x27;</span>,<span class="hljs-string">&#x27;的&#x27;</span>,<span class="hljs-string">&#x27;食&#x27;</span>,<span class="hljs-string">&#x27;品&#x27;</span>,<span class="hljs-string">&#x27;类&#x27;</span>,<span class="hljs-string">&#x27;图&#x27;</span>,<span class="hljs-string">&#x27;谱&#x27;</span>,<span class="hljs-string">&#x27;、&#x27;</span>,<br>                     <span class="hljs-string">&#x27;画&#x27;</span>,<span class="hljs-string">&#x27;册&#x27;</span>,<span class="hljs-string">&#x27;、&#x27;</span>,<span class="hljs-string">&#x27;工&#x27;</span>,<span class="hljs-string">&#x27;具&#x27;</span>,<span class="hljs-string">&#x27;书&#x27;</span>,<span class="hljs-string">&#x27;汇&#x27;</span>,<span class="hljs-string">&#x27;集&#x27;</span>,<span class="hljs-string">&#x27;一&#x27;</span>,<span class="hljs-string">&#x27;堂&#x27;</span>,<span class="hljs-string">&#x27;。&#x27;</span>]<br>exam_prediction_label = [<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<br>                            <span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;B-LOC&#x27;</span>,<span class="hljs-string">&#x27;B-LOC&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;B-LOC&#x27;</span>,<span class="hljs-string">&#x27;B-LOC&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<br>                            <span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_named_entity</span>(<span class="hljs-params">text,labels</span>):<br>    named_entity_set = <span class="hljs-built_in">set</span>() <span class="hljs-comment">#去重，同一个实体只记录一次</span><br>    named_entity_list = <span class="hljs-built_in">list</span>()<br>    cur_type= <span class="hljs-string">&#x27;&#x27;</span><br>    is_entity = <span class="hljs-literal">False</span><br>    tmp_named_entity= <span class="hljs-string">&#x27;&#x27;</span><br>    <br>    <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(text)):<br>        label = labels[index]<br>        <span class="hljs-keyword">if</span> label ==<span class="hljs-string">&#x27;O&#x27;</span> <span class="hljs-keyword">or</span> label[:<span class="hljs-number">2</span>] == <span class="hljs-string">&#x27;B-&#x27;</span>: <span class="hljs-comment"># 可能是前一个实体的结束</span><br>            <span class="hljs-keyword">if</span> is_entity == <span class="hljs-literal">True</span>: <span class="hljs-comment"># 一个实体的结束</span><br>                <span class="hljs-keyword">if</span> tmp_named_entity <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> named_entity_set:<br>                    named_entity_set.add(tmp_named_entity)<br>                    named_entity_list.append(&#123;<span class="hljs-string">&#x27;text&#x27;</span>:tmp_named_entity,<span class="hljs-string">&#x27;type&#x27;</span>:cur_type&#125;)<br>                <br>                is_entity =<span class="hljs-literal">False</span><br>                tmp_named_entity =<span class="hljs-string">&#x27;&#x27;</span><br>            <span class="hljs-keyword">if</span> label == <span class="hljs-string">&#x27;O&#x27;</span>:<br>                <span class="hljs-keyword">continue</span><br>            cur_type = label[<span class="hljs-number">2</span>:] <span class="hljs-comment"># 若为&#x27;B-&#x27;,说明此时是回一个实体的开头</span><br>            is_entity =<span class="hljs-literal">True</span><br>            tmp_named_entity += text[index]<br>        <span class="hljs-keyword">else</span>: <span class="hljs-comment"># &#x27;I-&#x27;</span><br>            tmp_named_entity += text[index]<br>    <span class="hljs-keyword">return</span> named_entity_list<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">named_entity_list = get_named_entity(exam_test_text,exam_prediction_label)<br><span class="hljs-built_in">print</span>(named_entity_list)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#123;&#39;text&#39;: &#39;欧&#39;, &#39;type&#39;: &#39;LOC&#39;&#125;, &#123;&#39;text&#39;: &#39;美&#39;, &#39;type&#39;: &#39;LOC&#39;&#125;, &#123;&#39;text&#39;: &#39;港&#39;, &#39;type&#39;: &#39;LOC&#39;&#125;, &#123;&#39;text&#39;: &#39;台&#39;, &#39;type&#39;: &#39;LOC&#39;&#125;]</code></pre></div>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LSTM/">LSTM</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NER/">NER</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CRF/">CRF</a>
+                    
+                      <a class="hover-with-bg" href="/tags/tensorflow/">tensorflow</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/01/bert-tf2-6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Bert-TF-2.6修改-自调适配版</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/28/ctr-predict/">
+                        <span class="hidden-mobile">广告投放中的CTR预估模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="广告系统架构  DSP  需求方平台，即为广告主服务平台，广告主可以通过DSP平台设置自己想要的受众，设置愿意出资多少购买这些受众的曝光，完成广告投放需求； 面向广告购买方  SSP  供应方平台，即为媒体服务平台，媒体方通过SSP平台完成广告资源的管理，如流量分配，价格，筛选等；面向广告售卖方  ADX  广告交易平台，即为连接买方和卖方；ADX将媒体的广告流量以拍卖的方式卖给DSP  DMP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="广告系统架构">
+<meta property="og:url" content="http://oceaneyes.top/2020/02/22/DSP%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="广告系统架构  DSP  需求方平台，即为广告主服务平台，广告主可以通过DSP平台设置自己想要的受众，设置愿意出资多少购买这些受众的曝光，完成广告投放需求； 面向广告购买方  SSP  供应方平台，即为媒体服务平台，媒体方通过SSP平台完成广告资源的管理，如流量分配，价格，筛选等；面向广告售卖方  ADX  广告交易平台，即为连接买方和卖方；ADX将媒体的广告流量以拍卖的方式卖给DSP  DMP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13280750-a2bda3e85433b72a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13280750-8b586f3cc9457aec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13280750-6b37be8f436c849b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13280750-793b5fc068b19f6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="http://oceaneyes.top/.top//个人微信公众号二维码.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//个人网站二维码.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2020-02-22T15:13:08.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.156Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="产品">
+<meta property="article:tag" content="广告">
+<meta property="article:tag" content="DSP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13280750-a2bda3e85433b72a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+  
+  
+  <title>广告系统架构 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="广告系统架构">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-22 23:13" pubdate>
+        2020年2月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">广告系统架构</h1>
+            
+            <div class="markdown-body">
+              <h2 id="广告系统架构">广告系统架构</h2>
+<ul>
+<li>DSP
+<ul>
+<li>需求方平台，即为广告主服务平台，广告主可以通过DSP平台设置自己想要的受众，设置愿意出资多少购买这些受众的曝光，完成广告投放需求；
+面向广告购买方</li>
+</ul></li>
+<li>SSP
+<ul>
+<li>供应方平台，即为媒体服务平台，媒体方通过SSP平台完成广告资源的管理，如流量分配，价格，筛选等；面向广告售卖方</li>
+</ul></li>
+<li>ADX
+<ul>
+<li>广告交易平台，即为连接买方和卖方；ADX将媒体的广告流量以拍卖的方式卖给DSP</li>
+</ul></li>
+<li>DMP
+<ul>
+<li>数据管理平台，整合各方数据并提供数据分析、数据管理、数据调用，用来指导广告主进行广告优化和投放决策</li>
+</ul></li>
+<li>RTB
+<ul>
+<li>实时竞价，100ms内完成计算，当前谁在这个广告位上提供的广告费用更高</li>
+</ul></li>
+</ul>
+<p><strong>实用程序的方式进行广告投放的管理，并利用算法和技术自动实现精准的目标受众定向，把广告内容投放给对的人；效果：</strong></p>
+<ul>
+<li>对广告主
+<ul>
+<li>提高流量的采购效率，更低成本，更可靠稳定的流量</li>
+<li>可融合使用多种策略，投放不同的目标人群，使得广告的投放效果更加可控</li>
+<li>减少广告浪费，提升转化率，扩大覆盖面积</li>
+</ul></li>
+<li>对媒体资源
+<ul>
+<li>实现资源的自动化售卖，提高流量的使用率</li>
+<li>有效利用优质流量和长尾流量</li>
+<li>并且能基于人员的属性、兴趣等标签对不同的流量给出不同售价，提升流量库存的收入</li>
+</ul></li>
+</ul>
+<h4 id="dsp投放架构">DSP投放架构</h4>
+<figure>
+<img src="https://upload-images.jianshu.io/upload_images/13280750-a2bda3e85433b72a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="rtb竞价逻辑">RTB竞价逻辑</h4>
+<figure>
+<img src="https://upload-images.jianshu.io/upload_images/13280750-8b586f3cc9457aec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="平台核心要素">平台核心要素</h3>
+<h4 id="流量资源">流量资源</h4>
+<p>不同的流量资源会有不同的效果，如何选择媒体和广告位是关键。</p>
+<p>制定媒体策略首先需要分析目标受众，根据目标受众选择匹配的媒体资源。媒体策略可以从所要投放的广告位所在页面page、位置spot、流量inventory、价格price、和转化conversion五个角度制定</p>
+<ul>
+<li>页面
+<ul>
+<li>包括渠道、载体（PC、WAP、APP）、媒体分类、频道、URL、页面关键词</li>
+</ul></li>
+<li>位置
+<ul>
+<li>广告位所在的具体位置、尺寸的大小、广告位类型、屏次（首屏、第二屏）</li>
+</ul></li>
+<li>流量
+<ul>
+<li>总流量的大小决定着采购的流量大小</li>
+</ul></li>
+<li>价格</li>
+<li>转化</li>
+</ul>
+<h4 id="投放策略及受众定向">投放策略及受众定向</h4>
+<h5 id="基础设置">基础设置</h5>
+<ul>
+<li>出价上限
+<ul>
+<li>按照CPM、CPC设置，广告主设置能承受的价格上限</li>
+</ul></li>
+<li>预算控制
+<ul>
+<li>提前设置预算避免过度消耗，分为每日预算、总预算</li>
+<li>可设置曝光次数限制、点击次数限制；每日曝光、总曝光；每日点击、总点击</li>
+</ul></li>
+<li>频次控制
+<ul>
+<li>广告主设置同一个用户在设定时间内看到特定广告的总次数</li>
+</ul></li>
+<li>投放时间
+<ul>
+<li>设置投放日期和投放时段</li>
+<li>不同的时间段都会对广告效果产生影响，比如周末、晚上高峰时段</li>
+</ul></li>
+</ul>
+<h5 id="受众定向">受众定向</h5>
+<ul>
+<li>地区</li>
+<li>客户端定向</li>
+<li>设备类型</li>
+<li>人群标签定向，基于DMP系统，不同兴趣爱好的人群进行广告投放</li>
+</ul>
+<h4 id="创意内容">创意内容</h4>
+<h5 id="创意形式format">创意形式format</h5>
+<ul>
+<li>以何种形式呈现
+<ul>
+<li>图片</li>
+<li>蚊子</li>
+<li>图文</li>
+<li>视频</li>
+<li>表单</li>
+<li>……</li>
+</ul></li>
+</ul>
+<h5 id="用户交互方式engagement">用户交互方式engagement</h5>
+<h3 id="数据指标">数据指标</h3>
+<p>在广告投放过程中，必须关注广告的投放效果，以及时调整投放策略，达到效果最大化</p>
+<h4 id="基础指标">基础指标</h4>
+<ul>
+<li>请求数：包含总请求数、有效请求数、参加竞价数、赢得竞价数</li>
+<li>CPC：每点击成本</li>
+<li>CPM：每千人成本</li>
+<li>CTR：广告点击率，即广告点击次数/广告展示次数</li>
+</ul>
+<h4 id="高阶指标">高阶指标</h4>
+<ul>
+<li>独立访客数</li>
+<li>访问数</li>
+<li>网站到达率：用户到达landingpage的数量 / 点击数 ；
+用户衡量该环节的用户流失率</li>
+<li>频次：离线频次、累计频次</li>
+<li>网站浏览量：用户到达目标页面产生的浏览量</li>
+<li>二跳率</li>
+<li>平均停留时长：用户到达目标页面后的平均停留时间</li>
+<li>下载、激活、注册：该次广告投放引导用户下载、激活、注册的数量</li>
+<li>付款金额、付款人次</li>
+</ul>
+<h3 id="程序化创意">程序化创意</h3>
+<figure>
+<img src="https://upload-images.jianshu.io/upload_images/13280750-6b37be8f436c849b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="用户数据中心dmp">用户数据中心DMP</h3>
+<figure>
+<img src="https://upload-images.jianshu.io/upload_images/13280750-793b5fc068b19f6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="反作弊">反作弊</h3>
+<h4 id="常见作弊方式">常见作弊方式</h4>
+<ul>
+<li>CTR异常，明显高于正常水平</li>
+<li>广告访问IP异常，某些IP产生大量的展示点击</li>
+<li>点击热力图异常</li>
+<li>有点击展示，却没有对应的广告请求</li>
+<li>广告请求，展示、点击、跳转、时间顺序异常</li>
+<li>无时间定向时，某时间段的请求，展示，点击数量明显高于正常水平</li>
+<li>某些设备产生了大量的展示、点击</li>
+<li>重复展示、点击</li>
+<li>广告请求中的参数异常，如UA，IP，机型等</li>
+</ul>
+<h4 id="反作弊方法">反作弊方法</h4>
+<p>反作弊需要事前预防、事后溯源、人工排查、智能算法等多管齐下</p>
+<p>反作弊的最终目的是识别机器人流量和正常流量，既要能准确的过滤非正常流量，又要保证正常流量不被过滤</p>
+<h5 id="广告来源">广告来源</h5>
+<ul>
+<li>过滤爬虫IP，过滤内网IP，过滤长时间产生异常数据的IP</li>
+<li>出现大量无refer的广告流量</li>
+<li>refer与所投放的媒体不对应</li>
+</ul>
+<h5 id="用户标识">用户标识</h5>
+<ul>
+<li>根据IP、cookie或者设备ID作为分辨用户的依据</li>
+</ul>
+<h5 id="用户行为">用户行为</h5>
+<p>对广告请求、请求频次、展示、展示频次、点击、点击频次进行分析</p>
+<ul>
+<li><p>同一用户、同一时间在多个广告位产生了浏览或点击行为,或短时间内在同一广告位产生多次曝光或点击;</p></li>
+<li><p>同一用户的广告浏览或点击时间间隔过于规律;</p></li>
+<li><p>曝光数和点击数在某个时间点暴涨;</p></li>
+<li><p>用户未浏览广告就直接产生了点击行为,通常表现为出现大量无曝光的点击;</p></li>
+<li><p>用户浏览广告的面积和时长数据异常,可用广告可见度(Viewability)衡量和分析;</p></li>
+<li><p>用户点击广告的位置过于规律或过于集中,一般用广告位热图来观察分析;</p></li>
+<li><p>用户行为的各环节(浏览广告-&gt;点击广告-&gt;到站-&gt;转化)遵循严谨的时间先后顺序,如果点击广告的时间早于浏览广告的时间,或浏览和点击行为之间的时间间隔异常,一般可以判断为作弊</p></li>
+<li><p>到站情况，综合考量用户留存、停留时间,访问深度等指标,用于分析转化用户的质量</p></li>
+<li><p>关注用户的站内交互情况(点击、滚动、输入等操作)。和广告点击作弊一样,为了制造用户活跃的假象,作弊的方可能会利用机器产生大量页面点击,同样地,我们可以利用点击的区域、次数、频率、页面窗口大小等指标去伪存真</p></li>
+</ul>
+<p><img src="/.top//个人微信公众号二维码.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//个人网站二维码.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E5%B9%BF%E5%91%8A/">广告</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B9%BF%E5%91%8A/">广告</a>
+                    
+                      <a class="hover-with-bg" href="/tags/DSP/">DSP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/24/%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E8%AE%BA%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于贝叶斯决策理论的分类方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/20/%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E4%BA%A7%E5%93%81/">
+                        <span class="hidden-mobile">关于广告系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

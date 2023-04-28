@@ -1,0 +1,1123 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是推荐系统？ 维基百科定义  推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”  限定在电商购买决策过程的定义  电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。   img  这其中隐含了土建系统的2个重要的核心功能  路径优化   img  兴趣发现   img    推荐概述  推荐目标：合适的才是最好的 实现手段：数据、算法、架构、 核心功能：链路优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统-个性化内容分发">
+<meta property="og:url" content="http://oceaneyes.top/2020/02/08/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E4%B8%AA%E6%80%A7%E5%8C%96%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="什么是推荐系统？ 维基百科定义  推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”  限定在电商购买决策过程的定义  电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。   img  这其中隐含了土建系统的2个重要的核心功能  路径优化   img  兴趣发现   img    推荐概述  推荐目标：合适的才是最好的 实现手段：数据、算法、架构、 核心功能：链路优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-24981ed071de556fa72ef6106a42609a_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-d6494b2c04de2bff17231d5dfb4c3b61_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-0acc89bd5a8812fcec86fc875f0df545_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-e0bc3333df76d907d3bb3ae39eab2f80_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-15462e7a78b08baef7862ed6b5717cb2_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-77e1b5a6b2f156ed7b130aaf84eb63ed_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-61f42e1c94fe0092123ac7c9e5a2f079_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-f8308747d670f9c3d50e953c46977d1b_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-59276dea29eceb4c8b3267dd50ffb159_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-522b37b0343ff59d48c1091d0f1e299d_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-027e7f8efad8f3576c557b3dec347ca8_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-529e00b279fc1b65af16c515836e45b9_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-28e7d8a69370b9193b100c9dc594952c_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-262299acabf9486a52b3fee88b0475e3_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1158150f45cea51bb628378b57c76282_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-063abc2abd313aa7df776b23b7977522_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-13b7da2172326c8392f3b232947d70c6_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c399cb49131fdc756c53df87fc75d357_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-a7d81ac9ee10f14e7d06190259ac74b0_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-3176997f9da2fdc4c8dc7153275d3e38_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-bbf8e93ebb565d10053dd0120281121e_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-98232e9c4051988f7209dc9b81c40798_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9bd8e6cb42d8d849a7b0c80292078ee4_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b87e9115bccfa9143221d996aba68e17_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-bed2819c1f3aa7637d38eeedebebdb90_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c70800e9bf2ad2e3292132fbd15dda54_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e8297116cce36f26c7de67d1972d42fe_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8b17939513726115c86590722f93ebb5_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fcb69b1e3f904273f2a26ef1050c5fcd_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b3ef26508d95239d9b710749b6aa34d3_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fc8612ddd48f5af5d5dd8b02514ab4c1_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-359a5eaf8855b9092ac7eaf07f737d8f_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-32fd09adc22679a9ca5730f97ea96b72_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fb1939476538a7ffc5ddd846de94202d_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-6c0c228787e88174d5a5e12a993483f7_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-3802a719644af111dd449d83acc80e6e_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-29abf4518c343d40bb0678effeb17575_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ba8e75e77794802fe92621938ac2335c_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-7e8b921e78f6dfe34fb4a538aa8f8a12_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-70a2ab5f93c7e7b9d45f49b50cbc499a_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-796093ed1186bbd3c359851c85b85eea_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5ab2550a0063b8dad0dbc5d595eb469b_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-d2a2d5f18624ed41a6cf2c7f6c096673_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-124a103f2e219804503fa089a56bc511_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-55c1eca9dbabf7c9ef553440a9219cae_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8a6a2b8e65bbe753a7d8161ea65c1279_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b1955438388f5b630c1dfbb2992450d3_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-13abad33462d724c18dbb2c2d47a88fa_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-bff1fd7d27d3c1b2c4e215c5e95f9121_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1e744c5f6e6f3791f05c378b0908beb1_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-4caed0fd81713f60bba02366960f9733_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-46e9dd415bd251b804ab088608a5baf4_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6ca5c99ea8e76ea02ba5ae2533acbba4_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-41a7a17a891d5a29b214cc40be2279b8_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-89a9e0870258f6a9eaa634544f249c85_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-37ad55e090bcbe9ee42d9102dd110d70_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ba19c9de4cb88e48096c7cce268d7b02_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-d40c45b5d399dfb3933f16bbbf64a39b_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-e3e28700c774d253ef4f9c89825d32c7_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-623cb5d59687ec59a75fdc3fd5bac4ee_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-2b5bace2d1ade91a61b2c915f0f2ad3d_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-5e2134edb61ad4d09981252e1ec52b69_1440w.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2020-02-08T15:51:14.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.195Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="产品">
+<meta property="article:tag" content="推荐系统">
+<meta property="article:tag" content="个性化">
+<meta property="article:tag" content="内容分发">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg">
+  
+  
+  <title>推荐系统-个性化内容分发 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="推荐系统-个性化内容分发">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-08 23:51" pubdate>
+        2020年2月8日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">推荐系统-个性化内容分发</h1>
+            
+            <div class="markdown-body">
+              <h2 id="什么是推荐系统">什么是推荐系统？</h2>
+<p><strong>维基百科定义</strong></p>
+<ul>
+<li>推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”</li>
+</ul>
+<p><strong>限定在电商购买决策过程的定义</strong></p>
+<ul>
+<li><p>电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
+<li><p>这其中隐含了土建系统的2个重要的核心功能</p>
+<ul>
+<li><p>路径优化</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-24981ed071de556fa72ef6106a42609a_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
+<li><p>兴趣发现</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-d6494b2c04de2bff17231d5dfb4c3b61_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure></li>
+</ul></li>
+</ul>
+<h3 id="推荐概述">推荐概述</h3>
+<ul>
+<li>推荐目标：合适的才是最好的</li>
+<li>实现手段：数据、算法、架构、</li>
+<li>核心功能：链路优化、兴趣发现</li>
+<li>评价：满意度（点击率，转化率，时长）、准确、覆盖率、多样性、新颖性、惊喜性、信任度、鲁棒性、实时性、商业目标</li>
+<li>两过程：从学习到决策过程</li>
+<li>核心问题：如何构建一个用户对商品的评价模型</li>
+<li>宗旨：服务提供方和消费方双赢</li>
+<li>演进：</li>
+<li>与搜索的异同：推荐被动，搜索主动； 推荐不明确货找人，
+搜索明确人找货</li>
+</ul>
+<h3 id="推荐的几大挑战">推荐的几大挑战</h3>
+<ul>
+<li>大数据，稀疏，长尾，噪音</li>
+<li>用户行为模式的挖掘和利用（行为的复杂性）</li>
+<li>冷启动（新用户/新商品）</li>
+<li>多样性与精确性的两难困境</li>
+<li>用户界面与用户体验（个性化体验的可解释性）</li>
+</ul>
+<h3 id="好的推荐产品">好的推荐产品</h3>
+<ul>
+<li>5W
+<ul>
+<li>when</li>
+<li>where</li>
+<li>who</li>
+<li>what</li>
+<li>why</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-0acc89bd5a8812fcec86fc875f0df545_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-e0bc3333df76d907d3bb3ae39eab2f80_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-15462e7a78b08baef7862ed6b5717cb2_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-77e1b5a6b2f156ed7b130aaf84eb63ed_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="推荐系统是怎么做到的">推荐系统是怎么做到的？</h2>
+<h3 id="上下文">上下文</h3>
+<ul>
+<li>当前定位</li>
+<li>当前季节</li>
+<li>用户年龄</li>
+</ul>
+<h3 id="用户画像">用户画像</h3>
+<ul>
+<li>用户静态数据</li>
+<li>用户动态数据</li>
+</ul>
+<h3 id="协同过滤">协同过滤</h3>
+<h4 id="基于用户">基于用户</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-61f42e1c94fe0092123ac7c9e5a2f079_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="基于内容">基于内容</h4>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-f8308747d670f9c3d50e953c46977d1b_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="基于商品">基于商品</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-59276dea29eceb4c8b3267dd50ffb159_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="基于模型">基于模型</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-522b37b0343ff59d48c1091d0f1e299d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="基于统计知识">基于统计/知识</h4>
+<h2 id="推荐系统的相似度评估">推荐系统的相似度评估</h2>
+<p>计算用户与用户， 商品与商品， 内容与内容的相似度</p>
+<p>主要思想为，交集 / 并集</p>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-027e7f8efad8f3576c557b3dec347ca8_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-529e00b279fc1b65af16c515836e45b9_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<ul>
+<li>当交集与并集相等时，相似度为1</li>
+<li>当交集为空时，相似度为 0</li>
+</ul>
+<h3 id="推荐的混合模型">推荐的混合模型</h3>
+<h4 id="级联型">级联型</h4>
+<p>使用后一个推荐方法优化前一个</p>
+<h4 id="特征递增">特征递增</h4>
+<p>前一个做为后一个的输入</p>
+<h4 id="特征组合">特征组合</h4>
+<p>将来自不同推荐数据源的特征组合，然后由其他推荐技术使用</p>
+<h4 id="元层次组合">元层次组合</h4>
+<p>将不同的推荐模型融合</p>
+<h4 id="混合">混合</h4>
+<p>将多种不同的推荐算法的结果混合在一起</p>
+<h4 id="切换">切换</h4>
+<p>根据问题背景和实际情况采用不同的推荐技术</p>
+<h4 id="加权融合">加权融合</h4>
+<p>多种推荐类型的计算混合产生推荐</p>
+<h2 id="推荐系统的架构和模块">推荐系统的架构和模块</h2>
+<h3 id="演进">演进</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-28e7d8a69370b9193b100c9dc594952c_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-262299acabf9486a52b3fee88b0475e3_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="推荐系统架构">推荐系统架构</h3>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-1158150f45cea51bb628378b57c76282_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-063abc2abd313aa7df776b23b7977522_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-13b7da2172326c8392f3b232947d70c6_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="推荐流量分发">推荐流量分发</h3>
+<ul>
+<li><p>CVR (Click Value Rate): 转化率，衡量<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=CPA广告&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">CPA广告</a>效果的指标</p></li>
+<li><p>CTR (Click Through Rate): 点击率</p></li>
+<li><p>CPC (Cost Per Click): 按点击计费</p></li>
+<li><p>CPA (Cost Per Action): 按成果数计费</p></li>
+<li><p>CPM (Cost Per Mille): 按千次展现计费</p></li>
+<li><p>PV (Page View): 流量</p></li>
+<li><p>PV单价: 每PV的收入，衡量页面<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=流量变现&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">流量变现</a>能力的指标</p></li>
+<li><p>ADPV (Advertisement Page View): 载有广告的pageview流量</p></li>
+<li><p>ADimp (ADimpression): 单个广告的展示次数</p></li>
+<li><p>RPS (Revenue Per Search): 每搜索产生的收入，衡量搜索结果<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=变现能力&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">变现能力</a>指标</p></li>
+<li><p>ROI：投资回报率(ROI)是指通过投资而应返回的价值，它涵盖了企业的获利目标。利润投入的经营所必备的财产相关，因为管理人员必须通过投资和现有财产获得利润。又称<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=会计收益率&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao">会计收益率</a>、投资利润率。</p></li>
+<li><p>GMV：通常称为网站成交金额，属于电商平台企业成交类指标，主要指拍下订单的总金额，包含付款和未付款两部分</p></li>
+</ul>
+<p><strong>计算方式</strong></p>
+<ul>
+<li><p>ROI=订单额/消费量（即广告费用）=（单均额<em>转化量）/（CPA</em>转化量）=单均额/CPA</p></li>
+<li><p>CTR=点击量/展现量</p></li>
+<li><p>CVR=转化量/点击量</p></li>
+<li><p>CPM=（消费量/展现量）*1000</p></li>
+<li><p>CPA=消费量/转化量=（CPC<em>点击量）/（CVR</em>点击量）=CPC/CVR</p></li>
+<li><p>CPC=消费量/点击量</p></li>
+</ul>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-c399cb49131fdc756c53df87fc75d357_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="模型部署">模型部署</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-a7d81ac9ee10f14e7d06190259ac74b0_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-3176997f9da2fdc4c8dc7153275d3e38_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-bbf8e93ebb565d10053dd0120281121e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="推荐召回">推荐召回</h2>
+<h3 id="召回分类">召回分类</h3>
+<p>兼顾成本与性能</p>
+<ul>
+<li>user profile 标签索引列表</li>
+<li>相似列表
+<ul>
+<li>协同过滤</li>
+<li>Content-Based</li>
+<li>基于图论的算法</li>
+<li>knoledge-Based</li>
+<li>Context-Aware</li>
+<li>Hybrid-BAsed</li>
+</ul></li>
+<li>热门列表
+<ul>
+<li>分类热门</li>
+<li>运营人工推荐列表</li>
+</ul></li>
+<li>召回的列表将作为推荐候选池</li>
+</ul>
+<h3 id="业界算法模型">业界算法模型</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-98232e9c4051988f7209dc9b81c40798_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-9bd8e6cb42d8d849a7b0c80292078ee4_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-b87e9115bccfa9143221d996aba68e17_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="相似度计算注意点">相似度计算注意点</h3>
+<ul>
+<li>在不丧失区分度的情况下，空间尽量稠密</li>
+<li>经验目标：稀疏度&gt; 1%</li>
+<li>横向结合+纵向结合</li>
+<li>相似度归一化
+<ul>
+<li>提高推荐的准确度</li>
+</ul></li>
+<li>时间因子
+<ul>
+<li>对历史共现的数据和历史频次的数据进行降权</li>
+<li>要更加侧重于新数据的影响力</li>
+</ul></li>
+</ul>
+<h3 id="召回---关联推荐">召回---关联推荐</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-bed2819c1f3aa7637d38eeedebebdb90_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-c70800e9bf2ad2e3292132fbd15dda54_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-e8297116cce36f26c7de67d1972d42fe_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="推荐排序">推荐排序</h2>
+<h4 id="问题抽象">问题抽象</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-8b17939513726115c86590722f93ebb5_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="个性化非个性化模型">个性化/非个性化模型</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-fcb69b1e3f904273f2a26ef1050c5fcd_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="目标变形">目标变形</h4>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-b3ef26508d95239d9b710749b6aa34d3_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="预估流程与部署">预估流程与部署</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-fc8612ddd48f5af5d5dd8b02514ab4c1_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="调试">调试</h4>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-359a5eaf8855b9092ac7eaf07f737d8f_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-32fd09adc22679a9ca5730f97ea96b72_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="用户画像-1">用户画像</h2>
+<h3 id="要素">要素</h3>
+<p>用户行为= 商品/内容 +显性操作
+（购买、关注、下载）+隐形操作（时长、跳过）</p>
+<h4 id="user-profile-基础数据">User profile 基础数据</h4>
+<p><strong>用户标签</strong></p>
+<ul>
+<li>用户的历史行为</li>
+<li>用户session行为</li>
+<li>用户自身的标签</li>
+</ul>
+<h4 id="itemcontent-profile基础数据">Item/Content profile基础数据</h4>
+<p><strong>内容标签</strong></p>
+<ul>
+<li>内容的keyword</li>
+<li>分类</li>
+<li>热点标签</li>
+<li>标题党</li>
+<li>……</li>
+</ul>
+<h3 id="用户画像标签">用户画像标签</h3>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-fb1939476538a7ffc5ddd846de94202d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="用户画像应用-选人中心">用户画像应用-选人中心</h4>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-6c0c228787e88174d5a5e12a993483f7_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="用户画像应用-dmp">用户画像应用-DMP</h4>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-3802a719644af111dd449d83acc80e6e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="用户画像应用-right-time-消费周期">用户画像应用-Right Time
+消费周期</h4>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-29abf4518c343d40bb0678effeb17575_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="标签体系构建">标签体系构建</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-ba8e75e77794802fe92621938ac2335c_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="标签建模">标签建模</h3>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-7e8b921e78f6dfe34fb4a538aa8f8a12_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="性别模型">性别模型</h4>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-70a2ab5f93c7e7b9d45f49b50cbc499a_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="购买力模型">购买力模型</h4>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-796093ed1186bbd3c359851c85b85eea_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="关键词偏好">关键词偏好</h4>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-5ab2550a0063b8dad0dbc5d595eb469b_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="关键词模型">关键词模型</h4>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-d2a2d5f18624ed41a6cf2c7f6c096673_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="画像与数据分析结合">画像与数据分析结合</h3>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-124a103f2e219804503fa089a56bc511_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-55c1eca9dbabf7c9ef553440a9219cae_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-8a6a2b8e65bbe753a7d8161ea65c1279_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="特征工程">特征工程</h2>
+<h3 id="分类">分类</h3>
+<ul>
+<li>用户特征
+<ul>
+<li>人口统计学特征</li>
+<li>购物偏好</li>
+<li>用户群体标签</li>
+</ul></li>
+<li>商品特征
+<ul>
+<li>商品ID</li>
+<li>商品静态属性</li>
+<li>商品的关联卖家</li>
+<li>商品所在的店铺</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-b1955438388f5b630c1dfbb2992450d3_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-13abad33462d724c18dbb2c2d47a88fa_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-bff1fd7d27d3c1b2c4e215c5e95f9121_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="数据标注">数据标注</h3>
+<ul>
+<li>样本关联</li>
+<li>样本选择</li>
+<li>样本采样</li>
+<li>样本权重</li>
+<li>负样本</li>
+</ul>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-1e744c5f6e6f3791f05c378b0908beb1_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="特征处理">特征处理</h3>
+<ul>
+<li>特征离散化、ID类特征
+<ul>
+<li>加快处理速度</li>
+<li>非线性</li>
+</ul></li>
+<li>特征平滑
+<ul>
+<li>威尔逊区间</li>
+<li>PV越小，CTR的置信度越小</li>
+<li>防止低PV的商品占优势</li>
+</ul></li>
+<li>特征组合
+<ul>
+<li>非线性</li>
+<li>PV+IPV组合，比CTR的信息更多</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-4caed0fd81713f60bba02366960f9733_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>百度百科：在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/统计学/1175">统计学</a>中，一个概率样本的<strong>置信区间</strong>（Confidence
+interval）是对这个样本的某个总体<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/参数">参数</a>的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/区间估计/6611490">区间估计</a>。置信区间展现的是这个参数的真实值有一定<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/概率/828845">概率</a>落在测量结果的周围的程度。置信区间给出的是被测量参数的测量值的可信程度，即前面所要求的“一定概率”。这个概率被称为<strong>置信水平</strong>。</p>
+<h3 id="特征聚合">特征聚合</h3>
+<ul>
+<li>特征降维</li>
+<li>相似特征有相似权重</li>
+<li>特征的权重近似于后验概率</li>
+</ul>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-46e9dd415bd251b804ab088608a5baf4_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="评估指标">评估指标</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-6ca5c99ea8e76ea02ba5ae2533acbba4_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-41a7a17a891d5a29b214cc40be2279b8_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="回归">回归</h2>
+<h3 id="场景分类与推荐">场景分类与推荐</h3>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-89a9e0870258f6a9eaa634544f249c85_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="各类算法比较">各类算法比较</h3>
+<figure>
+<img src="https://pic1.zhimg.com/80/v2-37ad55e090bcbe9ee42d9102dd110d70_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="实时个性化">实时个性化</h3>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-ba19c9de4cb88e48096c7cce268d7b02_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="意图计算">意图计算</h3>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-d40c45b5d399dfb3933f16bbbf64a39b_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="ee-个性化">E&amp;E 个性化</h3>
+<figure>
+<img src="https://pic4.zhimg.com/80/v2-e3e28700c774d253ef4f9c89825d32c7_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="可配置化">可配置化</h3>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-623cb5d59687ec59a75fdc3fd5bac4ee_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="分解">分解</h3>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-2b5bace2d1ade91a61b2c915f0f2ad3d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-5e2134edb61ad4d09981252e1ec52b69_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/%E4%B8%AA%E6%80%A7%E5%8C%96/">个性化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%B8%AA%E6%80%A7%E5%8C%96/">个性化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/">内容分发</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/10/echart%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">echarts数据可视化</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/08/%E6%B5%85%E8%B0%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">
+                        <span class="hidden-mobile">浅谈用户画像</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

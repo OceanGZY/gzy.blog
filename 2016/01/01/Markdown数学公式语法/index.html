@@ -1,0 +1,859 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Markdown数学公式语法 行内与独行  行内公式：将公式插入到本行内，符号：$公式内容$，如：\(xyz\) 独行公式：将公式插入到新的一行内，并且居中，符号：$$公式内容$$，如：\[xyz\]  上标、下标与组合  上标符号，符号：^，如：\(x^4\) 下标符号，符号：_，如：\(x_1\) 组合符号，符号：&amp;#123;&amp;#125;，如：\({16}_{8}O{2+}_{2}\)  汉字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown数学公式语法">
+<meta property="og:url" content="http://oceaneyes.top/2016/01/01/Markdown%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="Markdown数学公式语法 行内与独行  行内公式：将公式插入到本行内，符号：$公式内容$，如：\(xyz\) 独行公式：将公式插入到新的一行内，并且居中，符号：$$公式内容$$，如：\[xyz\]  上标、下标与组合  上标符号，符号：^，如：\(x^4\) 下标符号，符号：_，如：\(x_1\) 组合符号，符号：&amp;#123;&amp;#125;，如：\({16}_{8}O{2+}_{2}\)  汉字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2015-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.161Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Markdown">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>Markdown数学公式语法 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Markdown数学公式语法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-01-01 00:00" pubdate>
+        2016年1月1日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Markdown数学公式语法</h1>
+            
+            <div class="markdown-body">
+              <h1 id="markdown数学公式语法">Markdown数学公式语法</h1>
+<h2 id="行内与独行">行内与独行</h2>
+<ol type="1">
+<li>行内公式：将公式插入到本行内，符号：<code>$公式内容$</code>，如：<span class="math inline">\(xyz\)</span></li>
+<li>独行公式：将公式插入到新的一行内，并且居中，符号：<code>$$公式内容$$</code>，如：<span class="math display">\[xyz\]</span></li>
+</ol>
+<h2 id="上标下标与组合">上标、下标与组合</h2>
+<ol type="1">
+<li>上标符号，符号：<code>^</code>，如：<span class="math inline">\(x^4\)</span></li>
+<li>下标符号，符号：<code>_</code>，如：<span class="math inline">\(x_1\)</span></li>
+<li>组合符号，符号：<code>&#123;&#125;</code>，如：<span class="math inline">\({16}_{8}O{2+}_{2}\)</span></li>
+</ol>
+<h2 id="汉字字体与格式">汉字、字体与格式</h2>
+<ol type="1">
+<li>汉字形式，符号：<code>\mbox&#123;&#125;</code>，如：<span class="math inline">\(V_{\mbox{初始}}\)</span></li>
+<li>字体控制，符号：<code>\displaystyle</code>，如：<span class="math inline">\(\displaystyle \frac{x+y}{y+z}\)</span></li>
+<li>下划线符号，符号：<code>\underline</code>，如：<span class="math inline">\(\underline{x+y}\)</span></li>
+<li>标签，符号<code>\tag&#123;数字&#125;</code>，如：<span class="math inline">\(\tag{11}\)</span></li>
+<li>上大括号，符号：<code>\overbrace&#123;算式&#125;</code>，如：<span class="math inline">\(\overbrace{a+b+c+d}^{2.0}\)</span></li>
+<li>下大括号，符号：<code>\underbrace&#123;算式&#125;</code>，如：<span class="math inline">\(a+\underbrace{b+c}_{1.0}+d\)</span></li>
+<li>上位符号，符号：<code>\stacrel&#123;上位符号&#125;&#123;基位符号&#125;</code>，如：<span class="math inline">\(\vec{x}\stackrel{\mathrm{def}}{=}{x_1,\dots,x_n}\)</span></li>
+</ol>
+<h2 id="占位符">占位符</h2>
+<ol type="1">
+<li>两个quad空格，符号：<code>\qquad</code>，如：<span class="math inline">\(x \qquad y\)</span></li>
+<li>quad空格，符号：<code>\quad</code>，如：<span class="math inline">\(x \quad y\)</span></li>
+<li>大空格，符号<code>\</code>，如：<span class="math inline">\(x
+\  y\)</span></li>
+<li>中空格，符号<code>\:</code>，如：<span class="math inline">\(x :
+y\)</span></li>
+<li>小空格，符号<code>\,</code>，如：<span class="math inline">\(x ,
+y\)</span></li>
+<li>没有空格，符号``，如：<span class="math inline">\(xy\)</span></li>
+<li>紧贴，符号<code>\!</code>，如：<span class="math inline">\(x !
+y\)</span></li>
+</ol>
+<h2 id="定界符与组合">定界符与组合</h2>
+<ol type="1">
+<li>括号，符号：<code>（）\big(\big) \Big(\Big) \bigg(\bigg) \Bigg(\Bigg)</code>，如：<span class="math inline">\(（）\big(\big) \Big(\Big) \bigg(\bigg)
+\Bigg(\Bigg)\)</span></li>
+<li>中括号，符号：<code>[]</code>，如：<span class="math inline">\([x+y]\)</span></li>
+<li>大括号，符号：<code>\&#123; \&#125;</code>，如：<span class="math inline">\({x+y}\)</span></li>
+<li>自适应括号，符号：<code>\left \right</code>，如：<span class="math inline">\(\left(x\right)\)</span>，<span class="math inline">\(\left(x{yz}\right)\)</span></li>
+<li>组合公式，符号：<code>&#123;上位公式 \choose 下位公式&#125;</code>，如：<span class="math inline">\({n+1 \choose k}={n \choose k}+{n \choose
+k-1}\)</span></li>
+<li>组合公式，符号：<code>&#123;上位公式 \atop 下位公式&#125;</code>，如：<span class="math inline">\(\sum_{k_0,k_1,\ldots&gt;0 \atop
+k_0+k_1+\cdots=n}A_{k_0}A_{k_1}\cdots\)</span></li>
+</ol>
+<h2 id="四则运算">四则运算</h2>
+<ol type="1">
+<li>加法运算，符号：<code>+</code>，如：<span class="math inline">\(x+y=z\)</span></li>
+<li>减法运算，符号：<code>-</code>，如：<span class="math inline">\(x-y=z\)</span></li>
+<li>加减运算，符号：<code>\pm</code>，如：<span class="math inline">\(x
+\pm y=z\)</span></li>
+<li>减甲运算，符号：<code>\mp</code>，如：<span class="math inline">\(x
+\mp y=z\)</span></li>
+<li>乘法运算，符号：<code>\times</code>，如：<span class="math inline">\(x \times y=z\)</span></li>
+<li>点乘运算，符号：<code>\cdot</code>，如：<span class="math inline">\(x \cdot y=z\)</span></li>
+<li>星乘运算，符号：<code>\ast</code>，如：<span class="math inline">\(x
+\ast y=z\)</span></li>
+<li>除法运算，符号：<code>\div</code>，如：<span class="math inline">\(x
+\div y=z\)</span></li>
+<li>斜法运算，符号：<code>/</code>，如：<span class="math inline">\(x/y=z\)</span></li>
+<li>分式表示，符号：<code>\frac&#123;分子&#125;&#123;分母&#125;</code>，如：<span class="math inline">\(\frac{x+y}{y+z}\)</span></li>
+<li>分式表示，符号：<code>&#123;分子&#125; \voer &#123;分母&#125;</code>，如：<span class="math inline">\({x+y} \over {y+z}\)</span></li>
+<li>绝对值表示，符号：<code>||</code>，如：<span class="math inline">\(|x+y|\)</span></li>
+</ol>
+<h2 id="高级运算">高级运算</h2>
+<ol type="1">
+<li>平均数运算，符号：<code>\overline&#123;算式&#125;</code>，如：<span class="math inline">\(\overline{xyz}\)</span></li>
+<li>开二次方运算，符号：<code>\sqrt</code>，如：<span class="math inline">\(\sqrt x\)</span></li>
+<li>开方运算，符号：<code>\sqrt[开方数]&#123;被开方数&#125;</code>，如：<span class="math inline">\(\sqrt[3]{x+y}\)</span></li>
+<li>对数运算，符号：<code>\log</code>，如：<span class="math inline">\(\log(x)\)</span></li>
+<li>极限运算，符号：<code>\lim</code>，如：<span class="math inline">\(\lim^{x \to \infty}_{y \to
+0}{\frac{x}{y}}\)</span></li>
+<li>极限运算，符号：<code>\displaystyle \lim</code>，如：<span class="math inline">\(\displaystyle \lim^{x \to \infty}_{y \to
+0}{\frac{x}{y}}\)</span></li>
+<li>求和运算，符号：<code>\sum</code>，如：<span class="math inline">\(\sum^{x \to \infty}_{y \to
+0}{\frac{x}{y}}\)</span></li>
+<li>求和运算，符号：<code>\displaystyle \sum</code>，如：<span class="math inline">\(\displaystyle \sum^{x \to \infty}_{y \to
+0}{\frac{x}{y}}\)</span></li>
+<li>积分运算，符号：<code>\int</code>，如：<span class="math inline">\(\int^{\infty}_{0}{xdx}\)</span></li>
+<li>积分运算，符号：<code>\displaystyle \int</code>，如：<span class="math inline">\(\displaystyle \int^{\infty}_{0}{xdx}\)</span></li>
+<li>微分运算，符号：<code>\partial</code>，如：<span class="math inline">\(\frac{\partial x}{\partial y}\)</span></li>
+<li>矩阵表示，符号：<code>\begin&#123;matrix&#125; \end&#123;matrix&#125;</code>，如：<span class="math inline">\(\left[ \begin{matrix} 1 &amp;2 &amp;\cdots
+&amp;4\5 &amp;6 &amp;\cdots &amp;8\\vdots &amp;\vdots &amp;\ddots
+&amp;\vdots\13 &amp;14 &amp;\cdots &amp;16\end{matrix}
+\right]\)</span></li>
+</ol>
+<h2 id="逻辑运算">逻辑运算</h2>
+<ol type="1">
+<li>等于运算，符号：<code>=</code>，如：<span class="math inline">\(x+y=z\)</span></li>
+<li>大于运算，符号：<code>&gt;</code>，如：<span class="math inline">\(x+y&gt;z\)</span></li>
+<li>小于运算，符号：<code>&lt;</code>，如：<span class="math inline">\(x+y&lt;z\)</span></li>
+<li>大于等于运算，符号：<code>\geq</code>，如：<span class="math inline">\(x+y \geq z\)</span></li>
+<li>小于等于运算，符号：<code>\leq</code>，如：<span class="math inline">\(x+y \leq z\)</span></li>
+<li>不等于运算，符号：<code>\neq</code>，如：<span class="math inline">\(x+y \neq z\)</span></li>
+<li>不大于等于运算，符号：<code>\ngeq</code>，如：<span class="math inline">\(x+y \ngeq z\)</span></li>
+<li>不大于等于运算，符号：<code>\not\geq</code>，如：<span class="math inline">\(x+y \not\geq z\)</span></li>
+<li>不小于等于运算，符号：<code>\nleq</code>，如：<span class="math inline">\(x+y \nleq z\)</span></li>
+<li>不小于等于运算，符号：<code>\not\leq</code>，如：<span class="math inline">\(x+y \not\leq z\)</span></li>
+<li>约等于运算，符号：<code>\approx</code>，如：<span class="math inline">\(x+y \approx z\)</span></li>
+<li>恒定等于运算，符号：<code>\equiv</code>，如：<span class="math inline">\(x+y \equiv z\)</span></li>
+</ol>
+<h2 id="集合运算">集合运算</h2>
+<ol type="1">
+<li>属于运算，符号：<code>\in</code>，如：<span class="math inline">\(x
+\in y\)</span></li>
+<li>不属于运算，符号：<code>\notin</code>，如：<span class="math inline">\(x \notin y\)</span></li>
+<li>不属于运算，符号：<code>\not\in</code>，如：<span class="math inline">\(x \not\in y\)</span></li>
+<li>子集运算，符号：<code>\subset</code>，如：<span class="math inline">\(x \subset y\)</span></li>
+<li>子集运算，符号：<code>\supset</code>，如：<span class="math inline">\(x \supset y\)</span></li>
+<li>真子集运算，符号：<code>\subseteq</code>，如：<span class="math inline">\(x \subseteq y\)</span></li>
+<li>非真子集运算，符号：<code>\subsetneq</code>，如：<span class="math inline">\(x \subsetneq y\)</span></li>
+<li>真子集运算，符号：<code>\supseteq</code>，如：<span class="math inline">\(x \supseteq y\)</span></li>
+<li>非真子集运算，符号：<code>\supsetneq</code>，如：<span class="math inline">\(x \supsetneq y\)</span></li>
+<li>非子集运算，符号：<code>\not\subset</code>，如：<span class="math inline">\(x \not\subset y\)</span></li>
+<li>非子集运算，符号：<code>\not\supset</code>，如：<span class="math inline">\(x \not\supset y\)</span></li>
+<li>并集运算，符号：<code>\cup</code>，如：<span class="math inline">\(x
+\cup y\)</span></li>
+<li>交集运算，符号：<code>\cap</code>，如：<span class="math inline">\(x
+\cap y\)</span></li>
+<li>差集运算，符号：<code>\setminus</code>，如：<span class="math inline">\(x \setminus y\)</span></li>
+<li>同或运算，符号：<code>\bigodot</code>，如：<span class="math inline">\(x \bigodot y\)</span></li>
+<li>同与运算，符号：<code>\bigotimes</code>，如：<span class="math inline">\(x \bigotimes y\)</span></li>
+<li>实数集合，符号：<code>\mathbb&#123;R&#125;</code>，如：<code>\mathbb&#123;R&#125;</code></li>
+<li>自然数集合，符号：<code>\mathbb&#123;Z&#125;</code>，如：<code>\mathbb&#123;Z&#125;</code></li>
+<li>空集，符号：<code>\emptyset</code>，如：<span class="math inline">\(\emptyset\)</span></li>
+</ol>
+<h2 id="数学符号">数学符号</h2>
+<ol type="1">
+<li>无穷，符号：<code>\infty</code>，如：<span class="math inline">\(\infty\)</span></li>
+<li>虚数，符号：<code>\imath</code>，如：<span class="math inline">\(\imath\)</span></li>
+<li>虚数，符号：<code>\jmath</code>，如：<span class="math inline">\(\jmath\)</span></li>
+<li>数学符号，符号<code>\hat&#123;a&#125;</code>，如：<span class="math inline">\(\hat{a}\)</span></li>
+<li>数学符号，符号<code>\check&#123;a&#125;</code>，如：<span class="math inline">\(\check{a}\)</span></li>
+<li>数学符号，符号<code>\breve&#123;a&#125;</code>，如：<span class="math inline">\(\breve{a}\)</span></li>
+<li>数学符号，符号<code>\tilde&#123;a&#125;</code>，如：<span class="math inline">\(\tilde{a}\)</span></li>
+<li>数学符号，符号<code>\bar&#123;a&#125;</code>，如：<span class="math inline">\(\bar{a}\)</span></li>
+<li>矢量符号，符号<code>\vec&#123;a&#125;</code>，如：<span class="math inline">\(\vec{a}\)</span></li>
+<li>数学符号，符号<code>\acute&#123;a&#125;</code>，如：<span class="math inline">\(\acute{a}\)</span></li>
+<li>数学符号，符号<code>\grave&#123;a&#125;</code>，如：<span class="math inline">\(\grave{a}\)</span></li>
+<li>数学符号，符号<code>\mathring&#123;a&#125;</code>，如：<span class="math inline">\(\mathring{a}\)</span></li>
+<li>一阶导数符号，符号<code>\dot&#123;a&#125;</code>，如：<span class="math inline">\(\dot{a}\)</span></li>
+<li>二阶导数符号，符号<code>\ddot&#123;a&#125;</code>，如：<span class="math inline">\(\ddot{a}\)</span></li>
+<li>上箭头，符号：<code>\uparrow</code>，如：<span class="math inline">\(\uparrow\)</span></li>
+<li>上箭头，符号：<code>\Uparrow</code>，如：<span class="math inline">\(\Uparrow\)</span></li>
+<li>下箭头，符号：<code>\downarrow</code>，如：<span class="math inline">\(\downarrow\)</span></li>
+<li>下箭头，符号：<code>\Downarrow</code>，如：<span class="math inline">\(\Downarrow\)</span></li>
+<li>左箭头，符号：<code>\leftarrow</code>，如：<span class="math inline">\(\leftarrow\)</span></li>
+<li>左箭头，符号：<code>\Leftarrow</code>，如：<span class="math inline">\(\Leftarrow\)</span></li>
+<li>右箭头，符号：<code>\rightarrow</code>，如：<span class="math inline">\(\rightarrow\)</span></li>
+<li>右箭头，符号：<code>\Rightarrow</code>，如：<span class="math inline">\(\Rightarrow\)</span></li>
+<li>底端对齐的省略号，符号：<code>\ldots</code>，如：<span class="math inline">\(1,2,\ldots,n\)</span></li>
+<li>中线对齐的省略号，符号：<code>\cdots</code>，如：<span class="math inline">\(x_1^2 + x_2^2 + \cdots + x_n^2\)</span></li>
+<li>竖直对齐的省略号，符号：<code>\vdots</code>，如：<span class="math inline">\(\vdots\)</span></li>
+<li>斜对齐的省略号，符号：<code>\ddots</code>，如：<span class="math inline">\(\ddots\)</span></li>
+</ol>
+<h2 id="希腊字母">希腊字母</h2>
+<table>
+<thead>
+<tr class="header">
+<th>字母</th>
+<th>实现</th>
+<th>字母</th>
+<th>实现</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td><code>A</code></td>
+<td>α</td>
+<td><code>\alhpa</code></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td><code>B</code></td>
+<td>β</td>
+<td><code>\beta</code></td>
+</tr>
+<tr class="odd">
+<td>Γ</td>
+<td><code>\Gamma</code></td>
+<td>γ</td>
+<td><code>\gamma</code></td>
+</tr>
+<tr class="even">
+<td>Δ</td>
+<td><code>\Delta</code></td>
+<td>δ</td>
+<td><code>\delta</code></td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td><code>E</code></td>
+<td>ϵ</td>
+<td><code>\epsilon</code></td>
+</tr>
+<tr class="even">
+<td>Z</td>
+<td><code>Z</code></td>
+<td>ζ</td>
+<td><code>\zeta</code></td>
+</tr>
+<tr class="odd">
+<td>H</td>
+<td><code>H</code></td>
+<td>η</td>
+<td><code>\eta</code></td>
+</tr>
+<tr class="even">
+<td>Θ</td>
+<td><code>\Theta</code></td>
+<td>θ</td>
+<td><code>\theta</code></td>
+</tr>
+<tr class="odd">
+<td>I</td>
+<td><code>I</code></td>
+<td>ι</td>
+<td><code>\iota</code></td>
+</tr>
+<tr class="even">
+<td>K</td>
+<td><code>K</code></td>
+<td>κ</td>
+<td><code>\kappa</code></td>
+</tr>
+<tr class="odd">
+<td>Λ</td>
+<td><code>\Lambda</code></td>
+<td>λ</td>
+<td><code>\lambda</code></td>
+</tr>
+<tr class="even">
+<td>M</td>
+<td><code>M</code></td>
+<td>μ</td>
+<td><code>\mu</code></td>
+</tr>
+<tr class="odd">
+<td>N</td>
+<td><code>N</code></td>
+<td>ν</td>
+<td><code>\nu</code></td>
+</tr>
+<tr class="even">
+<td>Ξ</td>
+<td><code>\Xi</code></td>
+<td>ξ</td>
+<td><code>\xi</code></td>
+</tr>
+<tr class="odd">
+<td>O</td>
+<td><code>O</code></td>
+<td>ο</td>
+<td><code>\omicron</code></td>
+</tr>
+<tr class="even">
+<td>Π</td>
+<td><code>\Pi</code></td>
+<td>π</td>
+<td><code>\pi</code></td>
+</tr>
+<tr class="odd">
+<td>P</td>
+<td><code>P</code></td>
+<td>ρ</td>
+<td><code>\rho</code></td>
+</tr>
+<tr class="even">
+<td>Σ</td>
+<td><code>\Sigma</code></td>
+<td>σ</td>
+<td><code>\sigma</code></td>
+</tr>
+<tr class="odd">
+<td>T</td>
+<td><code>T</code></td>
+<td>τ</td>
+<td><code>\tau</code></td>
+</tr>
+<tr class="even">
+<td>Υ</td>
+<td><code>\Upsilon</code></td>
+<td>υ</td>
+<td><code>\upsilon</code></td>
+</tr>
+<tr class="odd">
+<td>Φ</td>
+<td><code>\Phi</code></td>
+<td>ϕ</td>
+<td><code>\phi</code></td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td><code>X</code></td>
+<td>χ</td>
+<td><code>\chi</code></td>
+</tr>
+<tr class="odd">
+<td>Ψ</td>
+<td><code>\Psi</code></td>
+<td>ψ</td>
+<td><code>\psi</code></td>
+</tr>
+<tr class="even">
+<td>Ω</td>
+<td><code>\v</code></td>
+<td>ω</td>
+<td><code>\omega</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Markdownd/">Markdownd</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Markdown/">Markdown</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/01/01/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Markdown基本语法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/07/20/%E7%99%BE%E5%B9%B4%E6%AD%8C%E8%87%AA%E8%8B%A6%EF%BC%8C%E6%9C%AA%E8%A7%81%E6%9C%89%E7%9F%A5%E9%9F%B3/">
+                        <span class="hidden-mobile">生活随笔</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

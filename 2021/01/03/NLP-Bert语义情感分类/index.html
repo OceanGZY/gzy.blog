@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="评论情感分类数据处理 123456789101112131415161718192021222324252627282930313233343536# 评论情感分类数据处理# labels： 0负面、1中性、2正面class CommentProcessor(DataProcessor):    def get_train_examples(self, data_dir):        retu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP-Bert语义情感分类">
+<meta property="og:url" content="http://oceaneyes.top/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="评论情感分类数据处理 123456789101112131415161718192021222324252627282930313233343536# 评论情感分类数据处理# labels： 0负面、1中性、2正面class CommentProcessor(DataProcessor):    def get_train_examples(self, data_dir):        retu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2021-01-03T14:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.163Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="Bert">
+<meta property="article:tag" content="Tensorflow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+  
+  
+  <title>NLP-Bert语义情感分类 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="NLP-Bert语义情感分类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-03 22:19" pubdate>
+        2021年1月3日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      51 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NLP-Bert语义情感分类</h1>
+            
+            <div class="markdown-body">
+              <h4 id="评论情感分类数据处理">评论情感分类数据处理</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 评论情感分类数据处理</span><br><span class="hljs-comment"># labels： 0负面、1中性、2正面</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CommentProcessor</span>(<span class="hljs-title class_ inherited__">DataProcessor</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_train_examples</span>(<span class="hljs-params">self, data_dir</span>):<br>        <span class="hljs-keyword">return</span> self._create_examples(<br>            self._read_tsv(os.path.join(data_dir,<span class="hljs-string">&quot;train.tsv&quot;</span>)),<span class="hljs-string">&quot;train&quot;</span><br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_dev_examples</span>(<span class="hljs-params">self, data_dir</span>):<br>        <span class="hljs-keyword">return</span> self._create_examples(<br>            self._read_tsv(os.path.join(data_dir, <span class="hljs-string">&quot;dev.tsv&quot;</span>)), <span class="hljs-string">&quot;dev&quot;</span><br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_test_examples</span>(<span class="hljs-params">self, data_dir</span>):<br>        <span class="hljs-keyword">return</span> self._create_examples(<br>            self._read_tsv(os.path.join(data_dir, <span class="hljs-string">&quot;test.tsv&quot;</span>)), <span class="hljs-string">&quot;test&quot;</span><br>        )<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_labels</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> [<span class="hljs-string">&quot;0&quot;</span>,<span class="hljs-string">&quot;1&quot;</span>,<span class="hljs-string">&quot;2&quot;</span>]<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_create_examples</span>(<span class="hljs-params">self,lines,set_type</span>):<br>        examples=[]<br>        <span class="hljs-keyword">for</span> (i ,line) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(lines):<br>            <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">continue</span><br>            guid = <span class="hljs-string">&quot;%s-%s&quot;</span> % (set_type,i)<br>            <span class="hljs-keyword">try</span>:<br>                text_a = tokenization.convert_to_unicode(line[<span class="hljs-number">1</span>])<br>            <span class="hljs-keyword">except</span>:<br>                <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">if</span> set_type == <span class="hljs-string">&quot;test&quot;</span>:<br>                label = <span class="hljs-string">&quot;0&quot;</span><br>            <span class="hljs-keyword">else</span>:<br>                label = tokenization.convert_to_unicode(line[<span class="hljs-number">0</span>])<br>            examples.append(<br>                InputExample(guid=guid,text_a = text_a, label=label)<br>            )<br>        <span class="hljs-keyword">return</span> examples<br><br></code></pre></td></tr></table></figure>
+<h4 id="将bert模型ckpt文件转为-tfserving部署所需的pb">将Bert模型ckpt文件转为
+tfserving部署所需的pb</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3.6</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">BERT模型ckpt文件转为部署tfserving所需的文件</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> enum <span class="hljs-keyword">import</span> Enum<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> modeling<br><span class="hljs-keyword">from</span> termcolor <span class="hljs-keyword">import</span> colored<br><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> pickle<br><br>tf.app.flags.DEFINE_string(<span class="hljs-string">&#x27;export_model_dir&#x27;</span>, <span class="hljs-string">&quot;./output/comment_0/versions&quot;</span>, <span class="hljs-string">&#x27;Directory where the model exported files should be placed.&#x27;</span>)<br>tf.app.flags.DEFINE_integer(<span class="hljs-string">&#x27;model_version&#x27;</span>, <span class="hljs-number">10001</span>, <span class="hljs-string">&#x27;Models version number.&#x27;</span>)<br>FLAGS = tf.app.flags.FLAGS<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_classification_model</span>(<span class="hljs-params">bert_config, is_training, input_ids, input_mask, segment_ids, labels, num_labels</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    :param bert_config:</span><br><span class="hljs-string">    :param is_training:</span><br><span class="hljs-string">    :param input_ids:</span><br><span class="hljs-string">    :param input_mask:</span><br><span class="hljs-string">    :param segment_ids:</span><br><span class="hljs-string">    :param labels:</span><br><span class="hljs-string">    :param num_labels:</span><br><span class="hljs-string">    :param use_one_hot_embedding:</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-comment">#import tensorflow as tf</span><br>    <span class="hljs-comment">#import modeling</span><br><br>    <span class="hljs-comment"># 通过传入的训练数据，进行representation</span><br>    model = modeling.BertModel(<br>        config=bert_config,<br>        is_training=is_training,<br>        input_ids=input_ids,<br>        input_mask=input_mask,<br>        token_type_ids=segment_ids,<br>    )<br><br>    output_layer = model.get_pooled_output()<br>    hidden_size = output_layer.shape[-<span class="hljs-number">1</span>].value<br><br>    output_weights = tf.get_variable(<br>        <span class="hljs-string">&quot;output_weights&quot;</span>, [num_labels, hidden_size],<br>        initializer=tf.truncated_normal_initializer(stddev=<span class="hljs-number">0.02</span>))<br><br>    output_bias = tf.get_variable(<br>        <span class="hljs-string">&quot;output_bias&quot;</span>, [num_labels], initializer=tf.zeros_initializer())<br><br>    <span class="hljs-keyword">with</span> tf.variable_scope(<span class="hljs-string">&quot;loss&quot;</span>):<br>        <span class="hljs-keyword">if</span> is_training:<br>            <span class="hljs-comment"># I.e., 0.1 dropout</span><br>            output_layer = tf.nn.dropout(output_layer, keep_prob=<span class="hljs-number">0.9</span>)<br><br>        logits = tf.matmul(output_layer, output_weights, transpose_b=<span class="hljs-literal">True</span>)<br>        logits = tf.nn.bias_add(logits, output_bias)<br>        probabilities = tf.nn.softmax(logits, axis=-<span class="hljs-number">1</span>)<br>        log_probs = tf.nn.log_softmax(logits, axis=-<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">if</span> labels <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            one_hot_labels = tf.one_hot(labels, depth=num_labels, dtype=tf.float32)<br><br>            per_example_loss = -tf.reduce_sum(one_hot_labels * log_probs, axis=-<span class="hljs-number">1</span>)<br>            loss = tf.reduce_mean(per_example_loss)<br>        <span class="hljs-keyword">else</span>:<br>            loss, per_example_loss = <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span><br>    <span class="hljs-keyword">return</span> (loss, per_example_loss, logits, probabilities)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">max_seq_len, model_dir, num_labels</span>):<br><br>    <span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:<br>        <span class="hljs-comment">#输入占位符</span><br>        input_ids = tf.placeholder(tf.int32, (<span class="hljs-literal">None</span>, max_seq_len), <span class="hljs-string">&#x27;input_ids&#x27;</span>)<br>        input_mask = tf.placeholder(tf.int32, (<span class="hljs-literal">None</span>, max_seq_len), <span class="hljs-string">&#x27;input_mask&#x27;</span>)<br>        <span class="hljs-comment">#模型前向传播</span><br>        bert_config = modeling.BertConfig.from_json_file(<span class="hljs-string">&#x27;./uncased_L-2_H-128_A-2/bert_config.json&#x27;</span>)<br>        loss, per_example_loss, logits, probabilities = create_classification_model(bert_config=bert_config, is_training=<span class="hljs-literal">False</span>,<br>            input_ids=input_ids, input_mask=input_mask, segment_ids=<span class="hljs-literal">None</span>, labels=<span class="hljs-literal">None</span>, num_labels=num_labels)<br>        <span class="hljs-comment">#转换结果格式</span><br>        logits = tf.argmax(logits, <span class="hljs-number">1</span>)<br>        probabilities = tf.identity(probabilities, <span class="hljs-string">&#x27;pred_prob&#x27;</span>)<br>        <span class="hljs-comment">#模型保存的对象</span><br>        saver = tf.train.Saver()<br>    <span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:<br>        sess.run(tf.global_variables_initializer())<br>        latest_checkpoint = tf.train.latest_checkpoint(model_dir)<br>        saver.restore(sess,latest_checkpoint )<br>        <span class="hljs-comment"># Create SavedModelBuilder class</span><br>        <span class="hljs-comment"># defines where the model will be exported</span><br>        export_path_base = FLAGS.export_model_dir<br>        export_path = os.path.join(<br>            tf.compat.as_bytes(export_path_base),<br>            tf.compat.as_bytes(<span class="hljs-built_in">str</span>(FLAGS.model_version)))<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Exporting trained model to&#x27;</span>, export_path)<br>        builder = tf.saved_model.builder.SavedModelBuilder(export_path)<br>        <span class="hljs-comment"># Creates the TensorInfo protobuf objects that encapsulates the input/output tensors</span><br>        input_ids_tensor = tf.saved_model.utils.build_tensor_info(input_ids)<br>        input_mask_tensor = tf.saved_model.utils.build_tensor_info(input_mask)<br>        <span class="hljs-comment"># output tensor info</span><br>        logits_output = tf.saved_model.utils.build_tensor_info(logits)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;logits_output&quot;</span>)<br>        <span class="hljs-built_in">print</span>(logits_output)<br>        probabilities_output = tf.saved_model.utils.build_tensor_info(probabilities)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;probabilities_output&quot;</span>)<br>        <span class="hljs-built_in">print</span>(probabilities_output)<br><br>        <span class="hljs-comment"># Defines the DeepLab signatures, uses the TF Predict API</span><br>        <span class="hljs-comment"># It receives an image and its dimensions and output the segmentation mask</span><br>        labels_map = [<span class="hljs-string">&#x27;0&#x27;</span>,<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;2&#x27;</span>]<br>        prediction_signature = (<br>            tf.saved_model.signature_def_utils.build_signature_def(<br>                inputs=&#123;<span class="hljs-string">&#x27;input_ids&#x27;</span>: input_ids_tensor, <span class="hljs-string">&#x27;input_mask&#x27;</span>: input_mask_tensor&#125;,<br>                outputs=&#123;<span class="hljs-string">&#x27;pred_label&#x27;</span>: logits_output , <span class="hljs-string">&#x27;score&#x27;</span>:probabilities_output&#125;,<br>                method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME))<br><br>        builder.add_meta_graph_and_variables(<br>            sess, [tf.saved_model.tag_constants.SERVING],<br>            signature_def_map=&#123;<br>                <span class="hljs-string">&#x27;result&#x27;</span>:<br>                    prediction_signature,<br>            &#125;)<br>        <span class="hljs-comment"># export the model</span><br>        builder.save(as_text=<span class="hljs-literal">True</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Done exporting!&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    max_seq_len = <span class="hljs-number">128</span><br>    num_labels = <span class="hljs-number">3</span><br>    model_dir = <span class="hljs-string">&#x27;./output/comment_0&#x27;</span><br>    main(max_seq_len, model_dir, num_labels)<br><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/NLP/">NLP</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/NLP/Bert/">Bert</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Bert/">Bert</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Tensorflow/">Tensorflow</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/04/%E5%9F%BA%E4%BA%8Eseq2seq+attention%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%91%98%E8%A6%81/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于seq2seq+attention实现文本摘要</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/02/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">案例-基于关联规则算法实现电影推荐系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

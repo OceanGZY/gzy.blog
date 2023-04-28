@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="OCEAN.GZY">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基于贝叶斯决策理论的分类方法 朴素贝叶斯是贝叶斯决策理论的一部分 - 优点：在数据较少的情况下仍然有效，可以处理多类别问题 - 缺点：对于输入数据的准备方式较为敏感 - 适用数据类型：标称型数据 标称型：一般在有限的数据中取，而且只存在‘是’和‘否’两种不同的结果（一般用于分类） 数值型：可以在无限的数据中取，而且数值比较具体化，例如4.02,6.23这种值（一般用于回归分析） 贝叶斯决策理论的核">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于贝叶斯决策理论的分类方法">
+<meta property="og:url" content="http://oceaneyes.top/2020/12/24/%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E8%AE%BA%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/index.html">
+<meta property="og:site_name" content="OCAEN.GZY读书城南">
+<meta property="og:description" content="基于贝叶斯决策理论的分类方法 朴素贝叶斯是贝叶斯决策理论的一部分 - 优点：在数据较少的情况下仍然有效，可以处理多类别问题 - 缺点：对于输入数据的准备方式较为敏感 - 适用数据类型：标称型数据 标称型：一般在有限的数据中取，而且只存在‘是’和‘否’两种不同的结果（一般用于分类） 数值型：可以在无限的数据中取，而且数值比较具体化，例如4.02,6.23这种值（一般用于回归分析） 贝叶斯决策理论的核">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:e36f25cc-1cec-4995-809d-c7812f629c99.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:40d76e00-9bfb-4c92-af12-2257b8e49fc1.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:b6ba6689-3ad1-4a37-96c0-ccc2326b99a8.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:4ca58d34-234e-4fa6-b572-4b591bd36e18.png">
+<meta property="og:image" content="http://oceaneyes.top/.top//attachment:40c1d39c-159e-4c7f-a811-45a728741340.png">
+<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
+<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="article:published_time" content="2020-12-24T14:19:00.000Z">
+<meta property="article:modified_time" content="2022-09-30T06:56:37.192Z">
+<meta property="article:author" content="OCEAN.GZY">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="朴素贝叶斯">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://oceaneyes.top/.top//attachment:e36f25cc-1cec-4995-809d-c7812f629c99.png">
+  
+  
+  <title>基于贝叶斯决策理论的分类方法 - OCAEN.GZY读书城南</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>OCEAN.GZY读书城南</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于贝叶斯决策理论的分类方法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-24 22:19" pubdate>
+        2020年12月24日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      66 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于贝叶斯决策理论的分类方法</h1>
+            
+            <div class="markdown-body">
+              <h2 id="基于贝叶斯决策理论的分类方法">基于贝叶斯决策理论的分类方法</h2>
+<p><strong>朴素贝叶斯是贝叶斯决策理论的一部分</strong> -
+优点：在数据较少的情况下仍然有效，可以处理多类别问题 -
+缺点：对于输入数据的准备方式较为敏感 - 适用数据类型：标称型数据</p>
+<p><em>标称型：一般在有限的数据中取，而且只存在‘是’和‘否’两种不同的结果（一般用于分类）</em>
+<em>数值型：可以在无限的数据中取，而且数值比较具体化，例如4.02,6.23这种值（一般用于回归分析）</em></p>
+<h4 id="贝叶斯决策理论的核心思想即选择具有最高概率的决策"><strong>贝叶斯决策理论的核心思想，即选择具有最高概率的决策</strong></h4>
+<ul>
+<li><p>假设现在我们有一个数据集，它由两类数据组成，数据分布如图 <img src="/.top//attachment:e36f25cc-1cec-4995-809d-c7812f629c99.png" srcset="/img/loading.gif" lazyload alt="image.png"></p></li>
+<li><p>我们现在用p1(x,y)表示数据点(x,y)属于类别1（图中用圆点表示的类别）的概率，用p2(x,y)表示数据点(x,y)属于类别2（图中用三角形表示的类别）的概率，那么对于一个新数据点(x,y)，可以用下面的规则来判断它的类别：</p></li>
+<li><p>如果 p1(x,y) &gt; p2(x,y)，那么类别为1</p></li>
+<li><p>如果 p2(x,y) &gt; p1(x,y)，那么类别为2</p></li>
+<li><p><strong>计算分类的方法</strong></p></li>
+<li><p>使用kNN，进行1000次距离计算；</p></li>
+<li><p>使用决策树，分别沿x轴、y轴划分数据；</p></li>
+<li><p>计算数据点属于每个类别的概率，并进行比较</p></li>
+</ul>
+<h4 id="条件概率"><strong>条件概率</strong></h4>
+<p><img src="/.top//attachment:40d76e00-9bfb-4c92-af12-2257b8e49fc1.png" srcset="/img/loading.gif" lazyload alt="image.png"> -
+计算从B桶中取到灰色石头的概率的办法，这就是所谓的条件概率（conditionalprobability）。假定计算的是从B桶取到灰色石头的概率，这个概率可以记作P(gray|bucketB)，
+-
+我们称之为“在已知石头出自B桶的条件下，取出灰色石头的概率”。不难得到，P(gray|bucketA)值为2/4，P(gray|bucketB)
+的值为1/3。 <img src="/.top//attachment:b6ba6689-3ad1-4a37-96c0-ccc2326b99a8.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="使用条件概率分类"><strong>使用条件概率分类</strong></h2>
+<ul>
+<li><p>之前贝叶斯决策理论要求计算两个概率p1(x, y)和p2(x, y)：</p></li>
+<li><p>如果p1(x, y) &gt; p2(x, y)，那么属于类别1；</p></li>
+<li><p>如果p2(x, y) &gt; p1(x, y)，那么属于类别2。</p></li>
+<li><p>使用p1( )和p2(
+)只是为了尽可能简化描述，真正需要计算和比较的是p(c1|x, y)和p(c2|x,
+y)。这些符号所代表的具体意义是：</p></li>
+<li><p>给定某个由x、y表示的数据点，那么该数据点来自类别c1的概率是多少？</p></li>
+<li><p>数据点来自类别c2的概率又是多少？ <img src="/.top//attachment:4ca58d34-234e-4fa6-b572-4b591bd36e18.png" srcset="/img/loading.gif" lazyload alt="image.png"></p></li>
+<li><p>使用这些定义，可以定义贝叶斯分类准则为：</p></li>
+<li><p>如果P(c1|x, y) &gt; P(c2|x, y)，那么属于类别c1。</p></li>
+<li><p>如果P(c1|x, y) &lt; P(c2|x, y)，那么属于类别c2。</p></li>
+</ul>
+<h2 id="使用朴素贝叶斯进行文本分类"><strong>使用朴素贝叶斯进行文本分类</strong></h2>
+<ul>
+<li><p>朴素贝叶斯的一般过程</p></li>
+<li><p>收集数据：</p></li>
+<li><p>准备数据：需要数值型 或者布尔型数据</p></li>
+<li><p>分析数据：有大量特征时，绘制特征作用不大，
+此时使用直方图效果更好</p></li>
+<li><p>训练算法：计算不同的独立特征的条件概率</p></li>
+<li><p>测试算法：计算错误率</p></li>
+<li><p>使用算法：一个常见的朴素贝叶斯应用是文档分类，可以任意的分类场景中使用朴素贝叶斯分类器</p></li>
+<li><p>特征之间相互独立（independence）：指的是统计意义上的独立，即一个特征或者单词出现的可能性与它和其他单词相邻没有关系</p></li>
+<li><p>每个特征同等重要</p></li>
+</ul>
+<h2 id="文本分类"><strong>文本分类</strong></h2>
+<h4 id="准备数据从文本中构建词向量"><strong>准备数据：从文本中构建词向量</strong></h4>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-built_in">print</span>(sys.executable)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">/Users/gaozhiyong/Documents/pyenv/pyenv3.6/bin/python</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">loadDataSet</span>():<br>    postingList = [<br>        [<span class="hljs-string">&#x27;my&#x27;</span>,<span class="hljs-string">&#x27;dog&#x27;</span>,<span class="hljs-string">&#x27;has&#x27;</span>,<span class="hljs-string">&#x27;flea&#x27;</span>,<span class="hljs-string">&#x27;problems&#x27;</span>,<span class="hljs-string">&#x27;help&#x27;</span>,<span class="hljs-string">&#x27;please&#x27;</span>],<br>        [<span class="hljs-string">&#x27;maybe&#x27;</span>,<span class="hljs-string">&#x27;not&#x27;</span>,<span class="hljs-string">&#x27;take&#x27;</span>,<span class="hljs-string">&#x27;him&#x27;</span>,<span class="hljs-string">&#x27;to&#x27;</span>,<span class="hljs-string">&#x27;dog&#x27;</span>,<span class="hljs-string">&#x27;park&#x27;</span>,<span class="hljs-string">&#x27;stupid&#x27;</span>],<br>        [<span class="hljs-string">&#x27;my&#x27;</span>,<span class="hljs-string">&#x27;dalmation&#x27;</span>,<span class="hljs-string">&#x27;is&#x27;</span>,<span class="hljs-string">&#x27;so&#x27;</span>,<span class="hljs-string">&#x27;cute&#x27;</span>,<span class="hljs-string">&#x27;I&#x27;</span>,<span class="hljs-string">&#x27;love&#x27;</span>,<span class="hljs-string">&#x27;him&#x27;</span>],<br>        [<span class="hljs-string">&#x27;stop&#x27;</span>,<span class="hljs-string">&#x27;posting&#x27;</span>,<span class="hljs-string">&#x27;stupid&#x27;</span>,<span class="hljs-string">&#x27;worthless&#x27;</span>,<span class="hljs-string">&#x27;garbage&#x27;</span>],<br>        [<span class="hljs-string">&#x27;mr&#x27;</span>,<span class="hljs-string">&#x27;licks&#x27;</span>,<span class="hljs-string">&#x27;ate&#x27;</span>,<span class="hljs-string">&#x27;my&#x27;</span>,<span class="hljs-string">&#x27;steak&#x27;</span>,<span class="hljs-string">&#x27;how&#x27;</span>,<span class="hljs-string">&#x27;to&#x27;</span>,<span class="hljs-string">&#x27;stop&#x27;</span>,<span class="hljs-string">&#x27;him&#x27;</span>],<br>        [<span class="hljs-string">&#x27;quit&#x27;</span>,<span class="hljs-string">&#x27;buying&#x27;</span>,<span class="hljs-string">&#x27;worthless&#x27;</span>,<span class="hljs-string">&#x27;dog&#x27;</span>,<span class="hljs-string">&#x27;food&#x27;</span>,<span class="hljs-string">&#x27;stupid&#x27;</span>]<br>    ]<br>    classVec = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]<br>    <span class="hljs-keyword">return</span> postingList,classVec<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">createVocabList</span>(<span class="hljs-params">dataSet</span>):<br>    vocabSet = <span class="hljs-built_in">set</span>([])    <span class="hljs-comment">#创建一个空集</span><br>    <span class="hljs-keyword">for</span> document <span class="hljs-keyword">in</span> dataSet:<br><span class="hljs-comment">#         print(&#x27;document&#x27;,document)</span><br><span class="hljs-comment">#         print(&quot;vocabSet之前&quot;,vocabSet)</span><br>        vocabSet = vocabSet | <span class="hljs-built_in">set</span>(document)  <span class="hljs-comment">#创建两个集合的并集</span><br><span class="hljs-comment">#         print(&quot;vocabSet之后&quot;,vocabSet)</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">list</span>(vocabSet)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">setOfWord2Vec</span>(<span class="hljs-params">vocabList,inputSet</span>):<br>    returnVec = [<span class="hljs-number">0</span>] * <span class="hljs-built_in">len</span>(vocabList)<br>    <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> inputSet:<br>        <span class="hljs-keyword">if</span> word <span class="hljs-keyword">in</span> vocabList:<br>            returnVec[vocabList.index(word)] = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;the word: %s is not in my Vocabulary!&quot;</span> % word )<br>    <span class="hljs-keyword">return</span> returnVec<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">listOPosts,listClasses = loadDataSet()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">listOPosts<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[[&#39;my&#39;, &#39;dog&#39;, &#39;has&#39;, &#39;flea&#39;, &#39;problems&#39;, &#39;help&#39;, &#39;please&#39;],
+ [&#39;maybe&#39;, &#39;not&#39;, &#39;take&#39;, &#39;him&#39;, &#39;to&#39;, &#39;dog&#39;, &#39;park&#39;, &#39;stupid&#39;],
+ [&#39;my&#39;, &#39;dalmation&#39;, &#39;is&#39;, &#39;so&#39;, &#39;cute&#39;, &#39;I&#39;, &#39;love&#39;, &#39;him&#39;],
+ [&#39;stop&#39;, &#39;posting&#39;, &#39;stupid&#39;, &#39;worthless&#39;, &#39;garbage&#39;],
+ [&#39;mr&#39;, &#39;licks&#39;, &#39;ate&#39;, &#39;my&#39;, &#39;steak&#39;, &#39;how&#39;, &#39;to&#39;, &#39;stop&#39;, &#39;him&#39;],
+ [&#39;quit&#39;, &#39;buying&#39;, &#39;worthless&#39;, &#39;dog&#39;, &#39;food&#39;, &#39;stupid&#39;]]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">listClasses<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[0, 1, 0, 1, 0, 1]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myVocabList = createVocabList(listOPosts)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myVocabList<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;stop&#39;,
+ &#39;dalmation&#39;,
+ &#39;park&#39;,
+ &#39;please&#39;,
+ &#39;my&#39;,
+ &#39;to&#39;,
+ &#39;problems&#39;,
+ &#39;posting&#39;,
+ &#39;flea&#39;,
+ &#39;steak&#39;,
+ &#39;him&#39;,
+ &#39;take&#39;,
+ &#39;ate&#39;,
+ &#39;is&#39;,
+ &#39;help&#39;,
+ &#39;how&#39;,
+ &#39;cute&#39;,
+ &#39;has&#39;,
+ &#39;maybe&#39;,
+ &#39;food&#39;,
+ &#39;buying&#39;,
+ &#39;stupid&#39;,
+ &#39;licks&#39;,
+ &#39;mr&#39;,
+ &#39;dog&#39;,
+ &#39;not&#39;,
+ &#39;love&#39;,
+ &#39;worthless&#39;,
+ &#39;I&#39;,
+ &#39;so&#39;,
+ &#39;quit&#39;,
+ &#39;garbage&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">listOPosts[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;my&#39;, &#39;dog&#39;, &#39;has&#39;, &#39;flea&#39;, &#39;problems&#39;, &#39;help&#39;, &#39;please&#39;]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">setOfWord2Vec(myVocabList,listOPosts[<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[0,
+ 0,
+ 0,
+ 1,
+ 1,
+ 0,
+ 1,
+ 0,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 0,
+ 0,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0]</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">setOfWord2Vec(myVocabList,listOPosts[<span class="hljs-number">3</span>])<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 0,
+ 0,
+ 0,
+ 1]</code></pre></div>
+<h4 id="训练算法从词向量计算概率"><strong>训练算法：从词向量计算概率</strong></h4>
+<p><img src="/.top//attachment:40c1d39c-159e-4c7f-a811-45a728741340.png" srcset="/img/loading.gif" lazyload alt="image.png"> -
+使用上述公式，对每个类计算该值，然后比较这两个概率值的大小。 -
+如何计算呢？ -
+首先可以通过类别i（侮辱性留言或非侮辱性留言）中文档数除以总的文档数来计算概率p(ci)。
+- 接下来计算p(w|ci)，这里就要用到朴素贝叶斯假设。 -
+如果将w展开为一个个独立特征，那么就可以将上述概率写作p(w0,w1,w2..wN|ci)。
+-
+这里假设所有词都互相独立，该假设也称作条件独立性假设，它意味着可以使p(w0|ci)p(w1|ci)p(w2|ci)...p(wN|ci)来计算上述概率</p>
+<h5 id="代码逻辑"><strong>代码逻辑</strong></h5>
+<ul>
+<li>计算每个类别中的文档数目</li>
+<li>对每篇训练文档</li>
+<li>对每个类别
+<ul>
+<li>如果词条出现在文档中 --- 增加该词条的计数值</li>
+<li>增加所有词条的计数值</li>
+</ul></li>
+<li>对每个类别
+<ul>
+<li>对每个词条
+<ul>
+<li>将 <strong>该词条的数目</strong> 除以 <strong>总词数目</strong> 得到
+<strong>条件概率</strong></li>
+</ul></li>
+</ul></li>
+<li>返回每个类别的条件概率</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">trainNB0</span>(<span class="hljs-params">trainMatrix,trainCategory</span>):<br>    numTrainDocs = <span class="hljs-built_in">len</span>(trainMatrix)<br>    numWords = <span class="hljs-built_in">len</span>(trainMatrix[<span class="hljs-number">0</span>])<br>    pAbusive = <span class="hljs-built_in">sum</span>(trainCategory) / <span class="hljs-built_in">float</span>(numTrainDocs)<br>    p0Num = np.zeros(numWords) <br>    p1Num = np.zeros(numWords)<br>    p0Denom = <span class="hljs-number">0.0</span><br>    p1Denom = <span class="hljs-number">0.0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numTrainDocs):<br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-keyword">if</span> trainCategory[i] == <span class="hljs-number">1</span>:<br>                p1Num += trainMatrix[i]<br>                p1Denom += <span class="hljs-built_in">sum</span>(trainMatrix[i])<br>            <span class="hljs-keyword">else</span>:<br>                p0Num += trainMatrix[i]<br>                p0Denom += <span class="hljs-built_in">sum</span>(trainMatrix[i])<br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">continue</span><br>    p1Vect = p1Num / p1Denom<br>    p0Vect = p0Num / p0Denom<br>    <span class="hljs-keyword">return</span> p0Vect,p1Vect,pAbusive<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">listOPosts,listClasses = loadDataSet()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">myVocabList = createVocabList(listOPosts)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">trainMat = []<br><span class="hljs-keyword">for</span> postinDoc <span class="hljs-keyword">in</span> listOPosts:<br>    trainMat.append(setOfWord2Vec(myVocabList,postinDoc))<br>p0V,p1V,pAb = trainNB0(trainMat,listClasses)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pAb<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">0.5</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">p0V<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([0.04166667, 0.04166667, 0.        , 0.04166667, 0.125     ,
+       0.04166667, 0.04166667, 0.        , 0.04166667, 0.04166667,
+       0.08333333, 0.        , 0.04166667, 0.04166667, 0.04166667,
+       0.04166667, 0.04166667, 0.04166667, 0.        , 0.        ,
+       0.        , 0.        , 0.04166667, 0.04166667, 0.04166667,
+       0.        , 0.04166667, 0.        , 0.04166667, 0.04166667,
+       0.        , 0.        ])</code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">p1V<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">array([0.05263158, 0.        , 0.05263158, 0.        , 0.        ,
+       0.05263158, 0.        , 0.05263158, 0.        , 0.        ,
+       0.05263158, 0.05263158, 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.05263158, 0.05263158,
+       0.05263158, 0.15789474, 0.        , 0.        , 0.10526316,
+       0.05263158, 0.        , 0.10526316, 0.        , 0.        ,
+       0.05263158, 0.05263158])</code></pre></div>
+<h4 id="测试算法根据现实情况修改分类器"><strong>测试算法：根据现实情况修改分类器</strong></h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">trainNB1</span>(<span class="hljs-params">trainMatrix,trainCategory</span>):<br>    numTrainDocs = <span class="hljs-built_in">len</span>(trainMatrix)<br>    numWords = <span class="hljs-built_in">len</span>(trainMatrix[<span class="hljs-number">0</span>])<br>    pAbusive = <span class="hljs-built_in">sum</span>(trainCategory) / <span class="hljs-built_in">float</span>(numTrainDocs)<br>    p0Num = np.ones(numWords) <br>    p1Num = np.ones(numWords)<br>    p0Denom = <span class="hljs-number">2.0</span><br>    p1Denom = <span class="hljs-number">2.0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(numTrainDocs):<br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-keyword">if</span> trainCategory[i] == <span class="hljs-number">1</span>:<br>                p1Num += trainMatrix[i]<br>                p1Denom += <span class="hljs-built_in">sum</span>(trainMatrix[i])<br>            <span class="hljs-keyword">else</span>:<br>                p0Num += trainMatrix[i]<br>                p0Denom += <span class="hljs-built_in">sum</span>(trainMatrix[i])<br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">continue</span><br>    p1Vect = np.log(p1Num / p1Denom)<br>    p0Vect = np.log(p0Num / p0Denom)<br>    <span class="hljs-keyword">return</span> p0Vect,p1Vect,pAbusive<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">classifyNB</span>(<span class="hljs-params">vec2Classify,p0Vec,p1Vec,pClass1</span>):<br>    p1=<span class="hljs-built_in">sum</span>(vec2Classify * p1Vec) + np.log(pClass1)<br>    p0= <span class="hljs-built_in">sum</span>(vec2Classify * p0Vec) + np.log(<span class="hljs-number">1.0</span>- pClass1)<br>    <span class="hljs-keyword">if</span> p1&gt;p0:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">testingNB</span>():<br>    listOPosts,listClasses = loadDataSet()<br>    myVocabList = createVocabList(listOPosts)<br>    trainMat = []<br>    <span class="hljs-keyword">for</span> postinDoc <span class="hljs-keyword">in</span> listOPosts:<br>        trainMat.append(setOfWord2Vec(myVocabList,postinDoc))<br>    p0V,p1V,pAb = trainNB1(np.array(trainMat), np.array(listClasses))<br>    testEntry1 = [<span class="hljs-string">&#x27;love&#x27;</span>,<span class="hljs-string">&#x27;my&#x27;</span>,<span class="hljs-string">&#x27;dalmation&#x27;</span>]<br>    thisDoc = np.array(setOfWord2Vec(myVocabList,testEntry1))<br>    <span class="hljs-built_in">print</span>(testEntry1,<span class="hljs-string">&#x27;classified as: &#x27;</span>,classifyNB(thisDoc,p0V,p1V,pAb))<br>    <br>    testEntry2 = [<span class="hljs-string">&#x27;stupid&#x27;</span>,<span class="hljs-string">&#x27;garbage&#x27;</span>]<br>    thisDoc = np.array(setOfWord2Vec(myVocabList,testEntry2))<br>    <span class="hljs-built_in">print</span>(testEntry2,<span class="hljs-string">&#x27;classified as: &#x27;</span>,classifyNB(thisDoc,p0V,p1V,pAb))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">testingNB()<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">[&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;] classified as:  0
+[&#39;stupid&#39;, &#39;garbage&#39;] classified as:  1</code></pre></div>
+<h4 id="准备数据文档词袋模型"><strong>准备数据：文档词袋模型</strong></h4>
+<ul>
+<li>将每个词的出现与否作为一个特征，这可以被描述为词集模型(set-of-words
+model)。</li>
+<li>如果一个词在文档中出现不止一次，这可能意味着包含该词是否出现在文档中所不能表
+达的某种信息，这种方法被称为词袋模型(bag-of-words model)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bagOfWords2VecMN</span>(<span class="hljs-params">vocabList,inputSet</span>):<br>    returnVec = [<span class="hljs-number">0</span>] * <span class="hljs-built_in">len</span>(vocabList)<br>    <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> inputSet:<br>        <span class="hljs-keyword">if</span> word <span class="hljs-keyword">in</span> vocabList:<br>            returnVec[vocabList.index[word]] += <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> returnVec<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="about-me">About ME</h3>
+<h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
+在未来面前，我们都是孩子～</h5>
+<ul>
+<li>📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~</li>
+</ul>
+<h5 id="social-media">👋 Social Media</h5>
+<ul>
+<li><p>🛠️ Blog: <a href="http://oceaneyes.top">http://oceaneyes.top</a></p></li>
+<li><p>⚡ PM导航: <a target="_blank" rel="noopener" href="https://pmhub.oceangzy.top">https://pmhub.oceangzy.top</a></p></li>
+<li><p>☘️ CNBLOG: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/oceaneyes-gzy/">https://www.cnblogs.com/oceaneyes-gzy/</a></p></li>
+<li><p>🌱 AI PRJ自己部署的一些算法demo: <a target="_blank" rel="noopener" href="http://ai.oceangzy.top/">http://ai.oceangzy.top/</a></p></li>
+<li><p>📫 Email: 1450136519@qq.com</p></li>
+<li><p>💬 WeChat: <a href="https://oceaneyes.top/img/wechatqrcode.jpg">OCEANGZY</a></p></li>
+<li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
+</ul>
+<h5 id="加入小组">👋 加入小组~</h5>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<h5 id="感谢打赏">👋 感谢打赏~</h5>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Machine-Learning/">Machine Learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">朴素贝叶斯</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/25/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E8%BF%87%E6%BB%A4%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">案例-基于朴素贝叶斯过滤垃圾邮件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/22/DSP%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+                        <span class="hidden-mobile">广告系统架构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
