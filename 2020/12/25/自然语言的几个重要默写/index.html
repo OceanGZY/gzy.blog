@@ -1,288 +1,168 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="自然语言的几个重要模型-学习记录  循环神经网络 (序列模型序列依赖问题) 双向循环神经网络（输入序列正向和反向依赖问题） 深度双向循环神经网络 LSTM（梯度消失问题） GRU text CNN（一维卷积和池化） seq2seq（序列到序列问题） Attention（decoder对encoder输入序列注意力问题，从输入获取可用信息） Transform（对输入的序列分成q检索项 k键项 v值">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>自然语言的几个重要模型-学习记录 | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="自然语言的几个重要模型-学习记录  循环神经网络 (序列模型序列依赖问题) 双向循环神经网络（输入序列正向和反向依赖问题） 深度双向循环神经网络 LSTM（梯度消失问题） GRU text CNN（一维卷积和池化） seq2seq（序列到序列问题） Attention（decoder对encoder输入序列注意力问题，从输入获取可用信息） Transform（对输入的序列分成q检索项 k键项 v值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自然语言的几个重要模型-学习记录">
 <meta property="og:url" content="http://oceaneyes.top/2020/12/25/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E9%BB%98%E5%86%99/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="自然语言的几个重要模型-学习记录  循环神经网络 (序列模型序列依赖问题) 双向循环神经网络（输入序列正向和反向依赖问题） 深度双向循环神经网络 LSTM（梯度消失问题） GRU text CNN（一维卷积和池化） seq2seq（序列到序列问题） Attention（decoder对encoder输入序列注意力问题，从输入获取可用信息） Transform（对输入的序列分成q检索项 k键项 v值">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-6d3c95a028c3c39ef914578c28761f4d_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c867b8b44ac1523c5bcd57892d82c410_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-f0cefee0daa2b03db7ab82d6041255db_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-4722529b9d834e3f33d9c69c357a131d_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-091d6c59f1470d69b02e5706c6e8826d_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1b198e023a6d37e62007f2194968345a_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-018ad2fb5cedbac69995091a3382aa26_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-3d0a76f2a08c1e63a6b5e83363f449b7_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-458a9f90e229afda50492fe07e820e25_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d86bb49f50f76ffc04a0d35efb362358_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-626705b15c5ecde49eb8423f380da928_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-6f091d417fdc6eeeafa7c520b5c8a8d7_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d9060c49cb9fc6fca8d3dfe18e1ee460_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-d62fd9134fd608aa3ca44883dadf84c1_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-3d4f17d18143c6851357f27124bcab15_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-7ff59c3d2c7f98cc8013d6ab12905ecd_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-faf5e9f13cb1c4335f51171ae2ddd1d1_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-c86d61bb43209f2d2a109f7b7351624a_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5e91252408d0539d2090815f2084638f_720w.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2020-12-25T15:30:00.000Z">
 <meta property="article:modified_time" content="2022-09-30T06:56:37.204Z">
 <meta property="article:author" content="OCEAN.GZY">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Natural Language Processing">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-6d3c95a028c3c39ef914578c28761f4d_720w.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2020/12/25/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E9%BB%98%E5%86%99/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '自然语言的几个重要模型-学习记录',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-30 14:56:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <title>自然语言的几个重要模型-学习记录 - OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
-
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="自然语言的几个重要模型-学习记录">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-12-25 23:30" pubdate>
-        2020年12月25日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.3k 字
-    </span>
-  
-
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      19 分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">自然语言的几个重要模型-学习记录</h1>
-            
-            <div class="markdown-body">
-              <h2 id="自然语言的几个重要模型-学习记录">自然语言的几个重要模型-学习记录</h2>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">自然语言的几个重要模型-学习记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-25T15:30:00.000Z" title="发表于 2020-12-25 23:30:00">2020-12-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.204Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Artificial-Intelligence/Natural-Language-Processing/">Natural Language Processing</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="自然语言的几个重要模型-学习记录"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="自然语言的几个重要模型-学习记录">自然语言的几个重要模型-学习记录</h2>
 <ul>
 <li>循环神经网络 (序列模型序列依赖问题)</li>
 <li>双向循环神经网络（输入序列正向和反向依赖问题）</li>
@@ -301,7 +181,7 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="循环神经网络">1.循环神经网络</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-6d3c95a028c3c39ef914578c28761f4d_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-6d3c95a028c3c39ef914578c28761f4d_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -311,7 +191,7 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="双向循环神经网络">2.双向循环神经网络</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-c867b8b44ac1523c5bcd57892d82c410_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-c867b8b44ac1523c5bcd57892d82c410_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p><em>（橘色的实线和虚线分别是前向传递和后向传递的过程 ）</em></p>
@@ -320,7 +200,7 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="深度双向循环神经网络">3.深度双向循环神经网络</h3>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-f0cefee0daa2b03db7ab82d6041255db_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-f0cefee0daa2b03db7ab82d6041255db_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -328,11 +208,11 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="lstm">4.LSTM</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-4722529b9d834e3f33d9c69c357a131d_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-4722529b9d834e3f33d9c69c357a131d_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-091d6c59f1470d69b02e5706c6e8826d_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-091d6c59f1470d69b02e5706c6e8826d_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -341,7 +221,7 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="gru">5.GRU</h3>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-1b198e023a6d37e62007f2194968345a_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-1b198e023a6d37e62007f2194968345a_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -350,7 +230,7 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="textcnn">6.textCNN</h3>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-018ad2fb5cedbac69995091a3382aa26_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-018ad2fb5cedbac69995091a3382aa26_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p><em>如上图输入每个单词用5维词向量表示，即输入的通道是5. 输入宽度是7.
@@ -363,7 +243,7 @@ encoder部分无需标签，ERNIE主要处理中文场景按词mask）</li>
 </ul>
 <h3 id="seq2seq">7.seq2seq</h3>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-3d0a76f2a08c1e63a6b5e83363f449b7_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-3d0a76f2a08c1e63a6b5e83363f449b7_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -380,11 +260,11 @@ h2...)，在计算y输出时使用了相同的背景变量c。（但例如在翻
 </ul>
 <h3 id="attention注意力机制">8.Attention注意力机制</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-458a9f90e229afda50492fe07e820e25_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-458a9f90e229afda50492fe07e820e25_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-d86bb49f50f76ffc04a0d35efb362358_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-d86bb49f50f76ffc04a0d35efb362358_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -392,7 +272,7 @@ h2...)，在计算y输出时使用了相同的背景变量c。（但例如在翻
 <li>ci最终是由解码器在i-1时刻的隐藏状态和编码器在j时刻的隐藏状态得到，具体怎么组合原文中提供了三种方法（第一种类似直接求内积..）：</li>
 </ul>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-626705b15c5ecde49eb8423f380da928_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-626705b15c5ecde49eb8423f380da928_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -401,12 +281,12 @@ h2...)，在计算y输出时使用了相同的背景变量c。（但例如在翻
 <h3 id="transform">9.Transform</h3>
 <p>变换器模型不同于RNN的架构（下一步计算都依赖前一步的输出，无法并行）。使用矩阵运算得到计算效率更高的模型。</p>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-6f091d417fdc6eeeafa7c520b5c8a8d7_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-6f091d417fdc6eeeafa7c520b5c8a8d7_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>最终的公式：</p>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-d9060c49cb9fc6fca8d3dfe18e1ee460_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-d9060c49cb9fc6fca8d3dfe18e1ee460_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -415,7 +295,7 @@ h2...)，在计算y输出时使用了相同的背景变量c。（但例如在翻
 v如下图，计算规则基本一致。</li>
 </ul>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-d62fd9134fd608aa3ca44883dadf84c1_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-d62fd9134fd608aa3ca44883dadf84c1_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -423,12 +303,12 @@ v如下图，计算规则基本一致。</li>
 <li>完整Transform</li>
 </ul>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-3d4f17d18143c6851357f27124bcab15_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-3d4f17d18143c6851357f27124bcab15_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="语言模型预训练方法elmo">10.语言模型预训练方法ELMO</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-7ff59c3d2c7f98cc8013d6ab12905ecd_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-7ff59c3d2c7f98cc8013d6ab12905ecd_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -441,14 +321,14 @@ v如下图，计算规则基本一致。</li>
 有15%的字会被MASK隐藏，这样学出来的被遮挡的词就会有相似的词向量。</li>
 </ul>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-faf5e9f13cb1c4335f51171ae2ddd1d1_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-faf5e9f13cb1c4335f51171ae2ddd1d1_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
 <li>bert训练方法二 句子是否是相邻的判断。用SEP进行链接</li>
 </ul>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-c86d61bb43209f2d2a109f7b7351624a_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-c86d61bb43209f2d2a109f7b7351624a_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -456,7 +336,7 @@ v如下图，计算规则基本一致。</li>
 由上述可以看出Bert是对字进行MASK，对于中文场景进行的词MASK更合理，如下图。目前百度paddlepaddle已经发布开源版本。</li>
 </ul>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-5e91252408d0539d2090815f2084638f_720w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-5e91252408d0539d2090815f2084638f_720w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="语言模型预训练方法gpt">12.语言模型预训练方法GPT</h3>
@@ -485,268 +365,10 @@ fasttext</h3>
 <li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
 </ul>
 <h5 id="加入小组">👋 加入小组~</h5>
-<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" title="加入组织" alt width="240"></p>
 <h5 id="感谢打赏">👋 感谢打赏~</h5>
-<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
-<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-                    
-                      <a class="hover-with-bg" href="/categories/Artificial-Intelligence/Natural-Language-Processing/">Natural Language Processing</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Artificial-Intelligence/">Artificial Intelligence</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Natural-Language-Processing/">Natural Language Processing</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B02/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">机器学习实战-笔记2-k-近邻算法概述</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2020/12/25/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E8%BF%87%E6%BB%A4%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6/">
-                        <span class="hidden-mobile">案例-基于朴素贝叶斯过滤垃圾邮件</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#lv-container', function() {
-        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
-      });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
-  </div>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-  <div class="col-lg-7 mx-auto nopadding-x-md">
-    <div class="container custom post-custom mx-auto">
-      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
-    </div>
-  </div>
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
-  
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-</body>
-</html>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2020/12/25/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E9%BB%98%E5%86%99/">http://oceaneyes.top/2020/12/25/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E9%BB%98%E5%86%99/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Artificial-Intelligence/">Artificial Intelligence</a><a class="post-meta__tags" href="/tags/Natural-Language-Processing/">Natural Language Processing</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B02/" title="机器学习实战-笔记2-k-近邻算法概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">机器学习实战-笔记2-k-近邻算法概述</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/25/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E8%BF%87%E6%BB%A4%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6/" title="案例-基于朴素贝叶斯过滤垃圾邮件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">案例-基于朴素贝叶斯过滤垃圾邮件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/08/01/bert-tf2-6/" title="Bert-TF-2.6修改-自调适配版"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-01</div><div class="title">Bert-TF-2.6修改-自调适配版</div></div></a></div><div><a href="/2019/03/01/%E6%90%AD%E5%BB%BA%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="搭建自然语言处理的开发环境"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-01</div><div class="title">搭建自然语言处理的开发环境</div></div></a></div><div><a href="/2019/03/01/%E6%A1%88%E4%BE%8B-NLP%E5%AE%9E%E7%8E%B0%E9%A2%84%E6%B5%8B%E5%A4%A9%E6%B0%94%E5%86%B7%E6%9A%96%E6%84%9F%E7%9F%A5%E5%BA%A6/" title="案例-NLP实现预测天气冷暖感知度"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-01</div><div class="title">案例-NLP实现预测天气冷暖感知度</div></div></a></div><div><a href="/2019/03/01/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%A6%82%E8%BF%B0/" title="自然语言处理概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-01</div><div class="title">自然语言处理概述</div></div></a></div><div><a href="/2018/11/26/AI%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8%E6%98%AF%E4%BB%80%E4%B9%88/" title="AI数据标注是什么"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-11-26</div><div class="title">AI数据标注是什么</div></div></a></div><div><a href="/2019/02/25/AI%E6%97%B6%E4%BB%A3%E5%A6%82%E4%BD%95%E6%8F%90%E5%8D%87%E4%B8%AA%E4%BA%BA%E8%AE%A4%E7%9F%A5/" title="AI时代如何提升个人认知"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-25</div><div class="title">AI时代如何提升个人认知</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E6%A8%A1%E5%9E%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">自然语言的几个重要模型-学习记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.1.</span> <span class="toc-text">1.循环神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.2.</span> <span class="toc-text">2.双向循环神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.</span> <span class="toc-text">3.深度双向循环神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lstm"><span class="toc-number">1.4.</span> <span class="toc-text">4.LSTM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gru"><span class="toc-number">1.5.</span> <span class="toc-text">5.GRU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#textcnn"><span class="toc-number">1.6.</span> <span class="toc-text">6.textCNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seq2seq"><span class="toc-number">1.7.</span> <span class="toc-text">7.seq2seq</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attention%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">1.8.</span> <span class="toc-text">8.Attention注意力机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transform"><span class="toc-number">1.9.</span> <span class="toc-text">9.Transform</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95elmo"><span class="toc-number">1.10.</span> <span class="toc-text">10.语言模型预训练方法ELMO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95bert"><span class="toc-number">1.11.</span> <span class="toc-text">11.语言模型预训练方法BERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95gpt"><span class="toc-number">1.12.</span> <span class="toc-text">12.语言模型预训练方法GPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9E%8Bword2vec%E5%92%8Cglove-fasttext"><span class="toc-number">1.13.</span> <span class="toc-text">13.词向量计算相关模型word2vec和glove
+fasttext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#about-me"><span class="toc-number">1.14.</span> <span class="toc-text">About ME</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E4%B9%A6%E5%9F%8E%E5%8D%97-%E5%9C%A8%E6%9C%AA%E6%9D%A5%E9%9D%A2%E5%89%8D%E6%88%91%E4%BB%AC%E9%83%BD%E6%98%AF%E5%AD%A9%E5%AD%90"><span class="toc-number">1.14.0.1.</span> <span class="toc-text">👋 读书城南，🤔
+在未来面前，我们都是孩子～</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#social-media"><span class="toc-number">1.14.0.2.</span> <span class="toc-text">👋 Social Media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E5%B0%8F%E7%BB%84"><span class="toc-number">1.14.0.3.</span> <span class="toc-text">👋 加入小组~</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%84%9F%E8%B0%A2%E6%89%93%E8%B5%8F"><span class="toc-number">1.14.0.4.</span> <span class="toc-text">👋 感谢打赏~</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

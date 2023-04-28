@@ -1,94 +1,11 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="什么是推荐系统？ 维基百科定义  推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”  限定在电商购买决策过程的定义  电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。   img  这其中隐含了土建系统的2个重要的核心功能  路径优化   img  兴趣发现   img    推荐概述  推荐目标：合适的才是最好的 实现手段：数据、算法、架构、 核心功能：链路优化">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>推荐系统-个性化内容分发 | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是推荐系统？ 维基百科定义  推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”  限定在电商购买决策过程的定义  电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。   img  这其中隐含了土建系统的2个重要的核心功能  路径优化   img  兴趣发现   img    推荐概述  推荐目标：合适的才是最好的 实现手段：数据、算法、架构、 核心功能：链路优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="推荐系统-个性化内容分发">
 <meta property="og:url" content="http://oceaneyes.top/2020/02/08/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E4%B8%AA%E6%80%A7%E5%8C%96%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="什么是推荐系统？ 维基百科定义  推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”  限定在电商购买决策过程的定义  电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。   img  这其中隐含了土建系统的2个重要的核心功能  路径优化   img  兴趣发现   img    推荐概述  推荐目标：合适的才是最好的 实现手段：数据、算法、架构、 核心功能：链路优化">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-24981ed071de556fa72ef6106a42609a_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-d6494b2c04de2bff17231d5dfb4c3b61_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-0acc89bd5a8812fcec86fc875f0df545_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-e0bc3333df76d907d3bb3ae39eab2f80_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-15462e7a78b08baef7862ed6b5717cb2_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-77e1b5a6b2f156ed7b130aaf84eb63ed_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-61f42e1c94fe0092123ac7c9e5a2f079_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-f8308747d670f9c3d50e953c46977d1b_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-59276dea29eceb4c8b3267dd50ffb159_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-522b37b0343ff59d48c1091d0f1e299d_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-027e7f8efad8f3576c557b3dec347ca8_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-529e00b279fc1b65af16c515836e45b9_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-28e7d8a69370b9193b100c9dc594952c_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-262299acabf9486a52b3fee88b0475e3_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1158150f45cea51bb628378b57c76282_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-063abc2abd313aa7df776b23b7977522_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-13b7da2172326c8392f3b232947d70c6_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c399cb49131fdc756c53df87fc75d357_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-a7d81ac9ee10f14e7d06190259ac74b0_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-3176997f9da2fdc4c8dc7153275d3e38_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-bbf8e93ebb565d10053dd0120281121e_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-98232e9c4051988f7209dc9b81c40798_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9bd8e6cb42d8d849a7b0c80292078ee4_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b87e9115bccfa9143221d996aba68e17_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-bed2819c1f3aa7637d38eeedebebdb90_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c70800e9bf2ad2e3292132fbd15dda54_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e8297116cce36f26c7de67d1972d42fe_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8b17939513726115c86590722f93ebb5_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fcb69b1e3f904273f2a26ef1050c5fcd_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b3ef26508d95239d9b710749b6aa34d3_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fc8612ddd48f5af5d5dd8b02514ab4c1_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-359a5eaf8855b9092ac7eaf07f737d8f_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-32fd09adc22679a9ca5730f97ea96b72_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fb1939476538a7ffc5ddd846de94202d_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-6c0c228787e88174d5a5e12a993483f7_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-3802a719644af111dd449d83acc80e6e_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-29abf4518c343d40bb0678effeb17575_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ba8e75e77794802fe92621938ac2335c_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-7e8b921e78f6dfe34fb4a538aa8f8a12_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-70a2ab5f93c7e7b9d45f49b50cbc499a_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-796093ed1186bbd3c359851c85b85eea_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5ab2550a0063b8dad0dbc5d595eb469b_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-d2a2d5f18624ed41a6cf2c7f6c096673_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-124a103f2e219804503fa089a56bc511_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-55c1eca9dbabf7c9ef553440a9219cae_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8a6a2b8e65bbe753a7d8161ea65c1279_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b1955438388f5b630c1dfbb2992450d3_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-13abad33462d724c18dbb2c2d47a88fa_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-bff1fd7d27d3c1b2c4e215c5e95f9121_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1e744c5f6e6f3791f05c378b0908beb1_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-4caed0fd81713f60bba02366960f9733_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-46e9dd415bd251b804ab088608a5baf4_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6ca5c99ea8e76ea02ba5ae2533acbba4_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-41a7a17a891d5a29b214cc40be2279b8_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-89a9e0870258f6a9eaa634544f249c85_1440w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-37ad55e090bcbe9ee42d9102dd110d70_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ba19c9de4cb88e48096c7cce268d7b02_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-d40c45b5d399dfb3933f16bbbf64a39b_1440w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-e3e28700c774d253ef4f9c89825d32c7_1440w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-623cb5d59687ec59a75fdc3fd5bac4ee_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-2b5bace2d1ade91a61b2c915f0f2ad3d_1440w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-5e2134edb61ad4d09981252e1ec52b69_1440w.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2020-02-08T15:51:14.000Z">
 <meta property="article:modified_time" content="2022-09-30T06:56:37.195Z">
 <meta property="article:author" content="OCEAN.GZY">
@@ -96,239 +13,158 @@
 <meta property="article:tag" content="推荐系统">
 <meta property="article:tag" content="个性化">
 <meta property="article:tag" content="内容分发">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2020/02/08/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E4%B8%AA%E6%80%A7%E5%8C%96%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '推荐系统-个性化内容分发',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-30 14:56:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <title>推荐系统-个性化内容分发 - OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
-
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="推荐系统-个性化内容分发">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-02-08 23:51" pubdate>
-        2020年2月8日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.7k 字
-    </span>
-  
-
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      23 分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">推荐系统-个性化内容分发</h1>
-            
-            <div class="markdown-body">
-              <h2 id="什么是推荐系统">什么是推荐系统？</h2>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">推荐系统-个性化内容分发</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-08T15:51:14.000Z" title="发表于 2020-02-08 23:51:14">2020-02-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.195Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/%E4%B8%AA%E6%80%A7%E5%8C%96/">个性化</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="推荐系统-个性化内容分发"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="什么是推荐系统">什么是推荐系统？</h2>
 <p><strong>维基百科定义</strong></p>
 <ul>
 <li>推荐系统是一种信息过滤系统，用语预测用户对物品的“评分”或“偏好”</li>
@@ -337,19 +173,19 @@
 <ul>
 <li><p>电商应用向客户提供商品信息和建议，帮助用户决定应该够买什么产品。</p>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-f68d20fc587d680f178feedc2fb318d2_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure></li>
 <li><p>这其中隐含了土建系统的2个重要的核心功能</p>
 <ul>
 <li><p>路径优化</p>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-24981ed071de556fa72ef6106a42609a_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-24981ed071de556fa72ef6106a42609a_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure></li>
 <li><p>兴趣发现</p>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-d6494b2c04de2bff17231d5dfb4c3b61_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-d6494b2c04de2bff17231d5dfb4c3b61_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure></li>
 </ul></li>
@@ -387,19 +223,19 @@
 </ul></li>
 </ul>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-0acc89bd5a8812fcec86fc875f0df545_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-0acc89bd5a8812fcec86fc875f0df545_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-e0bc3333df76d907d3bb3ae39eab2f80_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-e0bc3333df76d907d3bb3ae39eab2f80_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-15462e7a78b08baef7862ed6b5717cb2_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-15462e7a78b08baef7862ed6b5717cb2_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-77e1b5a6b2f156ed7b130aaf84eb63ed_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-77e1b5a6b2f156ed7b130aaf84eb63ed_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="推荐系统是怎么做到的">推荐系统是怎么做到的？</h2>
@@ -417,22 +253,22 @@
 <h3 id="协同过滤">协同过滤</h3>
 <h4 id="基于用户">基于用户</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-61f42e1c94fe0092123ac7c9e5a2f079_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-61f42e1c94fe0092123ac7c9e5a2f079_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="基于内容">基于内容</h4>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-f8308747d670f9c3d50e953c46977d1b_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-f8308747d670f9c3d50e953c46977d1b_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="基于商品">基于商品</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-59276dea29eceb4c8b3267dd50ffb159_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-59276dea29eceb4c8b3267dd50ffb159_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="基于模型">基于模型</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-522b37b0343ff59d48c1091d0f1e299d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-522b37b0343ff59d48c1091d0f1e299d_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="基于统计知识">基于统计/知识</h4>
@@ -440,11 +276,11 @@
 <p>计算用户与用户， 商品与商品， 内容与内容的相似度</p>
 <p>主要思想为，交集 / 并集</p>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-027e7f8efad8f3576c557b3dec347ca8_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-027e7f8efad8f3576c557b3dec347ca8_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-529e00b279fc1b65af16c515836e45b9_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-529e00b279fc1b65af16c515836e45b9_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <ul>
@@ -469,24 +305,24 @@
 <h2 id="推荐系统的架构和模块">推荐系统的架构和模块</h2>
 <h3 id="演进">演进</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-28e7d8a69370b9193b100c9dc594952c_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-28e7d8a69370b9193b100c9dc594952c_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-262299acabf9486a52b3fee88b0475e3_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-262299acabf9486a52b3fee88b0475e3_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="推荐系统架构">推荐系统架构</h3>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-1158150f45cea51bb628378b57c76282_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-1158150f45cea51bb628378b57c76282_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-063abc2abd313aa7df776b23b7977522_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-063abc2abd313aa7df776b23b7977522_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-13b7da2172326c8392f3b232947d70c6_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-13b7da2172326c8392f3b232947d70c6_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="推荐流量分发">推荐流量分发</h3>
@@ -514,20 +350,20 @@
 <li><p>CPC=消费量/点击量</p></li>
 </ul>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-c399cb49131fdc756c53df87fc75d357_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-c399cb49131fdc756c53df87fc75d357_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="模型部署">模型部署</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-a7d81ac9ee10f14e7d06190259ac74b0_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-a7d81ac9ee10f14e7d06190259ac74b0_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-3176997f9da2fdc4c8dc7153275d3e38_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-3176997f9da2fdc4c8dc7153275d3e38_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-bbf8e93ebb565d10053dd0120281121e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-bbf8e93ebb565d10053dd0120281121e_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="推荐召回">推荐召回</h2>
@@ -553,15 +389,15 @@
 </ul>
 <h3 id="业界算法模型">业界算法模型</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-98232e9c4051988f7209dc9b81c40798_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-98232e9c4051988f7209dc9b81c40798_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-9bd8e6cb42d8d849a7b0c80292078ee4_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-9bd8e6cb42d8d849a7b0c80292078ee4_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-b87e9115bccfa9143221d996aba68e17_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-b87e9115bccfa9143221d996aba68e17_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="相似度计算注意点">相似度计算注意点</h3>
@@ -581,45 +417,45 @@
 </ul>
 <h3 id="召回---关联推荐">召回---关联推荐</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-bed2819c1f3aa7637d38eeedebebdb90_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-bed2819c1f3aa7637d38eeedebebdb90_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-c70800e9bf2ad2e3292132fbd15dda54_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-c70800e9bf2ad2e3292132fbd15dda54_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-e8297116cce36f26c7de67d1972d42fe_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-e8297116cce36f26c7de67d1972d42fe_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="推荐排序">推荐排序</h2>
 <h4 id="问题抽象">问题抽象</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-8b17939513726115c86590722f93ebb5_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-8b17939513726115c86590722f93ebb5_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="个性化非个性化模型">个性化/非个性化模型</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-fcb69b1e3f904273f2a26ef1050c5fcd_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-fcb69b1e3f904273f2a26ef1050c5fcd_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="目标变形">目标变形</h4>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-b3ef26508d95239d9b710749b6aa34d3_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-b3ef26508d95239d9b710749b6aa34d3_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="预估流程与部署">预估流程与部署</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-fc8612ddd48f5af5d5dd8b02514ab4c1_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-fc8612ddd48f5af5d5dd8b02514ab4c1_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="调试">调试</h4>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-359a5eaf8855b9092ac7eaf07f737d8f_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-359a5eaf8855b9092ac7eaf07f737d8f_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-32fd09adc22679a9ca5730f97ea96b72_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-32fd09adc22679a9ca5730f97ea96b72_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="用户画像-1">用户画像</h2>
@@ -644,66 +480,66 @@
 </ul>
 <h3 id="用户画像标签">用户画像标签</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-fb1939476538a7ffc5ddd846de94202d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-fb1939476538a7ffc5ddd846de94202d_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="用户画像应用-选人中心">用户画像应用-选人中心</h4>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-6c0c228787e88174d5a5e12a993483f7_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-6c0c228787e88174d5a5e12a993483f7_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="用户画像应用-dmp">用户画像应用-DMP</h4>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-3802a719644af111dd449d83acc80e6e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-3802a719644af111dd449d83acc80e6e_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="用户画像应用-right-time-消费周期">用户画像应用-Right Time
 消费周期</h4>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-29abf4518c343d40bb0678effeb17575_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-29abf4518c343d40bb0678effeb17575_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="标签体系构建">标签体系构建</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-ba8e75e77794802fe92621938ac2335c_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-ba8e75e77794802fe92621938ac2335c_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="标签建模">标签建模</h3>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-7e8b921e78f6dfe34fb4a538aa8f8a12_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-7e8b921e78f6dfe34fb4a538aa8f8a12_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="性别模型">性别模型</h4>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-70a2ab5f93c7e7b9d45f49b50cbc499a_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-70a2ab5f93c7e7b9d45f49b50cbc499a_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="购买力模型">购买力模型</h4>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-796093ed1186bbd3c359851c85b85eea_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-796093ed1186bbd3c359851c85b85eea_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="关键词偏好">关键词偏好</h4>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-5ab2550a0063b8dad0dbc5d595eb469b_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-5ab2550a0063b8dad0dbc5d595eb469b_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h4 id="关键词模型">关键词模型</h4>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-d2a2d5f18624ed41a6cf2c7f6c096673_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-d2a2d5f18624ed41a6cf2c7f6c096673_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="画像与数据分析结合">画像与数据分析结合</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-124a103f2e219804503fa089a56bc511_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-124a103f2e219804503fa089a56bc511_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-55c1eca9dbabf7c9ef553440a9219cae_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-55c1eca9dbabf7c9ef553440a9219cae_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-8a6a2b8e65bbe753a7d8161ea65c1279_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-8a6a2b8e65bbe753a7d8161ea65c1279_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="特征工程">特征工程</h2>
@@ -724,15 +560,15 @@
 </ul></li>
 </ul>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-b1955438388f5b630c1dfbb2992450d3_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-b1955438388f5b630c1dfbb2992450d3_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-13abad33462d724c18dbb2c2d47a88fa_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-13abad33462d724c18dbb2c2d47a88fa_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-bff1fd7d27d3c1b2c4e215c5e95f9121_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-bff1fd7d27d3c1b2c4e215c5e95f9121_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="数据标注">数据标注</h3>
@@ -744,7 +580,7 @@
 <li>负样本</li>
 </ul>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-1e744c5f6e6f3791f05c378b0908beb1_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-1e744c5f6e6f3791f05c378b0908beb1_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="特征处理">特征处理</h3>
@@ -767,7 +603,7 @@
 </ul></li>
 </ul>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-4caed0fd81713f60bba02366960f9733_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-4caed0fd81713f60bba02366960f9733_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>百度百科：在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/统计学/1175">统计学</a>中，一个概率样本的<strong>置信区间</strong>（Confidence
@@ -779,56 +615,56 @@ interval）是对这个样本的某个总体<a target="_blank" rel="noopener" hr
 <li>特征的权重近似于后验概率</li>
 </ul>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-46e9dd415bd251b804ab088608a5baf4_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-46e9dd415bd251b804ab088608a5baf4_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="评估指标">评估指标</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-6ca5c99ea8e76ea02ba5ae2533acbba4_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-6ca5c99ea8e76ea02ba5ae2533acbba4_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-41a7a17a891d5a29b214cc40be2279b8_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-41a7a17a891d5a29b214cc40be2279b8_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="回归">回归</h2>
 <h3 id="场景分类与推荐">场景分类与推荐</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-89a9e0870258f6a9eaa634544f249c85_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-89a9e0870258f6a9eaa634544f249c85_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="各类算法比较">各类算法比较</h3>
 <figure>
-<img src="https://pic1.zhimg.com/80/v2-37ad55e090bcbe9ee42d9102dd110d70_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic1.zhimg.com/80/v2-37ad55e090bcbe9ee42d9102dd110d70_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="实时个性化">实时个性化</h3>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-ba19c9de4cb88e48096c7cce268d7b02_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-ba19c9de4cb88e48096c7cce268d7b02_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="意图计算">意图计算</h3>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-d40c45b5d399dfb3933f16bbbf64a39b_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-d40c45b5d399dfb3933f16bbbf64a39b_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="ee-个性化">E&amp;E 个性化</h3>
 <figure>
-<img src="https://pic4.zhimg.com/80/v2-e3e28700c774d253ef4f9c89825d32c7_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic4.zhimg.com/80/v2-e3e28700c774d253ef4f9c89825d32c7_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="可配置化">可配置化</h3>
 <figure>
-<img src="https://pic3.zhimg.com/80/v2-623cb5d59687ec59a75fdc3fd5bac4ee_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic3.zhimg.com/80/v2-623cb5d59687ec59a75fdc3fd5bac4ee_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="分解">分解</h3>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-2b5bace2d1ade91a61b2c915f0f2ad3d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-2b5bace2d1ade91a61b2c915f0f2ad3d_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="https://pic2.zhimg.com/80/v2-5e2134edb61ad4d09981252e1ec52b69_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<img src="https://pic2.zhimg.com/80/v2-5e2134edb61ad4d09981252e1ec52b69_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <hr>
@@ -850,274 +686,10 @@ interval）是对这个样本的某个总体<a target="_blank" rel="noopener" hr
 <li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
 </ul>
 <h5 id="加入小组">👋 加入小组~</h5>
-<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" title="加入组织" alt width="240"></p>
 <h5 id="感谢打赏">👋 感谢打赏~</h5>
-<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
-<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-                    
-                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a>
-                    
-                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/%E4%B8%AA%E6%80%A7%E5%8C%96/">个性化</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%B8%AA%E6%80%A7%E5%8C%96/">个性化</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/">内容分发</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2020/02/10/echart%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">echarts数据可视化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2020/02/08/%E6%B5%85%E8%B0%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">
-                        <span class="hidden-mobile">浅谈用户画像</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#lv-container', function() {
-        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
-      });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
-  </div>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-  <div class="col-lg-7 mx-auto nopadding-x-md">
-    <div class="container custom post-custom mx-auto">
-      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
-    </div>
-  </div>
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
-  
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-</body>
-</html>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2020/02/08/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E4%B8%AA%E6%80%A7%E5%8C%96%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/">http://oceaneyes.top/2020/02/08/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E4%B8%AA%E6%80%A7%E5%8C%96%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%A7%E5%93%81/">产品</a><a class="post-meta__tags" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a><a class="post-meta__tags" href="/tags/%E4%B8%AA%E6%80%A7%E5%8C%96/">个性化</a><a class="post-meta__tags" href="/tags/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/">内容分发</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/02/10/echart%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" title="echarts数据可视化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">echarts数据可视化</div></div></a></div><div class="next-post pull-right"><a href="/2020/02/08/%E6%B5%85%E8%B0%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" title="浅谈用户画像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">浅谈用户画像</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-04</div><div class="title">AI产品视角下的ChatGPT</div></div></a></div><div><a href="/2016/03/01/2016-03-01-%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4/" title="产品思维"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-01</div><div class="title">产品思维</div></div></a></div><div><a href="/2020/02/22/DSP%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" title="广告系统架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-22</div><div class="title">广告系统架构</div></div></a></div><div><a href="/2019/01/01/RWW%E4%BA%A7%E5%93%81%E6%A6%82%E5%BF%B5%E8%AF%84%E4%BC%B0%E6%B3%95%E5%AD%A6%E4%B9%A0/" title="RWW产品概念评估法学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-01</div><div class="title">RWW产品概念评估法学习</div></div></a></div><div><a href="/2020/02/02/ToB%E4%BA%A7%E5%93%81/" title="ToB产品的一些认知"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-02</div><div class="title">ToB产品的一些认知</div></div></a></div><div><a href="/2019/05/19/crash%E5%88%86%E6%9E%90%E7%B1%BB%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/" title="crash分析类指标详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-19</div><div class="title">crash分析类指标详解</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是推荐系统？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">推荐概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E5%87%A0%E5%A4%A7%E6%8C%91%E6%88%98"><span class="toc-number">1.2.</span> <span class="toc-text">推荐的几大挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%BD%E7%9A%84%E6%8E%A8%E8%8D%90%E4%BA%A7%E5%93%81"><span class="toc-number">1.3.</span> <span class="toc-text">好的推荐产品</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E5%88%B0%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">推荐系统是怎么做到的？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">2.1.</span> <span class="toc-text">上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F"><span class="toc-number">2.2.</span> <span class="toc-text">用户画像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">协同过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7"><span class="toc-number">2.3.1.</span> <span class="toc-text">基于用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AE%B9"><span class="toc-number">2.3.2.</span> <span class="toc-text">基于内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%95%86%E5%93%81"><span class="toc-number">2.3.3.</span> <span class="toc-text">基于商品</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.3.4.</span> <span class="toc-text">基于模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1%E7%9F%A5%E8%AF%86"><span class="toc-number">2.3.5.</span> <span class="toc-text">基于统计&#x2F;知识</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AF%84%E4%BC%B0"><span class="toc-number">3.</span> <span class="toc-text">推荐系统的相似度评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">推荐的混合模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%A7%E8%81%94%E5%9E%8B"><span class="toc-number">3.1.1.</span> <span class="toc-text">级联型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%80%92%E5%A2%9E"><span class="toc-number">3.1.2.</span> <span class="toc-text">特征递增</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E7%BB%84%E5%90%88"><span class="toc-number">3.1.3.</span> <span class="toc-text">特征组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E5%B1%82%E6%AC%A1%E7%BB%84%E5%90%88"><span class="toc-number">3.1.4.</span> <span class="toc-text">元层次组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B7%E5%90%88"><span class="toc-number">3.1.5.</span> <span class="toc-text">混合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E6%8D%A2"><span class="toc-number">3.1.6.</span> <span class="toc-text">切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E6%9D%83%E8%9E%8D%E5%90%88"><span class="toc-number">3.1.7.</span> <span class="toc-text">加权融合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97"><span class="toc-number">4.</span> <span class="toc-text">推荐系统的架构和模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E8%BF%9B"><span class="toc-number">4.1.</span> <span class="toc-text">演进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-number">4.2.</span> <span class="toc-text">推荐系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%B5%81%E9%87%8F%E5%88%86%E5%8F%91"><span class="toc-number">4.3.</span> <span class="toc-text">推荐流量分发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2"><span class="toc-number">4.4.</span> <span class="toc-text">模型部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E5%8F%AC%E5%9B%9E"><span class="toc-number">5.</span> <span class="toc-text">推荐召回</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AC%E5%9B%9E%E5%88%86%E7%B1%BB"><span class="toc-number">5.1.</span> <span class="toc-text">召回分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E7%95%8C%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B"><span class="toc-number">5.2.</span> <span class="toc-text">业界算法模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">5.3.</span> <span class="toc-text">相似度计算注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AC%E5%9B%9E---%E5%85%B3%E8%81%94%E6%8E%A8%E8%8D%90"><span class="toc-number">5.4.</span> <span class="toc-text">召回---关联推荐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E6%8E%92%E5%BA%8F"><span class="toc-number">6.</span> <span class="toc-text">推荐排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8A%BD%E8%B1%A1"><span class="toc-number">6.0.1.</span> <span class="toc-text">问题抽象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96%E9%9D%9E%E4%B8%AA%E6%80%A7%E5%8C%96%E6%A8%A1%E5%9E%8B"><span class="toc-number">6.0.2.</span> <span class="toc-text">个性化&#x2F;非个性化模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%8F%98%E5%BD%A2"><span class="toc-number">6.0.3.</span> <span class="toc-text">目标变形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%84%E4%BC%B0%E6%B5%81%E7%A8%8B%E4%B8%8E%E9%83%A8%E7%BD%B2"><span class="toc-number">6.0.4.</span> <span class="toc-text">预估流程与部署</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">6.0.5.</span> <span class="toc-text">调试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F-1"><span class="toc-number">7.</span> <span class="toc-text">用户画像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E7%B4%A0"><span class="toc-number">7.1.</span> <span class="toc-text">要素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#user-profile-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE"><span class="toc-number">7.1.1.</span> <span class="toc-text">User profile 基础数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#itemcontent-profile%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE"><span class="toc-number">7.1.2.</span> <span class="toc-text">Item&#x2F;Content profile基础数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F%E6%A0%87%E7%AD%BE"><span class="toc-number">7.2.</span> <span class="toc-text">用户画像标签</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F%E5%BA%94%E7%94%A8-%E9%80%89%E4%BA%BA%E4%B8%AD%E5%BF%83"><span class="toc-number">7.2.1.</span> <span class="toc-text">用户画像应用-选人中心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F%E5%BA%94%E7%94%A8-dmp"><span class="toc-number">7.2.2.</span> <span class="toc-text">用户画像应用-DMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F%E5%BA%94%E7%94%A8-right-time-%E6%B6%88%E8%B4%B9%E5%91%A8%E6%9C%9F"><span class="toc-number">7.2.3.</span> <span class="toc-text">用户画像应用-Right Time
+消费周期</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E4%BD%93%E7%B3%BB%E6%9E%84%E5%BB%BA"><span class="toc-number">7.3.</span> <span class="toc-text">标签体系构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%BB%BA%E6%A8%A1"><span class="toc-number">7.4.</span> <span class="toc-text">标签建模</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E5%88%AB%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.4.1.</span> <span class="toc-text">性别模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AD%E4%B9%B0%E5%8A%9B%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.4.2.</span> <span class="toc-text">购买力模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%E5%81%8F%E5%A5%BD"><span class="toc-number">7.4.3.</span> <span class="toc-text">关键词偏好</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.4.4.</span> <span class="toc-text">关键词模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%BB%E5%83%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E7%BB%93%E5%90%88"><span class="toc-number">7.5.</span> <span class="toc-text">画像与数据分析结合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">特征工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">8.1.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8"><span class="toc-number">8.2.</span> <span class="toc-text">数据标注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86"><span class="toc-number">8.3.</span> <span class="toc-text">特征处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E8%81%9A%E5%90%88"><span class="toc-number">8.4.</span> <span class="toc-text">特征聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-number">8.5.</span> <span class="toc-text">评估指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92"><span class="toc-number">9.</span> <span class="toc-text">回归</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%88%86%E7%B1%BB%E4%B8%8E%E6%8E%A8%E8%8D%90"><span class="toc-number">9.1.</span> <span class="toc-text">场景分类与推荐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%B1%BB%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83"><span class="toc-number">9.2.</span> <span class="toc-text">各类算法比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E4%B8%AA%E6%80%A7%E5%8C%96"><span class="toc-number">9.3.</span> <span class="toc-text">实时个性化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%8F%E5%9B%BE%E8%AE%A1%E7%AE%97"><span class="toc-number">9.4.</span> <span class="toc-text">意图计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ee-%E4%B8%AA%E6%80%A7%E5%8C%96"><span class="toc-number">9.5.</span> <span class="toc-text">E&amp;E 个性化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%85%8D%E7%BD%AE%E5%8C%96"><span class="toc-number">9.6.</span> <span class="toc-text">可配置化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E8%A7%A3"><span class="toc-number">9.7.</span> <span class="toc-text">分解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#about-me"><span class="toc-number">9.8.</span> <span class="toc-text">About ME</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E4%B9%A6%E5%9F%8E%E5%8D%97-%E5%9C%A8%E6%9C%AA%E6%9D%A5%E9%9D%A2%E5%89%8D%E6%88%91%E4%BB%AC%E9%83%BD%E6%98%AF%E5%AD%A9%E5%AD%90"><span class="toc-number">9.8.0.1.</span> <span class="toc-text">👋 读书城南，🤔
+在未来面前，我们都是孩子～</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#social-media"><span class="toc-number">9.8.0.2.</span> <span class="toc-text">👋 Social Media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E5%B0%8F%E7%BB%84"><span class="toc-number">9.8.0.3.</span> <span class="toc-text">👋 加入小组~</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%84%9F%E8%B0%A2%E6%89%93%E8%B5%8F"><span class="toc-number">9.8.0.4.</span> <span class="toc-text">👋 感谢打赏~</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

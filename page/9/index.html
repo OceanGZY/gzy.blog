@@ -1,841 +1,432 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="This is MyBlog Notes.">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OCAEN.GZY读书城南 - 在未来面前我们都是孩子</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This is MyBlog Notes.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="OCAEN.GZY读书城南">
 <meta property="og:url" content="http://oceaneyes.top/page/9/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="This is MyBlog Notes.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:author" content="OCEAN.GZY">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/page/9/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OCAEN.GZY读书城南',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-04-28 17:14:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-  
-  <title>OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/background.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="在未来面前，我们都是孩子～">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/06/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9B%BE/" target="_self">
-          用户体验地图
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/06/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9B%BE/" target="_self">
-          
-          概述 用户体验地图（User Experience Map），也被叫 User&#x2F;CustomerJourney Map，它是用户增长策略体系的一部分，是产品优化的重要工具。 它从用户视角了解产品流程，可以帮助我们找到用户的痛点、发现产品存在问题的阶段，从而有的放矢地进行优化，因此它更适用于产品从1-∞的阶段（0-1阶段的产品的用户是虚拟的、数据是缺失的，因此整个体验地图可靠性低）。   img
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-06 13:40" pubdate>
-              2019-01-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/">用户体验</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/">用户体验</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/04/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E2%80%94%E2%80%94%E6%A6%82%E8%A6%81/" target="_self">
-          Python数据挖掘——概要
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/04/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E2%80%94%E2%80%94%E6%A6%82%E8%A6%81/" target="_self">
-          
-          一、数据挖掘过程 1.数据选择 分析业务需求后，选择应用于需求业务相关的数据：业务原始数据、公开的数据集、也可通过爬虫采集网站结构化的数据。明确业务需求并选择好针对性的数据是数据挖掘的先决条件。 2.数据预处理 通常选择好的数据会有噪音，不完整等缺陷，需要对数据进行清洗，缺失项处理，集成，转换以及归纳： python字符串处理（相当方便）、正则式匹配、pandas、beautifulsoup处理H
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-04 23:30" pubdate>
-              2019-01-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Data-Mining/">Data Mining</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python3/">Python3</a>
-            
-              <a href="/tags/Data-Mining/">Data Mining</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/02/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%A0%94%E7%A9%B6%E8%80%85%E8%AE%A4%E7%9F%A5%E5%81%8F%E8%AF%AF/" target="_self">
-          常见的研究者认知偏误
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/02/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%A0%94%E7%A9%B6%E8%80%85%E8%AE%A4%E7%9F%A5%E5%81%8F%E8%AF%AF/" target="_self">
-          
-          常见的研究者认知偏误 前言： 认知偏误（Cognitive bias）是一种常见的现象，它是指当我们思考问题或做决策时，大脑会有一些固定的思维倾向。这个过程多是无意识的，有时也会带来正面作用，如帮助我们在纷繁复杂的环境中节省思考时间，更高效地做出决定但是在研究中，认知偏误易导致研究结果不准确，降低研究的价值。 我们都希望研究是客观、理性、反映真实情况的，了解常见的认知偏误可以帮助我们在工作中尽量规
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-02 23:00" pubdate>
-              2019-01-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B0%8F%E8%AE%B0/">小记</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%A4%E7%9F%A5%E5%81%8F%E8%AF%AF/">认知偏误</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/02/php%E5%BC%80%E5%8F%91APP%E5%90%8E%E7%AB%AF---%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" target="_self">
-          php开发APP后端---环境准备
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/02/php%E5%BC%80%E5%8F%91APP%E5%90%8E%E7%AB%AF---%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" target="_self">
-          
-          环境和工具 集成环境  phpstudy xampp mamp  工具  PHP开发工具 ：phpstorm, sublime, vim mysql管理工具： phpmyadmin , navicate , mysql postman 手机设备，外网服务环境   About ME 👋 读书城南，🤔 在未来面前，我们都是孩子～  📙 一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-02 22:30" pubdate>
-              2019-01-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/php/">php</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/php/">php</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/">后端服务</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/02/php%E5%BC%80%E5%8F%91APP%E5%90%8E%E7%AB%AF--%E5%AD%A6%E4%B9%A0%E5%BA%8F%E8%A8%80/" target="_self">
-          php开发APP后端---学习序言
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/02/php%E5%BC%80%E5%8F%91APP%E5%90%8E%E7%AB%AF--%E5%AD%A6%E4%B9%A0%E5%BA%8F%E8%A8%80/" target="_self">
-          
-          ### 序言 梳理学习计划 1、后台登录功能详解 2、娱乐新闻内容管理 3、restful api 4、api数据安全解决方案 5、app-api 基础信息接口开发以及接口文档详解 6、app版本升级业务开发 7、登录、个人中心、点赞以及评论功能开发 8、app端异常、性能监控以及定位分析 9、打造app消息推送服务       ### 功能分析     #### app - 版本升级 - 首页接
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-02 21:30" pubdate>
-              2019-01-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/php/">php</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/php/">php</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/">后端服务</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/02/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A-%E5%9F%BA%E7%A1%80/" target="_self">
-          计算广告-基础
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/02/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A-%E5%9F%BA%E7%A1%80/" target="_self">
-          
-          计算广告-基础 1、在线广告技术特点 技术和计算导向 ​ 数字媒体的特点使在线广告可以精细的用户定向 ​ 技术又使广告决策和交易朝着计算驱动的方向发展 效果的可衡量性 ​ 在同一个时期，点击率的绝对值并没有那么重要；而在一个特定时期不同广告和算法表现出来的差异，才更有 意义 创意和投放方式的标准化 ​ 标准化的驱动力来自受众定向与程序购买 ​ 需求方更关心的是受众人群，创意尺寸的统一化与数据接口的
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-02 00:00" pubdate>
-              2019-01-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/">广告产品</a>
-            
-              <a href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A/">计算广告</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/">广告产品</a>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A/">计算广告</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/02/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A-%E7%9F%A5%E8%AF%86%E5%82%A8%E5%A4%87/" target="_self">
-          计算广告-知识储备
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/02/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A-%E7%9F%A5%E8%AF%86%E5%82%A8%E5%A4%87/" target="_self">
-          
-          计算广告-知识储备 1、信息检索 1.1、倒排索引 ​ 核心目的，将从大量文档中查找包含某些词的文档集合，用O(1)的时间复杂度完成。 ​ 基本操作： ​ 1、向索引中加入一个新文档 ​ 2、给定一个有多个关键词组成的查询时，返回对应的文档集合 1.2、向量空间模型 ​ 向量空间模型（Vector Space Model ，VSM），信息检索中最基础且最重要的文档相似度度量方法之一。 ​ 核心：
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-02 00:00" pubdate>
-              2019-01-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/">广告产品</a>
-            
-              <a href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A/">计算广告</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/">广告产品</a>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A/">计算广告</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/01/Data%20Management%20Platform%20%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/" target="_self">
-          Data Management Platform 数据管理平台简介
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/01/Data%20Management%20Platform%20%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/" target="_self">
-          
-          Data Management Platform 数据管理平台  大数据在营销中的落地解决方案和实时消费者互动的基础 即：利用数据管理平台实现营销层面和战略层面的多重用途  DMP的三个层次，核心能力 数据整合能力  数据，即DMP的输入； 稳定可靠的数据来源是一切DMP的基础 建立DMP，可拿到大量非自己业务的数据，并且自己业务的数据可量化评估其他数据提供方的数据 对不同来源和不同结构的数据清洗
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-01 23:15" pubdate>
-              2019-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/DMP/">DMP</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/DMP/">DMP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/01/CNN%E3%80%81RNN%E3%80%81DNN%E5%8C%BA%E5%88%AB/" target="_self">
-          CNN、RNN、DNN区别
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/01/CNN%E3%80%81RNN%E3%80%81DNN%E5%8C%BA%E5%88%AB/" target="_self">
-          
-          CNN、RNN、DNN区别   img  神经网络起源 感知机（perception），包含输入层，输出层，和一个隐藏层； ​ 输入的特征向量通过隐藏层变换达到输出层，由输出层得到分类结果。 多层感知机，多个隐藏层； 神经网络NN，使用连续函数模拟神经元对激励的响应，在训练算法上使用反向传播算法； 1、神经网络的层数直接决定了它对现实的刻画能力----利用每层更少的神经元拟合更加附加的函数。 2、
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-01 23:02" pubdate>
-              2019-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">神经网络</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">神经网络</a>
-            
-              <a href="/tags/RNN/">RNN</a>
-            
-              <a href="/tags/CNN/">CNN</a>
-            
-              <a href="/tags/DNN/">DNN</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/01/01/RWW%E4%BA%A7%E5%93%81%E6%A6%82%E5%BF%B5%E8%AF%84%E4%BC%B0%E6%B3%95%E5%AD%A6%E4%B9%A0/" target="_self">
-          RWW产品概念评估法学习
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/01/RWW%E4%BA%A7%E5%93%81%E6%A6%82%E5%BF%B5%E8%AF%84%E4%BC%B0%E6%B3%95%E5%AD%A6%E4%B9%A0/" target="_self">
-          
-          RWW概述 Real-Win-Worth，简称RWW，起源于3M大厂。通过Real-Win-Worth来评估市场机会／产品概念的商业潜力和风险大小。  Real-这是真实的吗？ 潜在市场是否真实存在？ 能满足市场需求的产品技术可行性？ Win-我们能赢吗？ 企业和产品是否具备获取市场份额的能力？ 产品能否在市场中具备竞争优势？  Worth-这个值得做吗？ 从盈利能力、风险承受能力以及企业战略层面
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-01 22:20" pubdate>
-              2019-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
     })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
   
-    <script  src="/js/img-lazyload.js" ></script>
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">OCAEN.GZY读书城南</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/06/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9B%BE/" title="用户体验地图">用户体验地图</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-06T05:40:00.000Z" title="发表于 2019-01-06 13:40:00">2019-01-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/">用户体验</a></span></div><div class="content">概述
+用户体验地图（User Experience Map），也被叫 User/CustomerJourney
+Map，它是用户增长策略体系的一部分，是产品优化的重要工具。
+它从用户视角了解产品流程，可以帮助我们找到用户的痛点、发现产品存在问题的阶段，从而有的放矢地进行优化，因此它更适用于产品从1-∞的阶段（0-1阶段的产品的用户是虚拟的、数据是缺失的，因此整个体验地图可靠性低）。
+
+
+img
+
+△ Crash-Course-CX
+组成
+一个标准的用户体验地图一般包含以下三大组成部分：
+
+用户：用户画像（persona）、用户目标（user goals/needs）；
+用户和产品：用户行为（doing）、触点（touch
+point）、想法（thinking）、情绪曲线（feeling/experience）；
+产品机会：痛点（pain point）、机会点（opportunities）。
 
 
 
-  
+img
+
+△ 三大部分
+如下图，raileurope体验地图，它的时间比较早，但因为非常全面和标准，包含体验地图相关的所有要素，至今仍然被各大公司当作参照的模板。
+原版是英文，为了方便大家理解 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/04/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E2%80%94%E2%80%94%E6%A6%82%E8%A6%81/" title="Python数据挖掘——概要">Python数据挖掘——概要</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-04T15:30:00.000Z" title="发表于 2019-01-04 23:30:00">2019-01-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Data-Mining/">Data Mining</a></span></div><div class="content">一、数据挖掘过程
+1.数据选择
+分析业务需求后，选择应用于需求业务相关的数据：业务原始数据、公开的数据集、也可通过爬虫采集网站结构化的数据。明确业务需求并选择好针对性的数据是数据挖掘的先决条件。
+2.数据预处理
+通常选择好的数据会有噪音，不完整等缺陷，需要对数据进行清洗，缺失项处理，集成，转换以及归纳：
+python字符串处理（相当方便）、正则式匹配、pandas、beautifulsoup处理Html标签等等工具。
+3.特征工程/数据转换
+根据选择的算法，对预处理好的数据提取特征，并转换为特定数据挖掘算法的分析模型。
+4.数据挖掘
+使用选择好的数据挖掘算法对数据进行处理后得到信息。
+5.解释与评价
+对数据挖掘后的信息加以分析解释，并应用于实际的工作领域。
+二、数据挖掘常用算法简介
+1.关联分析算法
+关联规则在于找出具有最小支持度阈值和最小置信度阈值的不同域的数据之间的关联。在关联规则的分析算法研究中，算法的效率是核心的问题。
+经典的算法有：Apriori算法，AprioriTid算法，FP-growth算法；
+2.分类算法
+决策树算法：以树形结构表示分类或者决策集合，产生规则或者发现 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/02/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%A0%94%E7%A9%B6%E8%80%85%E8%AE%A4%E7%9F%A5%E5%81%8F%E8%AF%AF/" title="常见的研究者认知偏误">常见的研究者认知偏误</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-02T15:00:00.000Z" title="发表于 2019-01-02 23:00:00">2019-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B0%8F%E8%AE%B0/">小记</a></span></div><div class="content">常见的研究者认知偏误
+前言：
+认知偏误（Cognitive
+bias）是一种常见的现象，它是指当我们思考问题或做决策时，大脑会有一些固定的思维倾向。这个过程多是无意识的，有时也会带来正面作用，如帮助我们在纷繁复杂的环境中节省思考时间，更高效地做出决定但是在研究中，认知偏误易导致研究结果不准确，降低研究的价值。
+我们都希望研究是客观、理性、反映真实情况的，了解常见的认知偏误可以帮助我们在工作中尽量规避它们，得出更准确的结论。
+实际上每个人都会有认知偏误，包括用户研究者和用户。
+今天我们就来说说研究者的常见认知偏误，下次有机会再谈谈用户的，敬请期待。
+一、 确认偏误（Confirmation
+bias）
+当人们本来就持有某种观点时，对这种观点的感知和注意度会被放大，会选择性地回忆或收集关于它的事例。人们对于自己原本就相信的观点会更容易接受，而把反面观点搁置在一旁。举个例子：有些人认为女司机不擅长开车，更容易造成事故，所以当新闻中的事故与女司机有关时，他们会觉得“果然如此”。而实际上男司机的事故率比女司机更高。
+在用户研究中，当你的预设想法是用户对A设计的满意度比B设计更高时，在研究中你可能 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/02/php%E5%BC%80%E5%8F%91APP%E5%90%8E%E7%AB%AF---%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" title="php开发APP后端---环境准备">php开发APP后端---环境准备</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-02T14:30:00.000Z" title="发表于 2019-01-02 22:30:00">2019-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/php/">php</a></span></div><div class="content">环境和工具
+集成环境
+
+phpstudy
+xampp
+mamp
+
+工具
+
+PHP开发工具 ：phpstorm, sublime, vim
+mysql管理工具： phpmyadmin , navicate , mysql
+postman
+手机设备，外网服务环境
+
+
+About ME
+👋 读书城南，🤔
+在未来面前，我们都是孩子～
+
+📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+👋 Social Media
+
+🛠️ Blog: http://oceaneyes.top
+⚡ PM导航: https://pmhub.oceangzy.top
+☘️ CNBLOG: https://www.cnblogs.com/oceaneyes-gzy/
+🌱 AI PRJ自己部署的一些算法demo: http://ai.oceangzy.top/
+📫 Email: 1450136519@qq.com
+💬 WeChat: OCEANGZY
+💬 公众号: UncleJoker-GZY
+
+👋 加入小组~
+
+👋 感谢打赏~
+
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/02/php%E5%BC%80%E5%8F%91APP%E5%90%8E%E7%AB%AF--%E5%AD%A6%E4%B9%A0%E5%BA%8F%E8%A8%80/" title="php开发APP后端---学习序言">php开发APP后端---学习序言</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-02T13:30:00.000Z" title="发表于 2019-01-02 21:30:00">2019-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/php/">php</a></span></div><div class="content">### 序言
+梳理学习计划
+1、后台登录功能详解
+2、娱乐新闻内容管理
+3、restful api
+4、api数据安全解决方案
+5、app-api
+基础信息接口开发以及接口文档详解
+6、app版本升级业务开发
+7、登录、个人中心、点赞以及评论功能开发
+8、app端异常、性能监控以及定位分析
+9、打造app消息推送服务
 
 
 
 
 
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+### 功能分析
 
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
+#### app - 版本升级 - 首页接口API - 栏目接口 - 栏目列表页数据接口 -
+详情页接口 - 相关推荐 - 内容搜索 - 评论、点赞 - 登录功能 - 手机号+验证码
+- 手机号+密码 - 个人中心 - 消息推送服务 - APP端异常分析定位
+
+
+
+数据表ER关系总图
+
+
+1550155519929
+
+
+About ME
+👋 读书城南，🤔
+在未来面前，我们都是孩子～
+
+📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+👋 Social Media
+
+🛠️ Blog: http://oceaneyes.top
+⚡ PM导航: https://p ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/02/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A-%E5%9F%BA%E7%A1%80/" title="计算广告-基础">计算广告-基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-01T16:00:00.000Z" title="发表于 2019-01-02 00:00:00">2019-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/">广告产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A/">计算广告</a></span></div><div class="content">计算广告-基础
+1、在线广告技术特点
+技术和计算导向
+​ 数字媒体的特点使在线广告可以精细的用户定向
+​ 技术又使广告决策和交易朝着计算驱动的方向发展
+效果的可衡量性
+​
+在同一个时期，点击率的绝对值并没有那么重要；而在一个特定时期不同广告和算法表现出来的差异，才更有
+意义
+创意和投放方式的标准化
+​ 标准化的驱动力来自受众定向与程序购买
+​
+需求方更关心的是受众人群，创意尺寸的统一化与数据接口的标准化就变得更加重要
+媒体概念的多样化
+数据驱动的投放决策
+​ 互联网化的根本驱动力是数据的深入加工和利用
+2、计算广告的核心问题
+
+计算广告的核心问题，是为一系列用户与环境的组合，找到最合适的广告投放策略以优化整体的投入产出比（ROI）
+
+2.1、在线广告计费模式
+CPM（Cost per Mile）
+​ 按照千次展示计费
+CPC（Cost per Click）
+​ 按照点击计费
+CPS（Cost per Sale）/ CPA（Cost per Action）/ROI
+​ 按照销售订单数、转化行为数或投入产出比来计费
+​ 情况一：需求方只按照最后的转化效益来结算
+​ 存在问题：
+​ 转化行为 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/02/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A-%E7%9F%A5%E8%AF%86%E5%82%A8%E5%A4%87/" title="计算广告-知识储备">计算广告-知识储备</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-01T16:00:00.000Z" title="发表于 2019-01-02 00:00:00">2019-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/">广告产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%B9%BF%E5%91%8A%E4%BA%A7%E5%93%81/%E8%AE%A1%E7%AE%97%E5%B9%BF%E5%91%8A/">计算广告</a></span></div><div class="content">计算广告-知识储备
+1、信息检索
+1.1、倒排索引
+​
+核心目的，将从大量文档中查找包含某些词的文档集合，用O(1)的时间复杂度完成。
+​ 基本操作：
+​ 1、向索引中加入一个新文档
+​ 2、给定一个有多个关键词组成的查询时，返回对应的文档集合
+1.2、向量空间模型
+​ 向量空间模型（Vector Space Model
+，VSM），信息检索中最基础且最重要的文档相似度度量方法之一。
+​ 核心：
+​ 1、文档的表示方法
+​ 用各个关键词（term）在文档中强度组成的矢量来表示该文档
+\[
+D=(X_1,X_2,...X_m)^T
+\]
+​ 2、相似度计算方法
+2、最优化方法
+2.1、下降单纯型法
+2.2、梯度方法
+2.3、拟牛顿方法
+2.4、Trust-Region方法
+2.5、带约束 优化和拉格朗日法
+3、统计机器学习
+3.1、最大熵原理
+3.2、指数族分布
+3.3、混合模型和EM算法
+3.4、贝叶斯学习
+3.5、共轭先验
+3.6、经验贝叶斯
+3.7、变分法
+
+About ME
+👋 读书城南，🤔
+在未来面前，我们都是孩子～
+
+📙
+一个热衷于探索学习新方向、新事物的智能产品经理， ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/01/Data%20Management%20Platform%20%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/" title="Data Management Platform 数据管理平台简介">Data Management Platform 数据管理平台简介</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-01T15:15:00.000Z" title="发表于 2019-01-01 23:15:00">2019-01-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/DMP/">DMP</a></span></div><div class="content">Data Management Platform
+数据管理平台
+
+大数据在营销中的落地解决方案和实时消费者互动的基础
+即：利用数据管理平台实现营销层面和战略层面的多重用途
+
+DMP的三个层次，核心能力
+数据整合能力
+
+数据，即DMP的输入；
+稳定可靠的数据来源是一切DMP的基础
+建立DMP，可拿到大量非自己业务的数据，并且自己业务的数据可量化评估其他数据提供方的数据
+对不同来源和不同结构的数据清洗 和整合
+
+数据分析能力
+
+用户画像是基础，即通过对用户信息的标签化，完美的抽象出一个用户信息全貌
+用户画像的焦点：为用户打标签；一个标签 ：高度提炼的特征标识
+
+行业解决方案
+
+DMP的输出
+有了数据的整合分析，通过一个特定的应用场景，实现大数据的最终价值
+即解决数据的最终如何变现的问题
+
+DMP分类
+按照数据归属
+第一方数据
+
+需求方即广告主，自有用户数据，包括网站/APP监测数据，CRM数据，电商交易数据等
+
+第二方数据
+
+需求方服务提供者，在广告投放过程中积累的业务数据，如DSP平台业务中积累的受众
+浏览广告，点击广告等相关数据
+
+第三方数据
+
+非直接合作方拥有的数据，如运营商数据
+
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/01/CNN%E3%80%81RNN%E3%80%81DNN%E5%8C%BA%E5%88%AB/" title="CNN、RNN、DNN区别">CNN、RNN、DNN区别</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-01T15:02:00.000Z" title="发表于 2019-01-01 23:02:00">2019-01-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">神经网络</a></span></div><div class="content">CNN、RNN、DNN区别
+
+
+img
+
+神经网络起源
+感知机（perception），包含输入层，输出层，和一个隐藏层；
+​ 输入的特征向量通过隐藏层变换达到输出层，由输出层得到分类结果。
+多层感知机，多个隐藏层；
+神经网络NN，使用连续函数模拟神经元对激励的响应，在训练算法上使用反向传播算法；
+1、神经网络的层数直接决定了它对现实的刻画能力----利用每层更少的神经元拟合更加附加的函数。
+2、神经网络层数加深，优化函数越容易陷入局部最优解，并且越来越偏离全局最优
+3、利用有限的数据训练深层的网络，性能还不如浅层网络
+4、网络层数的不断增加，“梯度消失”的现象更严重
+DNN
+2006年，Hition提出深度学习，利用预训练的方式缓解局部最优解问题，将隐藏层增加到了7层
+CNN
+卷积神经网络Convolutional Neural Networks
+图像中存在固有的局部模式，故将图像处理和神经网络结合引出卷机神经网络CNN（Convolutional
+Neural Networks），通过卷积核将上下层进行链接
+因每层神经元的信号智能向上一层传播，样本的处理每个时刻独立，又被称为前向神 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2019/01/01/RWW%E4%BA%A7%E5%93%81%E6%A6%82%E5%BF%B5%E8%AF%84%E4%BC%B0%E6%B3%95%E5%AD%A6%E4%B9%A0/" title="RWW产品概念评估法学习">RWW产品概念评估法学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-01T14:20:00.000Z" title="发表于 2019-01-01 22:20:00">2019-01-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a></span></div><div class="content">RWW概述
+Real-Win-Worth，简称RWW，起源于3M大厂。通过Real-Win-Worth来评估市场机会／产品概念的商业潜力和风险大小。
+
+Real-这是真实的吗？ 潜在市场是否真实存在？
+能满足市场需求的产品技术可行性？
+Win-我们能赢吗？
+企业和产品是否具备获取市场份额的能力？
+产品能否在市场中具备竞争优势？
+
+Worth-这个值得做吗？
+从盈利能力、风险承受能力以及企业战略层面对市场机会进行更深入评估。
 
 
 
@@ -844,16 +435,56 @@
 
 
 
+R-Is It Real? 这是真实的吗？
 
 
 
 
 
+市场真实存在吗
+产品是否真的可以实现出来？
 
 
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
+1、用户是否想要／需要产品？
+5、是否有一个明确的产品概念？
 
 
-</body>
-</html>
+2、用户是否可以使用／购买产品？
+6、产品是否可以造出来？
+
+
+3、潜在市场的规模是否足够大？
+7、最终产品是否满足市场需求？
+
+
+4、用户会购买产品吗？
+
+
+
+W-Can We Win?
+我们能赢吗？
+
+
+
+产品是否具备竞争力？
+企业是否具有竞争力？
+
+
+8、产品是否具备竞争优势
+11、企业有优质资源吗？
+
+
+9、产品优势能否持续维持下去？
+12、企业有能够取胜的经营管理吗？
+
+
+1 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/8/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#content-inner">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#content-inner">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#content-inner">17</a><a class="extend next" rel="next" href="/page/10/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/"><span class="card-category-list-name">Artificial Intelligence</span><span class="card-category-list-count">45</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Data-Mining/"><span class="card-category-list-name">Data Mining</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/"><span class="card-category-list-name">Machine Learning</span><span class="card-category-list-count">25</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/"><span class="card-category-list-name">Algorithm</span><span class="card-category-list-count">22</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/CV/"><span class="card-category-list-name">CV</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/"><span class="card-category-list-name">K-means</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/"><span class="card-category-list-name">DBSCAN</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/"><span class="card-category-list-name">RFM</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li></ul></li></ul></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/seaborn/" style="font-size: 1.16em; color: #999b9e">seaborn</a> <a href="/tags/Tensorflow/" style="font-size: 1.1em; color: #999">Tensorflow</a> <a href="/tags/redis/" style="font-size: 1.16em; color: #999b9e">redis</a> <a href="/tags/matplotlib/" style="font-size: 1.33em; color: #99a2af">matplotlib</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">算法</a> <a href="/tags/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/" style="font-size: 1.21em; color: #999ea4">内容产品</a> <a href="/tags/DSP/" style="font-size: 1.1em; color: #999">DSP</a> <a href="/tags/GrowthHacking/" style="font-size: 1.1em; color: #999">GrowthHacking</a> <a href="/tags/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">关联规则算法</a> <a href="/tags/K-means/" style="font-size: 1.1em; color: #999">K-means</a> <a href="/tags/CTR/" style="font-size: 1.1em; color: #999">CTR</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 1.1em; color: #999">心理学</a> <a href="/tags/%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81/" style="font-size: 1.1em; color: #999">策略产品</a> <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">推荐系统</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" style="font-size: 1.27em; color: #99a0a9">服务端</a> <a href="/tags/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2/" style="font-size: 1.1em; color: #999">增长黑客</a> <a href="/tags/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/" style="font-size: 1.1em; color: #999">内容分发</a> <a href="/tags/k-%E8%BF%91%E9%82%BB/" style="font-size: 1.21em; color: #999ea4">k-近邻</a> <a href="/tags/Java/" style="font-size: 1.44em; color: #99a7ba">Java</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/Navtive/" style="font-size: 1.1em; color: #999">Navtive</a> <a href="/tags/echarts/" style="font-size: 1.1em; color: #999">echarts</a> <a href="/tags/iOS/" style="font-size: 1.1em; color: #999">iOS</a> <a href="/tags/%E7%94%A8%E6%88%B7/" style="font-size: 1.1em; color: #999">用户</a> <a href="/tags/MariaDB/" style="font-size: 1.1em; color: #999">MariaDB</a> <a href="/tags/LSTM/" style="font-size: 1.16em; color: #999b9e">LSTM</a> <a href="/tags/%E8%BF%90%E8%90%A5/" style="font-size: 1.21em; color: #999ea4">运营</a> <a href="/tags/Deep-Learning/" style="font-size: 1.21em; color: #999ea4">Deep Learning</a> <a href="/tags/%E5%AE%89%E5%85%A8%E4%BA%A7%E5%93%81/" style="font-size: 1.1em; color: #999">安全产品</a> <a href="/tags/JAVA/" style="font-size: 1.1em; color: #999">JAVA</a> <a href="/tags/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">推荐算法</a> <a href="/tags/html/" style="font-size: 1.1em; color: #999">html</a> <a href="/tags/DNN/" style="font-size: 1.16em; color: #999b9e">DNN</a> <a href="/tags/%E8%A1%8C%E4%B8%9A/" style="font-size: 1.1em; color: #999">行业</a> <a href="/tags/Algorithm/" style="font-size: 1.5em; color: #99a9bf">Algorithm</a> <a href="/tags/%E7%94%B5%E5%95%86/" style="font-size: 1.16em; color: #999b9e">电商</a> <a href="/tags/numpy/" style="font-size: 1.39em; color: #99a4b4">numpy</a> <a href="/tags/CNN/" style="font-size: 1.16em; color: #999b9e">CNN</a> <a href="/tags/%E5%95%86%E4%B8%9A/" style="font-size: 1.16em; color: #999b9e">商业</a> <a href="/tags/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" style="font-size: 1.16em; color: #999b9e">用户画像</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/11/"><span class="card-archive-list-date">十一月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/08/"><span class="card-archive-list-date">八月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">166</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-04-28T09:14:22.053Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

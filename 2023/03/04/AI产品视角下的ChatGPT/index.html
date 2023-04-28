@@ -1,278 +1,169 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="AI产品视角下的ChatGPT  &quot;ChatGPT:Optimizing Language Models for Dialogue&quot;  ChatGPT使用体验  内容创作【创作小说提纲、编写小说开篇】    ChatGPT使用体验  代码编写【生成markdown解析器】   ChatGPT使用体验  “检索问答”【知识截止于21年9月】   ChatGPT使用体验  “安全模型”   ChatG">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI产品视角下的ChatGPT | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AI产品视角下的ChatGPT  &quot;ChatGPT:Optimizing Language Models for Dialogue&quot;  ChatGPT使用体验  内容创作【创作小说提纲、编写小说开篇】    ChatGPT使用体验  代码编写【生成markdown解析器】   ChatGPT使用体验  “检索问答”【知识截止于21年9月】   ChatGPT使用体验  “安全模型”   ChatG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AI产品视角下的ChatGPT">
 <meta property="og:url" content="http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="AI产品视角下的ChatGPT  &quot;ChatGPT:Optimizing Language Models for Dialogue&quot;  ChatGPT使用体验  内容创作【创作小说提纲、编写小说开篇】    ChatGPT使用体验  代码编写【生成markdown解析器】   ChatGPT使用体验  “检索问答”【知识截止于21年9月】   ChatGPT使用体验  “安全模型”   ChatG">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://oceaneyes.top/.top//内容创作.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//生成代码.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//问答.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//安全模型.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//chatgpt时间节点.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//ChatGPT_Diagram-技术原理.svg">
-<meta property="og:image" content="http://oceaneyes.top/.top//chatgpt影响决策AI到生成AI.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//AIGC示例.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//ai情绪分析二维码.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//AI写诗二维码.png">
-<meta property="og:image" content="http://oceaneyes.top/.top//AI聊天机器人二维码.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2023-03-04T14:58:39.000Z">
 <meta property="article:modified_time" content="2023-04-28T08:36:10.568Z">
 <meta property="article:author" content="OCEAN.GZY">
 <meta property="article:tag" content="产品">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="ChatGPT">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://oceaneyes.top/.top//内容创作.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AI产品视角下的ChatGPT',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-28 16:36:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <title>AI产品视角下的ChatGPT - OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
-
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="AI产品视角下的ChatGPT">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-03-04 22:58" pubdate>
-        2023年3月4日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3k 字
-    </span>
-  
-
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      26 分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">AI产品视角下的ChatGPT</h1>
-            
-            <div class="markdown-body">
-              <h1 id="ai产品视角下的chatgpt">AI产品视角下的ChatGPT</h1>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">AI产品视角下的ChatGPT</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-28T08:36:10.568Z" title="更新于 2023-04-28 16:36:10">2023-04-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/ChatGPT/">ChatGPT</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="AI产品视角下的ChatGPT"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ai产品视角下的chatgpt">AI产品视角下的ChatGPT</h1>
 <blockquote>
 <p>"ChatGPT:Optimizing Language Models for Dialogue"</p>
 </blockquote>
@@ -280,22 +171,22 @@
 <ul>
 <li><p>内容创作【创作小说提纲、编写小说开篇】</p>
 <!-- ![](./AI产品视角下的ChatGPT/内容创作.png) -->
-<p><img src="/.top//内容创作.png" srcset="/img/loading.gif" lazyload width="1200"></p></li>
+<p><img src="/.top//内容创作.png" width="1200"></p></li>
 </ul>
 <h2 id="chatgpt使用体验-1">ChatGPT使用体验</h2>
 <ul>
 <li><p>代码编写【生成markdown解析器】</p>
-<p><img src="/.top//生成代码.png" srcset="/img/loading.gif" lazyload></p></li>
+<p><img src="/.top//生成代码.png"></p></li>
 </ul>
 <h2 id="chatgpt使用体验-2">ChatGPT使用体验</h2>
 <ul>
 <li><p>“检索问答”【知识截止于21年9月】</p>
-<p><img src="/.top//问答.png" srcset="/img/loading.gif" lazyload></p></li>
+<p><img src="/.top//问答.png"></p></li>
 </ul>
 <h2 id="chatgpt使用体验-3">ChatGPT使用体验</h2>
 <ul>
 <li><p>“安全模型”</p>
-<p><img src="/.top//安全模型.png" srcset="/img/loading.gif" lazyload></p></li>
+<p><img src="/.top//安全模型.png"></p></li>
 </ul>
 <h2 id="chatgpt主要特点">ChatGPT主要特点</h2>
 <h4 id="主要特性">主要特性</h4>
@@ -398,7 +289,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/.top//chatgpt时间节点.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//chatgpt时间节点.png"></p>
 <h2 id="chatgpt的发展历史-1">ChatGPT的发展历史</h2>
 <h4 id="模型解读">模型解读</h4>
 <ul>
@@ -430,7 +321,7 @@ FineTune，SFT）</p></li>
 Policy Optimization，近端策略优化）</p>
 <!-- ![](./AI产品视角下的ChatGPT/ChatGPT_Diagram-技术原理.svg) -->
 <div style="height:800px;width:2000px;text-align:center">
-<p><img src="/.top//ChatGPT_Diagram-技术原理.svg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//ChatGPT_Diagram-技术原理.svg"></p>
 </div></li>
 </ul>
 <h2 id="基于gpt3.5训练监督策略模型">基于GPT3.5训练监督策略模型</h2>
@@ -557,7 +448,7 @@ AI）”-&gt;“生成AI（Generative AI）”的演化</p></li>
 <li><p>降低了非专业领域对“人工智能”的认知难度，在一定程度预示着“通用人工智能”领域的到来</p></li>
 <li><p>"大模型时代到来了！"</p>
 <!-- ![](./AI产品视角下的ChatGPT/chatgpt影响决策AI到生成AI.png) -->
-<p><img src="/.top//chatgpt影响决策AI到生成AI.png" srcset="/img/loading.gif" lazyload></p></li>
+<p><img src="/.top//chatgpt影响决策AI到生成AI.png"></p></li>
 </ul>
 <h2 id="大模型与aigc">大模型与AIGC</h2>
 <h4 id="创意相关的下游产业图片游戏动画-600个gpt3的应用案例">【创意相关的下游产业】：图片、游戏、动画
@@ -569,7 +460,7 @@ AI）”-&gt;“生成AI（Generative AI）”的演化</p></li>
 <a target="_blank" rel="noopener" href="https://www.tracup.com/ai">：蒲公英TracupAI</a></h4>
 <h4 id="个人集成到终端智能助理联动语音模型助手">【个人集成到终端智能助理】：联动语音模型、助手</h4>
 <h4 id="知识库管理类似于电脑的拓展硬盘人类的外脑">【知识库管理】:“类似于电脑的拓展硬盘，人类的外脑”</h4>
-<p><img src="/.top//AIGC示例.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//AIGC示例.png"></p>
 <h2 id="附注">附注</h2>
 <h4 id="注册体验chatgpt的方法">注册体验ChatGPT的方法</h4>
 <p><a target="_blank" rel="noopener" href="https://note.youdao.com/s/XqoJbMJ2">注册方法 -
@@ -624,270 +515,17 @@ API文档</a>
   ![](./AI产品视角下的ChatGPT/AI聊天机器人二维码.png) -->
 <div class="shows" style="display:flex;flex-deriction:row;justify-content:center">
 <div class="show">
-<p><img src="/.top//ai情绪分析二维码.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//ai情绪分析二维码.png"></p>
 </div>
 <div class="show">
-<p><img src="/.top//AI写诗二维码.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//AI写诗二维码.png"></p>
 </div>
 <div class="show">
-<p><img src="/.top//AI聊天机器人二维码.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/.top//AI聊天机器人二维码.png"></p>
 </div>
 </div>
 <h1 id="thanks">Thanks!</h1>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-                    
-                      <a class="hover-with-bg" href="/categories/%E4%BA%A7%E5%93%81/ChatGPT/">ChatGPT</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
-                    
-                      <a class="hover-with-bg" href="/tags/ChatGPT/">ChatGPT</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
-                        <span class="hidden-mobile">Python设计模式-六大设计原则</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#lv-container', function() {
-        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
-      });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
-  </div>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-  <div class="col-lg-7 mx-auto nopadding-x-md">
-    <div class="container custom post-custom mx-auto">
-      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
-    </div>
-  </div>
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
-  
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-</body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/">http://oceaneyes.top/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%A7%E5%93%81/">产品</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/ChatGPT/">ChatGPT</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python设计模式-六大设计原则</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2016/03/01/2016-03-01-%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4/" title="产品思维"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-01</div><div class="title">产品思维</div></div></a></div><div><a href="/2020/02/22/DSP%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" title="广告系统架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-22</div><div class="title">广告系统架构</div></div></a></div><div><a href="/2019/01/01/RWW%E4%BA%A7%E5%93%81%E6%A6%82%E5%BF%B5%E8%AF%84%E4%BC%B0%E6%B3%95%E5%AD%A6%E4%B9%A0/" title="RWW产品概念评估法学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-01</div><div class="title">RWW产品概念评估法学习</div></div></a></div><div><a href="/2020/02/02/ToB%E4%BA%A7%E5%93%81/" title="ToB产品的一些认知"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-02</div><div class="title">ToB产品的一些认知</div></div></a></div><div><a href="/2019/05/19/crash%E5%88%86%E6%9E%90%E7%B1%BB%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/" title="crash分析类指标详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-19</div><div class="title">crash分析类指标详解</div></div></a></div><div><a href="/2020/02/05/%E4%B8%80%E4%B8%AA%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" title="一个策略产品的自我修养"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-05</div><div class="title">一个策略产品的自我修养</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ai%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84chatgpt"><span class="toc-number">1.</span> <span class="toc-text">AI产品视角下的ChatGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C"><span class="toc-number">1.1.</span> <span class="toc-text">ChatGPT使用体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C-1"><span class="toc-number">1.2.</span> <span class="toc-text">ChatGPT使用体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C-2"><span class="toc-number">1.3.</span> <span class="toc-text">ChatGPT使用体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C-3"><span class="toc-number">1.4.</span> <span class="toc-text">ChatGPT使用体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="toc-number">1.5.</span> <span class="toc-text">ChatGPT主要特点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E6%80%A7"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">主要特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A4%E7%9F%A5%E8%AF%AF%E5%8C%BA"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">“认知误区”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E7%9A%84%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2"><span class="toc-number">1.6.</span> <span class="toc-text">ChatGPT的发展历史</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%97%B6%E9%97%B4%E7%BA%BF"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">模型时间线</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E7%9A%84%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2-1"><span class="toc-number">1.7.</span> <span class="toc-text">ChatGPT的发展历史</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%A7%A3%E8%AF%BB"><span class="toc-number">1.7.0.1.</span> <span class="toc-text">模型解读</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E7%9A%84%E7%AE%80%E5%8D%95%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86"><span class="toc-number">1.8.</span> <span class="toc-text">ChatGPT的简单的技术原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E5%8F%82%E6%95%B0%E7%9A%84%E9%A2%84%E8%AE%AD%E7%BB%83%E7%94%9F%E6%88%90%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.8.0.1.</span> <span class="toc-text">大参数的预训练生成语言模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Egpt3.5%E8%AE%AD%E7%BB%83%E7%9B%91%E7%9D%A3%E7%AD%96%E7%95%A5%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.9.</span> <span class="toc-text">基于GPT3.5训练监督策略模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sft%E6%A8%A1%E5%9E%8Bsupervised-fine-tuning"><span class="toc-number">1.9.0.1.</span> <span class="toc-text">SFT模型【Supervised
+Fine-Tuning】</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.10.</span> <span class="toc-text">训练奖励模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%98%AF%E9%80%9A%E8%BF%87%E4%BA%BA%E5%B7%A5%E6%A0%87%E6%B3%A8%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E6%9D%A5%E8%AE%AD%E7%BB%83%E5%9B%9E%E6%8A%A5%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.10.0.1.</span> <span class="toc-text">主要是通过人工标注训练数据,来训练回报模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-number">1.11.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9D%A5%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="toc-number">1.11.0.1.</span> <span class="toc-text">强化学习来优化策略</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E5%8E%9F%E7%90%86%E9%80%9A%E4%BF%97%E8%A7%A3%E8%AF%BB"><span class="toc-number">1.12.</span> <span class="toc-text">## ChatGPT原理通俗解读</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E9%80%9A%E4%BF%97%E8%A7%A3%E8%AF%BB"><span class="toc-number">1.13.</span> <span class="toc-text">预训练模型通俗解读</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%8B%E5%89%8D%E5%AF%B9%E6%99%BA%E8%83%BD%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%A4%E7%9F%A5"><span class="toc-number">1.13.0.1.</span> <span class="toc-text">之前对智能模型的认知：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E4%B8%80%E4%B8%AA%E5%A4%A7%E4%B8%80%E7%BB%9F%E6%A8%A1%E5%9E%8B%E5%85%88%E6%9D%A5%E8%AE%A4%E8%AF%86%E8%BF%99%E4%B8%AA%E4%B8%96%E7%95%8C%E5%86%8D%E5%B8%A6%E7%9D%80%E5%AF%B9%E8%BF%99%E4%B8%AA%E4%B8%96%E7%95%8C%E7%9A%84%E8%AE%A4%E7%9F%A5%E5%AF%B9%E5%85%B7%E4%BD%93%E9%A2%86%E5%9F%9F%E8%BF%9B%E8%A1%8C%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB"><span class="toc-number">1.13.0.2.</span> <span class="toc-text">通过一个大一统模型先来认识这个世界。再带着对这个世界的认知对具体领域进行降维打击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#chatgpt%E6%8B%A5%E6%9C%893000%E4%BA%BF%E5%8D%95%E8%AF%8D%E7%9A%84%E8%AF%AD%E6%96%99%E5%9F%BA%E7%A1%80%E4%B8%8A%E9%A2%84%E8%AE%AD%E7%BB%83%E5%87%BA%E7%9A%84%E6%8B%A5%E6%9C%891750%E4%BA%BF%E5%8F%82%E6%95%B0%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.13.0.3.</span> <span class="toc-text">chatgpt：拥有3000亿单词的语料基础上预训练出的拥有1750亿参数的模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gpt%E4%B8%8Ebert"><span class="toc-number">1.14.</span> <span class="toc-text">GPT与BERT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nlp%E4%BB%BB%E5%8A%A1-%E7%8C%9C%E6%A6%82%E7%8E%87%E6%B8%B8%E6%88%8F"><span class="toc-number">1.14.0.1.</span> <span class="toc-text">NLP任务-&gt;“猜概率”游戏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#llm%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%BC%94%E5%8C%96%E5%87%BAbert%E5%92%8Cgpt%E4%BD%86%E7%90%86%E5%BF%B5%E6%9C%89%E6%89%80%E4%B8%8D%E5%90%8C"><span class="toc-number">1.14.0.2.</span> <span class="toc-text">LLM大语言模型，演化出Bert和GPT，但理念有所不同</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chatgpt%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">1.15.</span> <span class="toc-text">ChatGPT的“影响”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B8%8Eaigc"><span class="toc-number">1.16.</span> <span class="toc-text">大模型与AIGC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E6%84%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%8B%E6%B8%B8%E4%BA%A7%E4%B8%9A%E5%9B%BE%E7%89%87%E6%B8%B8%E6%88%8F%E5%8A%A8%E7%94%BB-600%E4%B8%AAgpt3%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">1.16.0.1.</span> <span class="toc-text">【创意相关的下游产业】：图片、游戏、动画
+：600个GPT3的应用案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%BC%96%E7%A8%8B%E7%AE%97%E6%B3%95%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%9E%8B%E7%BB%99%E5%87%BA%E6%9C%80%E4%BC%98%E8%A7%A3%E7%AD%94"><span class="toc-number">1.16.0.2.</span> <span class="toc-text">【科学技术】：编程、算法【一步到位的设计模型&#x2F;给出最优解答】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%88%9B%E4%BD%9C%E5%B0%8F%E8%AF%B4%E5%89%A7%E6%9C%AC%E8%AE%BA%E6%96%87%E5%91%A8%E6%8A%A5ugc%E7%AD%89-%E8%92%B2%E5%85%AC%E8%8B%B1tracupai"><span class="toc-number">1.16.0.3.</span> <span class="toc-text">【编写创作】：小说、剧本、论文、周报、UGC等
+：蒲公英TracupAI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E9%9B%86%E6%88%90%E5%88%B0%E7%BB%88%E7%AB%AF%E6%99%BA%E8%83%BD%E5%8A%A9%E7%90%86%E8%81%94%E5%8A%A8%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E5%8A%A9%E6%89%8B"><span class="toc-number">1.16.0.4.</span> <span class="toc-text">【个人集成到终端智能助理】：联动语音模型、助手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%BA%93%E7%AE%A1%E7%90%86%E7%B1%BB%E4%BC%BC%E4%BA%8E%E7%94%B5%E8%84%91%E7%9A%84%E6%8B%93%E5%B1%95%E7%A1%AC%E7%9B%98%E4%BA%BA%E7%B1%BB%E7%9A%84%E5%A4%96%E8%84%91"><span class="toc-number">1.16.0.5.</span> <span class="toc-text">【知识库管理】:“类似于电脑的拓展硬盘，人类的外脑”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E6%B3%A8"><span class="toc-number">1.17.</span> <span class="toc-text">附注</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E4%BD%93%E9%AA%8Cchatgpt%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.17.0.1.</span> <span class="toc-text">注册体验ChatGPT的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9"><span class="toc-number">1.17.0.2.</span> <span class="toc-text">个人站点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#thanks"><span class="toc-number">2.</span> <span class="toc-text">Thanks!</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

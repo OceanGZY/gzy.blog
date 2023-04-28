@@ -1,937 +1,370 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="This is MyBlog Notes.">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OCAEN.GZY读书城南 - 在未来面前我们都是孩子</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This is MyBlog Notes.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="OCAEN.GZY读书城南">
 <meta property="og:url" content="http://oceaneyes.top/page/3/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="This is MyBlog Notes.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:author" content="OCEAN.GZY">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OCAEN.GZY读书城南',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-04-28 17:14:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-  
-  <title>OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/background.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="在未来面前，我们都是孩子～">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/17/%E8%88%AA%E7%A9%BA%E5%85%AC%E5%8F%B8%E5%AE%A2%E6%88%B7%E4%BB%B7%E5%80%BC%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/" target="_self">
-          航空公司客户价值聚类分析
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/17/%E8%88%AA%E7%A9%BA%E5%85%AC%E5%8F%B8%E5%AE%A2%E6%88%B7%E4%BB%B7%E5%80%BC%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/" target="_self">
-          
-          航空公司客户价值聚类分析  特征工程 K-means聚类 RFM模型 DBSCAN算法  描述 信息时代的来临使得企业营销焦点从产品中心转变成客户中心。具体地，对不同的客户进行分类管理，给予不同类型的客户制定优化的个性化服务方案，采取不同的营销策略。将有限的营销资源集中于高价值的客户，实现企业利润最大化  借助航空公司数据，对客户进行分类 对不同类别的客户进行特征分析，比较不同类别客户的价值 对不
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-17 23:20" pubdate>
-              2021-02-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/">K-means</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/">DBSCAN</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/">RFM</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/">聚类分析</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a>
-            
-              <a href="/tags/K-means/">K-means</a>
-            
-              <a href="/tags/DBSCAN/">DBSCAN</a>
-            
-              <a href="/tags/RFM/">RFM</a>
-            
-              <a href="/tags/%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/">聚类分析</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/04/%E5%9F%BA%E4%BA%8Eseq2seq+attention%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%91%98%E8%A6%81/" target="_self">
-          基于seq2seq+attention实现文本摘要
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/04/%E5%9F%BA%E4%BA%8Eseq2seq+attention%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%91%98%E8%A6%81/" target="_self">
-          
-          基于seq2seq+attention实现文本摘要  任务描述: 自动摘要是指给出一段文本，我们从中提取出要点，然后再形成一个短的概括性的文本    image.png   https:&#x2F;&#x2F;github.com&#x2F;pytorch&#x2F;text&#x2F;releases&#x2F;tag&#x2F;v0.9.0-rc5 123456789101112131415import torchimport torch.nn as nnimp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-04 22:19" pubdate>
-              2021-01-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/NLP/">NLP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/" target="_self">
-          NLP-Bert语义情感分类
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/" target="_self">
-          
-          评论情感分类数据处理 123456789101112131415161718192021222324252627282930313233343536# 评论情感分类数据处理# labels： 0负面、1中性、2正面class CommentProcessor(DataProcessor):    def get_train_examples(self, data_dir):        retu
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-03 22:19" pubdate>
-              2021-01-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/NLP/">NLP</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/NLP/Bert/">Bert</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/NLP/">NLP</a>
-            
-              <a href="/tags/Bert/">Bert</a>
-            
-              <a href="/tags/Tensorflow/">Tensorflow</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/02/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" target="_self">
-          案例-基于关联规则算法实现电影推荐系统
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/02/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" target="_self">
-          
-          基于关联规则算法实现电影推荐系统   image.png   利用数据挖掘算法中的Apriori(关联规则)算法来实现一个电影推荐系统  加载数据 数据预处理 生成频繁项集、关联规则  通过关联规则生成电影推荐的列表  Apriori算法  案例： 啤酒与尿布: 沃尔玛超市在分析销售记录时，发现了啤酒与尿布经常一起被购买，于是他们调整了货架将两者放在了一起，结果真的提升了啤酒的销量。 原因解释:
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-02 22:19" pubdate>
-              2021-01-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/%E6%8E%A8%E8%8D%90/">推荐</a>
-            
-              <a href="/tags/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95/">关联规则算法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/" target="_self">
-          案例-使用决策树预测隐性眼镜类型
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/" target="_self">
-          
-          案例-使用决策树预测隐性眼镜类型  收集数据：提供的文本文件 准备数据：解析tab键分割的数据 分析数据：快速检查数据 训练算法： 测试算法：编写测试函数 验证决策树可以正确分类给定的数据实例 使用算法：存储树的数据结构，以便下次使用  12from math import logimport operator 1234567891011121314def calcShannonEnt(dataS
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-01 22:19" pubdate>
-              2021-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/" target="_self">
-          决策树demo
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/" target="_self">
-          
-          决策树 决策树的一个重要任务是为了数据中所蕴含的知识信息  决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程 k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解  决策数的构造  优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据 缺点：可
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-31 23:19" pubdate>
-              2020-12-31
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/" target="_self">
-          机器学习实战-笔记3-决策树
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/" target="_self">
-          
-          决策树的一个重要任务是为了数据中所蕴含的知识信息  决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程 k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解  决策数的构造  优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据 缺点：可能会产生
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-29 23:19" pubdate>
-              2020-12-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/" target="_self">
-          案例-k-近邻-改进约会网站的配对效果
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/" target="_self">
-          
-          思路  收集数据：提供文本数据 准备数据：解析文本数据 分析数据：使用matplotlib 二维扩散图 训练算法：不适用于k-近邻 测试算法：切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误 使用算法：程序执行，输入一些特征数据来判断是否为喜欢的类型  三种类型：不喜欢的、一般的、喜欢的   准备数据 123import numpy as npimport m
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-29 22:19" pubdate>
-              2020-12-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/k-%E8%BF%91%E9%82%BB/">k-近邻</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" target="_self">
-          案例-k-近邻-手写字识别系统
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" target="_self">
-          
-          收集数据：提供文本文件 准备数据：编写函数classify0(), 将图像格式转换为分类器使用的list格式 分析数据：检查数据 训练算法：不适用于k-近邻算法 测试算法：编写函数切分测试样本； 测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误 使用算法：  Numpy中有两个常用数据类型，数组（array&#x2F;ndarray）、矩阵（matrix）  matrix是array
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-29 22:19" pubdate>
-              2020-12-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-              <a href="/tags/k-%E8%BF%91%E9%82%BB/">k-近邻</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B01/" target="_self">
-          机器学习实战-笔记1-基础
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B01/" target="_self">
-          
-          机器学习实战-笔记1-基础 机器学习的主要任务 监督学习-必须知道预测什么，即目标变量的分类信息**  分类，将实例数据划分到核实的分类中 回归，用于预测数值型数据  监督学习的用途  k-近邻算法 朴素贝叶斯算法 支持向量机 决策树 线性回归 局部加权线性回归 Ridge回归 Lasso最小回归系数估计  无监督学习-没有类别信息，也没有目标值  聚类，将数据集合分成类似的对象组成多个类的过程
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-28 23:19" pubdate>
-              2020-12-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Artificial-Intelligence/">Artificial Intelligence</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Machine-Learning/">Machine Learning</a>
-            
-              <a href="/tags/Algorithm/">Algorithm</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
     })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
   
-    <script  src="/js/img-lazyload.js" ></script>
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">OCAEN.GZY读书城南</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/02/17/%E8%88%AA%E7%A9%BA%E5%85%AC%E5%8F%B8%E5%AE%A2%E6%88%B7%E4%BB%B7%E5%80%BC%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/" title="航空公司客户价值聚类分析">航空公司客户价值聚类分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-02-17T15:20:07.000Z" title="发表于 2021-02-17 23:20:07">2021-02-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/">K-means</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/">DBSCAN</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/">RFM</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90/">聚类分析</a></span></div><div class="content">航空公司客户价值聚类分析
+
+特征工程
+K-means聚类
+RFM模型
+DBSCAN算法
+
+描述
+信息时代的来临使得企业营销焦点从产品中心转变成客户中心。具体地，对不同的客户进行分类管理，给予不同类型的客户制定优化的个性化服务方案，采取不同的营销策略。将有限的营销资源集中于高价值的客户，实现企业利润最大化
+
+借助航空公司数据，对客户进行分类
+对不同类别的客户进行特征分析，比较不同类别客户的价值
+对不同价值的客户类别进行个性化服务，制定相应的营销策略
+
+思路
+
+
+image.png
+
+数据
+数据集中字段含义
+ 
+数据预处理
+123456import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport datetimeimport sklearn.preprocessingimport sklearn.cluster
+12air_data_path = &quot;./dataset/air_data.csv&quot;air_data = pd.read_csv(air_data_path)
+1air_da ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/01/04/%E5%9F%BA%E4%BA%8Eseq2seq+attention%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%91%98%E8%A6%81/" title="基于seq2seq+attention实现文本摘要">基于seq2seq+attention实现文本摘要</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-04T14:19:00.000Z" title="发表于 2021-01-04 22:19:00">2021-01-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">基于seq2seq+attention实现文本摘要
+
+任务描述:
+自动摘要是指给出一段文本，我们从中提取出要点，然后再形成一个短的概括性的文本
 
 
 
-  
+image.png
 
 
+https://github.com/pytorch/text/releases/tag/v0.9.0-rc5
+123456789101112131415import torchimport torch.nn as nnimport torch.optim as optimimport torch.nn.functional as Fimport spacy from torchtext.legacy.datasets import Multi30kfrom torchtext.legacy.data import Field,Iterator,BucketIterator,TabularDatasetimport pandas as pdimport numpy as npimport randomimport mathimport time
+12345678910# 全局初始化配置参数。 固定随机种子， 使得每 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/01/03/NLP-Bert%E8%AF%AD%E4%B9%89%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/" title="NLP-Bert语义情感分类">NLP-Bert语义情感分类</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-03T14:19:00.000Z" title="发表于 2021-01-03 22:19:00">2021-01-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/NLP/">NLP</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/NLP/Bert/">Bert</a></span></div><div class="content">评论情感分类数据处理
+123456789101112131415161718192021222324252627282930313233343536# 评论情感分类数据处理# labels： 0负面、1中性、2正面class CommentProcessor(DataProcessor):    def get_train_examples(self, data_dir):        return self._create_examples(            self._read_tsv(os.path.join(data_dir,&quot;train.tsv&quot;)),&quot;train&quot;        )    def get_dev_examples(self, data_dir):        return self._create_examples(            self._read_tsv(os.path.join(data_dir, &quot;dev.tsv&quot;)), &quot;dev&quot;        )  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/01/02/%E6%A1%88%E4%BE%8B-%E5%9F%BA%E4%BA%8E%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" title="案例-基于关联规则算法实现电影推荐系统">案例-基于关联规则算法实现电影推荐系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-02T14:19:00.000Z" title="发表于 2021-01-02 22:19:00">2021-01-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">基于关联规则算法实现电影推荐系统
 
 
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+image.png
 
 
+利用数据挖掘算法中的Apriori(关联规则)算法来实现一个电影推荐系统
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
+加载数据
+数据预处理
+生成频繁项集、关联规则
 
+通过关联规则生成电影推荐的列表
 
+Apriori算法
 
-
-
-
-
-
+案例： 啤酒与尿布:
+沃尔玛超市在分析销售记录时，发现了啤酒与尿布经常一起被购买，于是他们调整了货架将两者放在了一起，结果真的提升了啤酒的销量。
+原因解释: 爸爸在给宝宝买尿布的时候，会顺便给自己买点啤酒？
+概述：
+Apriori算法是一种最有影响力的挖掘布尔关联规则的频繁项集的算法，其命名Apriori源于算法使用了频繁项集性质的先验(Prior)知识。
+接下来我们将以超市订单的例子理解关联分析相关的重要概念:
+Support(支持度)、Confidence(置信度)、Lift(提升度）。
 
 
+image.png
 
 
+Support(支持度)：指某事件出现的概率，在本例中即指某个商品组合出现的次数占总次数的比例。
+
+例：Support('Bread') = 4/5 = 0.8 Support('Milk') = 4/5 = 0.8
+Support ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/01/01/%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%A0%91%E9%A2%84%E6%B5%8B%E9%9A%90%E6%80%A7%E7%9C%BC%E9%95%9C%E7%B1%BB%E5%9E%8B/" title="案例-使用决策树预测隐性眼镜类型">案例-使用决策树预测隐性眼镜类型</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-01T14:19:00.000Z" title="发表于 2021-01-01 22:19:00">2021-01-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">案例-使用决策树预测隐性眼镜类型
+
+收集数据：提供的文本文件
+准备数据：解析tab键分割的数据
+分析数据：快速检查数据
+训练算法：
+测试算法：编写测试函数 验证决策树可以正确分类给定的数据实例
+使用算法：存储树的数据结构，以便下次使用
+
+12from math import logimport operator
+1234567891011121314def calcShannonEnt(dataSet):    numEntries = len(dataSet)    # 为所有可能分类创建字典    labelCounts= &#123;&#125;    for featVec in dataSet:        currentLabel = featVec[-1]        if currentLabel not in labelCounts.keys():            labelCounts[currentLabel] = 0        labelCounts[currentLabel] += 1    shannonEnt = 0.0    for key ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/12/31/%E5%86%B3%E7%AD%96%E6%A0%91demo/" title="决策树demo">决策树demo</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-31T15:19:00.000Z" title="发表于 2020-12-31 23:19:00">2020-12-31</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">决策树
+决策树的一个重要任务是为了数据中所蕴含的知识信息
+
+决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程
+k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解
+
+决策数的构造
+
+优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据
+缺点：可能会产生过度匹配的问题
+适用数据类型：数值型和 标称型
+
+构建决策树的第一个问题：当前数据集上哪个特征在划分数据分类时起决定性作用
+
+为了找到决定性的特征，划分出最好的结果，我们必须评估每个特征。
+完成测试之后，原始数据集就被划分为几个数据子集
+这些数据子集会分布在第一个决策点的所有分支上。如果某个分支下的数据属于同一类型，则当前条件已经正确地划分数据分类，
+无需进一步对数据集进行分割。
+如果数据子集内的数据不属于同一类型，则需要重复划分数据子集的过程
+
+思路 检测数据集中的每个子项是否属于同一分类: If so
+return 类标签; Else 寻找划分数据集的最好特征 划分数据集 创建分支 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/12/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B03/" title="机器学习实战-笔记3-决策树">机器学习实战-笔记3-决策树</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-29T15:19:00.000Z" title="发表于 2020-12-29 23:19:00">2020-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">决策树的一个重要任务是为了数据中所蕴含的知识信息
+
+决策树可以使用不熟悉的数据集合，并从中提取出一系列规则，在这些机器根据数据集创建规则时，就是机器学习的过程
+k-近邻算法可以完成很多分类任务，但是它最大的缺点就是无法给出数据的内在含义，决策树的主要优势就在于数据形式非常容易理解
+
+决策数的构造
+
+优点：计算复杂度不高，输出结果易于理解，对中间值对缺失不敏感，可处理不相关特征数据
+缺点：可能会产生过度匹配的问题
+适用数据类型：数值型和 标称型
+
+构建决策树的第一个问题：当前数据集上哪个特征在划分数据分类时起决定性作用
+- 为了找到决定性的特征，划分出最好的结果，我们必须评估每个特征。 -
+完成测试之后，原始数据集就被划分为几个数据子集 -
+这些数据子集会分布在第一个决策点的所有分支上。如果某个分支下的数据属于同一类型，则当前条件已经正确地划分数据分类，
+无需进一步对数据集进行分割。 -
+如果数据子集内的数据不属于同一类型，则需要重复划分数据子集的过程
+思路 检测数据集中的每个子项是否属于同一分类: If so
+return 类标签; Else 寻找划分数据集的最好特征 划分数据集 创建 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/" title="案例-k-近邻-改进约会网站的配对效果">案例-k-近邻-改进约会网站的配对效果</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-29T14:19:00.000Z" title="发表于 2020-12-29 22:19:00">2020-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">思路
+
+收集数据：提供文本数据
+准备数据：解析文本数据
+分析数据：使用matplotlib 二维扩散图
+训练算法：不适用于k-近邻
+测试算法：切分测试样本；
+测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误
+使用算法：程序执行，输入一些特征数据来判断是否为喜欢的类型
+
+三种类型：不喜欢的、一般的、喜欢的
 
 
+准备数据
+123import numpy as npimport matplotlib.pyplot as pltimport operator
+1np.zeros((1000,3)).shape
+(1000, 3)
+123456789101112131415161718192021222324def file2matrix(filename):    with open (filename,&#x27;r&#x27;) as f:        arrayOLines = f.readlines()#         print(arrayLines)        numberOflines= len(arrayOLines)#         print ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/12/29/%E6%A1%88%E4%BE%8B-%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" title="案例-k-近邻-手写字识别系统">案例-k-近邻-手写字识别系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-29T14:19:00.000Z" title="发表于 2020-12-29 22:19:00">2020-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">
+收集数据：提供文本文件
+准备数据：编写函数classify0(),
+将图像格式转换为分类器使用的list格式
+分析数据：检查数据
+训练算法：不适用于k-近邻算法
+测试算法：编写函数切分测试样本；
+测试样本是已经完成分类的数据，如果预测分类与实际分类不同，则标记为错误
+使用算法：
 
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
+Numpy中有两个常用数据类型，数组（array/ndarray）、矩阵（matrix）
+
+matrix是array的特殊形式，matrix只能表示2维的数据，而array可以表示任意维度数据，matrix相当于二维数组。
+当matrix的某一维的维度为1时，即可称为向量（m，1）是列向量，（1，n)是行向量
+
+123import numpy as npimport osimport operator
+准备数据：将图像转换为测试向量
+1234567891011# 将图像处理为向量def img2vector(filename):    returnVect = np.zeros((1,1024))#     print(returnVect)    with open(filename,&#x27;r&#x ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/12/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-%E7%AC%94%E8%AE%B01/" title="机器学习实战-笔记1-基础">机器学习实战-笔记1-基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-28T15:19:00.000Z" title="发表于 2020-12-28 23:19:00">2020-12-28</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/">Artificial Intelligence</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/">Machine Learning</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/">Algorithm</a></span></div><div class="content">机器学习实战-笔记1-基础
+机器学习的主要任务
+监督学习-必须知道预测什么，即目标变量的分类信息**
+
+分类，将实例数据划分到核实的分类中
+回归，用于预测数值型数据
+
+监督学习的用途
+
+k-近邻算法
+朴素贝叶斯算法
+支持向量机
+决策树
+线性回归
+局部加权线性回归
+Ridge回归
+Lasso最小回归系数估计
+
+无监督学习-没有类别信息，也没有目标值
+
+聚类，将数据集合分成类似的对象组成多个类的过程
+密度估计，寻找描述数据统计值的过程
+
+无监督学习的用途
+
+K-均值
+DBSCAN
+最大期望算法
+Parzen窗设计
+
+如何选择合适的算法
+
+使用机器学习算法的目的，想要算法完成什么任务
+
+如果预测目标变量的值，则可选择监督学习算法
+
+目标变量类型如果是 离散型，如是/否、1/2/3等，则可使用分类算法
+目标变量类型如果是
+连续型的数值，如1.0~100.0等，则可以使用回归算法
+
+如果不是预测目标变量的值，则可选择无监督学习算法
+
+如果只需要将数据分为离散的组，则使用聚类算法
+如果需要估计数据与每个分组的相似程度，则使用密度估计算法
 
 
-</body>
-</html>
+需要分析或收集的数据是什么
+
+开发机器学习应用程序的步骤 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#content-inner">17</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/"><span class="card-category-list-name">Artificial Intelligence</span><span class="card-category-list-count">45</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Data-Mining/"><span class="card-category-list-name">Data Mining</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/"><span class="card-category-list-name">Machine Learning</span><span class="card-category-list-count">25</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/"><span class="card-category-list-name">Algorithm</span><span class="card-category-list-count">22</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/CV/"><span class="card-category-list-name">CV</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/"><span class="card-category-list-name">K-means</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/"><span class="card-category-list-name">DBSCAN</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/"><span class="card-category-list-name">RFM</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li></ul></li></ul></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/seaborn/" style="font-size: 1.16em; color: #999b9e">seaborn</a> <a href="/tags/Tensorflow/" style="font-size: 1.1em; color: #999">Tensorflow</a> <a href="/tags/redis/" style="font-size: 1.16em; color: #999b9e">redis</a> <a href="/tags/matplotlib/" style="font-size: 1.33em; color: #99a2af">matplotlib</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">算法</a> <a href="/tags/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/" style="font-size: 1.21em; color: #999ea4">内容产品</a> <a href="/tags/DSP/" style="font-size: 1.1em; color: #999">DSP</a> <a href="/tags/GrowthHacking/" style="font-size: 1.1em; color: #999">GrowthHacking</a> <a href="/tags/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">关联规则算法</a> <a href="/tags/K-means/" style="font-size: 1.1em; color: #999">K-means</a> <a href="/tags/CTR/" style="font-size: 1.1em; color: #999">CTR</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 1.1em; color: #999">心理学</a> <a href="/tags/%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81/" style="font-size: 1.1em; color: #999">策略产品</a> <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">推荐系统</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" style="font-size: 1.27em; color: #99a0a9">服务端</a> <a href="/tags/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2/" style="font-size: 1.1em; color: #999">增长黑客</a> <a href="/tags/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/" style="font-size: 1.1em; color: #999">内容分发</a> <a href="/tags/k-%E8%BF%91%E9%82%BB/" style="font-size: 1.21em; color: #999ea4">k-近邻</a> <a href="/tags/Java/" style="font-size: 1.44em; color: #99a7ba">Java</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/Navtive/" style="font-size: 1.1em; color: #999">Navtive</a> <a href="/tags/echarts/" style="font-size: 1.1em; color: #999">echarts</a> <a href="/tags/iOS/" style="font-size: 1.1em; color: #999">iOS</a> <a href="/tags/%E7%94%A8%E6%88%B7/" style="font-size: 1.1em; color: #999">用户</a> <a href="/tags/MariaDB/" style="font-size: 1.1em; color: #999">MariaDB</a> <a href="/tags/LSTM/" style="font-size: 1.16em; color: #999b9e">LSTM</a> <a href="/tags/%E8%BF%90%E8%90%A5/" style="font-size: 1.21em; color: #999ea4">运营</a> <a href="/tags/Deep-Learning/" style="font-size: 1.21em; color: #999ea4">Deep Learning</a> <a href="/tags/%E5%AE%89%E5%85%A8%E4%BA%A7%E5%93%81/" style="font-size: 1.1em; color: #999">安全产品</a> <a href="/tags/JAVA/" style="font-size: 1.1em; color: #999">JAVA</a> <a href="/tags/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">推荐算法</a> <a href="/tags/html/" style="font-size: 1.1em; color: #999">html</a> <a href="/tags/DNN/" style="font-size: 1.16em; color: #999b9e">DNN</a> <a href="/tags/%E8%A1%8C%E4%B8%9A/" style="font-size: 1.1em; color: #999">行业</a> <a href="/tags/Algorithm/" style="font-size: 1.5em; color: #99a9bf">Algorithm</a> <a href="/tags/%E7%94%B5%E5%95%86/" style="font-size: 1.16em; color: #999b9e">电商</a> <a href="/tags/numpy/" style="font-size: 1.39em; color: #99a4b4">numpy</a> <a href="/tags/CNN/" style="font-size: 1.16em; color: #999b9e">CNN</a> <a href="/tags/%E5%95%86%E4%B8%9A/" style="font-size: 1.16em; color: #999b9e">商业</a> <a href="/tags/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" style="font-size: 1.16em; color: #999b9e">用户画像</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/11/"><span class="card-archive-list-date">十一月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/08/"><span class="card-archive-list-date">八月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">166</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-04-28T09:14:22.053Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

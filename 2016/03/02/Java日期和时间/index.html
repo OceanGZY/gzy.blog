@@ -1,268 +1,167 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="Java日期和时间 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java日期和时间 | OCAEN.GZY读书城南</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java日期和时间 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java日期和时间">
 <meta property="og:url" content="http://oceaneyes.top/2016/03/02/Java%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="Java日期和时间 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/alipay.jpg">
-<meta property="og:image" content="https://oceaneyes.top/img/wechatpay.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2016-03-02T15:20:00.000Z">
 <meta property="article:modified_time" content="2022-09-30T06:56:37.160Z">
 <meta property="article:author" content="OCEAN.GZY">
 <meta property="article:tag" content="Java">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://oceaneyes.top/img/zhishigroup.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/2016/03/02/Java%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java日期和时间',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-30 14:56:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <title>Java日期和时间 - OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
-
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Java日期和时间">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2016-03-02 23:20" pubdate>
-        2016年3月2日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      6.2k 字
-    </span>
-  
-
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      52 分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Java日期和时间</h1>
-            
-            <div class="markdown-body">
-              <h1 id="java日期和时间">Java日期和时间</h1>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java日期和时间</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2016-03-02T15:20:00.000Z" title="发表于 2016-03-02 23:20:00">2016-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.160Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java日期和时间"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="java日期和时间">Java日期和时间</h1>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br></pre></div></td><td class="code"><pre><code class="hljs reasonml">import java.text.SimpleDateFormat;<br>import java.util.Date;<br>import java.util.*;<br><br>public <span class="hljs-keyword">class</span> DateTimeDemo &#123;<br>    <span class="hljs-comment">//日期时间</span><br>    public static void main(String<span class="hljs-literal">[]</span> args)&#123;<br>        <span class="hljs-comment">//获取当前时间</span><br>        Date date = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Date()</span>;<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(date.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<br><br><br>        <span class="hljs-comment">//格式化日期</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">            日期和时间的格式化编码</span><br><span class="hljs-comment">时间模式字符串用来指定时间格式。在此模式中，所有的 ASCII 字母被保留为模式字母，定义如下：</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">字母	描述	示例</span><br><span class="hljs-comment">G	纪元标记	AD</span><br><span class="hljs-comment">y	四位年份	2001</span><br><span class="hljs-comment">M	月份	July or 07</span><br><span class="hljs-comment">d	一个月的日期	10</span><br><span class="hljs-comment">h	 A.M./P.M. (1~12)格式小时	12</span><br><span class="hljs-comment">H	一天中的小时 (0~23)	22</span><br><span class="hljs-comment">m	分钟数	30</span><br><span class="hljs-comment">s	秒数	55</span><br><span class="hljs-comment">S	毫秒数	234</span><br><span class="hljs-comment">E	星期几	Tuesday</span><br><span class="hljs-comment">D	一年中的日子	360</span><br><span class="hljs-comment">F	一个月中第几周的周几	2 (second Wed. in July)</span><br><span class="hljs-comment">w	一年中第几周	40</span><br><span class="hljs-comment">W	一个月中第几周	1</span><br><span class="hljs-comment">a	A.M./P.M. 标记	PM</span><br><span class="hljs-comment">k	一天中的小时(1~24)	24</span><br><span class="hljs-comment">K	 A.M./P.M. (0~11)格式小时	10</span><br><span class="hljs-comment">z	时区	Eastern Standard Time</span><br><span class="hljs-comment">&#x27;	文字定界符	Delimiter</span><br><span class="hljs-comment">&quot;	单引号	`</span><br><span class="hljs-comment">         */</span><br>        SimpleDateFormat ft = <span class="hljs-keyword">new</span> <span class="hljs-constructor">SimpleDateFormat(<span class="hljs-string">&quot;yyyy-MM-dd hh:mm:ss&quot;</span>)</span>;<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;SimpleDateFormat时间格式转换&quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(ft.format(date));<br><br><br>        <span class="hljs-comment">//printf格式化时间  以%t 开头</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">            转  换  符             说    明              示    例</span><br><span class="hljs-comment">                c           包括全部日期和时间信息         星期六 十月 27 14:21:20 CST 2007</span><br><span class="hljs-comment">                F           &quot;年-月-日&quot;格式               2007-10-27</span><br><span class="hljs-comment">                D           &quot;月/日/年&quot;格式               10/27/07</span><br><span class="hljs-comment">                r           &quot;HH:MM:SS PM&quot;格式（12时制）   02:25:51 下午</span><br><span class="hljs-comment">                T           &quot;HH:MM:SS&quot;格式（24时制）   14:28:16</span><br><span class="hljs-comment">                R           &quot;HH:MM&quot;格式（24时制）         14:28</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;printf时间格式转换&quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;全部日期和时间信息：%tc%n&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;年-月-日格式：%tF%n&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;月/日/年格式：%tD%n&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;HH:MM:SS PM(12小时)：%tr%n&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;HH:MM:SS (24小时)：%tT%n&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;HH:MM (24小时)：%tR%n&quot;</span>,date);<br><br><br>        <span class="hljs-comment">//定义日期转换字符，抽取转换为新字符串</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;使日期转换生成新字符串&quot;</span>);<br>        <span class="hljs-comment">//b的使用，月份简称</span><br>        String str=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">String</span>.</span></span>format(Locale.US,<span class="hljs-string">&quot;英文月份简称：%tb&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(str);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;本地月份简称：%tb%n&quot;</span>,date);<br>        <span class="hljs-comment">//B的使用，月份全称</span><br>        str=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">String</span>.</span></span>format(Locale.US,<span class="hljs-string">&quot;英文月份全称：%tB&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(str);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;本地月份全称：%tB%n&quot;</span>,date);<br>        <span class="hljs-comment">//a的使用，星期简称</span><br>        str=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">String</span>.</span></span>format(Locale.US,<span class="hljs-string">&quot;英文星期的简称：%ta&quot;</span>,date);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(str);<br>        <span class="hljs-comment">//A的使用，星期全称</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;本地星期的简称：%tA%n&quot;</span>,date);<br>        <span class="hljs-comment">//C的使用，年前两位</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;年的前两位数字（不足两位前面补0）：%tC%n&quot;</span>,date);<br>        <span class="hljs-comment">//y的使用，年后两位</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;年的后两位数字（不足两位前面补0）：%ty%n&quot;</span>,date);<br>        <span class="hljs-comment">//j的使用，一年的天数</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;一年中的天数（即年的第几天）：%tj%n&quot;</span>,date);<br>        <span class="hljs-comment">//m的使用，月份</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;两位数字的月份（不足两位前面补0）：%tm%n&quot;</span>,date);<br>        <span class="hljs-comment">//d的使用，日（二位，不够补零）</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;两位数字的日（不足两位前面补0）：%td%n&quot;</span>,date);<br>        <span class="hljs-comment">//e的使用，日（一位不补零）</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.printf(<span class="hljs-string">&quot;月份的日（前面不补0）：%te&quot;</span>,date);<br><br>        <span class="hljs-comment">//Calendar 对象</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">            常量	                    描述</span><br><span class="hljs-comment">            Calendar.YEAR	        年份</span><br><span class="hljs-comment">            Calendar.MONTH	        月份</span><br><span class="hljs-comment">            Calendar.DATE	        日期</span><br><span class="hljs-comment">            Calendar.DAY_OF_MONTH	日期，和上面的字段意义完全相同</span><br><span class="hljs-comment">            Calendar.HOUR	        12小时制的小时</span><br><span class="hljs-comment">            Calendar.HOUR_OF_DAY	24小时制的小时</span><br><span class="hljs-comment">            Calendar.MINUTE	        分钟</span><br><span class="hljs-comment">            Calendar.SECOND	        秒</span><br><span class="hljs-comment">            Calendar.DAY_OF_WEEK	星期几</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-comment">//GregorianCalendar类</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">            序号	构造函数和说明</span><br><span class="hljs-comment">1	GregorianCalendar()</span><br><span class="hljs-comment">在具有默认语言环境的默认时区内使用当前时间构造一个默认的 GregorianCalendar。</span><br><span class="hljs-comment">2	GregorianCalendar(int year, int month, int date)</span><br><span class="hljs-comment">在具有默认语言环境的默认时区内构造一个带有给定日期设置的 GregorianCalendar</span><br><span class="hljs-comment">3	GregorianCalendar(int year, int month, int date, int hour, int minute)</span><br><span class="hljs-comment">为具有默认语言环境的默认时区构造一个具有给定日期和时间设置的 GregorianCalendar。</span><br><span class="hljs-comment">4	GregorianCalendar(int year, int month, int date, int hour, int minute, int second)</span><br><span class="hljs-comment">  为具有默认语言环境的默认时区构造一个具有给定日期和时间设置的 GregorianCalendar。</span><br><span class="hljs-comment">5	GregorianCalendar(Locale aLocale)</span><br><span class="hljs-comment">在具有给定语言环境的默认时区内构造一个基于当前时间的 GregorianCalendar。</span><br><span class="hljs-comment">6	GregorianCalendar(TimeZone zone)</span><br><span class="hljs-comment">在具有默认语言环境的给定时区内构造一个基于当前时间的 GregorianCalendar。</span><br><span class="hljs-comment">7	GregorianCalendar(TimeZone zone, Locale aLocale)</span><br><span class="hljs-comment"> 在具有给定语言环境的给定时区内构造一个基于当前时间的 GregorianCalendar。</span><br><span class="hljs-comment">这里是GregorianCalendar 类提供的一些有用的方法列表：</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">序号	方法和说明</span><br><span class="hljs-comment">1	void add(int field, int amount)</span><br><span class="hljs-comment">根据日历规则，将指定的（有符号的）时间量添加到给定的日历字段中。</span><br><span class="hljs-comment">2	protected void computeFields()</span><br><span class="hljs-comment">转换UTC毫秒值为时间域值</span><br><span class="hljs-comment">3	protected void computeTime()</span><br><span class="hljs-comment">覆盖Calendar ，转换时间域值为UTC毫秒值</span><br><span class="hljs-comment">4	boolean equals(Object obj)</span><br><span class="hljs-comment">比较此 GregorianCalendar 与指定的 Object。</span><br><span class="hljs-comment">5	int get(int field)</span><br><span class="hljs-comment">获取指定字段的时间值</span><br><span class="hljs-comment">6	int getActualMaximum(int field)</span><br><span class="hljs-comment">返回当前日期，给定字段的最大值</span><br><span class="hljs-comment">7	int getActualMinimum(int field)</span><br><span class="hljs-comment">返回当前日期，给定字段的最小值</span><br><span class="hljs-comment">8	int getGreatestMinimum(int field)</span><br><span class="hljs-comment"> 返回此 GregorianCalendar 实例给定日历字段的最高的最小值。</span><br><span class="hljs-comment">9	Date getGregorianChange()</span><br><span class="hljs-comment">获得格里高利历的更改日期。</span><br><span class="hljs-comment">10	int getLeastMaximum(int field)</span><br><span class="hljs-comment">返回此 GregorianCalendar 实例给定日历字段的最低的最大值</span><br><span class="hljs-comment">11	int getMaximum(int field)</span><br><span class="hljs-comment">返回此 GregorianCalendar 实例的给定日历字段的最大值。</span><br><span class="hljs-comment">12	Date getTime()</span><br><span class="hljs-comment">获取日历当前时间。</span><br><span class="hljs-comment">13	long getTimeInMillis()</span><br><span class="hljs-comment">获取用长整型表示的日历的当前时间</span><br><span class="hljs-comment">14	TimeZone getTimeZone()</span><br><span class="hljs-comment">获取时区。</span><br><span class="hljs-comment">15	int getMinimum(int field)</span><br><span class="hljs-comment">返回给定字段的最小值。</span><br><span class="hljs-comment">16	int hashCode()</span><br><span class="hljs-comment">重写hashCode.</span><br><span class="hljs-comment">17	boolean isLeapYear(int year)</span><br><span class="hljs-comment">确定给定的年份是否为闰年。</span><br><span class="hljs-comment">18	void roll(int field, boolean up)</span><br><span class="hljs-comment">在给定的时间字段上添加或减去（上/下）单个时间单元，不更改更大的字段。</span><br><span class="hljs-comment">19	void set(int field, int value)</span><br><span class="hljs-comment">用给定的值设置时间字段。</span><br><span class="hljs-comment">20	void set(int year, int month, int date)</span><br><span class="hljs-comment">设置年、月、日的值。</span><br><span class="hljs-comment">21	void set(int year, int month, int date, int hour, int minute)</span><br><span class="hljs-comment">设置年、月、日、小时、分钟的值。</span><br><span class="hljs-comment">22	void set(int year, int month, int date, int hour, int minute, int second)</span><br><span class="hljs-comment">设置年、月、日、小时、分钟、秒的值。</span><br><span class="hljs-comment">23	void setGregorianChange(Date date)</span><br><span class="hljs-comment">设置 GregorianCalendar 的更改日期。</span><br><span class="hljs-comment">24	void setTime(Date date)</span><br><span class="hljs-comment">用给定的日期设置Calendar的当前时间。</span><br><span class="hljs-comment">25	void setTimeInMillis(long millis)</span><br><span class="hljs-comment">用给定的long型毫秒数设置Calendar的当前时间。</span><br><span class="hljs-comment">26	void setTimeZone(TimeZone value)</span><br><span class="hljs-comment">用给定时区值设置当前时区。</span><br><span class="hljs-comment">27	String toString()</span><br><span class="hljs-comment">返回代表日历的字符串。</span><br><span class="hljs-comment">         */</span><br>        String months<span class="hljs-literal">[]</span> = &#123;<br>                <span class="hljs-string">&quot;Jan&quot;</span>, <span class="hljs-string">&quot;Feb&quot;</span>, <span class="hljs-string">&quot;Mar&quot;</span>, <span class="hljs-string">&quot;Apr&quot;</span>,<br>                <span class="hljs-string">&quot;May&quot;</span>, <span class="hljs-string">&quot;Jun&quot;</span>, <span class="hljs-string">&quot;Jul&quot;</span>, <span class="hljs-string">&quot;Aug&quot;</span>,<br>                <span class="hljs-string">&quot;Sep&quot;</span>, <span class="hljs-string">&quot;Oct&quot;</span>, <span class="hljs-string">&quot;Nov&quot;</span>, <span class="hljs-string">&quot;Dec&quot;</span>&#125;;<br><br>        <span class="hljs-built_in">int</span> year;<br>        <span class="hljs-comment">// 初始化 Gregorian 日历</span><br>        <span class="hljs-comment">// 使用当前时间和日期</span><br>        <span class="hljs-comment">// 默认为本地时间和时区</span><br>        GregorianCalendar gcalendar = <span class="hljs-keyword">new</span> <span class="hljs-constructor">GregorianCalendar()</span>;<br>        <span class="hljs-comment">// 显示当前时间和日期的信息</span><br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(<span class="hljs-string">&quot;Date: &quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(months<span class="hljs-literal">[<span class="hljs-identifier">gcalendar</span>.<span class="hljs-identifier">get</span>(C<span class="hljs-identifier">alendar</span>.MONTH)]</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(<span class="hljs-string">&quot; &quot;</span> + gcalendar.get(Calendar.DATE) + <span class="hljs-string">&quot; &quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(year = gcalendar.get(Calendar.YEAR));<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(<span class="hljs-string">&quot;Time: &quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(gcalendar.get(Calendar.HOUR) + <span class="hljs-string">&quot;:&quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(gcalendar.get(Calendar.MINUTE) + <span class="hljs-string">&quot;:&quot;</span>);<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(gcalendar.get(Calendar.SECOND));<br><br>        <span class="hljs-comment">// 测试当前年份是否为闰年</span><br>        <span class="hljs-keyword">if</span>(gcalendar.is<span class="hljs-constructor">LeapYear(<span class="hljs-params">year</span>)</span>) &#123;<br>            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;当前年份是闰年&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;当前年份不是闰年&quot;</span>);<br>        &#125;<br><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <hr>
 <h3 id="about-me">About ME</h3>
@@ -283,264 +182,9 @@
 <li><p>💬 公众号: <a href="https://oceaneyes.top/img/wechatgzh.jpeg">UncleJoker-GZY</a></p></li>
 </ul>
 <h5 id="加入小组">👋 加入小组~</h5>
-<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" srcset="/img/loading.gif" lazyload title="加入组织" alt width="240"></p>
+<p><img src="https://oceaneyes.top/img/zhishigroup.jpg" title="加入组织" alt width="240"></p>
 <h5 id="感谢打赏">👋 感谢打赏~</h5>
-<p><img src="https://oceaneyes.top/img/alipay.jpg" srcset="/img/loading.gif" lazyload title="支付宝打赏" alt width="140">
-<img src="https://oceaneyes.top/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload title="微信打赏" alt width="140"></p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2016/03/02/Java%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java循环结构</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2016/03/02/Java%E6%95%B0%E7%BB%84/">
-                        <span class="hidden-mobile">Java数组</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="lv-container" data-id="city" data-uid="MTAyMC80MjAzMS8xODU3OA==">
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#lv-container', function() {
-        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
-      });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
-  </div>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-  <div class="col-lg-7 mx-auto nopadding-x-md">
-    <div class="container custom post-custom mx-auto">
-      <div class="rounded mx-auto mt-5" style="display:flex;flex-direction:row;align-items: center;justify-content: space-around;text-align: center;"><div style="width:150px;height:150px"><img src="/img/wechatpay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:150px;height:150px"><img src="/img/alipay.jpg" srcset="/img/loading.gif" lazyload alt="扫码打赏一下～～" style="width:140px;height:140px"><div><span>扫码打赏一下～</span></div></div><div style="width:250px;height:150px"><img src="/img/wechatgzh.jpeg" srcset="/img/loading.gif" lazyload alt="扫码关注微信公众号～" style="width:240px;height:140px"><div><span>扫码关注微信公众号～</span></div></div><img></div>
-    </div>
-  </div>
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
-  
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-</body>
-</html>
+<p><img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
+<img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2016/03/02/Java%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/">http://oceaneyes.top/2016/03/02/Java%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2016/03/02/Java%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" title="Java循环结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java循环结构</div></div></a></div><div class="next-post pull-right"><a href="/2016/03/02/Java%E6%95%B0%E7%BB%84/" title="Java数组"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java数组</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2018/03/02/Centos-Maven%E9%85%8D%E7%BD%AE/" title="CentOS-Maven配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">CentOS-Maven配置</div></div></a></div><div><a href="/2016/03/02/Java-Character%E7%B1%BB/" title="Java-Character类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-02</div><div class="title">Java-Character类</div></div></a></div><div><a href="/2016/03/02/Java-NumberMath%E7%B1%BB/" title="Java-NumberMath类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-02</div><div class="title">Java-NumberMath类</div></div></a></div><div><a href="/2016/03/02/Java-Scanner%E7%B1%BB/" title="Java-Scanner类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-02</div><div class="title">Java-Scanner类</div></div></a></div><div><a href="/2016/03/02/Java-FileStreamIO/" title="Java-FileStreamIO"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-02</div><div class="title">Java-FileStreamIO</div></div></a></div><div><a href="/2016/03/02/Java-StringBuffer/" title="Java-StringBuffer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-03-02</div><div class="title">Java-StringBuffer</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4"><span class="toc-number">1.</span> <span class="toc-text">Java日期和时间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#about-me"><span class="toc-number">1.0.1.</span> <span class="toc-text">About ME</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E4%B9%A6%E5%9F%8E%E5%8D%97-%E5%9C%A8%E6%9C%AA%E6%9D%A5%E9%9D%A2%E5%89%8D%E6%88%91%E4%BB%AC%E9%83%BD%E6%98%AF%E5%AD%A9%E5%AD%90"><span class="toc-number">1.0.1.0.1.</span> <span class="toc-text">👋 读书城南，🤔
+在未来面前，我们都是孩子～</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#social-media"><span class="toc-number">1.0.1.0.2.</span> <span class="toc-text">👋 Social Media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E5%B0%8F%E7%BB%84"><span class="toc-number">1.0.1.0.3.</span> <span class="toc-text">👋 加入小组~</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%84%9F%E8%B0%A2%E6%89%93%E8%B5%8F"><span class="toc-number">1.0.1.0.4.</span> <span class="toc-text">👋 感谢打赏~</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

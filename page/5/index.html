@@ -1,892 +1,564 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="OCEAN.GZY">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="This is MyBlog Notes.">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OCAEN.GZY读书城南 - 在未来面前我们都是孩子</title><meta name="author" content="OCEAN.GZY"><meta name="copyright" content="OCEAN.GZY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This is MyBlog Notes.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="OCAEN.GZY读书城南">
 <meta property="og:url" content="http://oceaneyes.top/page/5/index.html">
 <meta property="og:site_name" content="OCAEN.GZY读书城南">
 <meta property="og:description" content="This is MyBlog Notes.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:author" content="OCEAN.GZY">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://oceaneyes.top/page/5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OCAEN.GZY读书城南',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-04-28 17:14:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-  
-  <title>OCAEN.GZY读书城南</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"oceaneyes.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>OCEAN.GZY读书城南</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/background.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="在未来面前，我们都是孩子～">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/08/%E6%B5%85%E8%B0%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" target="_self">
-          浅谈用户画像
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/08/%E6%B5%85%E8%B0%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" target="_self">
-          
-          什么是用户画像？ 维基百科定义  A user profile is a visual display of personal data associated with a specific user, or a customized desktop environment 用户画像就是与该用户相关联的数据的可视化展现；即：用户信息标签化  偏技术的定义  海量的数据标签，根据用户的目标、行为和观
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-08 23:51" pubdate>
-              2020-02-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E6%95%B0%E6%8D%AE/">数据</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E6%95%B0%E6%8D%AE/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE/">数据</a>
-            
-              <a href="/tags/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/08/%E5%85%B3%E4%BA%8E%E4%BA%A7%E5%93%81%E5%A2%9E%E9%95%BF%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" target="_self">
-          关于产品增长的一些思考
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/08/%E5%85%B3%E4%BA%8E%E4%BA%A7%E5%93%81%E5%A2%9E%E9%95%BF%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" target="_self">
-          
-          关于产品增长的一些思考 增长的定义：增长是把产品的价值传播最大化的过程，即为，让更多用户更快更顺利更频繁的体验到产品的核心价值。 思维框架 前提条件  产品本身有核心价值 公司的商业变现模式有效 公司战略本身符合行业和市场本身趋势  依赖条件  比较完整而精确的数据 能够操作实验，且能及时获得反馈 可以依靠技术和精细化的产品、运营手段驱动增长  基于产品形态和数据分析，利用技术手段达到数据倍数的增
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-08 22:19" pubdate>
-              2020-02-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E5%A2%9E%E9%95%BF%E4%BA%A7%E5%93%81/">增长产品</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E5%A2%9E%E9%95%BF/">增长</a>
-            
-              <a href="/tags/GrowthHacking/">GrowthHacking</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/07/%E6%80%81%E5%8A%BF%E6%84%9F%E7%9F%A5%E4%B8%8E%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E5%B9%B3%E5%8F%B0/" target="_self">
-          态势感知与安全运营平台
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/07/%E6%80%81%E5%8A%BF%E6%84%9F%E7%9F%A5%E4%B8%8E%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E5%B9%B3%E5%8F%B0/" target="_self">
-          
-          态势感知与安全运营平台 产品概述 针对各种网络安全数据进行分析处理，提供资产、危险、脆弱性的相关管理，并提供对危险的事前预警、事中发现、事后回溯功能，贯穿威胁的整个生命周期管理。 平台简介 产品组成  流量传感器  采集网络中的流量数据，将原始的网络流量转化为安session方式记录的格式化流量日志，全流量日志会加密传输至分析平台存储用于后期分析 内置流量检测引擎  web漏洞检测引擎 websh
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-07 23:22" pubdate>
-              2020-02-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E5%AE%89%E5%85%A8%E4%BA%A7%E5%93%81/">安全产品</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E5%AE%89%E5%85%A8%E4%BA%A7%E5%93%81/">安全产品</a>
-            
-              <a href="/tags/%E8%BF%90%E8%90%A5%E5%B9%B3%E5%8F%B0/">运营平台</a>
-            
-              <a href="/tags/%E5%B9%B3%E5%8F%B0%E4%BA%A7%E5%93%81/">平台产品</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/06/%E4%BF%9D%E9%9A%9C%E4%BA%A4%E6%98%93%E8%90%A5%E9%94%80%E5%AE%89%E5%85%A8%E7%9A%84%E6%8E%AA%E6%96%BD/" target="_self">
-          保障交易/营销安全的措施
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/06/%E4%BF%9D%E9%9A%9C%E4%BA%A4%E6%98%93%E8%90%A5%E9%94%80%E5%AE%89%E5%85%A8%E7%9A%84%E6%8E%AA%E6%96%BD/" target="_self">
-          
-          保障交易&#x2F;营销安全的措施 黄牛风险防控服务 评估账号的限购评估，比如六个唯一，身份证号、账号、银行卡号、绑定手机号、设备号、户头号，怎样判别并鉴定是否为黄牛 黄牛防控策略 1、创建黄牛防控策略 2、添加需要监控的商品信息&#x2F;券信息 3、设置不同的监控级别 ​ 日常类、非秒杀类的商品&#x2F;券，配置初级防控； ​ 秒杀类的商品&#x2F;券，配置高级防控； 4、不同的防控级别设定，对账户设置不同的领取&#x2F;购买量 5、设
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-06 23:00" pubdate>
-              2020-02-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E5%AE%89%E5%85%A8/">安全</a>
-            
-              <a href="/tags/%E8%BF%90%E8%90%A5/">运营</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/06/%E4%B8%8A%E7%98%BE%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" target="_self">
-          上瘾,一步步让你PICK ME
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/06/%E4%B8%8A%E7%98%BE%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" target="_self">
-          
-          上瘾,一步步让你PICK ME **让用户习惯你的产品*&#x3D;&#x3D;** 习惯：下意识做出的举动。 简单的习惯是在很少或完全没有意识思考的情况下完成的行为，指导了每个人日常近一半的行为。 习惯是人们能够通过在 &#x3D;&#x3D;基底神经节中存储自动反应，来将注意力集中在其他事物&#x3D;&#x3D; 当大脑才去捷径并停止积极思考下一步该怎么做的时候， 就会形成习惯；大脑很快便学会编纂行为，为其遇到的任何情况提供解决方案。 深谙此道的企业
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-06 22:30" pubdate>
-              2020-02-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E8%90%A5%E9%94%80/">营销</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E8%90%A5%E9%94%80/%E5%BF%83%E7%90%86%E5%AD%A6/">心理学</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/">心理学</a>
-            
-              <a href="/tags/%E8%90%A5%E9%94%80/">营销</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/05/%E4%B8%80%E4%B8%AA%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" target="_self">
-          一个策略产品的自我修养
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/05/%E4%B8%80%E4%B8%AA%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" target="_self">
-          
-          策略产品  新闻推荐策略 增长策略 反欺诈策略 价格策略 后台策略 搜索策略 渲染策略 ……  不是一个明确的行业 不是一种具体的产品形态 是一种解决问题的手段 是一种实现目标的手段 策略四要素  待解决问题 输入---影响解决方案的因素 计算逻辑---将输入转换成为输出的规则 输出---具体的解决方案  策略产品与功能产品的区别 发现问题阶段 功能产品 对用户人群诉求，抽象成为一套相对聚焦的需求
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-05 23:30" pubdate>
-              2020-02-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81/">策略产品</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81/">策略产品</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/05/%E5%A6%82%E4%BD%95%E8%AF%84%E7%BA%A7%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%81%A5%E5%BA%B7%E7%8A%B6%E5%86%B5/" target="_self">
-          如何评估推荐系统的健康状况？
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/05/%E5%A6%82%E4%BD%95%E8%AF%84%E7%BA%A7%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%81%A5%E5%BA%B7%E7%8A%B6%E5%86%B5/" target="_self">
-          
-          如何评估推荐系统的健康状况？ 推荐系统的常见指标 推荐系统的评价指标，要从解决实际问题的角度来思考。 好的推荐系统，不仅要保证自身系统的健壮度，好要满足服务平台、用户等多方面的需求。 用户角度 更方便更快速的发现自己喜欢的产品 精准度 更多的为用户主观感受，评估的是推荐的物品是不是用户喜欢的 惊喜度 推荐的物品让用户有心情跳动的惊喜感觉，比如发现多年前的记忆、耳目一新的内容、用户听过的但是不知名字
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-05 23:00" pubdate>
-              2020-02-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/%E7%AD%96%E7%95%A5/">策略</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E6%8E%A8%E8%8D%90/">推荐</a>
-            
-              <a href="/tags/%E7%AD%96%E7%95%A5/">策略</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/04/%E7%A4%BE%E5%8C%BA%E5%9E%8B%E4%BA%A7%E5%93%81%E7%94%9F%E5%91%BD%E5%8A%9B%E9%A1%BD%E5%BC%BA%E7%9A%84%E5%8E%9F%E5%9B%A0%E7%A9%B6%E7%AB%9F%E4%BD%95%E5%9C%A8%EF%BC%9F/" target="_self">
-          社区产品生命力顽强的原因究竟何在？
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/04/%E7%A4%BE%E5%8C%BA%E5%9E%8B%E4%BA%A7%E5%93%81%E7%94%9F%E5%91%BD%E5%8A%9B%E9%A1%BD%E5%BC%BA%E7%9A%84%E5%8E%9F%E5%9B%A0%E7%A9%B6%E7%AB%9F%E4%BD%95%E5%9C%A8%EF%BC%9F/" target="_self">
-          
-          社区产品生命力顽强的原因究竟何在？ 一、导读 ​ 在中国互联网流量争夺异常激烈的今天，为什么社区这种古典互联网的典型产品，会有如此顽强的生命力？ ​ 社区有内容，有内容就意味着可以吸引更多的用户注意力，你能占据用户更多的访问时长，就更有可能实现基于内容的业务营销转化，取得更大的商业效益。 二、社区本质 核心定义：以用户创造内容为核心的网络交流平台。 悉数当前的各大独树一帜的产品 三、社区运营 四、
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-04 00:00" pubdate>
-              2020-02-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA/">内容社区</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E5%86%85%E5%AE%B9/">内容</a>
-            
-              <a href="/tags/%E7%A4%BE%E5%8C%BA/">社区</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/03/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA%E7%9A%84%E4%BA%A7%E5%93%81%E9%80%89%E5%9E%8B%E4%B8%8E%E8%BF%90%E8%90%A5/" target="_self">
-          内容社区的产品选型与运营
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/03/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA%E7%9A%84%E4%BA%A7%E5%93%81%E9%80%89%E5%9E%8B%E4%B8%8E%E8%BF%90%E8%90%A5/" target="_self">
-          
-          内容社区的产品选型与运营 社区分类 社交网络  facebook、微信朋友圈、QQ空间  社交媒体  微博、抖音、快手、微信公众号  垂直社区  懂球帝、小红书、汽车之家、豆瓣、知乎、美柚……  社区定义 以用户生产内容为核心的网络交流平台 社区的生命力 互联网流量红利消失，流量进入存量的争夺。 抢夺用户注意力和停留时长。 互联网流量的再分配 一个群体外部压力越大，内聚性就越强，就越容易形成社区。
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-03 23:30" pubdate>
-              2020-02-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA/">内容社区</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/%E8%BF%90%E8%90%A5/">运营</a>
-            
-              <a href="/tags/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a>
-            
-              <a href="/tags/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA/">内容社区</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/02/02/ToB%E4%BA%A7%E5%93%81/" target="_self">
-          ToB产品的一些认知
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/02/02/ToB%E4%BA%A7%E5%93%81/" target="_self">
-          
-          ToB产品 ToB产品方法论 PMF(Product-Market Fit) 市场构成的四要素  客户群体  互联网客户 ---&gt;&gt;&gt;互联网+（传统客户）  需求痛点  客户需求到底是什么 从单品极致---&gt;&gt;&gt;产品矩阵  商业模式  从license---&gt;&gt;&gt; 订阅制；倒逼产品优化  竞争态势  市场环境变化 投资&#x2F;并购&#x2F;政策影响   打造
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-02-02 23:00" pubdate>
-              2020-02-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/categories/%E4%BA%A7%E5%93%81/ToB%E4%BA%A7%E5%93%81/">ToB产品</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%A7%E5%93%81/">产品</a>
-            
-              <a href="/tags/ToB%E4%BA%A7%E5%93%81/">ToB产品</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-    <a href="http://ai.oceangzy.top/" target="_blank" rel="nofollow noopener"><span>OCEAN AI</span></a><i class="iconfont icon-love"></i><a href="https://github.com/OcaenEyes" target="_blank" rel="nofollow noopener"><span>GZY</span></a>
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
     })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
   
-    <script  src="/js/img-lazyload.js" ></script>
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
   
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"><span class="site-name">OCAEN.GZY读书城南</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">OCAEN.GZY读书城南</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/08/%E6%B5%85%E8%B0%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" title="浅谈用户画像">浅谈用户画像</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-08T15:51:14.000Z" title="发表于 2020-02-08 23:51:14">2020-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E6%95%B0%E6%8D%AE/">数据</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E6%95%B0%E6%8D%AE/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a></span></div><div class="content">什么是用户画像？
+维基百科定义
+
+A user profile is a visual display of personal data associated with
+a specific user, or a customized desktop environment
+用户画像就是与该用户相关联的数据的可视化展现；即：用户信息标签化
+
+偏技术的定义
+
+海量的数据标签，根据用户的目标、行为和观点的差异区分为不同的类型
+
+常见的用户画像维度
+
+
+img
+
+金融用户评级画像
+
+
+img
+
+群体维度常见的画像-今日头条
+
+
+img
+
+为什么要做用户画像？
+宏观
+构建具象认知，构建战略、战术方向
+
+为了在核心用户上达成统一 具象的认知，方便后期有的放矢
+根据用户画像信息做产品设计，了解用户行为偏好
+
+探索用户足迹，用户市场导向
+
+详细了解真实用户是如何 与产品及相关内容进行互动的
+从业务场景出发，解决实际的业务问题，针对用户生命周期的不同状态进行产品设计
+
+微观
+构建底层数据基础，服务上层应用
+
+用户画像可作为推荐系统（广告、搜索系统）重要一环
+
+方便信息的处理
+有了标签后计算机可以方便的 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/08/%E5%85%B3%E4%BA%8E%E4%BA%A7%E5%93%81%E5%A2%9E%E9%95%BF%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="关于产品增长的一些思考">关于产品增长的一些思考</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-08T14:19:01.000Z" title="发表于 2020-02-08 22:19:01">2020-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E5%A2%9E%E9%95%BF%E4%BA%A7%E5%93%81/">增长产品</a></span></div><div class="content">关于产品增长的一些思考
+增长的定义：增长是把产品的价值传播最大化的过程，即为，让更多用户更快更顺利更频繁的体验到产品的核心价值。
+思维框架
+前提条件
+
+产品本身有核心价值
+公司的商业变现模式有效
+公司战略本身符合行业和市场本身趋势
+
+依赖条件
+
+比较完整而精确的数据
+能够操作实验，且能及时获得反馈
+可以依靠技术和精细化的产品、运营手段驱动增长
+
+基于产品形态和数据分析，利用技术手段达到数据倍数的增长。
+关键特点
+
+要关注用户生命周期，不要仅仅限制于拉新
+通过科学方法带来高效、持续的增长
+强调实验和数据驱动
+跨功能增长团队，直接对指标负责
 
 
 
-  
+img
+
+内核逻辑
+1、精准定义问题---细分问题并设计权重
+2、定义清晰目标---收集问题相关的信息
+3、解决思路及方案---针对高权重的问题
+操作方案：
+
+根据业务现状、灵活调整，找合适的增长点
+集中火力，重点突破
+借鉴其他产品的策略，可持续增长
+
+在公司业务的不同阶段，增长的重点工作方向不同
 
 
+6.jpg
+
+从全局看增长
+明确是否已准备好进行大规模增长
+PMF（Product Market
+Fit）产品市场契合，即，不仅有用户需要你的产品 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/07/%E6%80%81%E5%8A%BF%E6%84%9F%E7%9F%A5%E4%B8%8E%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E5%B9%B3%E5%8F%B0/" title="态势感知与安全运营平台">态势感知与安全运营平台</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-07T15:22:00.000Z" title="发表于 2020-02-07 23:22:00">2020-02-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E5%AE%89%E5%85%A8%E4%BA%A7%E5%93%81/">安全产品</a></span></div><div class="content">态势感知与安全运营平台
+产品概述
+针对各种网络安全数据进行分析处理，提供资产、危险、脆弱性的相关管理，并提供对危险的事前预警、事中发现、事后回溯功能，贯穿威胁的整个生命周期管理。
+平台简介
+产品组成
+
+流量传感器
+
+采集网络中的流量数据，将原始的网络流量转化为安session方式记录的格式化流量日志，全流量日志会加密传输至分析平台存储用于后期分析
+内置流量检测引擎
+
+web漏洞检测引擎
+webshell 活动检测引擎
+网络入侵检测引擎
+
+常部署于需监听流量的网络节点旁，接受镜像流量
+
+日志采集探针
+
+对网络内各业务应用系统、设备、服务器、终端等设备通过主动采集或被动接受等方式对日志进行采集和归一化处理，方便数据流后面的关联规则和数据分析快速使用
+兼具负责对内网资产进行扫描识别，收集资产数据
+
+关联规则引擎
+
+负责对来自日志采集探针的大量日志信息进行实时流解析，并匹配关联规则，对异常行为产生关联告警
+
+分析平台
+
+存储流量传感器和日志采集探针提交的流量日志、设备日志、系统日志
+分析平台底层对数据进行处理
+
+文件威胁鉴定器
+终端安全管理系统
+
+产品架构
+产品功能
+威胁管理
+资产管理
+拓扑管 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/06/%E4%BF%9D%E9%9A%9C%E4%BA%A4%E6%98%93%E8%90%A5%E9%94%80%E5%AE%89%E5%85%A8%E7%9A%84%E6%8E%AA%E6%96%BD/" title="保障交易/营销安全的措施">保障交易/营销安全的措施</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-06T15:00:00.000Z" title="发表于 2020-02-06 23:00:00">2020-02-06</time></span></div><div class="content">保障交易/营销安全的措施
+黄牛风险防控服务
+评估账号的限购评估，比如六个唯一，身份证号、账号、银行卡号、绑定手机号、设备号、户头号，怎样判别并鉴定是否为黄牛
+黄牛防控策略
+1、创建黄牛防控策略
+2、添加需要监控的商品信息/券信息
+3、设置不同的监控级别
+​ 日常类、非秒杀类的商品/券，配置初级防控；
+​ 秒杀类的商品/券，配置高级防控；
+4、不同的防控级别设定，对账户设置不同的领取/购买量
+5、设置策略生效时间
+6、页面增加规则描述，黄牛拒发等通告
+7、上线策略，指定生效时间段
+8、策略列表，包含草稿、生效中、待生效、已失效
+黄牛防控效果
+黄牛风险总览
+
+提交订单买家量
+黄牛买家拦截量
+黄牛买家占比
+黄牛订单拦截量
+订单创建成功量
+
+防控商品/券风险详情
+
+商品/券关键词检索
+时间段检索
+
+防控商品/券的黄牛拦截趋势
+会员分析
+
+黄牛订单用户中的新会员、老会员分布
+成功订单用户中新会员、老会员分布
+
+手动反馈录入漏防交易
+恶意订单风险防控服务
+退货类：买家频繁通过滥用退款售后权益
+敲诈类：不以真实消费为目的，利用平台规则牟取利益的非正常消费者行为
+攻击类
+异常评价防控服务
+
+About ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/06/%E4%B8%8A%E7%98%BE%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="上瘾,一步步让你PICK ME">上瘾,一步步让你PICK ME</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-06T14:30:00.000Z" title="发表于 2020-02-06 22:30:00">2020-02-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E8%90%A5%E9%94%80/">营销</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E8%90%A5%E9%94%80/%E5%BF%83%E7%90%86%E5%AD%A6/">心理学</a></span></div><div class="content">上瘾,一步步让你PICK ME
+**让用户习惯你的产品*==**
+习惯：下意识做出的举动。
+简单的习惯是在很少或完全没有意识思考的情况下完成的行为，指导了每个人日常近一半的行为。
+习惯是人们能够通过在
+==基底神经节中存储自动反应，来将注意力集中在其他事物==
+当大脑才去捷径并停止积极思考下一步该怎么做的时候，
+就会形成习惯；大脑很快便学会编纂行为，为其遇到的任何情况提供解决方案。
+深谙此道的企业，一直将培养用户习惯作为产品开发的一个基本原则。
+习惯养成类产品能够改变用户的行为，使用户无须外部诱因就会开始从事某种活动：
+
+使用一而再，再而三的接触和亲近产品
+不需要广告和促销的外显的行动召唤
+一旦形成对产品的依赖性，用户便会在一些习惯事物中使用这个产品打发时间，比如排队的时候看头条，路上刷淘宝、路上听网易云发现音乐……
+
+用户对产品产生习惯依赖的好处：
+
+提高用户终身价值
+提供定价灵活性
+加快增长速度
+提高竞争优势
+
+打造习惯类产品，需要认真考虑的因素
+
+频率：某种行为多久发生一次
+可感知用途：在用户心中，该产品与其他相比多出了哪些用途和好处
+
+具有足够频率和感知效用的行为进入“习惯区域 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/05/%E4%B8%80%E4%B8%AA%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/" title="一个策略产品的自我修养">一个策略产品的自我修养</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-05T15:30:00.000Z" title="发表于 2020-02-05 23:30:00">2020-02-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81/">策略产品</a></span></div><div class="content">策略产品
+
+新闻推荐策略
+增长策略
+反欺诈策略
+价格策略
+后台策略
+搜索策略
+渲染策略
+……
+
+不是一个明确的行业
+不是一种具体的产品形态
+是一种解决问题的手段
+是一种实现目标的手段
+策略四要素
+
+待解决问题
+输入---影响解决方案的因素
+计算逻辑---将输入转换成为输出的规则
+输出---具体的解决方案
+
+策略产品与功能产品的区别
+发现问题阶段
+功能产品
+对用户人群诉求，抽象成为一套相对聚焦的需求
+策略产品
+宏观想象各类用户的诉求，一群人更多样和更有统计意义的需求，需评估实现到什么程度
+撰写需求、发起项目
+功能产品
+收敛的解决方案
+通过流程和原型表达产品实现效果
+策略产品
+发散的解决方案
+通过逻辑描述和效果示例表达产品实现效果
+跟进开发评估
+功能产品
+面对开发结果是验收的性质
+更关注呈现效果、而非实现过程
+策略产品
+更多参与过程
+通过多轮评估深入参与开发过程
+与策略RD一起发现各要素中的问题
+产品上线后的回归&amp;新的产品循环
+功能产品
+更快达到理想态
+面对明确单一的问题，通常可以更快达到较好效果
+close该feature产品循环
+策略产品
+可能是永无止境的产品循环
+复杂且受很多 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/05/%E5%A6%82%E4%BD%95%E8%AF%84%E7%BA%A7%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%81%A5%E5%BA%B7%E7%8A%B6%E5%86%B5/" title="如何评估推荐系统的健康状况？">如何评估推荐系统的健康状况？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-05T15:00:00.000Z" title="发表于 2020-02-05 23:00:00">2020-02-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/">推荐</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E6%8E%A8%E8%8D%90/%E7%AD%96%E7%95%A5/">策略</a></span></div><div class="content">如何评估推荐系统的健康状况？
+推荐系统的常见指标
+推荐系统的评价指标，要从解决实际问题的角度来思考。
+好的推荐系统，不仅要保证自身系统的健壮度，好要满足服务平台、用户等多方面的需求。
+用户角度
+更方便更快速的发现自己喜欢的产品
+精准度
+更多的为用户主观感受，评估的是推荐的物品是不是用户喜欢的
+惊喜度
+推荐的物品让用户有心情跳动的惊喜感觉，比如发现多年前的记忆、耳目一新的内容、用户听过的但是不知名字的音乐，看过片段却不知道名字的电影、知道功能却不知道名字的商品
+此类推荐和用户兴趣不一定相似，但是却给用户带来意外之喜，超出用户的预期
+新颖性
+推荐用户没有接触过的东西，不一定是用户最喜欢的，但可以提升用户的探索欲望，从而获得更完整的用户兴趣
+多样性
+推荐的更多的品类，可以挖掘用户潜在的兴趣点，拓展用户的兴趣范围来提升用户的推荐体验
+平台角度
+平台方为用户提供物品或信息。
+不同平台的获利方式不同，比如有的靠会员模式、有的通过商品、大部分则通过广告
+对多数平台来说商业目标是最重要的目标之一
+内容满意度
+由于业务场景不同，内容满意的指标也会随之变化，主要是通过用户对产品的不同行为来衡量
+
+资讯
+
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/04/%E7%A4%BE%E5%8C%BA%E5%9E%8B%E4%BA%A7%E5%93%81%E7%94%9F%E5%91%BD%E5%8A%9B%E9%A1%BD%E5%BC%BA%E7%9A%84%E5%8E%9F%E5%9B%A0%E7%A9%B6%E7%AB%9F%E4%BD%95%E5%9C%A8%EF%BC%9F/" title="社区产品生命力顽强的原因究竟何在？">社区产品生命力顽强的原因究竟何在？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-03T16:00:00.000Z" title="发表于 2020-02-04 00:00:00">2020-02-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA/">内容社区</a></span></div><div class="content">社区产品生命力顽强的原因究竟何在？
+一、导读
+​
+在中国互联网流量争夺异常激烈的今天，为什么社区这种古典互联网的典型产品，会有如此顽强的生命力？
+​
+社区有内容，有内容就意味着可以吸引更多的用户注意力，你能占据用户更多的访问时长，就更有可能实现基于内容的业务营销转化，取得更大的商业效益。
+二、社区本质
+核心定义：以用户创造内容为核心的网络交流平台。
+悉数当前的各大独树一帜的产品
+三、社区运营
+四、社区产品
+
+About ME
+👋 读书城南，🤔
+在未来面前，我们都是孩子～
+
+📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+👋 Social Media
+
+🛠️ Blog: http://oceaneyes.top
+⚡ PM导航: https://pmhub.oceangzy.top
+☘️ CNBLOG: https://www.cnblogs.com/oceaneyes-gzy/
+🌱 AI PRJ自己部署的一些算法demo: http://ai.oceangzy.top/
+📫 Email: 14501365 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/03/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA%E7%9A%84%E4%BA%A7%E5%93%81%E9%80%89%E5%9E%8B%E4%B8%8E%E8%BF%90%E8%90%A5/" title="内容社区的产品选型与运营">内容社区的产品选型与运营</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-03T15:30:00.000Z" title="发表于 2020-02-03 23:30:00">2020-02-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/">内容产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/%E5%86%85%E5%AE%B9%E7%A4%BE%E5%8C%BA/">内容社区</a></span></div><div class="content">内容社区的产品选型与运营
+社区分类
+社交网络
+
+facebook、微信朋友圈、QQ空间
+
+社交媒体
+
+微博、抖音、快手、微信公众号
+
+垂直社区
+
+懂球帝、小红书、汽车之家、豆瓣、知乎、美柚……
+
+社区定义
+以用户生产内容为核心的网络交流平台
+社区的生命力
+互联网流量红利消失，流量进入存量的争夺。
+抢夺用户注意力和停留时长。
+互联网流量的再分配
+一个群体外部压力越大，内聚性就越强，就越容易形成社区。
+
+About ME
+👋 读书城南，🤔
+在未来面前，我们都是孩子～
+
+📙
+一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing~
+
+👋 Social Media
+
+🛠️ Blog: http://oceaneyes.top
+⚡ PM导航: https://pmhub.oceangzy.top
+☘️ CNBLOG: https://www.cnblogs.com/oceaneyes-gzy/
+🌱 AI PRJ自己部署的一些算法demo: http://ai.oceangzy.top/
+📫 Email: 1450136519@q ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/02/02/ToB%E4%BA%A7%E5%93%81/" title="ToB产品的一些认知">ToB产品的一些认知</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-02-02T15:00:00.000Z" title="发表于 2020-02-02 23:00:00">2020-02-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E4%BA%A7%E5%93%81/ToB%E4%BA%A7%E5%93%81/">ToB产品</a></span></div><div class="content">ToB产品
+ToB产品方法论
+PMF(Product-Market Fit)
+市场构成的四要素
+
+客户群体
+
+互联网客户 ---&gt;&gt;&gt;互联网+（传统客户）
+
+需求痛点
+
+客户需求到底是什么
+从单品极致---&gt;&gt;&gt;产品矩阵
+
+商业模式
+
+从license---&gt;&gt;&gt; 订阅制；倒逼产品优化
+
+竞争态势
+
+市场环境变化
+投资/并购/政策影响
 
 
+打造ToB产品的四大原则
 
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+把事情做到极致
+坚持产品化：能用产品解决，就不要用服务去解决；
 
+由于越靠后 越依赖于人，依赖于高阶的人
 
+不卖期货，只卖已有产品功能，和三个月内即将上线的产品功能
+面向价值交付的产品迭代
 
+ToB产品发布即交付的开始
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
+需要重点考虑价值交付流程
 
+ToC产品发布即交付
 
 
+ToB产品营销方法论
+市场-获取线索
 
+全栈式营销团队
+潜客管理
+全生命周期培育
 
+市场营销的关键：让客户更主动
+销售-转化线索
 
+顾问式销售
+效率提升工具
+ToB营销全漏斗
+Hunter
 
+客户服务
 
+Farmer
+续约与复购
+交叉销售
+口碑营销
 
+ToB产品客户服务方法论
 
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-</body>
-</html>
+强化服务体系，就是强 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/4/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#content-inner">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#content-inner">17</a><a class="extend next" rel="next" href="/page/6/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/"><span class="card-category-list-name">Artificial Intelligence</span><span class="card-category-list-count">45</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Data-Mining/"><span class="card-category-list-name">Data Mining</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/"><span class="card-category-list-name">Machine Learning</span><span class="card-category-list-count">25</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/"><span class="card-category-list-name">Algorithm</span><span class="card-category-list-count">22</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/CV/"><span class="card-category-list-name">CV</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/"><span class="card-category-list-name">K-means</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/"><span class="card-category-list-name">DBSCAN</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Artificial-Intelligence/Machine-Learning/Algorithm/K-means/DBSCAN/RFM/"><span class="card-category-list-name">RFM</span><span class="card-category-list-count">1</span></a></li></ul></li></ul></li></ul></li></ul></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/seaborn/" style="font-size: 1.16em; color: #999b9e">seaborn</a> <a href="/tags/Tensorflow/" style="font-size: 1.1em; color: #999">Tensorflow</a> <a href="/tags/redis/" style="font-size: 1.16em; color: #999b9e">redis</a> <a href="/tags/matplotlib/" style="font-size: 1.33em; color: #99a2af">matplotlib</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">算法</a> <a href="/tags/%E5%86%85%E5%AE%B9%E4%BA%A7%E5%93%81/" style="font-size: 1.21em; color: #999ea4">内容产品</a> <a href="/tags/DSP/" style="font-size: 1.1em; color: #999">DSP</a> <a href="/tags/GrowthHacking/" style="font-size: 1.1em; color: #999">GrowthHacking</a> <a href="/tags/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">关联规则算法</a> <a href="/tags/K-means/" style="font-size: 1.1em; color: #999">K-means</a> <a href="/tags/CTR/" style="font-size: 1.1em; color: #999">CTR</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 1.1em; color: #999">心理学</a> <a href="/tags/%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81/" style="font-size: 1.1em; color: #999">策略产品</a> <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">推荐系统</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" style="font-size: 1.27em; color: #99a0a9">服务端</a> <a href="/tags/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2/" style="font-size: 1.1em; color: #999">增长黑客</a> <a href="/tags/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/" style="font-size: 1.1em; color: #999">内容分发</a> <a href="/tags/k-%E8%BF%91%E9%82%BB/" style="font-size: 1.21em; color: #999ea4">k-近邻</a> <a href="/tags/Java/" style="font-size: 1.44em; color: #99a7ba">Java</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/Navtive/" style="font-size: 1.1em; color: #999">Navtive</a> <a href="/tags/echarts/" style="font-size: 1.1em; color: #999">echarts</a> <a href="/tags/iOS/" style="font-size: 1.1em; color: #999">iOS</a> <a href="/tags/%E7%94%A8%E6%88%B7/" style="font-size: 1.1em; color: #999">用户</a> <a href="/tags/MariaDB/" style="font-size: 1.1em; color: #999">MariaDB</a> <a href="/tags/LSTM/" style="font-size: 1.16em; color: #999b9e">LSTM</a> <a href="/tags/%E8%BF%90%E8%90%A5/" style="font-size: 1.21em; color: #999ea4">运营</a> <a href="/tags/Deep-Learning/" style="font-size: 1.21em; color: #999ea4">Deep Learning</a> <a href="/tags/%E5%AE%89%E5%85%A8%E4%BA%A7%E5%93%81/" style="font-size: 1.1em; color: #999">安全产品</a> <a href="/tags/JAVA/" style="font-size: 1.1em; color: #999">JAVA</a> <a href="/tags/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">推荐算法</a> <a href="/tags/html/" style="font-size: 1.1em; color: #999">html</a> <a href="/tags/DNN/" style="font-size: 1.16em; color: #999b9e">DNN</a> <a href="/tags/%E8%A1%8C%E4%B8%9A/" style="font-size: 1.1em; color: #999">行业</a> <a href="/tags/Algorithm/" style="font-size: 1.5em; color: #99a9bf">Algorithm</a> <a href="/tags/%E7%94%B5%E5%95%86/" style="font-size: 1.16em; color: #999b9e">电商</a> <a href="/tags/numpy/" style="font-size: 1.39em; color: #99a4b4">numpy</a> <a href="/tags/CNN/" style="font-size: 1.16em; color: #999b9e">CNN</a> <a href="/tags/%E5%95%86%E4%B8%9A/" style="font-size: 1.16em; color: #999b9e">商业</a> <a href="/tags/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/" style="font-size: 1.16em; color: #999b9e">用户画像</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/11/"><span class="card-archive-list-date">十一月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/08/"><span class="card-archive-list-date">八月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">166</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-04-28T09:14:22.053Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
