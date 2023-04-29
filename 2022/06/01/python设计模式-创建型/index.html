@@ -162,7 +162,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/18324630?s=400&amp;u=522acd757b3751915615ae5f13cbdf036a8ca836&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bg.png')"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python设计模式-创建型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.181Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python3/">Python3</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python设计模式-创建型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="python设计模式-创建型单例模式和工厂模式家族">Python设计模式-创建型：单例模式和工厂模式家族</h2>
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/18324630?s=400&amp;u=522acd757b3751915615ae5f13cbdf036a8ca836&amp;v=4" onerror="onerror=null;src='/img/404.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bg.png')"><nav id="nav"><span id="blog-info"><a href="/" title="OCAEN.GZY读书城南"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python设计模式-创建型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-30T06:56:37.181Z" title="更新于 2022-09-30 14:56:37">2022-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python3/">Python3</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python设计模式-创建型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="python设计模式-创建型单例模式和工厂模式家族">Python设计模式-创建型：单例模式和工厂模式家族</h2>
 <p><strong>知识点</strong>： - 单例模式概念及一般实现 -
 单例模式的装饰器实现 - 简单工厂模式 - 抽象工厂模式</p>
 <h3 id="单例模式singleton">单例模式(singleton)</h3>
@@ -174,7 +174,44 @@
 </ul>
 </blockquote>
 <h4 id="singleton._instance">Singleton._instance</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></div></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>class Singleton(object):<br>    &quot;&quot;&quot;<br>    单例模式<br>    &quot;&quot;&quot;<br>    class _A(object):<br>        &quot;&quot;&quot;<br>       真正干活的类, 对外隐藏<br>        &quot;&quot;&quot;<br>        def __init__(self):<br>            pass<br><br>        def display(self):<br>            &quot;&quot;&quot; 返回当前实例的 ID，是全局唯一的&quot;&quot;&quot;<br>            return id(self)<br><br>    # 类变量，用于存储 _A 的实例<br>    _instance = None<br><br>    def __init__(self):<br>        &quot;&quot;&quot; 先判断类变量中是否已经保存了 _A 的实例，如果没有则创建一个后返回&quot;&quot;&quot;<br>        if Singleton._instance is None:<br>            Singleton._instance = Singleton._A()<br><br>    def __getattr__(self, attr):<br>        &quot;&quot;&quot; 所有的属性都应该直接从 Singleton._instance 获取&quot;&quot;&quot;<br>        return getattr(self._instance, attr)<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    # 创建两个实例<br>    s1 = Singleton()<br>    s2 = Singleton()<br>    print(id(s1), s1.display())<br>    print(id(s2), s2.display())<br><br><br></code></pre></td></tr></table></figure>
+<pre class="python3"><code># -*- coding: utf-8 -*-
+
+class Singleton(object):
+    &quot;&quot;&quot;
+    单例模式
+    &quot;&quot;&quot;
+    class _A(object):
+        &quot;&quot;&quot;
+       真正干活的类, 对外隐藏
+        &quot;&quot;&quot;
+        def __init__(self):
+            pass
+
+        def display(self):
+            &quot;&quot;&quot; 返回当前实例的 ID，是全局唯一的&quot;&quot;&quot;
+            return id(self)
+
+    # 类变量，用于存储 _A 的实例
+    _instance = None
+
+    def __init__(self):
+        &quot;&quot;&quot; 先判断类变量中是否已经保存了 _A 的实例，如果没有则创建一个后返回&quot;&quot;&quot;
+        if Singleton._instance is None:
+            Singleton._instance = Singleton._A()
+
+    def __getattr__(self, attr):
+        &quot;&quot;&quot; 所有的属性都应该直接从 Singleton._instance 获取&quot;&quot;&quot;
+        return getattr(self._instance, attr)
+
+
+if __name__ == &#39;__main__&#39;:
+    # 创建两个实例
+    s1 = Singleton()
+    s2 = Singleton()
+    print(id(s1), s1.display())
+    print(id(s2), s2.display())
+
+</code></pre>
 <ul>
 <li><p>使用类变量 Singleton._instance
 来存储创建的实例，并且保证只会创建一次实例。</p></li>
@@ -185,7 +222,52 @@ Singleton._instance
 获取真正干活的实例，这样我们就实现了单例模式。</p></li>
 </ul>
 <h4 id="装饰器">装饰器</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>class Singleton:<br><br>    &quot;&quot;&quot;<br>    单例类装饰器，可以用于想实现单例的任何类。注意，不能用于多线程环境。<br>    &quot;&quot;&quot;<br><br>    def __init__(self, cls):<br>        &quot;&quot;&quot; 需要的参数是一个类 &quot;&quot;&quot;<br>        self._cls = cls<br><br>    def Instance(self):<br>        &quot;&quot;&quot;<br>        返回真正的实例<br>        &quot;&quot;&quot;<br>        try:<br>            return self._instance<br>        except AttributeError:<br>            self._instance = self._cls()<br>            return self._instance<br><br>    def __call__(self):<br>        raise TypeError(&#x27;Singletons must be accessed through `Instance()`.&#x27;)<br><br>    def __instancecheck__(self, inst):<br>        return isinstance(inst, self._decorated)<br><br><br># 装饰器<br>@Singleton<br>class A:<br>    &quot;&quot;&quot;一个需要单例模式的类&quot;&quot;&quot;<br>    def __init__(self):<br>        pass<br><br>    def display(self):<br>        return id(self)<br><br>if __name__ == &#x27;__main__&#x27;:<br>    s1 = A.Instance()<br>    s2 = A.Instance()<br>    print(s1, s1.display())<br>    print(s2, s2.display())<br>    print(s1 is s2)<br><br></code></pre></td></tr></table></figure>
+<pre class="python3"><code># -*- coding: utf-8 -*-
+
+class Singleton:
+
+    &quot;&quot;&quot;
+    单例类装饰器，可以用于想实现单例的任何类。注意，不能用于多线程环境。
+    &quot;&quot;&quot;
+
+    def __init__(self, cls):
+        &quot;&quot;&quot; 需要的参数是一个类 &quot;&quot;&quot;
+        self._cls = cls
+
+    def Instance(self):
+        &quot;&quot;&quot;
+        返回真正的实例
+        &quot;&quot;&quot;
+        try:
+            return self._instance
+        except AttributeError:
+            self._instance = self._cls()
+            return self._instance
+
+    def __call__(self):
+        raise TypeError(&#39;Singletons must be accessed through `Instance()`.&#39;)
+
+    def __instancecheck__(self, inst):
+        return isinstance(inst, self._decorated)
+
+
+# 装饰器
+@Singleton
+class A:
+    &quot;&quot;&quot;一个需要单例模式的类&quot;&quot;&quot;
+    def __init__(self):
+        pass
+
+    def display(self):
+        return id(self)
+
+if __name__ == &#39;__main__&#39;:
+    s1 = A.Instance()
+    s2 = A.Instance()
+    print(s1, s1.display())
+    print(s2, s2.display())
+    print(s1 is s2)
+</code></pre>
 <ul>
 <li>用装饰器实现了单例模式，任何想使用单例模式的类，只需要使用 Singleton
 装饰器装饰一下就可以使用了。</li>
@@ -194,13 +276,170 @@ Singleton._instance
 来存储实例的。通过使用装饰器的模式我们将代码解耦了，使用更加灵活</li>
 </ul>
 <h4 id="案例-单例模式-连接sqlite3数据库">案例-单例模式-连接sqlite3数据库</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br><br>import sqlite3<br>from flask import current_app<br>from flask import _app_ctx_stack as stack<br><br><br>class SQLite3(object):<br><br>    def __init__(self, app=None):<br>        self.app = app<br>        if app is not None:<br>            self.init_app(app)<br><br>    def init_app(self, app):<br>        &quot;&quot;&quot;<br>        典型的 Flask 扩展的初始化方式<br>        &quot;&quot;&quot;<br>        app.config.setdefault(&#x27;SQLITE3_DATABASE&#x27;, &#x27;:memory:&#x27;)<br>        app.teardown_appcontext(self.teardown)<br><br>    def connect(self):<br>        &quot;&quot;&quot;<br>        连接到 sqlite 数据库<br>        &quot;&quot;&quot;<br>        return sqlite3.connect(current_app.config[&#x27;SQLITE3_DATABASE&#x27;])<br><br>    def teardown(self, exception):<br>          &quot;&quot;&quot;<br>          关闭 sqlite 链接<br>          &quot;&quot;&quot;<br>        ctx = stack.top<br>        if hasattr(ctx, &#x27;sqlite3_db&#x27;):<br>            ctx.sqlite3_db.close()<br><br>    @property<br>    def connection(self):<br>        &quot;&quot;&quot;<br>        单例模式在这里：使用 flask._app_ctx_stack 存放 sqlite 链接,<br>        每次获取数据库链接时都通过 connection 获取<br>        &quot;&quot;&quot;<br>        ctx = stack.top<br>        if ctx is not None:<br>            if not hasattr(ctx, &#x27;sqlite3_db&#x27;):<br>                ctx.sqlite3_db = self.connect()<br>            return ctx.sqlite3_db<br></code></pre></td></tr></table></figure>
+<pre class="python3"><code># -*- coding: utf-8 -*-
+
+
+import sqlite3
+from flask import current_app
+from flask import _app_ctx_stack as stack
+
+
+class SQLite3(object):
+
+    def __init__(self, app=None):
+        self.app = app
+        if app is not None:
+            self.init_app(app)
+
+    def init_app(self, app):
+        &quot;&quot;&quot;
+        典型的 Flask 扩展的初始化方式
+        &quot;&quot;&quot;
+        app.config.setdefault(&#39;SQLITE3_DATABASE&#39;, &#39;:memory:&#39;)
+        app.teardown_appcontext(self.teardown)
+
+    def connect(self):
+        &quot;&quot;&quot;
+        连接到 sqlite 数据库
+        &quot;&quot;&quot;
+        return sqlite3.connect(current_app.config[&#39;SQLITE3_DATABASE&#39;])
+
+    def teardown(self, exception):
+          &quot;&quot;&quot;
+          关闭 sqlite 链接
+          &quot;&quot;&quot;
+        ctx = stack.top
+        if hasattr(ctx, &#39;sqlite3_db&#39;):
+            ctx.sqlite3_db.close()
+
+    @property
+    def connection(self):
+        &quot;&quot;&quot;
+        单例模式在这里：使用 flask._app_ctx_stack 存放 sqlite 链接,
+        每次获取数据库链接时都通过 connection 获取
+        &quot;&quot;&quot;
+        ctx = stack.top
+        if ctx is not None:
+            if not hasattr(ctx, &#39;sqlite3_db&#39;):
+                ctx.sqlite3_db = self.connect()
+            return ctx.sqlite3_db</code></pre>
 <h3 id="简单工厂模式-simple-factory">简单工厂模式 Simple factory</h3>
 <p>一个函数，传入需要创建的产品类型，然后返回相应的产品</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br><br>import random<br><br><br>class BasicCourse(object):<br>    &quot;&quot;&quot;<br>    基础课程<br>    &quot;&quot;&quot;<br>    def get_labs(self):<br>        return &quot;basic_course: labs&quot;<br><br>    def __str__(self):<br>        return &quot;BasciCourse&quot;<br><br><br>class ProjectCourse(object):<br>    &quot;&quot;&quot;<br>    项目课<br>    &quot;&quot;&quot;<br><br>    def get_labs(self):<br>        return &quot;project_course: labs&quot;<br><br>    def __str__(self):<br>        return &quot;ProjectCourse&quot;<br><br><br>class SimpleCourseFactory(object):<br><br>    @staticmethod<br>    def create_course(type):<br>        &quot;&quot;&quot; 简单工厂，用于创建课程&quot;&quot;&quot;<br>        if type == &#x27;bc&#x27;:<br>            return BasicCourse()<br>        elif type == &#x27;pc&#x27;:<br>            return ProjectCourse()<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    t = random.choice([&#x27;bc&#x27;, &#x27;pc&#x27;])<br>    course = SimpleCourseFactory.create_course(t)<br>    print(course.get_labs())<br><br></code></pre></td></tr></table></figure>
+<pre class="python3"><code># -*- coding: utf-8 -*-
+
+
+import random
+
+
+class BasicCourse(object):
+    &quot;&quot;&quot;
+    基础课程
+    &quot;&quot;&quot;
+    def get_labs(self):
+        return &quot;basic_course: labs&quot;
+
+    def __str__(self):
+        return &quot;BasciCourse&quot;
+
+
+class ProjectCourse(object):
+    &quot;&quot;&quot;
+    项目课
+    &quot;&quot;&quot;
+
+    def get_labs(self):
+        return &quot;project_course: labs&quot;
+
+    def __str__(self):
+        return &quot;ProjectCourse&quot;
+
+
+class SimpleCourseFactory(object):
+
+    @staticmethod
+    def create_course(type):
+        &quot;&quot;&quot; 简单工厂，用于创建课程&quot;&quot;&quot;
+        if type == &#39;bc&#39;:
+            return BasicCourse()
+        elif type == &#39;pc&#39;:
+            return ProjectCourse()
+
+
+if __name__ == &#39;__main__&#39;:
+    t = random.choice([&#39;bc&#39;, &#39;pc&#39;])
+    course = SimpleCourseFactory.create_course(t)
+    print(course.get_labs())
+</code></pre>
 <h3 id="工厂方法模式-factory-method">工厂方法模式 factory method</h3>
 <p>上面的简单工厂模式中，我们遇到了问题：如果需要增加一种课程，那我们需要修改工厂代码。仔细想想，如果对工厂进行抽象化，让每个工厂只负责一种产品的生产，那这样当增加一种产品时，就不需要修改已有的工厂了，只需要新增加一个工厂就行了，这样就避免修改整个工厂了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs python3"># -*- coding: utf-8 -*-<br><br>import random<br>import abc<br><br><br>class BasicCourse(object):<br>    &quot;&quot;&quot;<br>        基础课程<br>        &quot;&quot;&quot;<br>    def get_labs(self):<br>        return &quot;basic_course: labs&quot;<br><br>    def __str__(self):<br>        return &quot;BasicCourse&quot;<br><br><br>class ProjectCourse(object):<br>    &quot;&quot;&quot;<br>        项目课<br>        &quot;&quot;&quot;<br><br>    def get_labs(self):<br>        return &quot;project_course: labs&quot;<br><br>    def __str__(self):<br>        return &quot;ProjectCourse&quot;<br><br><br>class Factory(metaclass=abc.ABCMeta):<br>    &quot;&quot;&quot;<br>        抽象工厂类<br>        &quot;&quot;&quot;<br><br>    @abc.abstractmethod<br>    def create_course(self):<br>        pass<br><br><br>class BasicCourseFactory(Factory):<br>    &quot;&quot;&quot;<br>        基础课程工厂类<br>        &quot;&quot;&quot;<br><br>    def create_course(self):<br>        return BasicCourse()<br><br><br>class ProjectCourseFactory(Factory):<br>    &quot;&quot;&quot;<br>        项目课程工厂类<br>        &quot;&quot;&quot;<br>    def create_course(self):<br>        return ProjectCourse()<br><br><br>def get_factory():<br>    &quot;&quot;&quot;<br>        随机获取一个工厂类<br>        &quot;&quot;&quot;<br>    return random.choice([BasicCourseFactory, ProjectCourseFactory])()<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    factory = get_factory()<br>    course = factory.create_course()<br>    print(course.get_labs())<br><br></code></pre></td></tr></table></figure>
+<pre class="python3"><code># -*- coding: utf-8 -*-
+
+import random
+import abc
+
+
+class BasicCourse(object):
+    &quot;&quot;&quot;
+        基础课程
+        &quot;&quot;&quot;
+    def get_labs(self):
+        return &quot;basic_course: labs&quot;
+
+    def __str__(self):
+        return &quot;BasicCourse&quot;
+
+
+class ProjectCourse(object):
+    &quot;&quot;&quot;
+        项目课
+        &quot;&quot;&quot;
+
+    def get_labs(self):
+        return &quot;project_course: labs&quot;
+
+    def __str__(self):
+        return &quot;ProjectCourse&quot;
+
+
+class Factory(metaclass=abc.ABCMeta):
+    &quot;&quot;&quot;
+        抽象工厂类
+        &quot;&quot;&quot;
+
+    @abc.abstractmethod
+    def create_course(self):
+        pass
+
+
+class BasicCourseFactory(Factory):
+    &quot;&quot;&quot;
+        基础课程工厂类
+        &quot;&quot;&quot;
+
+    def create_course(self):
+        return BasicCourse()
+
+
+class ProjectCourseFactory(Factory):
+    &quot;&quot;&quot;
+        项目课程工厂类
+        &quot;&quot;&quot;
+    def create_course(self):
+        return ProjectCourse()
+
+
+def get_factory():
+    &quot;&quot;&quot;
+        随机获取一个工厂类
+        &quot;&quot;&quot;
+    return random.choice([BasicCourseFactory, ProjectCourseFactory])()
+
+
+if __name__ == &#39;__main__&#39;:
+    factory = get_factory()
+    course = factory.create_course()
+    print(course.get_labs())
+</code></pre>
 <p>我们有两种课程：BasicCourse 和
 ProjectCourse，分别对应基础课和项目课。接着，我们创建了一个抽象的工厂
 Factory，该工厂有一抽象方法Factory.create_course用于创建课程，最后我们基于抽象工厂实现了生产基础课程的工厂BasicCourseFactory和生产项目课的工厂ProjectCourseFactory。这样当我们新增加一种课程时，就不需要修改已经存在的基础课工厂和项目课工厂了。这里需要说明下，我们通过
@@ -210,7 +449,106 @@ Python 的abc模块实现抽象类和抽象方法。</p>
 <p>如果按照工厂方法模式的作法，我们需要创建 Linux 虚拟机工厂类和 Mac
 虚拟机工厂类，
 这样我们就会有一堆工厂类了。我们就不能创建出一个能同时创建课程和虚拟机的工厂吗？</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs python3">-*- coding: utf-8 -*-<br><br>import random<br>import abc<br><br># 两种类型的课程<br>class BasicCourse(object):<br>    &quot;&quot;&quot;<br>    基础课程<br>    &quot;&quot;&quot;<br>    def get_labs(self):<br>        return &quot;basic_course: labs&quot;<br><br>    def __str__(self):<br>        return &quot;BasicCourse&quot;<br><br><br>class ProjectCourse(object):<br>    &quot;&quot;&quot;<br>    项目课<br>    &quot;&quot;&quot;<br><br>    def get_labs(self):<br>        return &quot;project_course: labs&quot;<br><br>    def __str__(self):<br>        return &quot;ProjectCourse&quot;<br><br><br># 两种类型的虚拟机<br>class LinuxVm(object):<br>    &quot;&quot;&quot;<br>    Linux 虚拟机<br>    &quot;&quot;&quot;<br><br>    def start(self):<br>        return &quot;Linux vm running&quot;<br><br><br>class MacVm(object):<br>    &quot;&quot;&quot;<br>    Mac OSX 虚拟机<br>    &quot;&quot;&quot;<br><br>    def start(self):<br>        return &quot;Mac OSX vm running&quot;<br><br><br>class Factory(metaclass=abc.ABCMeta):<br>    &quot;&quot;&quot;<br>    抽象工厂类, 现在工厂类不仅能创建课程，还能创建虚拟机了<br>    &quot;&quot;&quot;<br><br>    @abc.abstractmethod<br>    def create_course(self):<br>        pass<br><br>    @abc.abstractmethod<br>    def create_vm(self):<br>        pass<br><br><br>class BasicCourseLinuxFactory(Factory):<br>    &quot;&quot;&quot;<br>    基础课程工厂类<br>    &quot;&quot;&quot;<br><br>    def create_course(self):<br>        return BasicCourse()<br><br>    def create_vm(self):<br>        return LinuxVm()<br><br><br>class ProjectCourseMacFactory(Factory):<br>    &quot;&quot;&quot;<br>    项目课程工厂类<br>    &quot;&quot;&quot;<br><br>    def create_course(self):<br>        return ProjectCourse()<br><br>    def create_vm(self):<br>        return MacVm()<br><br><br>def get_factory():<br>    &quot;&quot;&quot;<br>    随机获取一个工厂类<br>    &quot;&quot;&quot;<br>    return random.choice([BasicCourseLinuxFactory, ProjectCourseMacFactory])()<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    factory = get_factory()<br>    course = factory.create_course()<br>    vm = factory.create_vm()<br>    print(course.get_labs())<br>    print(vm.start())<br><br></code></pre></td></tr></table></figure>
+<pre class="python3"><code>-*- coding: utf-8 -*-
+
+import random
+import abc
+
+# 两种类型的课程
+class BasicCourse(object):
+    &quot;&quot;&quot;
+    基础课程
+    &quot;&quot;&quot;
+    def get_labs(self):
+        return &quot;basic_course: labs&quot;
+
+    def __str__(self):
+        return &quot;BasicCourse&quot;
+
+
+class ProjectCourse(object):
+    &quot;&quot;&quot;
+    项目课
+    &quot;&quot;&quot;
+
+    def get_labs(self):
+        return &quot;project_course: labs&quot;
+
+    def __str__(self):
+        return &quot;ProjectCourse&quot;
+
+
+# 两种类型的虚拟机
+class LinuxVm(object):
+    &quot;&quot;&quot;
+    Linux 虚拟机
+    &quot;&quot;&quot;
+
+    def start(self):
+        return &quot;Linux vm running&quot;
+
+
+class MacVm(object):
+    &quot;&quot;&quot;
+    Mac OSX 虚拟机
+    &quot;&quot;&quot;
+
+    def start(self):
+        return &quot;Mac OSX vm running&quot;
+
+
+class Factory(metaclass=abc.ABCMeta):
+    &quot;&quot;&quot;
+    抽象工厂类, 现在工厂类不仅能创建课程，还能创建虚拟机了
+    &quot;&quot;&quot;
+
+    @abc.abstractmethod
+    def create_course(self):
+        pass
+
+    @abc.abstractmethod
+    def create_vm(self):
+        pass
+
+
+class BasicCourseLinuxFactory(Factory):
+    &quot;&quot;&quot;
+    基础课程工厂类
+    &quot;&quot;&quot;
+
+    def create_course(self):
+        return BasicCourse()
+
+    def create_vm(self):
+        return LinuxVm()
+
+
+class ProjectCourseMacFactory(Factory):
+    &quot;&quot;&quot;
+    项目课程工厂类
+    &quot;&quot;&quot;
+
+    def create_course(self):
+        return ProjectCourse()
+
+    def create_vm(self):
+        return MacVm()
+
+
+def get_factory():
+    &quot;&quot;&quot;
+    随机获取一个工厂类
+    &quot;&quot;&quot;
+    return random.choice([BasicCourseLinuxFactory, ProjectCourseMacFactory])()
+
+
+if __name__ == &#39;__main__&#39;:
+    factory = get_factory()
+    course = factory.create_course()
+    vm = factory.create_vm()
+    print(course.get_labs())
+    print(vm.start())
+</code></pre>
 <hr>
 <h3 id="about-me">About ME</h3>
 <h5 id="读书城南-在未来面前我们都是孩子">👋 读书城南，🤔
@@ -234,5 +572,5 @@ Python 的abc模块实现抽象类和抽象方法。</p>
 <h5 id="感谢打赏">👋 感谢打赏~</h5>
 <p><img src="https://oceaneyes.top/img/alipay.jpg" title="支付宝打赏" alt width="140">
 <img src="https://oceaneyes.top/img/wechatpay.jpg" title="微信打赏" alt width="140"></p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/">http://oceaneyes.top/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python3/">Python3</a><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div><div class="post_share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/18324630?s=400&amp;u=522acd757b3751915615ae5f13cbdf036a8ca836&amp;v=4" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python设计模式-行为型</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/02/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-matplotlib-%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/" title="数据可视化-matplotlib-常用图形"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据可视化-matplotlib-常用图形</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-01</div><div class="title">Python设计模式-六大设计原则</div></div></a></div><div><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-01</div><div class="title">Python设计模式-行为型</div></div></a></div><div><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-01</div><div class="title">Python设计模式-结构型</div></div></a></div><div><a href="/2018/03/02/01-numpy%E5%9F%BA%E7%A1%80/" title="数据分析01：numpy基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">数据分析01：numpy基础</div></div></a></div><div><a href="/2018/03/02/02-matplotlib%E6%95%A3%E7%82%B9%E5%9B%BE/" title="数据分析02：matplotlib散点图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">数据分析02：matplotlib散点图</div></div></a></div><div><a href="/2018/03/02/06-matplotlib%E9%A5%BC%E7%8A%B6%E5%9B%BE/" title="数据分析06：matplotlib饼状图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">数据分析06：matplotlib饼状图</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/18324630?s=400&amp;u=522acd757b3751915615ae5f13cbdf036a8ca836&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/OcaenEyes"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/OcaenEyes" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/1450136519@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">🤔 在未来面前，我们都是孩子～ 📙 一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%B6%E6%97%8F"><span class="toc-number">1.</span> <span class="toc-text">Python设计模式-创建型：单例模式和工厂模式家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8Fsingleton"><span class="toc-number">1.1.</span> <span class="toc-text">单例模式(singleton)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#singleton._instance"><span class="toc-number">1.1.1.</span> <span class="toc-text">Singleton._instance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">装饰器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-%E8%BF%9E%E6%8E%A5sqlite3%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.3.</span> <span class="toc-text">案例-单例模式-连接sqlite3数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-simple-factory"><span class="toc-number">1.2.</span> <span class="toc-text">简单工厂模式 Simple factory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-factory-method"><span class="toc-number">1.3.</span> <span class="toc-text">工厂方法模式 factory method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">抽象工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#about-me"><span class="toc-number">1.5.</span> <span class="toc-text">About ME</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E4%B9%A6%E5%9F%8E%E5%8D%97-%E5%9C%A8%E6%9C%AA%E6%9D%A5%E9%9D%A2%E5%89%8D%E6%88%91%E4%BB%AC%E9%83%BD%E6%98%AF%E5%AD%A9%E5%AD%90"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">👋 读书城南，🤔
-在未来面前，我们都是孩子～</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#social-media"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">👋 Social Media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E5%B0%8F%E7%BB%84"><span class="toc-number">1.5.0.3.</span> <span class="toc-text">👋 加入小组~</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%84%9F%E8%B0%A2%E6%89%93%E8%B5%8F"><span class="toc-number">1.5.0.4.</span> <span class="toc-text">👋 感谢打赏~</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://oceaneyes.top">OCEAN.GZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://oceaneyes.top/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/">http://oceaneyes.top/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://oceaneyes.top" target="_blank">OCAEN.GZY读书城南</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python3/">Python3</a><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div><div class="post_share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/18324630?s=400&amp;u=522acd757b3751915615ae5f13cbdf036a8ca836&amp;v=4" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python设计模式-行为型</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/02/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-matplotlib-%E5%9F%BA%E7%A1%80/" title="数据可视化-matplotlib-基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据可视化-matplotlib-基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-01</div><div class="title">Python设计模式-六大设计原则</div></div></a></div><div><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-01</div><div class="title">Python设计模式-行为型</div></div></a></div><div><a href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-01</div><div class="title">Python设计模式-结构型</div></div></a></div><div><a href="/2018/03/02/03-matplotlib%E6%8A%98%E7%BA%BF%E5%9B%BE/" title="数据分析03：matplotlib折线图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">数据分析03：matplotlib折线图</div></div></a></div><div><a href="/2018/03/02/01-numpy%E5%9F%BA%E7%A1%80/" title="数据分析01：numpy基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">数据分析01：numpy基础</div></div></a></div><div><a href="/2018/03/02/02-matplotlib%E6%95%A3%E7%82%B9%E5%9B%BE/" title="数据分析02：matplotlib散点图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-02</div><div class="title">数据分析02：matplotlib散点图</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/18324630?s=400&amp;u=522acd757b3751915615ae5f13cbdf036a8ca836&amp;v=4" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="avatar"/></div><div class="author-info__name">OCEAN.GZY</div><div class="author-info__description">This is MyBlog Notes.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">166</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">114</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">91</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/OcaenEyes"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/OcaenEyes" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/1450136519@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">🤔 在未来面前，我们都是孩子～ 📙 一个热衷于探索学习新方向、新事物的智能产品经理，闲暇时间喜欢coding💻、画图🎨、音乐🎵、学习ing</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%B6%E6%97%8F"><span class="toc-number">1.</span> <span class="toc-text">Python设计模式-创建型：单例模式和工厂模式家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8Fsingleton"><span class="toc-number">1.1.</span> <span class="toc-text">单例模式(singleton)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#singleton._instance"><span class="toc-number">1.1.1.</span> <span class="toc-text">Singleton._instance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">装饰器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-%E8%BF%9E%E6%8E%A5sqlite3%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.3.</span> <span class="toc-text">案例-单例模式-连接sqlite3数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-simple-factory"><span class="toc-number">1.2.</span> <span class="toc-text">简单工厂模式 Simple factory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-factory-method"><span class="toc-number">1.3.</span> <span class="toc-text">工厂方法模式 factory method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">抽象工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#about-me"><span class="toc-number">1.5.</span> <span class="toc-text">About ME</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E4%B9%A6%E5%9F%8E%E5%8D%97-%E5%9C%A8%E6%9C%AA%E6%9D%A5%E9%9D%A2%E5%89%8D%E6%88%91%E4%BB%AC%E9%83%BD%E6%98%AF%E5%AD%A9%E5%AD%90"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">👋 读书城南，🤔
+在未来面前，我们都是孩子～</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#social-media"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">👋 Social Media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E5%B0%8F%E7%BB%84"><span class="toc-number">1.5.0.3.</span> <span class="toc-text">👋 加入小组~</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%84%9F%E8%B0%A2%E6%89%93%E8%B5%8F"><span class="toc-number">1.5.0.4.</span> <span class="toc-text">👋 感谢打赏~</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/AI%E4%BA%A7%E5%93%81%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84ChatGPT/" title="AI产品视角下的ChatGPT">AI产品视角下的ChatGPT</a><time datetime="2023-03-04T14:58:39.000Z" title="发表于 2023-03-04 22:58:39">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="Python设计模式-六大设计原则">Python设计模式-六大设计原则</a><time datetime="2022-06-01T15:50:00.000Z" title="发表于 2022-06-01 23:50:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%BB%93%E6%9E%84%E5%9E%8B/" title="Python设计模式-结构型">Python设计模式-结构型</a><time datetime="2022-06-01T15:33:00.000Z" title="发表于 2022-06-01 23:33:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A1%8C%E4%B8%BA%E5%9E%8B/" title="Python设计模式-行为型">Python设计模式-行为型</a><time datetime="2022-06-01T15:31:00.000Z" title="发表于 2022-06-01 23:31:00">2022-06-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/06/01/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%88%9B%E5%BB%BA%E5%9E%8B/" title="Python设计模式-创建型">Python设计模式-创建型</a><time datetime="2022-06-01T15:30:00.000Z" title="发表于 2022-06-01 23:30:00">2022-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2015 - 2023 By OCEAN.GZY</div><div class="framework-info"><span>footer.framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>footer.theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
