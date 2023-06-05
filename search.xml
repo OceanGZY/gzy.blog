@@ -42596,4 +42596,106 @@ D=(X_1,X_2,...X_m)^T
         <tag>计算广告</tag>
       </tags>
   </entry>
+  <entry>
+    <title>一些好用的prompt框架</title>
+    <url>/2023/06/01/PromptFramework/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一些好用的prompt框架">一些好用的prompt框架</h1>
+<h2 id="basic-prompt-framework">Basic Prompt Framework</h2>
+<p>查阅了非常多关于 ChatGPT prompt 的框架资料，我目前觉得写得最清晰的是
+Elavis Saravia <a href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/guides/prompts-intro.md">总结</a>的框架，他认为一个
+prompt 里需包含以下几个元素：</p>
+<ul>
+<li><strong>Instruction（必须）：</strong>
+指令，即你希望模型执行的具体任务。</li>
+<li><strong>Context（选填）：</strong>
+背景信息，或者说是上下文信息，这可以引导模型做出更好的反应。</li>
+<li><strong>Input Data（选填）：</strong>
+输入数据，告知模型需要处理的数据。</li>
+<li><strong>Output Indicator（选填）：</strong>
+输出指示器，告知模型我们要输出的类型或格式。</li>
+</ul>
+<p>只要你按照这个框架写 prompt ，模型返回的结果都不会差。</p>
+<p>当然，你在写 prompt
+的时候，并不一定要包含所有4个元素，而是可以根据自己的需求排列组合。比如拿前面的几个场景作为例子：</p>
+<ul>
+<li>推理：Instruction + Context + Input Data</li>
+<li>信息提取：Instruction + Context + Input Data + Output Indicator</li>
+</ul>
+<h2 id="crispe-prompt-framework">CRISPE Prompt Framework</h2>
+<p>另一个我觉得很不错的 Framework 是 <a href="https://github.com/mattnigh/ChatGPT3-Free-Prompt-List">Matt
+Nigh</a> 的 CRISPE Framework，这个 framework
+更加复杂，但完备性会比较高，比较适合用于编写 prompt 模板。CRISPE
+分别代表以下含义：</p>
+<ul>
+<li><strong>CR：</strong> Capacity and Role（能力与角色）。你希望
+ChatGPT 扮演怎样的角色。</li>
+<li><strong>I：</strong>
+Insight（洞察力），背景信息和上下文（坦率说来我觉得用 Context
+更好）。</li>
+<li><strong>S：</strong> Statement（指令），你希望 ChatGPT 做什么。</li>
+<li><strong>P：</strong> Personality（个性），你希望 ChatGPT
+以什么风格或方式回答你。</li>
+<li><strong>E：</strong> Experiment（尝试），要求 ChatGPT
+为你提供多个答案。</li>
+</ul>
+<p>以下是这几个参数的例子：</p>
+<table>
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Step</strong></th>
+<th><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Capacity and Role</td>
+<td>Act as an expert on software development on the topic of machine
+learning frameworks, and an expert blog
+writer.<br>把你想象成机器学习框架主题的软件开发专家，以及专业博客作者。</td>
+</tr>
+<tr class="even">
+<td>Insight</td>
+<td>The audience for this blog is technical professionals who are
+interested in learning about the latest advancements in machine
+learning.<br>这个博客的读者主要是有兴趣了解机器学习最新进展技术的专业人士。</td>
+</tr>
+<tr class="odd">
+<td>Statement</td>
+<td>Provide a comprehensive overview of the most popular machine
+learning frameworks, including their strengths and weaknesses. Include
+real-life examples and case studies to illustrate how these frameworks
+have been successfully used in various
+industries.<br>提供最流行的机器学习框架的全面概述，包括它们的优点和缺点。包括现实生活中的例子，和研究案例，以说明这些框架如何在各个行业中成功地被使用。</td>
+</tr>
+<tr class="even">
+<td>Personality</td>
+<td>When responding, use a mix of the writing styles of Andrej Karpathy,
+Francois Chollet, Jeremy Howard, and Yann LeCun.<br>在回应时，混合使用
+Andrej Karpathy、Francois Chollet、Jeremy Howard 和 Yann LeCun
+的写作风格。</td>
+</tr>
+<tr class="odd">
+<td>Experiment</td>
+<td>Give me multiple different examples.<br>给我多个不同的例子。</td>
+</tr>
+</tbody>
+</table>
+<p>将所有的元素都组合在一起，就变成了这样的 prompt，对比基础 prompt
+生成的结果会非常不一样.</p>
+]]></content>
+      <categories>
+        <category>ChatGPT</category>
+        <category>AIGC</category>
+        <category>Prompt</category>
+      </categories>
+      <tags>
+        <tag>ChatGPT</tag>
+        <tag>AIGC</tag>
+        <tag>Prompt</tag>
+      </tags>
+  </entry>
 </search>
